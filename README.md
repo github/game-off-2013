@@ -4,6 +4,7 @@
 
 ## Judging
 
+* [Adam 'Atomic' Saltsman](https://twitter.com/adamatomic) - Game maker and dad, creator of Canabalt and Flixel
 * [David Czarnecki](http://twitter.com/CzarneckiD), Lead Engineer at Agora Games
 * [Matt Hackett](https://twitter.com/#!/richtaur), Co-founder of Lost Decade Games
 * [Lee Reilly](http://twitter.com/leereilly), Gamer Dad and Software Developer at GitHub
