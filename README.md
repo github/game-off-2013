@@ -2,6 +2,10 @@
 
 ## The Prizes
 
+We're giving away shiny new [iPad Airs](http://www.apple.com/ipad-air/) (16GB models) to our 5 lucky winners. Runners up with receive $100 in credit to the [GitHub Shop](http://shop.github.com/), where you can grab some of our :octocat: shirts, hoodies, stickers, and more!
+
+All of the winners and runners up will be showcased on our blog.
+
 ## Judging
 
 * [Adam 'Atomic' Saltsman](https://twitter.com/adamatomic) - Game maker and dad, creator of Canabalt and Flixel
