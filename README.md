@@ -12,6 +12,7 @@ All of the winners and runners up will be showcased on our blog.
 * [Aleissia Laidacker](https://twitter.com/Aleissia) - Team Lead Gameplay/AI on Assassin's Creed 3 at Ubisoft
 * [David Czarnecki](http://twitter.com/CzarneckiD), Lead Engineer at Agora Games
 * [Matt Hackett](https://twitter.com/#!/richtaur), Co-founder of Lost Decade Games
+* [Kyross Starr](bearwitched), Gaymer and Tech Writer at GitHub?!?
 * [Lee Reilly](http://twitter.com/leereilly), Gamer Dad and Software Developer at GitHub
 * [Romana Ramzan](https://twitter.com/Manak/), Denki's Player Champion, IGDA & Global Game Jam Director.
 
