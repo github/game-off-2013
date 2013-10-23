@@ -1,5 +1,9 @@
 ## The Challenge
 
+You have the entire month of November to create a web-based game loosely based on the theme ██████████ (to be announced on October 31st - please check back then).
+
+Your game. Your rules. You can participate as an individual or as a team. You're encouraged to use open source libraries, frameworks, graphics, and sounds.
+
 ## The Prizes
 
 We're giving away shiny new [iPad Airs](http://www.apple.com/ipad-air/) (16GB models) to our 5 lucky winners. Runners up with receive $100 in credit to the [GitHub Shop](http://shop.github.com/), where you can grab some of our :octocat: shirts, hoodies, stickers, and more!
