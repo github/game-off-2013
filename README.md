@@ -22,7 +22,7 @@ We have a handful of judges who are eager to play your games!
 * [Aleissia Laidacker](https://twitter.com/Aleissia) - Team Lead AI at Ubisoft.
 * [David Czarnecki](http://twitter.com/CzarneckiD), Lead Engineer at Agora Games.
 * [Matt Hackett](https://twitter.com/richtaur), Co-founder of Lost Decade Games.
-* [Kyros Starr](https://twitter.com/bearwitched), Gaymer and Tech Writer at GitHub.
+* [Kyros Starr](https://twitter.com/bearwitched), Gamer and Tech Writer at GitHub.
 * [Lee Reilly](http://twitter.com/leereilly), Gamer Dad and Software Developer at GitHub.
 * [Romana Ramzan](https://twitter.com/Manak/), Denki's Player Champion, IGDA & Global Game Jam Director.
 
