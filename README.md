@@ -24,7 +24,7 @@ We have a handful of judges who are eager to play your games!
 * [Matt Hackett](https://twitter.com/richtaur), Co-founder of Lost Decade Games.
 * [Kyros Starr](https://twitter.com/bearwitched), Gaymer and Tech Writer at GitHub.
 * [Lee Reilly](http://twitter.com/leereilly), Gamer Dad and Software Developer at GitHub.
-* [Romana Ramzan](https://twitter.com/Manak/), Denki's Player Champion, IGDA & Global Game Jam Director.
+* [Romana Ramzan](https://twitter.com/Manak/), Denki's Player Champion, Global Game Jam Director.
 
 ## The Rules
 
