@@ -29,7 +29,7 @@ We have a handful of judges who are eager to play your games!
 ## The Rules
 
 * To qualify for entry, you must fork the [github/game-off-2013](https://github.com/github/game-off-2013) repository to your individual or organization account. Not sure which account type would be best for you? Check out this handy [help article](https://help.github.com/articles/what-s-the-difference-between-user-and-organization-accounts), which explains the differences between the two types of accounts.
-* All entries must be web-based, i.e. playable in a browser. HTML5, WebGL, Unity, Torque 3D, Node JS, and Flash are all possible - just be sure the source is made available on your fork.
+* All entries must be web-based, i.e. playable in a browser. HTML5, WebGL, Unity, Torque 3D, and Flash are all possible - just be sure the source is made available on your fork.
 * You must be over the age of 13.
 
 ## Instructions
