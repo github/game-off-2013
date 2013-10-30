@@ -34,7 +34,8 @@
     "grunt": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-copy": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-clean": "*"
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-browserify": "*"
   }
 }
