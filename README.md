@@ -36,7 +36,7 @@ We have a handful of judges who are eager to play your games!
 
 * If you don't already have a GitHub account, [sign up for a personal account now](https://github.com/signup/free) - it's free!
 * Fork the [github/game-off-2013](https://github.com/github/game-off-2013) repository to your individual account (or to a [free organization account](https://github.com/organizations/new)).
-* Be sure to follow @github on Twitter for updates.
+* Be sure to follow [@github](https://twitter.com/github) on Twitter for updates.
 * Make sure your code is pushed to the master branch of your forked repository before Dec 1st!
 * Make sure you have a `README` file that includes a brief description of your game, what open source projects (if any) you used, and a screenshot.
 * Your repository should have a brief description and the playable URL entered into the fields shown below (this will make our judging process easier):
