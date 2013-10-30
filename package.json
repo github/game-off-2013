@@ -1,0 +1,41 @@
+{
+  "name": "ggo13",
+  "description": "GitHub Game Off 2013",
+  "version": "0.0.1",
+  "author": "Sean Packham",
+  "contributors": [
+    {
+      "name": "Sean Packham"
+    },
+    {
+      "name": "Anthony Cooke"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seanpackham/game-off-2013.git"
+  },
+  "keywords": [
+    "ggo13",
+    "github",
+    "gamedev"
+  ],
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "~3.4.x",
+    "jade": "*"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-browserify": "*"
+  }
+}
