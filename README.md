@@ -39,7 +39,7 @@ We have a handful of judges who are eager to play your games!
 * Be sure to follow @github on Twitter for updates.
 * Make sure your code is pushed to the master branch of your forked repository before Dec 1st!
 * Make sure you have a `README` file that includes a brief description of your game, what open source projects (if any) you used, and a screenshot.
-* Your reposirtory should have a brief description and the playable URL entered into the fields shown below (this will make our judging process easier):
+* Your repository should have a brief description and the playable URL entered into the fields shown below (this will make our judging process easier):
 
 ![image](https://f.cloud.github.com/assets/121322/1436584/fd721126-415a-11e3-9f3a-e94262074573.png)
 
