@@ -1,6 +1,7 @@
 bin
 gen
 gwt-unitCache
+libs
 roomforchange-html/war/assets
 roomforchange-html/war/com.sturdyhelmetgames.roomforchange.GwtDefinition
 roomforchange-html/war/WEB-INF/classes
