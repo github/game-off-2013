@@ -51,7 +51,7 @@ define(['phaser', 'level'], function(Phaser, Level) {
     this.levels.push(new Level(_this));
 
     this.preloadFunctions.push(function() {
-      game.load.spritesheet('character', '/assets/spy.png', 30, 41, 1);
+      game.load.spritesheet('character', '../../assets/spy.png', 30, 41, 1);
     });
 
     this.createFunctions.push(function() {

@@ -16,7 +16,7 @@ define(['phaser'], function(Phaser) {
     });
 
     function preload() {
-      game.load.spritesheet('character', '/assets/spy.png', 30, 41, 1);
+      game.load.spritesheet('character', '../../assets/spy.png', 30, 41, 1);
     }
 
     function create() {
