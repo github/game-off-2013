@@ -7,6 +7,7 @@ roomforchange-html/war/com.sturdyhelmetgames.roomforchange.GwtDefinition
 roomforchange-html/war/WEB-INF/classes
 roomforchange-html/war/WEB-INF/deploy
 roomforchange-html/.gwt
+Thumbs.db
 
 # Package Files #
 #*.jar

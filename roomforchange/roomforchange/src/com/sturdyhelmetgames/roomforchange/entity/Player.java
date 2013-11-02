@@ -8,19 +8,18 @@ public class Player extends Entity {
 
 	private TextureRegion playerRegion;
 
-	public Player(float width, float height) {
-		super(width, height);
-	}
-
-	@Override
-	public void initAssets() {
-		super.initAssets();
-		playerRegion = Assets.getGameObject("player");
+	public Player(float x, float y) {
+		super(x, y, 1f, 1f);
 	}
 
 	@Override
 	public void render(float delta, SpriteBatch batch) {
 		super.render(delta, batch);
+
+		if (playerRegion == null) {
+			playerRegion = Assets.getGameObject("player");
+		}
+
 		batch.draw(playerRegion, bounds.x, bounds.y, width, height);
 	}
 

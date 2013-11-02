@@ -18,13 +18,10 @@ public class Entity {
 	public float width, height;
 	public final Rectangle bounds = new Rectangle();
 
-	public Entity(float width, float height) {
+	public Entity(float x, float y, float width, float height) {
 		this.width = width;
 		this.height = height;
-	}
-
-	public void initAssets() {
-
+		bounds.set(x, y, width, height);
 	}
 
 	public void render(float delta, SpriteBatch batch) {
@@ -39,7 +36,7 @@ public class Entity {
 		accel.y *= DAMP;
 	}
 
-	public void tryMove(int dir) {
+	public void move(int dir) {
 		if (dir == DIRECTION_UP) {
 			accel.y = ACCEL_MAX;
 		} else if (dir == DIRECTION_DOWN) {
