@@ -18,7 +18,7 @@ define(['phaser', 'level'], function(Phaser, Level) {
   Game.prototype.run = function() {
     var _this = this;
 
-    game = new Phaser.Game(800, 600, Phaser.AUTO, 'level-prototype', {
+    game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
       preload: preload,
       create: create,
       update: update,
@@ -48,10 +48,8 @@ define(['phaser', 'level'], function(Phaser, Level) {
       runFunctions(_this.renderFunctions, game);
     }
 
-    this.levels.push(new Level(_this));
-
     this.preloadFunctions.push(function() {
-      game.load.spritesheet('character', '../../assets/spy.png', 30, 41, 1);
+      game.load.image('character', '../../assets/verdure.png');
     });
 
     this.createFunctions.push(function() {
@@ -76,6 +74,8 @@ define(['phaser', 'level'], function(Phaser, Level) {
         player.body.velocity.y = JUMP_SPEED;
       }
     });
+
+    this.levels.push(new Level(_this));
   };
 
   return Game;

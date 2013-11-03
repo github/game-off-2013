@@ -1,44 +1,45 @@
 define(['phaser'], function(Phaser) {
-  var waterLevelLine,
+  var water,
+      waterTop,
       keys;
 
   function Level(context) {
     var _this = this
 
     this.context = context;
-
     this.waterLevel = 0.5;
 
+    context.preloadFunctions.push(function(game) {
+      game.load.image('water', '../../assets/water.png');
+    });
+
     context.createFunctions.push(function(game) {
+      water = game.add.sprite(0, game.world.height * (1 - _this.waterLevel), 'water');
+      water.scale.x = game.world.width;
+
       keys = {
         raise: game.input.keyboard.addKey(Phaser.Keyboard.A),
         lower: game.input.keyboard.addKey(Phaser.Keyboard.Z)
       };
     });
 
-    context.renderFunctions.push(function(game) {
-      if (waterLevelLine) {
-        waterLevelLine.clear();
-      }
-
-      waterLevelLine = game.add.graphics(0, _this.waterLevel * game.world.height);
-      waterLevelLine.beginFill(0x0000FF);
-      waterLevelLine.lineStyle(1, 0x0000FF, 1);
-      waterLevelLine.moveTo(0, _this.waterLevel * game.world.height);
-      waterLevelLine.lineTo(game.world.width, _this.waterLevel * game.world.height);
-      waterLevelLine.endFill();
-
+    context.updateFunctions.push(function(game) {
       if (keys.raise.isDown) {
         _this.raiseWater(0.01);
       } else if (keys.lower.isDown) {
         _this.lowerWater(0.01);
       }
     });
+
+    context.renderFunctions.push(function(game) {
+      water.bringToTop(); // Probably don't needed if we group the sprites correctly
+      water.y = game.world.height * (1 - _this.waterLevel);
+      water.scale.y = game.world.height * _this.waterLevel;
+    });
   }
 
   Level.prototype.raiseWater = function(amount) {
     this.setWaterLevel(this.waterLevel + amount);
-    this.waterLevel = this.waterLevel + amount > 1 ? 1 : this.waterLevel + amount;
   };
 
   Level.prototype.lowerWater = function(amount) {
