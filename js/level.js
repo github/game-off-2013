@@ -10,7 +10,7 @@ define(['phaser'], function(Phaser) {
     this.waterLevel = 0.5;
 
     context.preloadFunctions.push(function(game) {
-      game.load.image('water', '../../assets/water.png');
+      game.load.image('water', '../assets/water.png');
     });
 
     context.createFunctions.push(function(game) {

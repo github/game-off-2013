@@ -8,3 +8,7 @@ requirejs.config({
     }
   }
 });
+
+require(['context'], function(Context) {
+  (new Context).init();
+});
