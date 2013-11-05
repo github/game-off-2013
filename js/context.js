@@ -48,4 +48,4 @@ define(['phaser', 'level', 'character'], function(Phaser, Level, Character) {
   };
 
   return Context;
-})
+});
