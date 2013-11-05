@@ -1,6 +1,7 @@
 requirejs.config({
   paths: {
-    'phaser': 'lib/phaser'
+    'phaser': 'lib/phaser',
+    'minpubsub': 'lib/minpubsub'
   },
   shim: {
     'phaser': {
@@ -9,6 +10,6 @@ requirejs.config({
   }
 });
 
-require(['context'], function(Context) {
+require(['context', 'minpubsub'], function(Context, MinPubSub) {
   (new Context).init();
 });

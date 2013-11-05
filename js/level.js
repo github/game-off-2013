@@ -1,7 +1,6 @@
 define(['phaser', 'environment'], function(Phaser, Environment) {
   var water,
-      waterTop,
-      keys;
+      waterTop;
 
   function Level(context) {
     var _this = this
@@ -21,19 +20,6 @@ define(['phaser', 'environment'], function(Phaser, Environment) {
     context.createFunctions.push(function(game) {
       water = game.add.sprite(0, game.world.height - _this.waterHeight(), 'water');
       water.scale.x = game.world.width;
-
-      keys = {
-        raise: game.input.keyboard.addKey(Phaser.Keyboard.A),
-        lower: game.input.keyboard.addKey(Phaser.Keyboard.Z)
-      };
-    });
-
-    context.updateFunctions.push(function(game) {
-      if (keys.raise.isDown) {
-        _this.raiseWater(1);
-      } else if (keys.lower.isDown) {
-        _this.lowerWater(1);
-      }
     });
 
     context.renderFunctions.push(function(game) {
@@ -42,15 +28,6 @@ define(['phaser', 'environment'], function(Phaser, Environment) {
       water.scale.y = _this.waterHeight();
     });
   }
-
-  // TODO: This will be done by the weapon
-  Level.prototype.raiseWater = function(amount) {
-    this.environment.waterLevel += amount;
-  };
-
-  Level.prototype.lowerWater = function(amount) {
-    this.environment.waterLevel -= amount;
-  };
 
   return Level;
 });
