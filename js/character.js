@@ -28,6 +28,7 @@ define(['phaser', 'waterTool'], function(Phaser, WaterTool) {
       }
 
       // Why doesn't _this.sprite.body.touching.down works?
+      // TODO: Solve this
       if (_this.sprite.body.bottom == game.world.height && _this.keys.up.isDown) {
         _this.sprite.body.velocity.y = Character.JUMP_SPEED;
       }

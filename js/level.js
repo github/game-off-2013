@@ -13,13 +13,17 @@ define(['phaser', 'environment'], function(Phaser, Environment) {
       return this.environment.waterLevel - this.heightAboveWater;
     }
 
+    this.isUnderWater = function(sprite) {
+      return sprite.body.y > context.game.world.height - this.waterHeight();
+    }
+
     context.preloadFunctions.push(function(game) {
       game.load.image('water', '../assets/water.png');
     });
 
     context.createFunctions.push(function(game) {
       water = game.add.sprite(0, game.world.height - _this.waterHeight(), 'water');
-      water.scale.x = game.world.width;
+      water.scale.x = game.world.width; // This could be wrong (5px * width)
     });
 
     context.renderFunctions.push(function(game) {
