@@ -31,7 +31,7 @@ define(['phaser', 'level', 'character'], function(Phaser, Level, Character) {
 
     function preload(game) {
       // TMP
-      game.load.image('platform', '../assets/water.png');
+      game.load.image('platform', 'assets/water.png');
 
       runFunctions(_this.preloadFunctions, game);
     }

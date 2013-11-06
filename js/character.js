@@ -5,7 +5,7 @@ define(['phaser', 'waterTool'], function(Phaser, WaterTool) {
     this.waterTool = new WaterTool();
 
     context.preloadFunctions.push(function(game) {
-      game.load.image('character', '../assets/verdure.png');
+      game.load.image('character', 'assets/verdure.png');
     });
 
     context.createFunctions.push(function(game) {

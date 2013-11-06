@@ -18,7 +18,7 @@ define(['phaser', 'environment'], function(Phaser, Environment) {
     }
 
     context.preloadFunctions.push(function(game) {
-      game.load.image('water', '../assets/water.png');
+      game.load.image('water', 'assets/water.png');
     });
 
     context.createFunctions.push(function(game) {
