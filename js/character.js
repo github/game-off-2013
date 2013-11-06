@@ -9,7 +9,7 @@ define(['phaser', 'waterTool'], function(Phaser, WaterTool) {
     });
 
     context.createFunctions.push(function(game) {
-      _this.sprite = game.add.sprite(40, 100, 'character');
+      _this.sprite = game.add.sprite(0, 0, 'character');
       _this.sprite.body.collideWorldBounds = true;
       _this.sprite.body.gravity.y = context.GRAVITY;
 

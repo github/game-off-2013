@@ -1,4 +1,4 @@
-define(['phaser', 'level', 'character'], function(Phaser, Level, Character) {
+define(['phaser', 'level', 'character', 'environment'], function(Phaser, Level, Character, Environment) {
   function Context() {
     this.preloadFunctions = [];
     this.createFunctions = [];
@@ -55,14 +55,14 @@ define(['phaser', 'level', 'character'], function(Phaser, Level, Character) {
       runFunctions(_this.renderFunctions, game);
     }
 
-    this.levels.push(new Level(this));
     this.character = new Character(this);
+    this.levels.push(new Level(this));
     this.currentLevel = this.levels[0];
 
     this.updateFunctions.push(function(game) {
       // Check if character is dying
       if (_this.currentLevel.isUnderWater(_this.character.sprite)) {
-        // The character died, reset or something
+        this.currentLevel.restart();
       }
     });
   };
