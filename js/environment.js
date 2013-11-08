@@ -2,7 +2,7 @@ define([], function() {
   function Environment() {
     var _this = this;
 
-    this.waterLevel = 100;
+    this.waterLevel = 0;
     this.yearsLeft = 10000;
 
     subscribe('/tools/raiseWater', function() {
