@@ -1,4 +1,4 @@
-define([], function() {
+define(['../environment'], function(Environment) {
   var TestLevel = me.ScreenObject.extend({
     onResetEvent: function() { // Called when the state changes into this screen
       me.levelDirector.loadLevel('testlevel');

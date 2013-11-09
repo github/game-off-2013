@@ -1,12 +1,5 @@
-define(['resources', 'levels/test'], function(resources, TestLevel) {
-  function Game() {
-    this.preloadFunctions = [];
-    this.createFunctions = [];
-    this.updateFunctions = [];
-    this.renderFunctions = [];
-
-    this.levels = [];
-  }
+define(['resources', 'levels/test', 'character'], function(resources, TestLevel, Character) {
+  function Game() { }
 
   Game.prototype.run = function() {
     if (!me.video.init('screen', 640, 480, true, 'auto')) {
@@ -33,57 +26,14 @@ define(['resources', 'levels/test'], function(resources, TestLevel) {
   Game.prototype.loaded = function() {
     me.state.set(me.state.PLAY, new TestLevel());
 
+    me.entityPool.add('character', Character);
+    me.input.bindKey(me.input.KEY.LEFT, 'left');
+    me.input.bindKey(me.input.KEY.RIGHT, 'right');
+    me.input.bindKey(me.input.KEY.UP, 'jump', true);
+
     // Start the game.
     me.state.change(me.state.PLAY);
   };
-
-  // Context.prototype.init = function() {
-  //   var _this = this;
-
-  //   this.GRAVITY = 10;
-
-  //   var platform;
-
-  //   this.game = new Phaser.Game(800, 608, Phaser.AUTO, '', {
-  //     preload: preload,
-  //     create: create,
-  //     update: update,
-  //     render: render
-  //   });
-
-  //   function runFunctions(functionArray, context) {
-  //     var i;
-  //     for (i = 0; i < functionArray.length; i++) {
-  //       functionArray[i].call(_this, context);
-  //     }
-  //   }
-
-  //   function preload(game) {
-  //     runFunctions(_this.preloadFunctions, game);
-  //   }
-
-  //   function create(game) {
-  //     runFunctions(_this.createFunctions, game);
-  //   }
-
-  //   function update(game) {
-  //     runFunctions(_this.updateFunctions, game);
-  //   }
-
-  //   function render(game) {
-  //     runFunctions(_this.renderFunctions, game);
-  //   }
-
-  //   this.character = new Character(this);
-  //   this.levels.push(new Level(this));
-  //   this.currentLevel = this.levels[0];
-  //   this.updateFunctions.push(function(game) {
-  //     // Check if character is dying
-  //     if (_this.currentLevel.isUnderWater(_this.character.sprite)) {
-  //       this.currentLevel.restart();
-  //     }
-  //   });
-  // };
 
   return Game;
 });
