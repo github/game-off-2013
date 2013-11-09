@@ -1,4 +1,4 @@
-define(['resources', 'levels/test', 'character'], function(resources, TestLevel, Character) {
+define(['resources', 'levels/test', 'character', 'water'], function(resources, TestLevel, Character, Water) {
   function Game() { }
 
   Game.prototype.run = function() {
@@ -26,7 +26,9 @@ define(['resources', 'levels/test', 'character'], function(resources, TestLevel,
   Game.prototype.loaded = function() {
     me.state.set(me.state.PLAY, new TestLevel());
 
+    me.entityPool.add('water', Water);
     me.entityPool.add('character', Character);
+
     me.input.bindKey(me.input.KEY.LEFT, 'left');
     me.input.bindKey(me.input.KEY.RIGHT, 'right');
     me.input.bindKey(me.input.KEY.UP, 'jump', true);

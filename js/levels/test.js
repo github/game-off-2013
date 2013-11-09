@@ -1,7 +1,16 @@
 define(['../environment'], function(Environment) {
   var TestLevel = me.ScreenObject.extend({
+    init: function() { // Constructor
+      this.environment = new Environment();
+      this.baseHeight = 0;
+    },
     onResetEvent: function() { // Called when the state changes into this screen
       me.levelDirector.loadLevel('testlevel');
+
+      // TODO: How to resize it?
+      // (remove from window when solved)
+      window.water = this.water = me.entityPool.newInstanceOf('water', 10, 10, {image: 'water'});
+      me.game.world.addChild(this.water);
     },
     onDestroyEvent: function() {} // Called when the state leaves this screen
   });
