@@ -68,7 +68,7 @@ define('map', function() {
             r: imageData.data[index+0],
             g: imageData.data[index+1],
             b: imageData.data[index+2]
-        }
+        };
     }
 
     return map;

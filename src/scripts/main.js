@@ -1,4 +1,6 @@
 require(['map'], function(map) {
+    'use strict';
+
     var EARTH_SURFACE_AREA = 510.1;
 
     var w = 960;

@@ -19,5 +19,27 @@ npm install -g karma
 git clone git@github.com:Softwire/game-off-2013.git gameoff
 cd gameoff
 npm install
+```
+
+### Development
+
+Run static analysis (JSLint)
+```
+grunt
+```
+
+Run continuous tests
+```
 karma start
 ```
+
+### Launching the game
+
+If you're using WebStorm/IntelliJ, just right-click on index.html and select "Open in browser".
+
+Otherwise, you can just run a simple HTTP server, e.g.
+```
+npm install -g http-server
+http-server src -p 8001
+```
+Then visit http://localhost:8001
