@@ -6,6 +6,17 @@ define(function (require) {
         var container;
 
         beforeEach(function() {
+            this.addMatchers({
+                toBeLand: function() {
+                    // More green than blue
+                    return this.actual.data[1] > this.actual.data[2];
+                },
+                toBeSea: function() {
+                    // More blue than green
+                    return this.actual.data[2] > this.actual.data[1];
+                }
+            });
+
             container = document.createElement('div');
             container.id = 'game';
             document.body.appendChild(container);
@@ -37,30 +48,18 @@ define(function (require) {
         it ('should colour pixels based on sea level', function() {
             map.updateSeaLevel(2850, areaPerPixel);
 
-            var pixel = getPixel(getCanvas(), 1, 1);
-            expect(pixel.data[0]).toBe(0);
-            expect(pixel.data[1]).toBe(0);
-            expect(pixel.data[2]).toBe(255);
-
-            var pixel = getPixel(getCanvas(), 0, 1);
-            expect(pixel.data[0]).toBe(0);
-            expect(pixel.data[1]).toBe(255);
-            expect(pixel.data[2]).toBe(0);
+            console.log(getPixel(getCanvas(), 1, 1));
+            console.log(getPixel(getCanvas(), 0, 1));
+            expect(getPixel(getCanvas(), 1, 1)).toBeSea();
+            expect(getPixel(getCanvas(), 0, 1)).toBeLand();
         });
 
         it ('should update when sea level is changed', function() {
             map.updateSeaLevel(2850, areaPerPixel);
             map.updateSeaLevel(5850, areaPerPixel);
 
-            var pixel = getPixel(getCanvas(), 1, 1);
-            expect(pixel.data[0]).toBe(0);
-            expect(pixel.data[1]).toBe(0);
-            expect(pixel.data[2]).toBe(255);
-
-            var pixel = getPixel(getCanvas(), 0, 1);
-            expect(pixel.data[0]).toBe(0);
-            expect(pixel.data[1]).toBe(0);
-            expect(pixel.data[2]).toBe(255);
+            expect(getPixel(getCanvas(), 1, 1)).toBeSea();
+            expect(getPixel(getCanvas(), 0, 1)).toBeSea();
         });
 
         it ('should return remaining land', function() {

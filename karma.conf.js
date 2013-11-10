@@ -26,7 +26,6 @@ module.exports = function(config) {
       'src/main.js'
     ],
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['progress'],

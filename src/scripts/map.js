@@ -43,9 +43,9 @@ define('map', function() {
             for (var y = 0; y < imageData.height; ++y) {
                 var colour = getPixel(imageData, x, y);
                 if ((colour.r === colour.g && colour.r === colour.b) && colour.r < threshold) {
-                    setPixel(imageData, x, y, 0, 0, 255);
+                    setPixel(imageData, x, y, 0, 105, 148);
                 } else {
-                    setPixel(imageData, x, y, 0, 255, 0);
+                    setPixel(imageData, x, y, colour.r * 2, colour.g * 3 + 30, colour.b * 1.5);
                     remainingLand += areaPerPixel(y);
                 }
             }
