@@ -22,7 +22,7 @@ define(function (require) {
             document.body.appendChild(container);
             map = require('map');
             var mapRendered = false;
-            map.render('base/test/map.test.png', 2, 2, function() {
+            map.render('base/test/map.test.png', function() {
                 mapRendered = true;
             });
             waitsFor(function() {
@@ -48,8 +48,6 @@ define(function (require) {
         it ('should colour pixels based on sea level', function() {
             map.updateSeaLevel(2850, areaPerPixel);
 
-            console.log(getPixel(getCanvas(), 1, 1));
-            console.log(getPixel(getCanvas(), 0, 1));
             expect(getPixel(getCanvas(), 1, 1)).toBeSea();
             expect(getPixel(getCanvas(), 0, 1)).toBeLand();
         });

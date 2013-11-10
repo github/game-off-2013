@@ -2,13 +2,12 @@ require(['map'], function(map) {
     'use strict';
 
     var EARTH_SURFACE_AREA = 510.1;
-
     var w = 960;
     var h = 480;
 
     var seaLevel = 0;
 
-    map.render('map.png', w, h, update);
+    map.render('map.png', update);
 
     window.setTimeout(function() {
         window.setInterval(function() {

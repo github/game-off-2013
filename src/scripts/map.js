@@ -5,22 +5,22 @@ define('map', function() {
 
     var image = new Image();
     var context;
-    var width;
-    var height;
 
-    map.render = function(imgUrl, canvasWidth, canvasHeight, callback) {
-        var canvasElement = document.createElement('canvas');
-        canvasElement.width = canvasWidth;
-        canvasElement.height = canvasHeight;
-        document.getElementById('game').appendChild(canvasElement);
-
-        context = canvasElement.getContext('2d');
-        width = canvasWidth;
-        height = canvasHeight;
+    map.render = function(imgUrl, callback) {
+        var rendered = false;
 
         image.addEventListener('load', function() {
-            context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
-            callback();
+            if (!rendered) {
+                var canvasElement = document.createElement('canvas');
+                canvasElement.width = image.width;
+                canvasElement.height = image.height;
+                document.getElementById('game').appendChild(canvasElement);
+                context = canvasElement.getContext('2d');
+                context.drawImage(image, 0, 0, image.width, image.height);
+                rendered = true;
+                callback();
+            }
+
         }, false);
 
         image.src = imgUrl;
@@ -32,11 +32,11 @@ define('map', function() {
         var threshold = (seaLevel / 50) + 13;
 
         var canvasElement = document.createElement('canvas');
-        canvasElement.width = width;
-        canvasElement.height = height;
+        canvasElement.width = image.width;
+        canvasElement.height = image.height;
         var rawContext = canvasElement.getContext('2d');
-        rawContext.drawImage(image, 0, 0, width, height);
-        var imageData = rawContext.getImageData(0, 0, width, height);
+        rawContext.drawImage(image, 0, 0, image.width, image.height);
+        var imageData = rawContext.getImageData(0, 0, image.width, image.height);
 
         var remainingLand = 0;
         for (var x = 0; x < imageData.width; ++x) {
