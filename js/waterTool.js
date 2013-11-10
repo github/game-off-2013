@@ -1,7 +1,7 @@
 define([], function() {
   function WaterTool(context) {
     this.use = function() {
-      publish('/tools/raiseWater');
+      me.event.publish('/tools/raiseWater');
     };
   }
 

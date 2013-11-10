@@ -1,8 +1,9 @@
-define([], function() {
+define(['waterTool'], function(WaterTool) {
   var Character = me.ObjectEntity.extend({
     init: function(x, y, settings) {
       this.parent(x, y, settings);
       this.setVelocity(3, 15);
+      this.waterTool = new WaterTool();
     },
 
     update: function() {
@@ -21,6 +22,10 @@ define([], function() {
           this.vel.y = -this.maxVel.y * me.timer.tick;
           this.jumping = true;
         }
+      }
+
+      if (me.input.isKeyPressed('waterTool')) {
+        this.waterTool.use();
       }
 
       this.updateMovement();

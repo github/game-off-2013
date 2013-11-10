@@ -32,6 +32,7 @@ define(['resources', 'levels/test', 'character', 'water'], function(resources, T
     me.input.bindKey(me.input.KEY.LEFT, 'left');
     me.input.bindKey(me.input.KEY.RIGHT, 'right');
     me.input.bindKey(me.input.KEY.UP, 'jump', true);
+    me.input.bindKey(me.input.KEY.A, 'waterTool');
 
     // Start the game.
     me.state.change(me.state.PLAY);
