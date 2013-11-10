@@ -1,46 +1,43 @@
-define(['phaser', 'waterTool'], function(Phaser, WaterTool) {
-  function Character(context) {
-    var _this = this;
-
-    this.waterTool = new WaterTool();
-
-    context.preloadFunctions.push(function(game) {
-      game.load.image('character', 'assets/verdure.png');
-    });
-
-    context.createFunctions.push(function(game) {
-      _this.sprite = game.add.sprite(0, 0, 'character');
-      _this.sprite.body.collideWorldBounds = true;
-      _this.sprite.body.gravity.y = context.GRAVITY;
-
-      _this.keys = game.input.keyboard.createCursorKeys();
-      _this.keys.waterTool = game.input.keyboard.addKey(Phaser.Keyboard.A);
-    });
-
-    context.updateFunctions.push(function(game) {
-      // Movement
-      if (_this.keys.left.isDown) {
-        _this.sprite.body.velocity.x = Character.PLAYER_SPEED * -1;
-      } else if (_this.keys.right.isDown) {
-        _this.sprite.body.velocity.x = Character.PLAYER_SPEED;
+define(['waterTool'], function(waterTool) {
+  var Character = me.ObjectEntity.extend({
+    init: function(x, y, settings) {
+      this.parent(x, y, settings);
+      this.setVelocity(3, 13);
+        
+    //tmp
+        
+  this.waterTool = new waterTool;
+        
+        
+    },
+    update: function() {
+      if (me.input.isKeyPressed('left')) {
+        this.flipX(true);
+        this.vel.x -= this.accel.x * me.timer.tick;
+      } else if (me.input.isKeyPressed('right')) {
+        this.flipX(false);
+        this.vel.x += this.accel.x * me.timer.tick;
       } else {
-        _this.sprite.body.velocity.x = 0;
+        this.vel.x = 0;
       }
 
-      // TODO: Solve this
-      if (_this.keys.up.isDown) {
-        _this.sprite.body.velocity.y = Character.JUMP_SPEED;
+      if (me.input.isKeyPressed('jump')) {
+        if (!this.jumping && !this.falling) {
+          this.vel.y = -this.maxVel.y * me.timer.tick;
+          this.jumping = true;
+        }
       }
-
-      // Tools
-      if (_this.keys.waterTool.isDown) {
-        _this.waterTool.use();
-      }
-    });
-  }
-
-  Character.PLAYER_SPEED = 200;
-  Character.JUMP_SPEED = -250;
+        
+        
+        //tmp
+        if (me.input.isKeyPressed('waterTool')){
+         this.waterTool.use();
+        }
+        
+      this.updateMovement();
+      return this.vel.x!=0 || this.vel.y!=0;
+    }
+  });
 
   return Character;
 });
