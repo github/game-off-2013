@@ -1,11 +1,11 @@
 define([], function() {
   return [
     // Graphics
-    {name: 'tile', type: 'image', src: '../assets/tile.png'},
-    {name: 'verdure', type: 'image', src: '../assets/verdure.png'},
-    {name: 'water', type: 'image', src: '../assets/water.png'},
+    {name: 'tile', type: 'image', src: '/game-off-2013/assets/tile.png'},
+    {name: 'verdure', type: 'image', src: '/game-off-2013/assets/verdure.png'},
+    {name: 'water', type: 'image', src: '/game-off-2013/assets/water.png'},
 
     // Maps
-    {name: 'testlevel', type: 'tmx', src: '../data/testLevel.tmx'}
+    {name: 'testlevel', type: 'tmx', src: '/game-off-2013/data/testlevel.tmx'}
   ];
 });
