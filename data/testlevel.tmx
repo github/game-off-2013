@@ -22,9 +22,11 @@
   </data>
  </layer>
  <objectgroup name="character" width="20" height="15">
-  <object name="character" x="33" y="212" width="32" height="57">
+  <object name="character" x="32" y="225" width="34" height="66">
    <properties>
-    <property name="image" value="verdure"/>
+    <property name="image" value="pjtile"/>
+    <property name="spriteheight" value="64"/>
+    <property name="spritewidth" value="32"/>
    </properties>
   </object>
  </objectgroup>
