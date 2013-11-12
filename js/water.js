@@ -1,21 +1,22 @@
 define([], function() {
-  var Water = me.ObjectEntity.extend({
-    init: function(x, y, level) {
-      this.parent(x, y, {image: 'water'});
+  var Water = me.ColorLayer.extend({
+    init: function(level) {
+      this.parent('water', '#64B7A9', 1000);
+      this.alpha = 0.5;
       this.level = level;
-      this.renderable.anchorPoint = new me.Vector2d(0, 1);
-      this.z = 1000;
+      this.pos.x = 0;
+      this.width = me.game.world.width;
     },
     draw: function(context) {
-      // When raising the water, it's choppy UNLESS the character
-      // is moving, so there could be a problem here.
-      this.renderable.scale.x = me.game.world.width;
-      this.renderable.scale.y = this.level.waterHeight();
-      this.renderable.scaleFlag = true;
-      this.parent(context);
+      this.pos.y = me.game.world.height - this.level.waterHeight();
+      this.height = me.game.world.height - this.pos.y;
+      this.parent(context, this);
     },
-    raise: function(amount) {
-      this.level =+ amount;
+    update: function() {
+      this.parent();
+      var updated = this.updated;
+      this.updated = false;
+      return updated;
     }
   });
 
