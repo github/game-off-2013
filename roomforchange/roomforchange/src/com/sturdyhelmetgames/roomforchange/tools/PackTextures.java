@@ -1,5 +1,6 @@
 package com.sturdyhelmetgames.roomforchange.tools;
 
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2.Settings;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
@@ -13,6 +14,13 @@ public class PackTextures {
 		final Settings settings = new Settings();
 		settings.maxWidth = 1024;
 		settings.maxHeight = 1024;
+		settings.paddingX = 4;
+		settings.paddingY = 4;
+		settings.bleed = true;
+		settings.edgePadding = true;
+		settings.pot = true;
+		settings.filterMin = TextureFilter.Linear;
+		settings.filterMag = TextureFilter.Linear;
 		TexturePacker2.process(settings, UNPROCESSED_FOLDER, PROCESSED_FOLDER,
 				Assets.ATLAS_FILE_OBJECTS_ALL);
 	}

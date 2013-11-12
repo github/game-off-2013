@@ -1,16 +1,25 @@
 package com.sturdyhelmetgames.roomforchange.assets;
 
+import java.io.File;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+import com.sturdyhelmetgames.roomforchange.level.PieceTemplate;
+import com.sturdyhelmetgames.roomforchange.level.RoomObjectTemplate;
 
 public class Assets {
 
 	private static final AssetManager assetManager = new AssetManager();
 
 	public static final String ATLAS_FILE_OBJECTS_ALL = "objects_all";
-	private static final String FOLDER_DATA = "data//";
+	private static final String FOLDER_DATA = "data/";
 	private static final String ATLAS_FILEPATH_OBJECTS_ALL = FOLDER_DATA
 			+ ATLAS_FILE_OBJECTS_ALL + ".atlas";
 
@@ -26,6 +35,9 @@ public class Assets {
 	public static TextureRegion[] fontBigWhite;
 	public static TextureRegion[] fontSmallBlack;
 	public static TextureRegion[] fontSmallWhite;
+
+	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
+	public static final Array<RoomObjectTemplate> roomObjectTemplates = new Array<RoomObjectTemplate>();
 
 	public static void loadGameData() {
 		assetManager.load(ATLAS_FILEPATH_OBJECTS_ALL, TextureAtlas.class);
@@ -45,6 +57,22 @@ public class Assets {
 				Texture.class)).split(4, 4)[0];
 		fontSmallWhite = new TextureRegion(get(TEXTURE_FONT_SMALL_WHITE,
 				Texture.class)).split(4, 4)[0];
+
+		final FileHandle[] pieceTemplateHandles = new FileHandle[15];
+		for (int i = 1; i <= 15; i++) {
+			pieceTemplateHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
+					+ "piecetemplates" + File.separator + i + "_piece.png");
+		}
+		for (FileHandle handle : pieceTemplateHandles) {
+			final Pixmap pixmap = new Pixmap(handle);
+			pieceTemplates.add(new PieceTemplate(pixmap));
+		}
+
+		final FileHandle[] roomObjectHandles = new FileHandle[0];
+		for (FileHandle handle : roomObjectHandles) {
+			final Pixmap pixmap = new Pixmap(handle);
+			roomObjectTemplates.add(new RoomObjectTemplate(pixmap));
+		}
 	}
 
 	public static TextureRegion getGameObject(String objectName) {
@@ -69,6 +97,25 @@ public class Assets {
 
 	public static void clear() {
 		assetManager.clear();
+
+		for (int i = 0; i < pieceTemplates.size; i++) {
+			pieceTemplates.get(i).getPixmap().dispose();
+		}
+		pieceTemplates.clear();
+
+		for (int i = 0; i < roomObjectTemplates.size; i++) {
+			roomObjectTemplates.get(i).pixmap.dispose();
+		}
+		roomObjectTemplates.clear();
+	}
+
+	public static PieceTemplate getRandomPieceTemplate() {
+		return pieceTemplates.get(MathUtils.random(pieceTemplates.size - 1));
+	}
+
+	public static RoomObjectTemplate getRandomRoomObjectTemplate() {
+		return roomObjectTemplates.get(MathUtils
+				.random(roomObjectTemplates.size));
 	}
 
 }

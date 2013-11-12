@@ -8,6 +8,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "roomforchange";
 		cfg.useGL20 = true;
+		cfg.vSyncEnabled = false;
+		cfg.foregroundFPS = 10000;
 		cfg.width = 480;
 		cfg.height = 320;
 
