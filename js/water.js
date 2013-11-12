@@ -10,6 +10,7 @@ define([], function() {
     draw: function(context) {
       this.pos.y = me.game.world.height - this.level.waterHeight();
       this.height = me.game.world.height - this.pos.y;
+      this.drawn = true;
       this.parent(context, this);
     },
     update: function() {
@@ -19,7 +20,7 @@ define([], function() {
       return updated;
     },
     isOver: function(renderable) {
-      return renderable.top > this.pos.y;
+      return this.drawn && renderable.top > this.pos.y;
     }
   });
 

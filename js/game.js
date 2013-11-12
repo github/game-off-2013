@@ -26,7 +26,6 @@ define(['resources', 'levels/test', 'character', 'water'], function(resources, T
   Game.prototype.loaded = function() {
     me.state.set(me.state.PLAY, new TestLevel());
 
-    me.entityPool.add('water', Water);
     me.entityPool.add('character', Character);
 
     me.input.bindKey(me.input.KEY.LEFT, 'left');

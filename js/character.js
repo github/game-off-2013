@@ -11,7 +11,8 @@ define(['waterTool'], function(WaterTool) {
     },
     update: function() {
       if (this.isDead()) {
-        console.log('dead!');
+        me.state.current().reset();
+        return;
       }
 
       if (me.input.isKeyPressed('left')) {
