@@ -5,21 +5,21 @@ filter: Nearest,Nearest
 repeat: none
 brick
   rotate: false
-  xy: 2, 2
+  xy: 4, 4
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 ground
   rotate: false
-  xy: 12, 2
+  xy: 16, 4
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 22, 2
+  xy: 28, 4
   size: 8, 8
   orig: 8, 8
   offset: 0, 0

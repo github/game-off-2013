@@ -37,7 +37,7 @@ public class LabyrinthPiece {
 	}
 
 	public void updateBounds(float x, float y) {
-		bounds.set(x, y, WIDTH, HEIGHT);
+		bounds.set(x * WIDTH, y * HEIGHT, WIDTH, HEIGHT);
 	}
 
 	@Override
