@@ -25,7 +25,7 @@ public class LabyrinthPieceTest {
 		Mockito.when(pieceTemplate.getTileTypes()).thenReturn(tileTypes);
 
 		LabyrinthPiece piece = new LabyrinthPiece(pieceTemplate,
-				roomObjectTemplate);
+				roomObjectTemplate, 0);
 		assertNotNull(piece);
 		assertEquals(PieceTemplate.WIDTH, piece.getTiles().length);
 		assertEquals(PieceTemplate.HEIGHT, piece.getTiles()[0].length);

@@ -15,16 +15,18 @@ public class LabyrinthUtil {
 		level.setTiles(new LevelTile[width * PieceTemplate.WIDTH][height
 				* PieceTemplate.HEIGHT]);
 
+		int i = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				level.getLabyrinth()[x][y] = new LabyrinthPiece(
-						Assets.getRandomPieceTemplate(), null);
+						Assets.getRandomPieceTemplate(), null, i);
+				i++;
 			}
 		}
 
 		updateLabyrinthTiles(level);
 
-		level.player = new Player(7, 5, level);
+		level.player = new Player(2, 2, level);
 		level.entities.add(level.player);
 
 		return level;
@@ -37,7 +39,9 @@ public class LabyrinthUtil {
 		for (int x = 0; x < labyrinthWidth; x++) {
 			final int labyrinthHeight = labyrinth[0].length;
 			for (int y = 0; y < labyrinthHeight; y++) {
-				LevelTile[][] labyrinthTiles = labyrinth[x][y].getTiles();
+				LabyrinthPiece labyrinthPiece = labyrinth[x][y];
+				labyrinthPiece.updateBounds(x, y);
+				LevelTile[][] labyrinthTiles = labyrinthPiece.getTiles();
 				int labyrinthTilesWidth = labyrinthTiles.length;
 				for (int tileX = 0; tileX < labyrinthTilesWidth; tileX++) {
 					int labyrinthTilesHeight = labyrinthTiles[0].length;

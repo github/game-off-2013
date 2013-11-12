@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="libs/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="lib" path="libs/junit-4.11.jar"/>
 	<classpathentry kind="lib" path="libs/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="libs/powermock-mockito-1.5.1-full.jar"/>
+	<classpathentry kind="lib" path="libs/javassist-3.18.1-GA.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

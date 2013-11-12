@@ -50,15 +50,10 @@ public class GameScreen extends Basic2DScreen {
 		level.render(delta, spriteBatch);
 		spriteBatch.end();
 
-		// set the projection matrix for our batch so that it draws
-		// with the zoomed out perspective of the minimap camera
 		batchMiniMap.setProjectionMatrix(cameraMiniMap.combined);
-
-		// draw the player
 		batchMiniMap.begin();
 		level.render(delta, batchMiniMap);
 		batchMiniMap.end();
-
 	}
 
 	protected void processKeys() {
@@ -85,23 +80,28 @@ public class GameScreen extends Basic2DScreen {
 				camera.zoom -= 0.1f;
 				camera.update();
 			}
-
-			if (Gdx.input.isKeyPressed(Keys.W)) {
-
-			}
-
-			if (Gdx.input.isKeyPressed(Keys.A)) {
-
-			}
-
-			if (Gdx.input.isKeyPressed(Keys.S)) {
-
-			}
-
-			if (Gdx.input.isKeyPressed(Keys.D)) {
-
-			}
 		}
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Keys.W) {
+			level.moveLabyrinthPiece(Level.UP);
+			return true;
+		}
+		if (keycode == Keys.S) {
+			level.moveLabyrinthPiece(Level.DOWN);
+			return true;
+		}
+		if (keycode == Keys.A) {
+			level.moveLabyrinthPiece(Level.LEFT);
+			return true;
+		}
+		if (keycode == Keys.D) {
+			level.moveLabyrinthPiece(Level.RIGHT);
+			return true;
+		}
+		return super.keyDown(keycode);
 	}
 
 	@Override
