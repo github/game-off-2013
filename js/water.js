@@ -17,6 +17,9 @@ define([], function() {
       var updated = this.updated;
       this.updated = false;
       return updated;
+    },
+    isOver: function(renderable) {
+      return renderable.top > this.pos.y;
     }
   });
 

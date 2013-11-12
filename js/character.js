@@ -4,9 +4,16 @@ define(['waterTool'], function(WaterTool) {
       this.parent(x, y, settings);
       this.setVelocity(3, 15);
       this.waterTool = new WaterTool();
-    },
 
+      // We need it so when the character falls too quickly,
+      // the death by water check can still be done.
+      this.alwaysUpdate = true;
+    },
     update: function() {
+      if (this.isDead()) {
+        console.log('dead!');
+      }
+
       if (me.input.isKeyPressed('left')) {
         this.flipX(true);
         this.vel.x -= this.accel.x * me.timer.tick;
@@ -30,6 +37,14 @@ define(['waterTool'], function(WaterTool) {
 
       this.updateMovement();
       return this.vel.x!=0 || this.vel.y!=0;
+    },
+    isDead: function() {
+      // Check for each possible death condition here
+
+      // is under water
+      if (me.state.current().water.isOver(this)) {
+        return true;
+      }
     }
   });
 
