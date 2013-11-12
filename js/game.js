@@ -1,10 +1,11 @@
 define(['resources', 'levels/test', 'character', 'water'], function(resources, TestLevel, Character, Water) {
-    function Game() { }
+  function Game() { }
 
-  Game.prototype.run = function () {
+  Game.prototype.run = function() {
     if (!me.video.init('screen', 640, 480, true, 'auto')) {
       alert('Your browser does not support HTML5 canvas.');
-      return;}
+      return;
+    }
 
     if (document.location.hash === "#debug") {
       window.onReady(function () {
@@ -25,13 +26,12 @@ define(['resources', 'levels/test', 'character', 'water'], function(resources, T
   Game.prototype.loaded = function() {
     me.state.set(me.state.PLAY, new TestLevel());
 
-    me.entityPool.add('water', Water);
     me.entityPool.add('character', Character);
 
     me.input.bindKey(me.input.KEY.LEFT, 'left');
     me.input.bindKey(me.input.KEY.RIGHT, 'right');
     me.input.bindKey(me.input.KEY.UP, 'jump', true);
-    me.input.bindKey(me.input.KEY.A, 'waterTool', true);
+    me.input.bindKey(me.input.KEY.A, 'waterTool');
 
     // Start the game.
     me.state.change(me.state.PLAY);
