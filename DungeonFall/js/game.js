@@ -3,12 +3,6 @@
 /* Game namespace */
 var game = {
 
-    data: {
-        score: 0,
-        jacks: 0,
-        lives: 3
-    },
-
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
@@ -44,36 +38,36 @@ var game = {
 
     // Run on game resources loaded.
     "loaded" : function () {
-        me.state.set(me.state.MENU, new game.TitleScreen());
+        //me.state.set(me.state.MENU, new game.TitleScreen());
         me.state.set(me.state.PLAY, new game.PlayScreen());
 
         me.state.transition("fade", "#000000", 250);
 
         // add our player entity in the entity pool
-        me.entityPool.add("tilly", game.PlayerEntity);
+        //me.entityPool.add("tilly", game.PlayerEntity);
 
-        // Collectibles
-        me.entityPool.add("SweetEntity", game.SweetEntity);
-        me.entityPool.add("JackEntity", game.JackEntity);
-        me.entityPool.add("BlockEntity", game.BlockEntity);
-        me.entityPool.add("ProjectileEntity", game.ProjectileEntity);
+        //// Collectibles
+        //me.entityPool.add("SweetEntity", game.SweetEntity);
+        //me.entityPool.add("JackEntity", game.JackEntity);
+        //me.entityPool.add("BlockEntity", game.BlockEntity);
+        //me.entityPool.add("ProjectileEntity", game.ProjectileEntity);
 
 
-        // Enemies
-        me.entityPool.add("WalkingEnemy", game.WalkingEnemy);
-        me.entityPool.add("FlyingEnemy", game.FlyingEnemy);
+        //// Enemies
+        //me.entityPool.add("WalkingEnemy", game.WalkingEnemy);
+        //me.entityPool.add("FlyingEnemy", game.FlyingEnemy);
 
 
         // enable the keyboard
-        me.input.bindKey(me.input.KEY.LEFT, "left");
-        me.input.bindKey(me.input.KEY.RIGHT, "right");
-        me.input.bindKey(me.input.KEY.UP, "jump", true);
-        me.input.bindKey(me.input.KEY.X, "attack", true);
-        me.input.bindKey(me.input.KEY.Z, "throw", true);
+        //me.input.bindKey(me.input.KEY.LEFT, "left");
+        //me.input.bindKey(me.input.KEY.RIGHT, "right");
+        //me.input.bindKey(me.input.KEY.UP, "jump", true);
+        //me.input.bindKey(me.input.KEY.X, "attack", true);
+        //me.input.bindKey(me.input.KEY.Z, "throw", true);
 
-        me.input.bindKey(me.input.KEY.L, "levelskip", true); //function () { me.levelDirector.loadLevel("map2"); }.bind(this), true);
+        //me.input.bindKey(me.input.KEY.L, "levelskip", true); //function () { me.levelDirector.loadLevel("map2"); }.bind(this), true);
 
-        me.debug.renderHitBox = true;
+        //me.debug.renderHitBox = true;
 
         // Start the game.
         me.state.change(me.state.MENU);
