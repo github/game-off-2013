@@ -58,7 +58,6 @@ define(['waterTool'], function(WaterTool) {
 
       return true;
     },
-
     isDead: function() {
       // Check for each possible death condition here
 

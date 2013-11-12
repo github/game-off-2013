@@ -1,4 +1,4 @@
-define(['../environment', 'water'], function(Environment, Water) {
+define(['../environment', 'water', 'buoyant'], function(Environment, Water, Buoyant) {
   var TestLevel = me.ScreenObject.extend({
     init: function() { // Constructor
       var _this = this;
@@ -16,6 +16,10 @@ define(['../environment', 'water'], function(Environment, Water) {
 
       this.water = new Water(this);
       me.game.world.addChild(this.water);
+
+      // TODO: Added just as a test
+      this.buoyant = new Buoyant(100, 400, {image: 'log'});
+      me.game.world.addChild(this.buoyant);
     },
     waterHeight: function() {
       return this.environment.waterLevel - this.baseHeight;
