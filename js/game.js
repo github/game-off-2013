@@ -27,6 +27,7 @@ define(['resources', 'levels/test', 'character', 'water'], function(resources, T
     me.state.set(me.state.PLAY, new TestLevel());
 
     me.entityPool.add('character', Character);
+    me.sys.gravity = 0.98;
 
     me.input.bindKey(me.input.KEY.LEFT, 'left');
     me.input.bindKey(me.input.KEY.RIGHT, 'right');

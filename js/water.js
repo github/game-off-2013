@@ -21,6 +21,9 @@ define([], function() {
     },
     isOver: function(renderable) {
       return this.drawn && renderable.top > this.pos.y;
+    },
+    submerged: function(renderable) {
+      return renderable.top - this.pos.y;
     }
   });
 
