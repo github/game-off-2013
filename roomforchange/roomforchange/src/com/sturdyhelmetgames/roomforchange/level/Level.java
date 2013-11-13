@@ -6,10 +6,12 @@ import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
+import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
 public class Level {
 
+	private final GameScreen gameScreen;
 	private LabyrinthPiece[][] labyrinth;
 	private LevelTile[][] tiles;
 	private final Vector2 currentPiecePos = new Vector2();
@@ -17,6 +19,10 @@ public class Level {
 
 	public Player player;
 	public final Array<Entity> entities = new Array<Entity>();
+
+	public Level(GameScreen gameScreen) {
+		this.gameScreen = gameScreen;
+	}
 
 	public Vector2 findPiecePos(LabyrinthPiece pieceToFind) {
 		for (int x = 0; x < labyrinth.length; x++) {
@@ -43,6 +49,13 @@ public class Level {
 		}
 		throw new RuntimeException(
 				"No LabyrinthPiece found for player position!");
+	}
+
+	public Vector2 findCurrentPieceRelativeToMapPosition() {
+		final Vector2 currentPiecePos = findCurrentPiecePos();
+		currentPiecePos.x *= LabyrinthPiece.WIDTH;
+		currentPiecePos.y *= LabyrinthPiece.HEIGHT;
+		return currentPiecePos;
 	}
 
 	public LabyrinthPiece[][] getLabyrinth() {
@@ -116,12 +129,13 @@ public class Level {
 	public static final int UP = 2;
 	public static final int DOWN = 3;
 
-	private void moveEntities(float xOffset, float yOffset) {
+	private void moveEntitiesAndCamera(float xOffset, float yOffset) {
 		for (int i = 0; i < entities.size; i++) {
 			final Entity entity = entities.get(i);
 			entity.bounds.x += xOffset;
 			entity.bounds.y += yOffset;
 		}
+		gameScreen.updateCameraPos(xOffset, yOffset);
 	}
 
 	public void moveLabyrinthPiece(int dir) {
@@ -146,9 +160,9 @@ public class Level {
 				xPos -= 1;
 			}
 			if (switchOver) {
-				moveEntities(LabyrinthPiece.WIDTH * (width - 1), 0f);
+				moveEntitiesAndCamera(LabyrinthPiece.WIDTH * (width - 1), 0f);
 			} else {
-				moveEntities(-LabyrinthPiece.WIDTH, 0f);
+				moveEntitiesAndCamera(-LabyrinthPiece.WIDTH, 0f);
 			}
 		}
 			break;
@@ -168,9 +182,9 @@ public class Level {
 				xPos += 1;
 			}
 			if (switchOver) {
-				moveEntities(-LabyrinthPiece.WIDTH * (width - 1), 0f);
+				moveEntitiesAndCamera(-LabyrinthPiece.WIDTH * (width - 1), 0f);
 			} else {
-				moveEntities(LabyrinthPiece.WIDTH, 0f);
+				moveEntitiesAndCamera(LabyrinthPiece.WIDTH, 0f);
 			}
 		}
 			break;
@@ -192,9 +206,9 @@ public class Level {
 				yPos += 1;
 			}
 			if (switchOver) {
-				moveEntities(0f, -LabyrinthPiece.HEIGHT * (height - 1));
+				moveEntitiesAndCamera(0f, -LabyrinthPiece.HEIGHT * (height - 1));
 			} else {
-				moveEntities(0f, LabyrinthPiece.HEIGHT);
+				moveEntitiesAndCamera(0f, LabyrinthPiece.HEIGHT);
 			}
 		}
 			break;
@@ -214,9 +228,9 @@ public class Level {
 				yPos -= 1;
 			}
 			if (switchOver) {
-				moveEntities(0f, LabyrinthPiece.HEIGHT * (height - 1));
+				moveEntitiesAndCamera(0f, LabyrinthPiece.HEIGHT * (height - 1));
 			} else {
-				moveEntities(0f, -LabyrinthPiece.HEIGHT);
+				moveEntitiesAndCamera(0f, -LabyrinthPiece.HEIGHT);
 			}
 		}
 			break;

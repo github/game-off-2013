@@ -33,11 +33,18 @@ public abstract class Basic2DScreen extends InputAdapter implements Screen {
 	private float stepTimeLeft;
 	protected boolean paused = false;
 
-	protected static BitmapFont debugFont = new BitmapFont();
+	protected static BitmapFont debugFont;
+
+	public Basic2DScreen() {
+		camera = new OrthographicCamera(12, 8);
+	}
 
 	public Basic2DScreen(RoomForChangeGame game, int viewPortWidth,
 			int viewPortHeight) {
 		this.game = game;
+
+		debugFont = new BitmapFont();
+
 		// create and reset camera
 		camera = new OrthographicCamera(viewPortWidth, viewPortHeight);
 

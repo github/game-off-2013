@@ -1,8 +1,5 @@
 package com.sturdyhelmetgames.roomforchange.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +16,7 @@ import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.level.Level.LevelTile;
 import com.sturdyhelmetgames.roomforchange.level.Level.LevelTileType;
 import com.sturdyhelmetgames.roomforchange.level.PieceTemplate;
+import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Assets.class)
@@ -26,7 +24,6 @@ public class LabyrinthUtilTest {
 
 	@Test
 	public void testUpdateLabyrinthTiles() {
-		final List<Object> mocks = new ArrayList<Object>();
 
 		final LevelTile[][] tiles = new LevelTile[12][8];
 		for (int x = 0; x < 12; x++) {
@@ -40,12 +37,10 @@ public class LabyrinthUtilTest {
 			for (int y = 0; y < 2; y++) {
 				labyrinth[x][y] = Mockito.mock(LabyrinthPiece.class);
 				Mockito.when(labyrinth[x][y].getTiles()).thenReturn(tiles);
-				mocks.add(labyrinth[x][y]);
 			}
 		}
 
 		Level level = Mockito.mock(Level.class);
-		mocks.add(level);
 		Mockito.when(level.getLabyrinth()).thenReturn(labyrinth);
 
 		final LevelTile[][] levelTiles = new LevelTile[24][16];
@@ -60,9 +55,7 @@ public class LabyrinthUtilTest {
 			}
 		}
 
-		for (Object mock : mocks) {
-			Mockito.verify(mock);
-		}
+		Mockito.verify(level);
 	}
 
 	public PieceTemplate mockPieceTemplate(int i) {
@@ -94,7 +87,9 @@ public class LabyrinthUtilTest {
 					}
 				});
 
-		final Level level = LabyrinthUtil.generateLabyrinth(6, 6);
+		GameScreen gameScreenMock = Mockito.mock(GameScreen.class);
+		final Level level = LabyrinthUtil.generateLabyrinth(6, 6,
+				gameScreenMock);
 		level.moveLabyrinthPiece(Level.UP);
 		LabyrinthUtil.updateLabyrinthTiles(level);
 
@@ -115,7 +110,7 @@ public class LabyrinthUtilTest {
 	}
 
 	@Test
-	public void testMoveLabyrinthPieceDown() {
+	public void testMoveLabyrinthPieceDown() throws Exception {
 
 		PowerMockito.mockStatic(Assets.class);
 		Mockito.when(Assets.getRandomPieceTemplate()).then(
@@ -128,7 +123,9 @@ public class LabyrinthUtilTest {
 					}
 				});
 
-		final Level level = LabyrinthUtil.generateLabyrinth(6, 6);
+		GameScreen gameScreenMock = Mockito.mock(GameScreen.class);
+		final Level level = LabyrinthUtil.generateLabyrinth(6, 6,
+				gameScreenMock);
 		level.moveLabyrinthPiece(Level.DOWN);
 		LabyrinthUtil.updateLabyrinthTiles(level);
 

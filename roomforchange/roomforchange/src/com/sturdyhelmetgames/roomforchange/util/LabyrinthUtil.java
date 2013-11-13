@@ -7,11 +7,13 @@ import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.level.Level.LevelTile;
 import com.sturdyhelmetgames.roomforchange.level.PieceTemplate;
+import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 
 public class LabyrinthUtil {
 
-	public static Level generateLabyrinth(int width, int height) {
-		final Level level = new Level();
+	public static Level generateLabyrinth(int width, int height,
+			GameScreen gameScreen) {
+		final Level level = new Level(gameScreen);
 		level.setLabyrinth(new LabyrinthPiece[width][height]);
 		level.setTiles(new LevelTile[width * PieceTemplate.WIDTH][height
 				* PieceTemplate.HEIGHT]);

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.level.Level;
@@ -16,6 +17,10 @@ public class GameScreen extends Basic2DScreen {
 	private SpriteBatch batchMiniMap;
 
 	private Level level;
+
+	public GameScreen() {
+		super();
+	}
 
 	public GameScreen(RoomForChangeGame game) {
 		super(game, 12, 8);
@@ -30,17 +35,21 @@ public class GameScreen extends Basic2DScreen {
 		cameraMiniMap.update();
 		batchMiniMap = new SpriteBatch();
 
-		level = LabyrinthUtil.generateLabyrinth(4, 4);
+		level = LabyrinthUtil.generateLabyrinth(4, 4, this);
 	}
 
 	@Override
 	protected void updateScreen(float fixedStep) {
 		processKeys();
 
-		camera.position.set(level.player.bounds.x, level.player.bounds.y, 0f);
-		camera.update();
-
 		level.update(fixedStep);
+
+		final Vector2 currentPiecePos = level
+				.findCurrentPieceRelativeToMapPosition();
+		currentPiecePos.x += 6f;
+		currentPiecePos.y += 4f;
+		camera.position.set(currentPiecePos, 0f);
+		camera.update();
 	}
 
 	@Override
@@ -108,6 +117,12 @@ public class GameScreen extends Basic2DScreen {
 	public void dispose() {
 		super.dispose();
 		batchMiniMap.dispose();
+	}
+
+	public void updateCameraPos(float xOffset, float yOffset) {
+		camera.position.set(camera.position.x + xOffset, camera.position.y
+				+ yOffset, 0f);
+		camera.update();
 	}
 
 }
