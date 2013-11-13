@@ -7,6 +7,7 @@ import com.sturdyhelmetgames.roomforchange.level.Level;
 
 public class Player extends Entity {
 
+	private int health;
 	private TextureRegion playerRegion;
 
 	public Player(float x, float y, Level level) {

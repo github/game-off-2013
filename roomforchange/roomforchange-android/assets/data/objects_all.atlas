@@ -17,9 +17,30 @@ ground
   orig: 8, 8
   offset: 0, 0
   index: -1
-player
+heart
   rotate: false
   xy: 28, 4
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+heart_empty
+  rotate: false
+  xy: 40, 4
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+mummy
+  rotate: false
+  xy: 52, 4
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 64, 4
   size: 8, 8
   orig: 8, 8
   offset: 0, 0

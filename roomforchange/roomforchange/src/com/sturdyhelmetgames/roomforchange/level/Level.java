@@ -13,9 +13,22 @@ public class Level {
 	private LabyrinthPiece[][] labyrinth;
 	private LevelTile[][] tiles;
 	private final Vector2 currentPiecePos = new Vector2();
+	private final Vector2 piecePos = new Vector2();
 
 	public Player player;
 	public final Array<Entity> entities = new Array<Entity>();
+
+	public Vector2 findPiecePos(LabyrinthPiece pieceToFind) {
+		for (int x = 0; x < labyrinth.length; x++) {
+			final LabyrinthPiece[] pieces = labyrinth[x];
+			for (int y = 0; y < pieces.length; y++) {
+				if (pieceToFind == pieces[y]) {
+					return piecePos.set(x, y);
+				}
+			}
+		}
+		throw new RuntimeException("Labyrinth piece not found!");
+	}
 
 	public Vector2 findCurrentPiecePos() {
 		for (int x = 0; x < labyrinth[0].length; x++) {
@@ -28,7 +41,8 @@ public class Level {
 				}
 			}
 		}
-		throw new RuntimeException("No piece found for player");
+		throw new RuntimeException(
+				"No LabyrinthPiece found for player position!");
 	}
 
 	public LabyrinthPiece[][] getLabyrinth() {
@@ -102,6 +116,14 @@ public class Level {
 	public static final int UP = 2;
 	public static final int DOWN = 3;
 
+	private void moveEntities(float xOffset, float yOffset) {
+		for (int i = 0; i < entities.size; i++) {
+			final Entity entity = entities.get(i);
+			entity.bounds.x += xOffset;
+			entity.bounds.y += yOffset;
+		}
+	}
+
 	public void moveLabyrinthPiece(int dir) {
 		final Vector2 currentPiecePos = findCurrentPiecePos();
 		LabyrinthPiece nextPiece = labyrinth[(int) currentPiecePos.x][(int) currentPiecePos.y];
@@ -111,62 +133,93 @@ public class Level {
 			int width = labyrinth[0].length;
 			int xPos = (int) currentPiecePos.x - 1;
 			int yPos = (int) currentPiecePos.y;
+
+			boolean switchOver = false;
 			for (int i = 0; i < width; i++) {
 				if (xPos < 0) {
 					xPos += width;
+					switchOver = i == 0;
 				}
 				LabyrinthPiece currentPiece = nextPiece;
 				nextPiece = labyrinth[xPos][yPos];
 				labyrinth[xPos][yPos] = currentPiece;
 				xPos -= 1;
 			}
-			break;
+			if (switchOver) {
+				moveEntities(LabyrinthPiece.WIDTH * (width - 1), 0f);
+			} else {
+				moveEntities(-LabyrinthPiece.WIDTH, 0f);
+			}
 		}
+			break;
 		case (RIGHT): {
 			int width = labyrinth[0].length;
 			int xPos = (int) currentPiecePos.x + 1;
 			int yPos = (int) currentPiecePos.y;
+			boolean switchOver = false;
 			for (int i = 0; i < width; i++) {
 				if (xPos >= width) {
 					xPos -= width;
+					switchOver = i == 0;
 				}
 				LabyrinthPiece currentPiece = nextPiece;
 				nextPiece = labyrinth[xPos][yPos];
 				labyrinth[xPos][yPos] = currentPiece;
 				xPos += 1;
 			}
-			break;
+			if (switchOver) {
+				moveEntities(-LabyrinthPiece.WIDTH * (width - 1), 0f);
+			} else {
+				moveEntities(LabyrinthPiece.WIDTH, 0f);
+			}
 		}
+			break;
 		case (UP): {
 			int height = labyrinth.length;
 			int xPos = (int) currentPiecePos.x;
 			int yPos = (int) currentPiecePos.y + 1;
+			boolean switchOver = false;
 			for (int i = 0; i < height; i++) {
 				if (yPos >= height) {
 					yPos -= height;
+					if (i == 0) {
+						switchOver = true;
+					}
 				}
 				LabyrinthPiece currentPiece = nextPiece;
 				nextPiece = labyrinth[xPos][yPos];
 				labyrinth[xPos][yPos] = currentPiece;
 				yPos += 1;
 			}
-			break;
+			if (switchOver) {
+				moveEntities(0f, -LabyrinthPiece.HEIGHT * (height - 1));
+			} else {
+				moveEntities(0f, LabyrinthPiece.HEIGHT);
+			}
 		}
+			break;
 		case (DOWN): {
 			int height = labyrinth.length;
 			int xPos = (int) currentPiecePos.x;
 			int yPos = (int) currentPiecePos.y - 1;
+			boolean switchOver = false;
 			for (int i = 0; i < height; i++) {
 				if (yPos < 0) {
 					yPos += height;
+					switchOver = i == 0;
 				}
 				LabyrinthPiece currentPiece = nextPiece;
 				nextPiece = labyrinth[xPos][yPos];
 				labyrinth[xPos][yPos] = currentPiece;
 				yPos -= 1;
 			}
-			break;
+			if (switchOver) {
+				moveEntities(0f, LabyrinthPiece.HEIGHT * (height - 1));
+			} else {
+				moveEntities(0f, -LabyrinthPiece.HEIGHT);
+			}
 		}
+			break;
 		}
 		LabyrinthUtil.updateLabyrinthTiles(this);
 	}
