@@ -8,11 +8,10 @@ define(['waterTool'], function(WaterTool) {
       //  Add animation sets
       this.renderable.addAnimation('anStill', [0, 1, 2, 3, 4, 5, 6, 7]);
       this.renderable.addAnimation('anRight', [8, 9, 10, 11, 12, 13]);
-      this.renderable.addAnimation('anLeft', [16, 17, 18, 19, 20, 21]);
+      //this.renderable.addAnimation('anLeft', [16, 17, 18, 19, 20, 21]);
       this.renderable.addAnimation('anJump', [24, 25, 25, 26, 27, 28, 29, 30]);
         
       this.direction = 'right';
-      //this.jumping = 'false';
 
       // We need it so when the character falls too quickly,
       // the death by water check can still be done.
@@ -24,16 +23,21 @@ define(['waterTool'], function(WaterTool) {
       }
     },
     updateAnimation: function(){
-        if( this.direction == 'right' && !this.renderable.isCurrentAnimation('anRight')){
-            this.renderable.setCurrentAnimation('anRight');
-        } else if( this.direction == 'left' && !this.renderable.isCurrentAnimation('anLeft')){
-            this.renderable.setCurrentAnimation('anLeft');
-        } //else if ( this.vel.x == 0 && !this.renderable.isCurrentAnimation('anStill'){
-           // this.renderable.setCurrentAnimation('anStill');
-    //    }
-     //   if (this.jumping){
-      //      this.renderable.setCurrentAnimation('anJump');
-    },
+        if(this.vel.x != 0){
+            if( this.direction == 'right' && !this.renderable.isCurrentAnimation('anRight')){
+                this.renderable.setCurrentAnimation('anRight');
+                this.flipX(false);
+            } else if( this.direction == 'left' && !this.renderable.isCurrentAnimation('anRight')){
+                this.renderable.setCurrentAnimation('anRight');
+                this.flipX(true);
+            }
+        } else if (!this.renderable.isCurrentAnimation('anStill')){
+            this.renderable.setCurrentAnimation('anStill');
+        }
+        
+       if (this.jumping){
+       this.renderable.setCurrentAnimation('anJump');
+    }},
     update: function() {
       if (this.isDead()) {
         me.state.current().reset();
