@@ -23,12 +23,16 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      'src/main.js'
+      'src/**/main.js'
     ],
+
+    preprocessors: {
+        '**/map.js': 'coverage'
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['progress'],
+    reporters: ['progress','coverage'],
 
 
     // web server port
@@ -56,7 +60,7 @@ module.exports = function(config) {
     // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
     // - PhantomJS
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-    ///browsers: ['Chrome'],
+    browsers: ['Chrome'],
 
 
     // If browser does not capture in given timeout [ms], kill it
