@@ -42,6 +42,8 @@ public class Assets {
 
 	public static Animation playerWalkFront;
 	public static Animation playerWalkBack;
+	public static Animation playerWalkRight;
+	public static Animation playerWalkLeft;
 
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
 	public static final Array<RoomObjectTemplate> roomObjectTemplates = new Array<RoomObjectTemplate>();
@@ -78,10 +80,15 @@ public class Assets {
 		playerWalkFront = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("player-front-1"),
 				getGameObject("player-front-2"), });
-
 		playerWalkBack = new Animation(0.2f,
 				new TextureRegion[] { getGameObject("player-back-1"),
 						getGameObject("player-back-2"), });
+		playerWalkRight = new Animation(0.2f, new TextureRegion[] {
+				getGameObject("player-right-1"),
+				getGameObject("player-right-2"), });
+		playerWalkLeft = new Animation(0.2f,
+				new TextureRegion[] { getGameObject("player-left-1"),
+						getGameObject("player-left-2"), });
 
 		final FileHandle[] pieceTemplateHandles = new FileHandle[15];
 		for (int i = 1; i <= 15; i++) {

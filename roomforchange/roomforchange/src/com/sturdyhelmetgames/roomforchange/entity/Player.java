@@ -22,8 +22,12 @@ public class Player extends Entity {
 
 		if (direction == Direction.UP) {
 			animation = Assets.playerWalkBack;
-		} else {
+		} else if (direction == Direction.DOWN) {
 			animation = Assets.playerWalkFront;
+		} else if (direction == Direction.RIGHT) {
+			animation = Assets.playerWalkRight;
+		} else if (direction == Direction.LEFT) {
+			animation = Assets.playerWalkLeft;
 		}
 
 		if (isNotWalking()) {

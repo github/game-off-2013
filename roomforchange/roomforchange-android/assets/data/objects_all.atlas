@@ -26,7 +26,7 @@ ground-2
   index: -1
 heart
   rotate: false
-  xy: 364, 12
+  xy: 444, 12
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -47,7 +47,7 @@ heart-full
   index: -1
 heart_empty
   rotate: false
-  xy: 376, 12
+  xy: 456, 12
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -110,7 +110,7 @@ mummy-front-4
   index: -1
 player
   rotate: false
-  xy: 344, 4
+  xy: 424, 4
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -139,6 +139,34 @@ player-front-1
 player-front-2
   rotate: false
   xy: 324, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-left-1
+  rotate: false
+  xy: 344, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-left-2
+  rotate: false
+  xy: 364, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-right-1
+  rotate: false
+  xy: 384, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-right-2
+  rotate: false
+  xy: 404, 4
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
