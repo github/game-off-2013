@@ -3,23 +3,19 @@ define(['waterTool'], function(WaterTool) {
     init: function(x, y, settings) {
       this.parent(x, y, settings);
       this.setVelocity(3, 15);
+      this.updateColRect(8, 10, -1, 5);        
       this.waterTool = new WaterTool();
 
       //  Add animation sets
       this.renderable.addAnimation('anStill', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]);
       this.renderable.addAnimation('anRight', [6, 7, 8, 9, 10, 11]);
       this.renderable.addAnimation('anJump', [12, 13, 14, 15, 16, 17]);
-        
+                
       this.direction = 'right';
 
       // We need it so when the character falls too quickly,
       // the death by water check can still be done.
       this.alwaysUpdate = true;
-    },
-    is: function(Animation){
-      if(! this.renderable.isCurrentAnimation(Animation) ){
-        this.renderable.setCurrentAnimation(Animation);
-      }
     },
     updateAnimation: function(){
         if(this.vel.x != 0){
