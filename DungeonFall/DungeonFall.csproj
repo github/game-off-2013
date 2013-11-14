@@ -55,67 +55,30 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />-->
+    <Folder Include="data\sfx\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\img\bat.png" />
-    <Content Include="data\img\block.png" />
-    <Content Include="data\img\castle_enemies_packed.png" />
-    <Content Include="data\img\cave-gradient.png" />
-    <Content Include="data\img\cave.png" />
-    <Content Include="data\img\cave_enemies.png" />
-    <Content Include="data\img\chainsaw.png" />
-    <Content Include="data\img\font.png" />
-    <Content Include="data\img\font2.png" />
-    <Content Include="data\img\furball.png" />
-    <Content Include="data\img\girl.png" />
-    <Content Include="data\img\haunted_enemies_packed.png" />
-    <Content Include="data\img\jack.png" />
-    <Content Include="data\img\knight.png" />
-    <Content Include="data\img\sky-gradient.jpg" />
-    <Content Include="data\img\sweets.png" />
-    <Content Include="data\img\test.png" />
-    <Content Include="data\img\tillyicon.png" />
-    <Content Include="data\img\titlebg.png" />
-    <Content Include="data\img\trees.png" />
-    <Content Include="data\img\ts1.png" />
-    <Content Include="data\img\ts2.png" />
-    <Content Include="data\img\ts3.png" />
-    <Content Include="data\img\undergroundblock.png" />
-    <Content Include="data\map\1.xml" />
-    <Content Include="data\map\2.xml" />
-    <Content Include="data\map\3.xml" />
-    <Content Include="data\map\4.xml" />
-    <Content Include="data\map\5.xml" />
-    <Content Include="data\map\coll.png" />
-    <Content Include="data\map\tilesheet.png" />
-    <Content Include="data\map\underground.png" />
-    <Content Include="data\sfx\jump.mp3" />
-    <Content Include="data\sfx\melee.mp3" />
-    <Content Include="data\sfx\tilly_die.mp3" />
-    <Content Include="js\entities\block.js" />
-    <Content Include="js\entities\enemies\flying.js" />
-    <Content Include="js\entities\enemies\walking.js" />
-    <Content Include="js\entities\hero.js" />
-    <Content Include="js\entities\jack.js" />
-    <Content Include="js\entities\projectile.js" />
-    <Content Include="js\entities\sweet.js" />
+    <Content Include="data\img\tiles.png" />
+    <Content Include="data\map\basedungeon.xml" />
+    <Content Include="index.css" />
+    <Content Include="js\entities\dungeon.js" />
+    <Content Include="js\entities\fallingpiece.js" />
     <Content Include="js\game.js" />
-    <Content Include="js\hud.js" />
+    <Content Include="js\entities\hud.js" />
+    <Content Include="js\piecehelper.js" />
     <Content Include="js\resources.js" />
     <Content Include="js\screens\loading.js" />
     <Content Include="js\screens\play.js" />
     <Content Include="js\screens\title.js" />
+    <Content Include="lib\melonJS-0.9.10.js" />
+    <Content Include="lib\plugins\debugPanel.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="css\default.css" />
     <Content Include="data\bgm\.placeholder" />
-    <Content Include="data\sfx\jump.oga" />
-    <Content Include="data\sfx\melee.oga" />
-    <Content Include="data\sfx\tilly_die.oga" />
     <None Include="lib\default.js" />
     <None Include="index.html" />
   </ItemGroup>

@@ -1,12 +1,18 @@
 game.PlayScreen = me.ScreenObject.extend({
+
+    init: function() {
+        this.alwaysUpdate = true;
+    },
+
 	/**	
 	 *  action to perform on state change
 	 */
 	onResetEvent: function() {	
-	    me.levelDirector.loadLevel("map1");
+	    me.levelDirector.loadLevel("basedungeon");
 
 	    // add our HUD to the game world        
 	    me.game.add(new game.HUD.Container());
+	    me.game.add(new game.FallingPiece());
 	},
 	
 	
@@ -16,5 +22,14 @@ game.PlayScreen = me.ScreenObject.extend({
 	onDestroyEvent: function() {
 	    // remove the HUD from the game world
 	    me.game.world.removeChild(me.game.world.getEntityByProp("name", "HUD")[0]);
-	}
+	},
+
+	update: function() {
+	    return true;
+	},
+
+    draw: function(context) {
+        me.video.clearSurface(context, "#000000");
+        //this.parent(context);
+    }
 });

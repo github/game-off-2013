@@ -6,7 +6,7 @@ var game = {
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
-        if (!me.video.init("screen", 1067, 600, true)) {
+        if (!me.video.init("screen", 1120, 608, true)) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
@@ -59,76 +59,24 @@ var game = {
 
 
         // enable the keyboard
-        //me.input.bindKey(me.input.KEY.LEFT, "left");
-        //me.input.bindKey(me.input.KEY.RIGHT, "right");
-        //me.input.bindKey(me.input.KEY.UP, "jump", true);
+        me.input.bindKey(me.input.KEY.LEFT, "rotleft", false);
+        me.input.bindKey(me.input.KEY.RIGHT, "rotright", false);
+        me.input.bindKey(me.input.KEY.UP, "moveup", false);
+        me.input.bindKey(me.input.KEY.DOWN, "movedown", false);
         //me.input.bindKey(me.input.KEY.X, "attack", true);
-        //me.input.bindKey(me.input.KEY.Z, "throw", true);
+        me.input.bindKey(me.input.KEY.Z, "push");
 
         //me.input.bindKey(me.input.KEY.L, "levelskip", true); //function () { me.levelDirector.loadLevel("map2"); }.bind(this), true);
 
         //me.debug.renderHitBox = true;
 
         // Start the game.
-        me.state.change(me.state.MENU);
-    }
+        me.state.change(me.state.PLAY);
+    },
+
+    
 
    
 };
 
 
-me.LevelEntity = me.ObjectEntity.extend(
-    /** @scope me.LevelEntity.prototype */
-    {
-        /** @ignore */
-        init: function (x, y, settings) {
-            this.parent(x, y, settings);
-
-            this.nextlevel = settings.to;
-
-            this.fade = settings.fade;
-            this.duration = settings.duration;
-            this.fading = false;
-
-            // a temp variable
-            this.gotolevel = settings.to;
-        },
-
-        /**
-         * @ignore
-         */
-        onFadeComplete: function () {
-            me.levelDirector.loadLevel(this.gotolevel);
-            me.game.viewport.fadeOut(this.fade, this.duration);
-        },
-
-        /**
-         * go to the specified level
-         * @name goTo
-         * @memberOf me.LevelEntity
-         * @function
-         * @param {String} [level=this.nextlevel] name of the level to load
-         * @protected
-         */
-        goTo: function (level) {
-            this.gotolevel = level || this.nextlevel;
-            // load a level
-            //console.log("going to : ", to);
-            if (this.fade && this.duration) {
-                if (!this.fading) {
-                    this.fading = true;
-                    me.game.viewport.fadeIn(this.fade, this.duration,
-                            this.onFadeComplete.bind(this));
-                }
-            } else {
-                me.levelDirector.loadLevel(this.gotolevel);
-            }
-        },
-
-        /** @ignore */
-        onCollision: function (res,obj) {
-            if (obj instanceof game.PlayerEntity) {
-                this.goTo();
-            }
-        }
-    });
