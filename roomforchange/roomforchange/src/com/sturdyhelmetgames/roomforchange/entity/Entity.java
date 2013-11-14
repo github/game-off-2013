@@ -9,24 +9,31 @@ import com.sturdyhelmetgames.roomforchange.level.Level.LevelTile;
 
 public class Entity {
 
-	public Level level;
+	private static final float MIN_WALK_VELOCITY = 0.01f;
 
-	public static final int DIRECTION_UP = 0;
-	public static final int DIRECTION_DOWN = 1;
-	public static final int DIRECTION_LEFT = 2;
-	public static final int DIRECTION_RIGHT = 3;
+	public Level level;
+	public EntityState state;
+	public Direction direction = Direction.DOWN;
 
 	public static final float ACCEL_MAX = 2f;
 	public static final float VEL_MAX = 5f;
 
 	public final Vector2 accel = new Vector2(0f, 0f);
 	public final Vector2 vel = new Vector2(0f, 0f);
+	public float stateTime = 0f;
 	public float width, height;
 	public final Rectangle bounds = new Rectangle();
 	private Rectangle[] r = { new Rectangle(), new Rectangle(),
 			new Rectangle(), new Rectangle() };
-
 	public int[][] tiles;
+
+	public enum Direction {
+		UP, DOWN, LEFT, RIGHT;
+	}
+
+	public enum EntityState {
+		IDLE, WALKING;
+	}
 
 	public Entity(float x, float y, float width, float height, Level level) {
 		this.level = level;
@@ -56,18 +63,21 @@ public class Entity {
 		}
 		accel.scl(fixedStep);
 		vel.scl(fixedStep);
+
+		stateTime += fixedStep;
 	}
 
-	public void move(int dir) {
-		if (dir == DIRECTION_UP) {
+	public void moveWithVel(Direction dir) {
+		if (dir == Direction.UP) {
 			vel.y = VEL_MAX;
-		} else if (dir == DIRECTION_DOWN) {
+		} else if (dir == Direction.DOWN) {
 			vel.y = -VEL_MAX;
-		} else if (dir == DIRECTION_LEFT) {
+		} else if (dir == Direction.LEFT) {
 			vel.x = -VEL_MAX;
-		} else if (dir == DIRECTION_RIGHT) {
+		} else if (dir == Direction.RIGHT) {
 			vel.x = VEL_MAX;
 		}
+		direction = dir;
 	}
 
 	protected void tryMove() {
@@ -133,6 +143,13 @@ public class Entity {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			Gdx.app.log("Creature", "Player went off screen");
 		}
+	}
 
+	public boolean isNotWalking() {
+		if (vel.x > -MIN_WALK_VELOCITY && vel.x < MIN_WALK_VELOCITY
+				&& vel.y > -MIN_WALK_VELOCITY && vel.y < MIN_WALK_VELOCITY) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -6,42 +6,140 @@ repeat: none
 brick
   rotate: false
   xy: 4, 4
-  size: 8, 8
-  orig: 8, 8
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-ground
+ground-1
   rotate: false
-  xy: 16, 4
-  size: 8, 8
-  orig: 8, 8
+  xy: 24, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ground-2
+  rotate: false
+  xy: 44, 4
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 heart
   rotate: false
-  xy: 28, 4
+  xy: 364, 12
   size: 8, 8
   orig: 8, 8
+  offset: 0, 0
+  index: -1
+heart-empty
+  rotate: false
+  xy: 64, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+heart-full
+  rotate: false
+  xy: 84, 4
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 heart_empty
   rotate: false
-  xy: 40, 4
+  xy: 376, 12
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-mummy
+mummy-back-1
   rotate: false
-  xy: 52, 4
-  size: 8, 8
-  orig: 8, 8
+  xy: 104, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-back-2
+  rotate: false
+  xy: 124, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-back-3
+  rotate: false
+  xy: 144, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-back-4
+  rotate: false
+  xy: 164, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-front-1
+  rotate: false
+  xy: 184, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-front-2
+  rotate: false
+  xy: 204, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-front-3
+  rotate: false
+  xy: 224, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mummy-front-4
+  rotate: false
+  xy: 244, 4
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 64, 4
-  size: 8, 8
-  orig: 8, 8
+  xy: 344, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-back-1
+  rotate: false
+  xy: 264, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-back-2
+  rotate: false
+  xy: 284, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-front-1
+  rotate: false
+  xy: 304, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player-front-2
+  rotate: false
+  xy: 324, 4
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1

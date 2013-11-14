@@ -1,6 +1,7 @@
 package com.sturdyhelmetgames.roomforchange.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
@@ -95,7 +96,7 @@ public class Level {
 
 		public void render(float delta, SpriteBatch batch, float x, float y) {
 			if (type == LevelTileType.GROUND) {
-				batch.draw(Assets.getGameObject("ground"), x, y, 1f, 1f);
+				batch.draw(Assets.getGameObject("ground-1"), x, y, 1f, 1f);
 			} else if (type == LevelTileType.WALL) {
 				batch.draw(Assets.getGameObject("brick"), x, y, 1f, 1f);
 			}

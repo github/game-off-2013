@@ -1,7 +1,7 @@
 package com.sturdyhelmetgames.roomforchange.entity;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
@@ -9,7 +9,6 @@ import com.sturdyhelmetgames.roomforchange.level.Level;
 
 public class Mummy extends Entity {
 
-	private TextureRegion mummyRegion;
 	private float ACCEL_MAX = 1f;
 	private float MAX_WALK_TIME = 3f;
 	private float walkTime;
@@ -17,18 +16,22 @@ public class Mummy extends Entity {
 
 	public Mummy(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
-
+		state = EntityState.WALKING;
 	}
 
 	@Override
 	public void render(float delta, SpriteBatch batch) {
 		super.render(delta, batch);
+		Animation animation = null;
 
-		if (mummyRegion == null) {
-			mummyRegion = Assets.getGameObject("mummy");
+		if (direction == Direction.UP) {
+			animation = Assets.mummyWalkBack;
+		} else {
+			animation = Assets.mummyWalkFront;
 		}
 
-		batch.draw(mummyRegion, bounds.x - 0.1f, bounds.y - 0.1f, width, height);
+		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x, bounds.y,
+				width, height);
 	}
 
 	private final Vector2 playerPos = new Vector2();
@@ -68,5 +71,11 @@ public class Mummy extends Entity {
 			}
 		}
 		walkTime += fixedStep;
+
+		if (vel.y <= 0f) {
+			direction = Direction.DOWN;
+		} else {
+			direction = Direction.UP;
+		}
 	}
 }

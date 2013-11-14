@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
-import com.sturdyhelmetgames.roomforchange.entity.Entity;
+import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
@@ -69,16 +69,16 @@ public class GameScreen extends Basic2DScreen {
 		if (!paused) {
 			// process player movement keys
 			if (Gdx.input.isKeyPressed(Keys.UP)) {
-				level.player.accel.y = Entity.ACCEL_MAX;
+				level.player.moveWithAccel(Direction.UP);
 			}
 			if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-				level.player.accel.y = -Entity.ACCEL_MAX;
+				level.player.moveWithAccel(Direction.DOWN);
 			}
 			if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-				level.player.accel.x = Entity.ACCEL_MAX;
+				level.player.moveWithAccel(Direction.RIGHT);
 			}
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-				level.player.accel.x = -Entity.ACCEL_MAX;
+				level.player.moveWithAccel(Direction.LEFT);
 			}
 
 			if (Gdx.input.isKeyPressed(Keys.MINUS)) {

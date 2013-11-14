@@ -1,14 +1,13 @@
 package com.sturdyhelmetgames.roomforchange.entity;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 
 public class Player extends Entity {
 
 	private int health;
-	private TextureRegion playerRegion;
 
 	public Player(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
@@ -19,12 +18,35 @@ public class Player extends Entity {
 	public void render(float delta, SpriteBatch batch) {
 		super.render(delta, batch);
 
-		if (playerRegion == null) {
-			playerRegion = Assets.getGameObject("player");
+		Animation animation = null;
+
+		if (direction == Direction.UP) {
+			animation = Assets.playerWalkBack;
+		} else {
+			animation = Assets.playerWalkFront;
 		}
 
-		batch.draw(playerRegion, bounds.x - 0.1f, bounds.y - 0.1f, width,
-				height);
+		if (isNotWalking()) {
+			batch.draw(animation.getKeyFrame(0f, true), bounds.x, bounds.y,
+					width, height);
+		} else {
+			batch.draw(animation.getKeyFrame(stateTime, true), bounds.x,
+					bounds.y, width, height);
+		}
+
+	}
+
+	public void moveWithAccel(Direction dir) {
+		if (dir == Direction.UP) {
+			accel.y = ACCEL_MAX;
+		} else if (dir == Direction.DOWN) {
+			accel.y = -ACCEL_MAX;
+		} else if (dir == Direction.LEFT) {
+			accel.x = -ACCEL_MAX;
+		} else if (dir == Direction.RIGHT) {
+			accel.x = ACCEL_MAX;
+		}
+		direction = dir;
 	}
 
 }

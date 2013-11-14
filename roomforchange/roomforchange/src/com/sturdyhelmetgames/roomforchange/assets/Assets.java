@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -36,6 +37,12 @@ public class Assets {
 	public static TextureRegion[] fontSmallBlack;
 	public static TextureRegion[] fontSmallWhite;
 
+	public static Animation mummyWalkFront;
+	public static Animation mummyWalkBack;
+
+	public static Animation playerWalkFront;
+	public static Animation playerWalkBack;
+
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
 	public static final Array<RoomObjectTemplate> roomObjectTemplates = new Array<RoomObjectTemplate>();
 
@@ -57,6 +64,24 @@ public class Assets {
 				Texture.class)).split(4, 4)[0];
 		fontSmallWhite = new TextureRegion(get(TEXTURE_FONT_SMALL_WHITE,
 				Texture.class)).split(4, 4)[0];
+
+		mummyWalkFront = new Animation(0.2f,
+				new TextureRegion[] { getGameObject("mummy-front-1"),
+						getGameObject("mummy-front-2"),
+						getGameObject("mummy-front-3"),
+						getGameObject("mummy-front-4"), });
+
+		mummyWalkBack = new Animation(0.2f, new TextureRegion[] {
+				getGameObject("mummy-back-1"), getGameObject("mummy-back-2"),
+				getGameObject("mummy-back-3"), getGameObject("mummy-back-4"), });
+
+		playerWalkFront = new Animation(0.2f, new TextureRegion[] {
+				getGameObject("player-front-1"),
+				getGameObject("player-front-2"), });
+
+		playerWalkBack = new Animation(0.2f,
+				new TextureRegion[] { getGameObject("player-back-1"),
+						getGameObject("player-back-2"), });
 
 		final FileHandle[] pieceTemplateHandles = new FileHandle[15];
 		for (int i = 1; i <= 15; i++) {
