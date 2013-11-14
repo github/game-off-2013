@@ -12,12 +12,13 @@ define(['resources', 'levels/test', 'character', 'water'], function(resources, T
         me.plugin.register.defer(debugPanel, "debug");
       });
     }
-
+         
     // Callback when everything is loaded
     me.loader.onload = this.loaded;
 
     // Load the resources
     me.loader.preload(resources);
+      
 
     // Initialize melonJS and display a loading screen.
     me.state.change(me.state.LOADING);
