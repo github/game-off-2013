@@ -6,10 +6,9 @@ define(['waterTool'], function(WaterTool) {
       this.waterTool = new WaterTool();
 
       //  Add animation sets
-      this.renderable.addAnimation('anStill', [0, 1, 2, 3, 4, 5, 6, 7]);
-      this.renderable.addAnimation('anRight', [8, 9, 10, 11, 12, 13]);
-      //this.renderable.addAnimation('anLeft', [16, 17, 18, 19, 20, 21]);
-      this.renderable.addAnimation('anJump', [24, 25, 25, 26, 27, 28, 29, 30]);
+      this.renderable.addAnimation('anStill', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]);
+      this.renderable.addAnimation('anRight', [6, 7, 8, 9, 10, 11]);
+      this.renderable.addAnimation('anJump', [12, 13, 14, 15, 16, 17]);
         
       this.direction = 'right';
 
