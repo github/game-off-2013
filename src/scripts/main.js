@@ -1,30 +1,52 @@
-require(['map'], function(map) {
-    'use strict';
-
-    var EARTH_SURFACE_AREA = 510.1;
-    var w = 960;
-    var h = 480;
-
-    var seaLevel = 0;
-
-    map.render('map.png', update);
-
-    window.setTimeout(function() {
-        window.setInterval(function() {
-            ++seaLevel;
-            update();
-        }, 20);
-    }, 1000);
-
-    function update() {
-        var remainingLand = map.updateSeaLevel(seaLevel, areaPerPixel);
-        document.getElementById('seaLevel').value = seaLevel;
-        document.getElementById('remainingLand').value = Math.round(remainingLand);
-    }
-
-    function areaPerPixel(y) {
-        // Compensate for area distortion of plate carrée projection
-        // See http://en.wikipedia.org/wiki/Equirectangular_projection
-        return Math.cos(Math.PI * ((y/h) - (1/2))) * (Math.PI / 2) * (EARTH_SURFACE_AREA / (w * h));
+requirejs.config({
+    "paths": {
+        "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min"
     }
 });
+
+require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection'],
+        function($, Game, GameStateUpdater, Map, plateCareeProjection) {
+            'use strict';
+
+            var EARTH_SURFACE_AREA = 510100000;
+
+            var initialGameState = {
+                year: 2013,
+                seaLevel: 0,
+                pollution: 0,
+                agricultureLevel: 50,
+                population: 7000000000,
+                food: 0,
+                deathsFromStarvation: 0
+            };
+
+            var mapElement = document.getElementById('map');
+            var map = new Map('map.png', EARTH_SURFACE_AREA, plateCareeProjection, mapElement, onRender);
+            var gameStateUpdater = new GameStateUpdater(map);
+            var game = new Game(initialGameState, gameStateUpdater);
+
+            function onRender() {
+                refreshDisplay();
+            }
+
+            $("#nextTurnButton").click(function() {
+                var agricultureIncrease = parseInt($('input[name=agricultureIncrease]:checked').val());
+
+                game.update({agricultureIncrease: agricultureIncrease});
+                refreshDisplay();
+                if (game.state.population === 0) {
+                    $("#nextTurnButton").prop('disabled', 'disabled')
+                }
+            });
+
+            function refreshDisplay() {
+                document.getElementById('year').value = game.state.year;
+                document.getElementById('seaLevel').value = game.state.seaLevel;
+                document.getElementById('remainingLand').value = map.calculateRemainingLandArea();
+                document.getElementById('population').value = game.state.population;
+                document.getElementById('food').value = game.state.food;
+                document.getElementById('pollution').value = game.state.pollution;
+                document.getElementById('agricultureLevel').value = game.state.agricultureLevel;
+                document.getElementById('deathsFromStarvation').value = game.state.deathsFromStarvation;
+            }
+        });

@@ -1,9 +1,19 @@
 define(function (require) {
     'use strict';
 
+    var AREA = 1000;
+
     describe('map', function() {
+        var Map = require('map');
         var map;
         var container;
+
+        var mockProjection = {
+            calculateFractionOfAreaInPixel: function (x, y) {
+                // Pixels take up areas 0.1, 0.2, 0.3 and 0.4
+                return ((y * 2) + x + 1) * 0.1;
+            }
+        }
 
         beforeEach(function() {
             this.addMatchers({
@@ -18,13 +28,14 @@ define(function (require) {
             });
 
             container = document.createElement('div');
-            container.id = 'game';
             document.body.appendChild(container);
-            map = require('map');
+
             var mapRendered = false;
-            map.render('base/test/map.test.png', function() {
+            var onRender = function() {
                 mapRendered = true;
-            });
+            };
+
+            map = new Map('base/test/map.test.png', AREA, mockProjection, container, onRender);
             waitsFor(function() {
                 return mapRendered;
             }, "The map should be rendered", 500);
@@ -38,31 +49,31 @@ define(function (require) {
             var canvas = getCanvas();
             expect(canvas.width).toBe(2);
             expect(canvas.height).toBe(2);
+        });
 
-            var pixel = getPixel(canvas, 0, 1);
-            expect(pixel.data[0]).toBe(128);
-            expect(pixel.data[1]).toBe(128);
-            expect(pixel.data[2]).toBe(128);
+        it('should initialize sea level to zero', function() {
+            expect(getPixel(getCanvas(), 1, 1)).toBeLand();
+            expect(getPixel(getCanvas(), 0, 1)).toBeLand();
         });
 
         it ('should colour pixels based on sea level', function() {
-            map.updateSeaLevel(2850, areaPerPixel);
+            map.updateSeaLevel(2850);
 
             expect(getPixel(getCanvas(), 1, 1)).toBeSea();
             expect(getPixel(getCanvas(), 0, 1)).toBeLand();
         });
 
         it ('should update when sea level is changed', function() {
-            map.updateSeaLevel(2850, areaPerPixel);
-            map.updateSeaLevel(5850, areaPerPixel);
+            map.updateSeaLevel(2850);
+            map.updateSeaLevel(5850);
 
             expect(getPixel(getCanvas(), 1, 1)).toBeSea();
             expect(getPixel(getCanvas(), 0, 1)).toBeSea();
         });
 
-        it ('should return remaining land', function() {
-            var result = map.updateSeaLevel(2850, areaPerPixel);
-            expect(result).toBe(3);
+        it ('should correctly calculate remaining land', function() {
+            map.updateSeaLevel(2850);
+            expect(map.calculateRemainingLandArea()).toBe(0.4 * AREA);
         });
 
         function getCanvas() {
@@ -74,10 +85,6 @@ define(function (require) {
         function getPixel(canvas, x, y) {
             var context = canvas.getContext('2d');
             return context.getImageData(x, y, 1, 1);
-        }
-
-        function areaPerPixel(y) {
-            return y + 1;
         }
     });
 });
