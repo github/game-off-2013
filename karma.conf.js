@@ -27,7 +27,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-        '**/map.js': 'coverage'
+        'src/**/*.js': 'coverage'
     },
 
     // test results reporter to use
