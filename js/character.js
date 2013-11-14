@@ -3,10 +3,10 @@ define(['waterTool'], function(WaterTool) {
     init: function(x, y, settings) {
       this.parent(x, y, settings);
       this.setVelocity(3, 15);
-      this.updateColRect(8, 10, -1, 5);
+      this.updateColRect(10, 12, -1, 0);
       this.waterTool = new WaterTool();
 
-      //  Add animation sets
+      // This is for a little delay until anStill is being set
       this.renderable.addAnimation('anStill', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]);
       this.renderable.addAnimation('anRight', [6, 7, 8, 9, 10, 11]);
       this.renderable.addAnimation('anJump', [12, 13, 14, 15, 16, 17]);
