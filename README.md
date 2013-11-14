@@ -11,6 +11,7 @@ Install node.js from http://nodejs.org/
 ```
 npm install -g grunt-cli
 npm install -g karma
+npm install -g karma-coverage
 ```
 
 ### Setup
@@ -28,10 +29,14 @@ Run static analysis (JSLint)
 grunt
 ```
 
-Run continuous tests
+Run continuous tests (you may need to set the CHROME_BIN environment variable to the location of your Google Chrome executable)
 ```
 karma start
 ```
+
+Coverage reports should appear under /coverage.
+
+You can also run continuous tests within WebStorm by creating a new Karma run configuration and specifying the project's Karma config file.
 
 ### Launching the game
 
