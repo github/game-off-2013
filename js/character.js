@@ -3,23 +3,36 @@ define(['waterTool'], function(WaterTool) {
     init: function(x, y, settings) {
       this.parent(x, y, settings);
       this.setVelocity(3, 15);
+      this.updateColRect(8, 10, -1, 5);
       this.waterTool = new WaterTool();
 
       //  Add animation sets
-      this.renderable.addAnimation('anStill', [0, 1, 2, 3, 4, 5, 6, 7]);
-      this.renderable.addAnimation('anRight', [8, 9, 10, 11, 12, 13]);
-      this.renderable.addAnimation('anLeft', [16, 17, 18, 19, 20, 21]);
-      this.renderable.addAnimation('anJump', [24, 25, 25, 26, 27, 28, 29, 30]);
-      this.renderable.setCurrentAnimation('anStill');
+      this.renderable.addAnimation('anStill', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5]);
+      this.renderable.addAnimation('anRight', [6, 7, 8, 9, 10, 11]);
+      this.renderable.addAnimation('anJump', [12, 13, 14, 15, 16, 17]);
+
+      this.direction = 'right';
 
       // We need it so when the character falls too quickly,
       // the death by water check can still be done.
       this.alwaysUpdate = true;
     },
-    setAnimation: function(Animation){
-      if(! this.renderable.isCurrentAnimation(Animation) ){
-        this.renderable.setCurrentAnimation(Animation);
-      }
+    updateAnimation: function(){
+        if (this.vel.x != 0){
+          if (this.direction == 'right' && !this.renderable.isCurrentAnimation('anRight')) {
+            this.renderable.setCurrentAnimation('anRight');
+            this.flipX(false);
+          } else if (this.direction == 'left' && !this.renderable.isCurrentAnimation('anRight')) {
+            this.renderable.setCurrentAnimation('anRight');
+            this.flipX(true);
+          }
+        } else if (!this.renderable.isCurrentAnimation('anStill')) {
+          this.renderable.setCurrentAnimation('anStill');
+        }
+
+        if (this.jumping) {
+          this.renderable.setCurrentAnimation('anJump');
+        }
     },
     update: function() {
       if (this.isDead()) {
@@ -28,22 +41,17 @@ define(['waterTool'], function(WaterTool) {
       }
 
       if (me.input.isKeyPressed('left')) {
-        this.setAnimation('anLeft');
+        this.direction = 'left';
         this.vel.x -= this.accel.x * me.timer.tick;
       } else if (me.input.isKeyPressed('right')) {
-        this.setAnimation('anRight');
+        this.direction = 'right';
         this.vel.x += this.accel.x * me.timer.tick;
       } else {
-        if(!this.jumping){
-          this.setAnimation('anStill');
-        }
-
         this.vel.x = 0;
       }
 
       if (me.input.isKeyPressed('jump')) {
         if (!this.jumping && !this.falling) {
-          this.setAnimation('anJump');
           this.vel.y = -this.maxVel.y * me.timer.tick;
           this.jumping = true;
         }
@@ -53,6 +61,7 @@ define(['waterTool'], function(WaterTool) {
         this.waterTool.use();
       }
 
+      this.updateAnimation();
       this.updateMovement();
       this.parent();
 
