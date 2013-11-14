@@ -2,15 +2,61 @@
 <html>
 <head>
     <title></title>
-    <script data-main="scripts/main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js" data-main="/main"></script>
+    <script data-main="scripts/main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.1/slate/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
 </head>
 <body>
     <div id="game" class="container">
         <h2>World map</h2>
-        <label for="seaLevel">Sea level (m):</label><input type="text" id="seaLevel" readonly="true" />
-        <label for="remainingLand">Remaining land (Mkm&sup2;):</label><input type="text" id="remainingLand" readonly="true" />
+        <div class="col-md-4">
+            <p>
+                <label for="year" class="col-md-6">Year:</label>
+                <input type="text" id="year" readonly="true" />
+            </p>
+            <p>
+                <label for="seaLevel" class="col-md-6">Sea level (m):</label>
+                <input type="text" id="seaLevel" readonly="true" />
+            </p>
+            <p>
+                <label for="remainingLand" class="col-md-6">Land area (km&sup2;):</label>
+                <input type="text" id="remainingLand" readonly="true" />
+            </p>
+            <p>
+                <label for="population" class="col-md-6">Population:</label>
+                <input type="text" id="population" readonly="true" />
+            </p>
+            <p>
+                <label for="food" class="col-md-6">Food supplies:</label>
+                <input type="text" id="food" readonly="true" />
+            </p>
+            <p>
+                <label for="pollution" class="col-md-6">Pollution level:</label>
+                <input type="text" id="pollution" readonly="true" />
+            </p>
+            <p>
+                <label for="agricultureLevel" class="col-md-6">Agriculture level:</label>
+                <input type="text" id="agricultureLevel" readonly="true" />
+            </p>
+        </div>
+        <div class="col-md-4">
+            <label for="deathsFromStarvation" class="col-md-6">Deaths from starvation:</label>
+            <input type="text" id="deathsFromStarvation" readonly="true" />
+        </div>
+        <div id="map"></div>
+        <p>
+            <input type="radio" name="agricultureIncrease" value="1" checked="true">
+            Increase agriculture
+        </p>
+        <p>
+            <input type="radio" name="agricultureIncrease" value="-1">
+            Decrease agriculture
+        </p>
+        <p>
+            <input type="radio" name="agricultureIncrease" value="0">
+            Do nothing
+        </p>
+        <button class="btn" id="nextTurnButton">Next year</button>
     </div>
 </body>
 </html>
