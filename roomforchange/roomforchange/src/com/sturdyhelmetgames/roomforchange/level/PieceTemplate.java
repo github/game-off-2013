@@ -31,15 +31,19 @@ public class PieceTemplate {
 			throw new IllegalArgumentException(
 					"Template is too big! Should be 12x8px.");
 		}
+
+		int yFlip = 0;
 		for (int x = 0; x < pixmap.getWidth(); x++) {
-			for (int y = 0; y < pixmap.getHeight(); y++) {
-				int pixel = pixmap.getPixel(x, y);
+			for (int y = pixmap.getHeight() - 1; y >= 0; y--) {
+				int pixel = pixmap.getPixel(x, yFlip);
 				if (pixel == 255) {
 					tileTypes[x][y] = LevelTileType.WALL;
 				} else {
 					tileTypes[x][y] = LevelTileType.GROUND;
 				}
+				yFlip++;
 			}
+			yFlip = 0;
 		}
 	}
 

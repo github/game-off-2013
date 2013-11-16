@@ -24,6 +24,8 @@ public class LabyrinthUtil {
 			for (int y = 0; y < height; y++) {
 				level.getLabyrinth()[x][y] = new LabyrinthPiece(
 						Assets.getRandomPieceTemplate(), null, i);
+				// level.getLabyrinth()[x][y] = new LabyrinthPiece(
+				// Assets.pieceTemplates.get(3), null, i);
 				i++;
 			}
 		}
