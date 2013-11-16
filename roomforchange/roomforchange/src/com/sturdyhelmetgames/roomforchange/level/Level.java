@@ -1,7 +1,6 @@
 package com.sturdyhelmetgames.roomforchange.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
@@ -76,14 +75,14 @@ public class Level {
 	}
 
 	public static enum LevelTileType {
-		GROUND, WALL, EXIT;
+		GROUND, WALL, DOOR, EXIT;
 
 		public boolean isExit() {
 			return this == EXIT;
 		}
 
 		public boolean isCollidable() {
-			return this == WALL;
+			return this == WALL || this == DOOR;
 		}
 	}
 
@@ -99,6 +98,8 @@ public class Level {
 				batch.draw(Assets.getGameObject("ground-1"), x, y, 1f, 1f);
 			} else if (type == LevelTileType.WALL) {
 				batch.draw(Assets.getGameObject("brick"), x, y, 1f, 1f);
+			} else if (type == LevelTileType.DOOR) {
+				batch.draw(Assets.getGameObject("door"), x, y, 1f, 1f);
 			}
 		}
 

@@ -9,6 +9,7 @@ public class PieceTemplate {
 	public static final int HEIGHT = 8;
 	private final Pixmap pixmap;
 	private final LevelTileType[][] tileTypes;
+	public final boolean[] doorsOpen = new boolean[4];
 
 	public Pixmap getPixmap() {
 		return pixmap;
@@ -18,8 +19,13 @@ public class PieceTemplate {
 		return tileTypes;
 	}
 
-	public PieceTemplate(Pixmap pixmap) {
+	public PieceTemplate(Pixmap pixmap, boolean[] doorsOpen) {
 		this.pixmap = pixmap;
+
+		for (int i = 0; i < doorsOpen.length; i++) {
+			this.doorsOpen[i] = doorsOpen[i];
+		}
+
 		tileTypes = new LevelTileType[WIDTH][HEIGHT];
 		if (pixmap.getWidth() > WIDTH || pixmap.getHeight() > HEIGHT) {
 			throw new IllegalArgumentException(

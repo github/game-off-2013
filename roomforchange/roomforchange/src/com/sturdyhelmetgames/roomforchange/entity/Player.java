@@ -40,17 +40,4 @@ public class Player extends Entity {
 
 	}
 
-	public void moveWithAccel(Direction dir) {
-		if (dir == Direction.UP) {
-			accel.y = ACCEL_MAX;
-		} else if (dir == Direction.DOWN) {
-			accel.y = -ACCEL_MAX;
-		} else if (dir == Direction.LEFT) {
-			accel.x = -ACCEL_MAX;
-		} else if (dir == Direction.RIGHT) {
-			accel.x = ACCEL_MAX;
-		}
-		direction = dir;
-	}
-
 }

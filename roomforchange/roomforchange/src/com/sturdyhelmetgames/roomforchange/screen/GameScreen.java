@@ -12,7 +12,7 @@ import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
 public class GameScreen extends Basic2DScreen {
 
-	public static final int SCALE = 24;
+	public static final int SCALE = 10;
 	private OrthographicCamera cameraMiniMap;
 	private SpriteBatch batchMiniMap;
 
@@ -31,7 +31,7 @@ public class GameScreen extends Basic2DScreen {
 		// setup our mini map camera
 		cameraMiniMap = new OrthographicCamera(12, 8);
 		cameraMiniMap.zoom = SCALE;
-		cameraMiniMap.position.set(-90f, 90f, 0f);
+		cameraMiniMap.position.set(0f, 0f, 0f);
 		cameraMiniMap.update();
 		batchMiniMap = new SpriteBatch();
 

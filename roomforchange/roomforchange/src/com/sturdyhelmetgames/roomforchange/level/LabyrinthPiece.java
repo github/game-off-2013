@@ -11,6 +11,7 @@ public class LabyrinthPiece {
 	private final LevelTile[][] tiles;
 	private final Rectangle bounds = new Rectangle();
 	private final int orderNumber;
+	public final boolean[] doorsOpen = new boolean[4];
 
 	public LevelTile[][] getTiles() {
 		return tiles;
@@ -24,6 +25,9 @@ public class LabyrinthPiece {
 			RoomObjectTemplate roomObjectTemplate, int orderNumber) {
 		tiles = new LevelTile[WIDTH][HEIGHT];
 		this.orderNumber = orderNumber;
+		for (int i = 0; i < pieceTemplate.doorsOpen.length; i++) {
+			this.doorsOpen[i] = pieceTemplate.doorsOpen[i];
+		}
 
 		final LevelTileType[][] pcs = pieceTemplate.getTileTypes();
 		for (int x = 0; x < PieceTemplate.WIDTH; x++) {

@@ -9,14 +9,13 @@ import com.sturdyhelmetgames.roomforchange.level.Level.LevelTile;
 
 public class Entity {
 
-	private static final float MIN_WALK_VELOCITY = 0.01f;
-
 	public Level level;
 	public EntityState state;
 	public Direction direction = Direction.DOWN;
 
 	public static final float ACCEL_MAX = 2f;
-	public static final float VEL_MAX = 5f;
+	public static final float VEL_MAX = 0.05f;
+	private static final float MIN_WALK_VELOCITY = 0.001f;
 
 	public final Vector2 accel = new Vector2(0f, 0f);
 	public final Vector2 vel = new Vector2(0f, 0f);
@@ -26,6 +25,10 @@ public class Entity {
 	private Rectangle[] r = { new Rectangle(), new Rectangle(),
 			new Rectangle(), new Rectangle() };
 	public int[][] tiles;
+
+	public float getMaxVelocity() {
+		return VEL_MAX;
+	}
 
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT;
@@ -40,6 +43,7 @@ public class Entity {
 		this.width = width;
 		this.height = height;
 		bounds.set(x, y, width, height);
+		state = EntityState.IDLE;
 	}
 
 	public void render(float delta, SpriteBatch batch) {
@@ -48,36 +52,43 @@ public class Entity {
 
 	public void update(float fixedStep) {
 		tryMove();
-		vel.add(accel.x, accel.y);
-		if (vel.x > VEL_MAX) {
-			vel.x = VEL_MAX;
+
+		vel.add(accel);
+		if (vel.x > getMaxVelocity()) {
+			vel.x = getMaxVelocity();
 		}
-		if (vel.x < -VEL_MAX) {
-			vel.x = -VEL_MAX;
+		if (vel.x < -getMaxVelocity()) {
+			vel.x = -getMaxVelocity();
 		}
-		if (vel.y > VEL_MAX) {
-			vel.y = VEL_MAX;
+		if (vel.y > getMaxVelocity()) {
+			vel.y = getMaxVelocity();
 		}
-		if (vel.y < -VEL_MAX) {
-			vel.y = -VEL_MAX;
+		if (vel.y < -getMaxVelocity()) {
+			vel.y = -getMaxVelocity();
 		}
 		accel.scl(fixedStep);
-		vel.scl(fixedStep);
+
+		if (state == EntityState.WALKING) {
+			vel.lerp(Vector2.Zero, 10f * fixedStep);
+		} else {
+			vel.scl(fixedStep);
+		}
 
 		stateTime += fixedStep;
 	}
 
-	public void moveWithVel(Direction dir) {
+	public void moveWithAccel(Direction dir) {
 		if (dir == Direction.UP) {
-			vel.y = VEL_MAX;
+			accel.y = ACCEL_MAX;
 		} else if (dir == Direction.DOWN) {
-			vel.y = -VEL_MAX;
+			accel.y = -ACCEL_MAX;
 		} else if (dir == Direction.LEFT) {
-			vel.x = -VEL_MAX;
+			accel.x = -ACCEL_MAX;
 		} else if (dir == Direction.RIGHT) {
-			vel.x = VEL_MAX;
+			accel.x = ACCEL_MAX;
 		}
 		direction = dir;
+		state = EntityState.WALKING;
 	}
 
 	protected void tryMove() {
@@ -148,6 +159,7 @@ public class Entity {
 	public boolean isNotWalking() {
 		if (vel.x > -MIN_WALK_VELOCITY && vel.x < MIN_WALK_VELOCITY
 				&& vel.y > -MIN_WALK_VELOCITY && vel.y < MIN_WALK_VELOCITY) {
+			state = EntityState.IDLE;
 			return true;
 		}
 		return false;

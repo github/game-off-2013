@@ -57,7 +57,62 @@ public class Assets {
 		assetManager.load(TEXTURE_FONT_SMALL_WHITE, Texture.class);
 
 		finishLoading();
+		setupAssets();
+		setupPieceTemplates();
+	}
 
+	private static void setupPieceTemplates() {
+		final FileHandle[] pieceTemplateHandles = new FileHandle[15];
+		for (int i = 1; i <= 15; i++) {
+			pieceTemplateHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
+					+ "piecetemplates" + File.separator + i + "_piece.png");
+		}
+
+		addPieceTemplate(pieceTemplateHandles[0], new boolean[] { false, true,
+				false, false });
+		addPieceTemplate(pieceTemplateHandles[1], new boolean[] { false, true,
+				false, true });
+		addPieceTemplate(pieceTemplateHandles[2], new boolean[] { false, false,
+				false, true });
+		addPieceTemplate(pieceTemplateHandles[3], new boolean[] { false, false,
+				true, false });
+		addPieceTemplate(pieceTemplateHandles[4], new boolean[] { true, false,
+				true, false });
+		addPieceTemplate(pieceTemplateHandles[5], new boolean[] { true, false,
+				false, false });
+		addPieceTemplate(pieceTemplateHandles[6], new boolean[] { true, true,
+				false, false });
+		addPieceTemplate(pieceTemplateHandles[7], new boolean[] { false, true,
+				true, false });
+		addPieceTemplate(pieceTemplateHandles[8], new boolean[] { false, false,
+				true, true });
+		addPieceTemplate(pieceTemplateHandles[9], new boolean[] { true, false,
+				false, true });
+		addPieceTemplate(pieceTemplateHandles[10], new boolean[] { true, true,
+				false, true });
+		addPieceTemplate(pieceTemplateHandles[11], new boolean[] { true, true,
+				true, false });
+		addPieceTemplate(pieceTemplateHandles[12], new boolean[] { false, true,
+				true, true });
+		addPieceTemplate(pieceTemplateHandles[13], new boolean[] { true, false,
+				true, true });
+		addPieceTemplate(pieceTemplateHandles[14], new boolean[] { true, true,
+				true, true });
+
+		final FileHandle[] roomObjectHandles = new FileHandle[0];
+		for (FileHandle handle : roomObjectHandles) {
+			final Pixmap pixmap = new Pixmap(handle);
+			roomObjectTemplates.add(new RoomObjectTemplate(pixmap));
+		}
+	}
+
+	private static void addPieceTemplate(FileHandle fileHandle,
+			boolean[] doorsOpen) {
+		final Pixmap pixmap = new Pixmap(fileHandle);
+		pieceTemplates.add(new PieceTemplate(pixmap, doorsOpen));
+	}
+
+	private static void setupAssets() {
 		fontBigBlack = new TextureRegion(get(TEXTURE_FONT_BIG_BLACK,
 				Texture.class)).split(8, 8)[0];
 		fontBigWhite = new TextureRegion(get(TEXTURE_FONT_BIG_WHITE,
@@ -89,22 +144,6 @@ public class Assets {
 		playerWalkLeft = new Animation(0.2f,
 				new TextureRegion[] { getGameObject("player-left-1"),
 						getGameObject("player-left-2"), });
-
-		final FileHandle[] pieceTemplateHandles = new FileHandle[15];
-		for (int i = 1; i <= 15; i++) {
-			pieceTemplateHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
-					+ "piecetemplates" + File.separator + i + "_piece.png");
-		}
-		for (FileHandle handle : pieceTemplateHandles) {
-			final Pixmap pixmap = new Pixmap(handle);
-			pieceTemplates.add(new PieceTemplate(pixmap));
-		}
-
-		final FileHandle[] roomObjectHandles = new FileHandle[0];
-		for (FileHandle handle : roomObjectHandles) {
-			final Pixmap pixmap = new Pixmap(handle);
-			roomObjectTemplates.add(new RoomObjectTemplate(pixmap));
-		}
 	}
 
 	public static TextureRegion getGameObject(String objectName) {

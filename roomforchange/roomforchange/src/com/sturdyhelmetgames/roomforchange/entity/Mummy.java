@@ -20,6 +20,11 @@ public class Mummy extends Entity {
 	}
 
 	@Override
+	public float getMaxVelocity() {
+		return 0.03f;
+	}
+
+	@Override
 	public void render(float delta, SpriteBatch batch) {
 		super.render(delta, batch);
 		Animation animation = null;
