@@ -28,7 +28,7 @@ public class LabyrinthUtilTest {
 		final LevelTile[][] tiles = new LevelTile[12][8];
 		for (int x = 0; x < 12; x++) {
 			for (int y = 0; y < 8; y++) {
-				tiles[x][y] = new LevelTile(LevelTileType.GROUND);
+				tiles[x][y] = new LevelTile(null, LevelTileType.GROUND);
 			}
 		}
 

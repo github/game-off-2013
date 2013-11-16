@@ -45,6 +45,9 @@ public class Level {
 				final LabyrinthPiece piece = pieceList[y];
 				if (player.bounds.overlaps(piece.getBounds())) {
 					currentPiecePos.set(x, y);
+					if (!piece.lightsOn) {
+						piece.lightsOn = true;
+					}
 					return currentPiecePos;
 				}
 			}
@@ -77,14 +80,22 @@ public class Level {
 	}
 
 	public static enum LevelTileType {
-		GROUND(false), WALL_CORNER(true), WALL_LEFT(true), WALL_RIGHT(true), WALL_FRONT(
-				true), WALL_BACK(true), DOOR(true), EXIT(false), HOLE(false), ROCK(
-				true);
+		GROUND(false, "ground-1"), WALL_CORNER(true, "brick-corner"), WALL_LEFT(
+				true, "brick-left"), WALL_RIGHT(true, "brick-right"), WALL_FRONT(
+				true, "brick-front"), WALL_BACK(true, "brick-back"), DOOR(true,
+				"door"), EXIT(false, "exit"), HOLE(false, "hole"), ROCK(true,
+				"rock");
 
 		private final boolean collidable;
+		private final String objectName;
 
-		private LevelTileType(boolean collidable) {
+		private LevelTileType(boolean collidable, String objectName) {
 			this.collidable = collidable;
+			this.objectName = objectName;
+		}
+
+		public String getObjectName() {
+			return objectName;
 		}
 
 		public boolean isExit() {
@@ -103,32 +114,24 @@ public class Level {
 	}
 
 	public static class LevelTile {
+		public final LabyrinthPiece parent;
 		public final LevelTileType type;
 
-		public LevelTile(LevelTileType type) {
+		public LevelTile(LabyrinthPiece parent, LevelTileType type) {
+			this.parent = parent;
 			this.type = type;
 		}
 
-		public void render(float delta, SpriteBatch batch, float x, float y) {
-			if (type == LevelTileType.GROUND) {
-				batch.draw(Assets.getGameObject("ground-1"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.WALL_FRONT) {
-				batch.draw(Assets.getGameObject("brick-front"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.WALL_BACK) {
-				batch.draw(Assets.getGameObject("brick-back"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.WALL_RIGHT) {
-				batch.draw(Assets.getGameObject("brick-right"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.WALL_LEFT) {
-				batch.draw(Assets.getGameObject("brick-left"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.WALL_CORNER) {
-				batch.draw(Assets.getGameObject("brick-corner"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.ROCK) {
-				batch.draw(Assets.getGameObject("rock"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.HOLE) {
-				batch.draw(Assets.getGameObject("hole"), x, y, 1f, 1f);
-			} else if (type == LevelTileType.DOOR) {
-				batch.draw(Assets.getGameObject("door"), x, y, 1f, 1f);
-			}
+		public void render(float delta, SpriteBatch batch, float x, float y,
+				boolean minimap) {
+			if (parent.lightsOn)
+				if (!minimap) {
+					batch.draw(Assets.getGameObject(type.getObjectName()), x,
+							y, 1f, 1f);
+				} else {
+					batch.draw(Assets.getGameObject(type.getObjectName()), x,
+							y, 1f, 1f);
+				}
 		}
 
 		public boolean isCollidable() {
@@ -143,11 +146,11 @@ public class Level {
 			}
 	}
 
-	public void render(float delta, SpriteBatch batch) {
+	public void render(float delta, SpriteBatch batch, boolean minimap) {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
 				final LevelTile tile = tiles[x][y];
-				tile.render(delta, batch, x, y);
+				tile.render(delta, batch, x, y, minimap);
 			}
 		}
 		for (int i = 0; i < entities.size; i++) {

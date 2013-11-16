@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.equations.Quad;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -73,12 +74,16 @@ public class GameScreen extends Basic2DScreen {
 	public void renderScreen(float delta) {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		level.render(delta, spriteBatch);
+		level.render(delta, spriteBatch, false);
 		spriteBatch.end();
 
 		batchMiniMap.setProjectionMatrix(cameraMiniMap.combined);
 		batchMiniMap.begin();
-		level.render(delta, batchMiniMap);
+		final Color origColor = batchMiniMap.getColor();
+		batchMiniMap.setColor(1f, 1f, 1f, 0.5f);
+		batchMiniMap.draw(Assets.getGameObject("black"), 0f, 0f, 48f, 32f);
+		batchMiniMap.setColor(origColor);
+		level.render(delta, batchMiniMap, true);
 		batchMiniMap.end();
 	}
 

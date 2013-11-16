@@ -35,7 +35,7 @@ public class Entity {
 	}
 
 	public enum EntityState {
-		IDLE, WALKING;
+		IDLE, WALKING, FALLING, DYING, DEAD;
 	}
 
 	public Entity(float x, float y, float width, float height, Level level) {

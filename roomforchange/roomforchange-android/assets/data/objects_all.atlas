@@ -3,198 +3,226 @@ objects_all.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+black
+  rotate: false
+  xy: 4, 48
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
 brick-back
   rotate: false
-  xy: 4, 4
+  xy: 279, 229
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-corner
   rotate: false
-  xy: 4, 4
+  xy: 279, 229
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-front
   rotate: false
-  xy: 26, 4
+  xy: 4, 26
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-left
   rotate: false
-  xy: 48, 4
+  xy: 26, 48
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-right
   rotate: false
-  xy: 70, 4
+  xy: 279, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 door
   rotate: false
-  xy: 92, 4
+  xy: 301, 229
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 ground-1
   rotate: false
-  xy: 114, 4
+  xy: 4, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 ground-2
   rotate: false
-  xy: 136, 4
+  xy: 26, 26
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 heart-empty
   rotate: false
-  xy: 158, 4
+  xy: 48, 48
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 heart-full
   rotate: false
-  xy: 180, 4
+  xy: 279, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 hole
   rotate: false
-  xy: 202, 4
+  xy: 301, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-1
   rotate: false
-  xy: 224, 4
+  xy: 323, 229
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-2
   rotate: false
-  xy: 246, 4
+  xy: 26, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-3
   rotate: false
-  xy: 268, 4
+  xy: 48, 26
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-4
   rotate: false
-  xy: 290, 4
+  xy: 70, 48
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-1
   rotate: false
-  xy: 312, 4
+  xy: 279, 163
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-2
   rotate: false
-  xy: 334, 4
+  xy: 301, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-3
   rotate: false
-  xy: 356, 4
+  xy: 323, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-4
   rotate: false
-  xy: 378, 4
+  xy: 345, 229
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-back-1
   rotate: false
-  xy: 400, 4
+  xy: 48, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-back-2
   rotate: false
-  xy: 422, 4
+  xy: 70, 26
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-back-idle
+  rotate: false
+  xy: 92, 48
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-1
   rotate: false
-  xy: 444, 4
+  xy: 279, 141
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-2
   rotate: false
-  xy: 466, 4
+  xy: 301, 163
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-front-idle
+  rotate: false
+  xy: 323, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-left-1
   rotate: false
-  xy: 488, 4
+  xy: 345, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-left-2
   rotate: false
-  xy: 510, 4
+  xy: 367, 229
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-right-1
   rotate: false
-  xy: 532, 4
+  xy: 70, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-right-2
   rotate: false
-  xy: 554, 4
+  xy: 92, 26
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
+pyramid
+  rotate: false
+  xy: 4, 70
+  size: 271, 177
+  orig: 271, 177
+  offset: 0, 0
+  index: -1
 rock
   rotate: false
-  xy: 576, 4
+  xy: 114, 48
   size: 18, 18
   orig: 18, 18
   offset: 0, 0

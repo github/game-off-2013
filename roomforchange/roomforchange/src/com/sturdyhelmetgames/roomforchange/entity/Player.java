@@ -31,8 +31,8 @@ public class Player extends Entity {
 		}
 
 		if (isNotWalking()) {
-			batch.draw(animation.getKeyFrame(0f, true), bounds.x, bounds.y,
-					width, height);
+			batch.draw(animation.getKeyFrame(0.25f), bounds.x, bounds.y, width,
+					height);
 		} else {
 			batch.draw(animation.getKeyFrame(stateTime, true), bounds.x,
 					bounds.y, width, height);

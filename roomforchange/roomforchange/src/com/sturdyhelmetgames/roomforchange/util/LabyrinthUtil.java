@@ -31,6 +31,8 @@ public class LabyrinthUtil {
 
 		updateLabyrinthTiles(level);
 
+		level.getLabyrinth()[0][0].lightsOn = true;
+
 		level.player = new Player(2, 2, level);
 		level.entities.add(level.player);
 
@@ -103,24 +105,24 @@ public class LabyrinthUtil {
 		LabyrinthPiece surroundingPiece = surroundingPieces[0];
 		if ((surroundingPiece != null && !surroundingPiece.doorsOpen[2] && piece.doorsOpen[0])
 				|| surroundingPiece == null && piece.doorsOpen[0]) {
-			tiles[5][7] = new LevelTile(LevelTileType.DOOR);
-			tiles[6][7] = new LevelTile(LevelTileType.DOOR);
+			tiles[5][7] = new LevelTile(piece, LevelTileType.DOOR);
+			tiles[6][7] = new LevelTile(piece, LevelTileType.DOOR);
 		} else {
-			tiles[5][7] = tiles[5][7].type.isNotWall() ? new LevelTile(
+			tiles[5][7] = tiles[5][7].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[5][7];
-			tiles[6][7] = tiles[6][7].type.isNotWall() ? new LevelTile(
+			tiles[6][7] = tiles[6][7].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[6][7];
 		}
 		// right piece
 		surroundingPiece = surroundingPieces[1];
 		if ((surroundingPiece != null && !surroundingPiece.doorsOpen[3] && piece.doorsOpen[1])
 				|| surroundingPiece == null && piece.doorsOpen[1]) {
-			tiles[11][3] = new LevelTile(LevelTileType.DOOR);
-			tiles[11][4] = new LevelTile(LevelTileType.DOOR);
+			tiles[11][3] = new LevelTile(piece, LevelTileType.DOOR);
+			tiles[11][4] = new LevelTile(piece, LevelTileType.DOOR);
 		} else {
-			tiles[11][3] = tiles[11][3].type.isNotWall() ? new LevelTile(
+			tiles[11][3] = tiles[11][3].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[11][3];
-			tiles[11][4] = tiles[11][4].type.isNotWall() ? new LevelTile(
+			tiles[11][4] = tiles[11][4].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[11][4];
 		}
 
@@ -128,12 +130,12 @@ public class LabyrinthUtil {
 		surroundingPiece = surroundingPieces[2];
 		if ((surroundingPiece != null && !surroundingPiece.doorsOpen[0] && piece.doorsOpen[2])
 				|| surroundingPiece == null && piece.doorsOpen[2]) {
-			tiles[5][0] = new LevelTile(LevelTileType.DOOR);
-			tiles[6][0] = new LevelTile(LevelTileType.DOOR);
+			tiles[5][0] = new LevelTile(piece, LevelTileType.DOOR);
+			tiles[6][0] = new LevelTile(piece, LevelTileType.DOOR);
 		} else {
-			tiles[5][0] = tiles[5][0].type.isNotWall() ? new LevelTile(
+			tiles[5][0] = tiles[5][0].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[5][0];
-			tiles[6][0] = tiles[6][0].type.isNotWall() ? new LevelTile(
+			tiles[6][0] = tiles[6][0].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[6][0];
 		}
 
@@ -141,12 +143,12 @@ public class LabyrinthUtil {
 		surroundingPiece = surroundingPieces[3];
 		if ((surroundingPiece != null && !surroundingPiece.doorsOpen[1] && piece.doorsOpen[3])
 				|| surroundingPiece == null && piece.doorsOpen[3]) {
-			tiles[0][3] = new LevelTile(LevelTileType.DOOR);
-			tiles[0][4] = new LevelTile(LevelTileType.DOOR);
+			tiles[0][3] = new LevelTile(piece, LevelTileType.DOOR);
+			tiles[0][4] = new LevelTile(piece, LevelTileType.DOOR);
 		} else {
-			tiles[0][3] = tiles[0][3].type.isNotWall() ? new LevelTile(
+			tiles[0][3] = tiles[0][3].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[0][3];
-			tiles[0][4] = tiles[0][4].type.isNotWall() ? new LevelTile(
+			tiles[0][4] = tiles[0][4].type.isNotWall() ? new LevelTile(piece,
 					LevelTileType.GROUND) : tiles[0][4];
 		}
 

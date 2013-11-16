@@ -142,18 +142,27 @@ public class Assets {
 				getGameObject("mummy-back-1"), getGameObject("mummy-back-2"),
 				getGameObject("mummy-back-3"), getGameObject("mummy-back-4"), });
 
-		playerWalkFront = new Animation(0.2f, new TextureRegion[] {
+		playerWalkFront = new Animation(0.15f, new TextureRegion[] {
 				getGameObject("player-front-1"),
-				getGameObject("player-front-2"), });
-		playerWalkBack = new Animation(0.2f,
-				new TextureRegion[] { getGameObject("player-back-1"),
-						getGameObject("player-back-2"), });
+				getGameObject("player-front-idle"),
+				getGameObject("player-front-2"),
+				getGameObject("player-front-idle"), });
+		playerWalkBack = new Animation(0.15f, new TextureRegion[] {
+				getGameObject("player-back-1"),
+				getGameObject("player-back-idle"),
+				getGameObject("player-back-2"),
+				getGameObject("player-back-idle"), });
 		playerWalkRight = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("player-right-1"),
 				getGameObject("player-right-2"), });
 		playerWalkLeft = new Animation(0.2f,
 				new TextureRegion[] { getGameObject("player-left-1"),
 						getGameObject("player-left-2"), });
+	}
+
+	public static TextureRegion getFullGameObject(String objectName) {
+		return get(ATLAS_FILEPATH_OBJECTS_ALL, TextureAtlas.class).findRegion(
+				objectName);
 	}
 
 	public static TextureRegion getGameObject(String objectName) {
