@@ -1,5 +1,9 @@
 package com.sturdyhelmetgames.roomforchange.screen;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
+import aurelienribon.tweenengine.equations.Quad;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,6 +13,7 @@ import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.level.Level;
+import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
 public class GameScreen extends Basic2DScreen {
@@ -17,6 +22,8 @@ public class GameScreen extends Basic2DScreen {
 	private OrthographicCamera cameraMiniMap;
 	private SpriteBatch batchMiniMap;
 	public ScreenQuake screenQuake;
+	public final Vector2 currentCamPosition = new Vector2();
+	public final TweenManager cameraTweenManager = new TweenManager();
 
 	private Level level;
 
@@ -50,12 +57,16 @@ public class GameScreen extends Basic2DScreen {
 
 		final Vector2 currentPiecePos = level
 				.findCurrentPieceRelativeToMapPosition();
-		currentPiecePos.x += 6f;
-		currentPiecePos.y += 4f;
-		camera.position.set(currentPiecePos, 0f);
+		if (!currentPiecePos.epsilonEquals(currentCamPosition, 0.1f)) {
+			Tween.to(camera.position, Vector3Accessor.POSITION_XY, 0.7f)
+					.target(currentPiecePos.x + 6f, currentPiecePos.y + 4f, 0f)
+					.ease(Quad.INOUT).start(cameraTweenManager);
+			currentCamPosition.set(currentPiecePos);
+		}
 		camera.update();
 
 		screenQuake.update(fixedStep);
+		cameraTweenManager.update(fixedStep);
 	}
 
 	@Override
