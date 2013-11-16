@@ -123,7 +123,7 @@ game.FallingPiece = me.ObjectContainer.extend({
             }
         }
 
-        dungeon.update();
+        dungeon.rebuild();
         this.reset();
     },
 

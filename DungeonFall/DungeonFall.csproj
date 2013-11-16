@@ -71,13 +71,14 @@
     <Content Include="js\screens\loading.js" />
     <Content Include="js\screens\play.js" />
     <Content Include="js\screens\title.js" />
+    <Content Include="lib\astar.js" />
+    <Content Include="lib\graph.js" />
     <Content Include="lib\melonJS-0.9.10.js" />
     <Content Include="lib\plugins\debugPanel.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\bgm\.placeholder" />
-    <None Include="lib\default.js" />
     <Content Include="index.html" />
     <None Include="Properties\PublishProfiles\DungeonFall.pubxml" />
   </ItemGroup>
