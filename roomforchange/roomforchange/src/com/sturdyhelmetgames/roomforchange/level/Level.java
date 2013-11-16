@@ -20,6 +20,8 @@ public class Level {
 	public Player player;
 	public final Array<Entity> entities = new Array<Entity>();
 
+	public boolean pauseEntities = false;
+
 	public Level(GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
 	}
@@ -109,9 +111,10 @@ public class Level {
 	}
 
 	public void update(float fixedStep) {
-		for (int i = 0; i < entities.size; i++) {
-			entities.get(i).update(fixedStep);
-		}
+		if (!pauseEntities)
+			for (int i = 0; i < entities.size; i++) {
+				entities.get(i).update(fixedStep);
+			}
 	}
 
 	public void render(float delta, SpriteBatch batch) {
@@ -141,6 +144,7 @@ public class Level {
 	}
 
 	public void moveLabyrinthPiece(int dir) {
+
 		final Vector2 currentPiecePos = findCurrentPiecePos();
 		LabyrinthPiece nextPiece = labyrinth[(int) currentPiecePos.x][(int) currentPiecePos.y];
 
@@ -238,5 +242,13 @@ public class Level {
 			break;
 		}
 		LabyrinthUtil.updateLabyrinthTiles(this);
+	}
+
+	public void pauseEntities() {
+		pauseEntities = true;
+	}
+
+	public void resumeEntities() {
+		pauseEntities = false;
 	}
 }

@@ -5,176 +5,176 @@ filter: Nearest,Nearest
 repeat: none
 brick
   rotate: false
-  xy: 4, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 4, 104
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 door
   rotate: false
-  xy: 24, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 4, 82
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 ground-1
   rotate: false
-  xy: 44, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 26, 104
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 ground-2
   rotate: false
-  xy: 64, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 4, 60
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 heart
   rotate: false
-  xy: 464, 12
+  xy: 4, 4
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 heart-empty
   rotate: false
-  xy: 84, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 26, 82
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 heart-full
   rotate: false
-  xy: 104, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 48, 104
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 heart_empty
   rotate: false
-  xy: 476, 12
+  xy: 114, 114
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 mummy-back-1
   rotate: false
-  xy: 124, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 4, 38
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-2
   rotate: false
-  xy: 144, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 26, 60
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-3
   rotate: false
-  xy: 164, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 48, 82
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-4
   rotate: false
-  xy: 184, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 70, 104
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-1
   rotate: false
-  xy: 204, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 4, 16
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-2
   rotate: false
-  xy: 224, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 26, 38
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-3
   rotate: false
-  xy: 244, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 48, 60
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-4
   rotate: false
-  xy: 264, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 70, 82
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 444, 4
+  xy: 70, 18
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 player-back-1
   rotate: false
-  xy: 284, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 92, 104
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-back-2
   rotate: false
-  xy: 304, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 26, 16
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-1
   rotate: false
-  xy: 324, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 48, 38
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-2
   rotate: false
-  xy: 344, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 70, 60
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-left-1
   rotate: false
-  xy: 364, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 92, 82
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-left-2
   rotate: false
-  xy: 384, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 48, 16
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-right-1
   rotate: false
-  xy: 404, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 70, 38
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 player-right-2
   rotate: false
-  xy: 424, 4
-  size: 16, 16
-  orig: 16, 16
+  xy: 92, 60
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1

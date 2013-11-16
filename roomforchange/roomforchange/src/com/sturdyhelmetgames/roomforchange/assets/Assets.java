@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,8 +22,12 @@ public class Assets {
 
 	public static final String ATLAS_FILE_OBJECTS_ALL = "objects_all";
 	private static final String FOLDER_DATA = "data/";
+	private static final String FOLDER_SOUNDS = "data/sounds/";
 	private static final String ATLAS_FILEPATH_OBJECTS_ALL = FOLDER_DATA
 			+ ATLAS_FILE_OBJECTS_ALL + ".atlas";
+
+	public static final String SOUND_STONEDOOR = FOLDER_SOUNDS
+			+ "stonedoor.mp3";
 
 	public static final String TEXTURE_FONT_BIG_BLACK = FOLDER_DATA
 			+ "font-big-black.png";
@@ -55,6 +60,7 @@ public class Assets {
 		assetManager.load(TEXTURE_FONT_BIG_WHITE, Texture.class);
 		assetManager.load(TEXTURE_FONT_SMALL_BLACK, Texture.class);
 		assetManager.load(TEXTURE_FONT_SMALL_WHITE, Texture.class);
+		assetManager.load(SOUND_STONEDOOR, Sound.class);
 
 		finishLoading();
 		setupAssets();
@@ -147,8 +153,12 @@ public class Assets {
 	}
 
 	public static TextureRegion getGameObject(String objectName) {
-		return get(ATLAS_FILEPATH_OBJECTS_ALL, TextureAtlas.class).findRegion(
-				objectName);
+		return new TextureRegion(get(ATLAS_FILEPATH_OBJECTS_ALL,
+				TextureAtlas.class).findRegion(objectName), 1, 1, 16, 16);
+	}
+
+	public static Sound getGameSound(String soundName) {
+		return assetManager.get(soundName, Sound.class);
 	}
 
 	public static boolean update() {

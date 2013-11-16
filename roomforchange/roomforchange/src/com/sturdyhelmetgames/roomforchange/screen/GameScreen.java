@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
+import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
@@ -15,15 +16,18 @@ public class GameScreen extends Basic2DScreen {
 	public static final int SCALE = 10;
 	private OrthographicCamera cameraMiniMap;
 	private SpriteBatch batchMiniMap;
+	public ScreenQuake screenQuake;
 
 	private Level level;
 
 	public GameScreen() {
 		super();
+		screenQuake = new ScreenQuake(camera);
 	}
 
 	public GameScreen(RoomForChangeGame game) {
 		super(game, 12, 8);
+		screenQuake = new ScreenQuake(camera);
 
 		camera.position.set(6f, 4f, 0f);
 		camera.update();
@@ -50,6 +54,8 @@ public class GameScreen extends Basic2DScreen {
 		currentPiecePos.y += 4f;
 		camera.position.set(currentPiecePos, 0f);
 		camera.update();
+
+		screenQuake.update(fixedStep);
 	}
 
 	@Override
@@ -95,19 +101,19 @@ public class GameScreen extends Basic2DScreen {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
-			level.moveLabyrinthPiece(Level.UP);
+			startScreenQuake(Level.UP);
 			return true;
 		}
 		if (keycode == Keys.S) {
-			level.moveLabyrinthPiece(Level.DOWN);
+			startScreenQuake(Level.DOWN);
 			return true;
 		}
 		if (keycode == Keys.A) {
-			level.moveLabyrinthPiece(Level.LEFT);
+			startScreenQuake(Level.LEFT);
 			return true;
 		}
 		if (keycode == Keys.D) {
-			level.moveLabyrinthPiece(Level.RIGHT);
+			startScreenQuake(Level.RIGHT);
 			return true;
 		}
 		return super.keyDown(keycode);
@@ -125,4 +131,15 @@ public class GameScreen extends Basic2DScreen {
 		camera.update();
 	}
 
+	public void startScreenQuake(final int dir) {
+		screenQuake.activate(2.8f, new Runnable() {
+			@Override
+			public void run() {
+				level.resumeEntities();
+				level.moveLabyrinthPiece(dir);
+			}
+		});
+		Assets.getGameSound(Assets.SOUND_STONEDOOR).play(0.5f, 1.5f, 0f);
+		level.pauseEntities();
+	}
 }
