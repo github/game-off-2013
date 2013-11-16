@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
+import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
@@ -14,6 +15,7 @@ public class Level {
 	private final GameScreen gameScreen;
 	private LabyrinthPiece[][] labyrinth;
 	private LevelTile[][] tiles;
+
 	private final Vector2 currentPiecePos = new Vector2();
 	private final Vector2 piecePos = new Vector2();
 
@@ -45,15 +47,13 @@ public class Level {
 				final LabyrinthPiece piece = pieceList[y];
 				if (player.bounds.overlaps(piece.getBounds())) {
 					currentPiecePos.set(x, y);
-					if (!piece.lightsOn) {
-						piece.lightsOn = true;
-					}
-					return currentPiecePos;
+					piece.state = LabyrinthPieceState.LIGHTS_ON;
+				} else if (piece.state == LabyrinthPieceState.LIGHTS_ON) {
+					piece.state = LabyrinthPieceState.LIGHTS_DIMMED;
 				}
 			}
 		}
-		throw new RuntimeException(
-				"No LabyrinthPiece found for player position!");
+		return currentPiecePos;
 	}
 
 	public Vector2 findCurrentPieceRelativeToMapPosition() {
@@ -124,7 +124,7 @@ public class Level {
 
 		public void render(float delta, SpriteBatch batch, float x, float y,
 				boolean minimap) {
-			if (parent.lightsOn)
+			if (parent.state == LabyrinthPieceState.LIGHTS_ON) {
 				if (!minimap) {
 					batch.draw(Assets.getGameObject(type.getObjectName()), x,
 							y, 1f, 1f);
@@ -132,6 +132,20 @@ public class Level {
 					batch.draw(Assets.getGameObject(type.getObjectName()), x,
 							y, 1f, 1f);
 				}
+			} else {
+				if (parent.state != LabyrinthPieceState.LIGHTS_OFF) {
+					batch.draw(Assets.getGameObject(type.getObjectName()), x,
+							y, 1f, 1f);
+				}
+				if (minimap
+						&& parent.state == LabyrinthPieceState.LIGHTS_DIMMED) {
+					final com.badlogic.gdx.graphics.Color origColor = batch
+							.getColor();
+					batch.setColor(1f, 1f, 1f, 0.3f);
+					batch.draw(Assets.getFullGameObject("black"), x, y, 1f, 1f);
+					batch.setColor(origColor);
+				}
+			}
 		}
 
 		public boolean isCollidable() {

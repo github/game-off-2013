@@ -12,7 +12,12 @@ public class LabyrinthPiece {
 	private final Rectangle bounds = new Rectangle();
 	private final int orderNumber;
 	public final boolean[] doorsOpen = new boolean[4];
-	public boolean lightsOn = false;
+
+	public LabyrinthPieceState state = LabyrinthPieceState.LIGHTS_OFF;
+
+	public enum LabyrinthPieceState {
+		LIGHTS_OFF, LIGHTS_ON, LIGHTS_DIMMED;
+	}
 
 	public LevelTile[][] getTiles() {
 		return tiles;
