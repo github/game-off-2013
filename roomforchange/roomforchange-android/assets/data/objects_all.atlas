@@ -269,3 +269,66 @@ rock
   orig: 18, 18
   offset: 0, 0
   index: -1
+snake-back-1
+  rotate: false
+  xy: 296, 39
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-back-2
+  rotate: false
+  xy: 337, 185
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-back-3
+  rotate: false
+  xy: 76, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-front-1
+  rotate: false
+  xy: 98, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-front-2
+  rotate: false
+  xy: 120, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-front-3
+  rotate: false
+  xy: 142, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-left-1
+  rotate: false
+  xy: 164, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-left-2
+  rotate: false
+  xy: 186, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+snake-left-3
+  rotate: false
+  xy: 208, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1

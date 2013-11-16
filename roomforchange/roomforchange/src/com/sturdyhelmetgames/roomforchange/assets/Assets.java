@@ -45,6 +45,11 @@ public class Assets {
 	public static Animation mummyWalkFront;
 	public static Animation mummyWalkBack;
 
+	public static Animation snakeWalkFront;
+	public static Animation snakeWalkBack;
+	public static Animation snakeWalkRight;
+	public static Animation snakeWalkLeft;
+
 	public static Animation playerWalkFront;
 	public static Animation playerWalkBack;
 	public static Animation playerWalkRight;
@@ -137,6 +142,24 @@ public class Assets {
 						getGameObject("mummy-front-2"),
 						getGameObject("mummy-front-3"),
 						getGameObject("mummy-front-4"), });
+
+		snakeWalkFront = new Animation(0.1f, new TextureRegion[] {
+				getGameObject("snake-front-1"), getGameObject("snake-front-2"),
+				getGameObject("snake-front-3") });
+		snakeWalkBack = new Animation(0.1f, new TextureRegion[] {
+				getGameObject("snake-back-1"), getGameObject("snake-back-2"),
+				getGameObject("snake-back-3") });
+
+		final TextureRegion[] snakeLeftRegions = new TextureRegion[] {
+				getGameObject("snake-left-1"), getGameObject("snake-left-2"),
+				getGameObject("snake-left-3") };
+		snakeWalkLeft = new Animation(0.1f, snakeLeftRegions);
+		final TextureRegion[] snakeRightRegions = new TextureRegion[snakeLeftRegions.length];
+		for (int i = 0; i < snakeLeftRegions.length; i++) {
+			snakeRightRegions[i] = new TextureRegion(snakeLeftRegions[i]);
+			snakeRightRegions[i].flip(true, false);
+		}
+		snakeWalkRight = new Animation(0.1f, snakeRightRegions);
 
 		mummyWalkBack = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("mummy-back-1"), getGameObject("mummy-back-2"),

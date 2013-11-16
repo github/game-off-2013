@@ -15,6 +15,7 @@ public class Entity {
 
 	public static final float ACCEL_MAX = 2f;
 	public static final float VEL_MAX = 0.05f;
+	public static final float INERTIA = 10f;
 	private static final float MIN_WALK_VELOCITY = 0.001f;
 
 	public final Vector2 accel = new Vector2(0f, 0f);
@@ -30,8 +31,40 @@ public class Entity {
 		return VEL_MAX;
 	}
 
+	public float getInertia() {
+		return INERTIA;
+	}
+
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT;
+
+		public Direction turnLeft() {
+			switch (this) {
+			case UP:
+				return LEFT;
+			case DOWN:
+				return RIGHT;
+			case LEFT:
+				return DOWN;
+			case RIGHT:
+				return UP;
+			}
+			return UP;
+		}
+
+		public Direction turnRight() {
+			switch (this) {
+			case UP:
+				return RIGHT;
+			case DOWN:
+				return LEFT;
+			case LEFT:
+				return UP;
+			case RIGHT:
+				return DOWN;
+			}
+			return DOWN;
+		}
 	}
 
 	public enum EntityState {
@@ -69,7 +102,7 @@ public class Entity {
 		accel.scl(fixedStep);
 
 		if (state == EntityState.WALKING) {
-			vel.lerp(Vector2.Zero, 10f * fixedStep);
+			vel.lerp(Vector2.Zero, getInertia() * fixedStep);
 		} else {
 			vel.scl(fixedStep);
 		}
@@ -102,6 +135,7 @@ public class Entity {
 				} else
 					bounds.y = rect.y - bounds.height - 0.01f;
 				vel.y = 0;
+				hitWallHook();
 			}
 		}
 
@@ -115,6 +149,7 @@ public class Entity {
 				else
 					bounds.x = rect.x - bounds.width - 0.01f;
 				vel.x = 0;
+				hitWallHook();
 			}
 		}
 	}
@@ -167,6 +202,10 @@ public class Entity {
 
 	public void hit(Rectangle hitBounds) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void hitWallHook() {
 
 	}
 }

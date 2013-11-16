@@ -4,6 +4,7 @@ import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Lever;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
+import com.sturdyhelmetgames.roomforchange.entity.Snake;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.level.Level;
@@ -40,6 +41,7 @@ public class LabyrinthUtil {
 		level.entities.add(new Lever(5f, 5f, level));
 
 		level.entities.add(new Mummy(10f, 5f, level));
+		level.entities.add(new Snake(10f, 5f, level));
 
 		return level;
 	}
