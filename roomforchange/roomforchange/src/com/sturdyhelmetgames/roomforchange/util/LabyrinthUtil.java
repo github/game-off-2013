@@ -23,9 +23,8 @@ public class LabyrinthUtil {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				level.getLabyrinth()[x][y] = new LabyrinthPiece(
-						Assets.getRandomPieceTemplate(), null, i);
-				// level.getLabyrinth()[x][y] = new LabyrinthPiece(
-				// Assets.pieceTemplates.get(3), null, i);
+						Assets.getRandomPieceTemplate(),
+						Assets.getRandomRoomTemplate(), i);
 				i++;
 			}
 		}
@@ -73,30 +72,24 @@ public class LabyrinthUtil {
 			LabyrinthPiece piece) {
 
 		LabyrinthPiece labyrinthPiece = null;
-		try {
-			labyrinthPiece = labyrinth[x][y + 1];
-		} catch (ArrayIndexOutOfBoundsException e) {
+		int yPos = y + 1;
+		if (yPos < labyrinth[0].length)
+			labyrinthPiece = labyrinth[x][yPos];
 
-		}
 		LabyrinthPiece labyrinthPiece2 = null;
-		try {
-			labyrinthPiece2 = labyrinth[x + 1][y];
-		} catch (ArrayIndexOutOfBoundsException e) {
+		int xPos = x + 1;
+		if (xPos < labyrinth.length)
+			labyrinthPiece2 = labyrinth[xPos][y];
 
-		}
 		LabyrinthPiece labyrinthPiece3 = null;
-		try {
-			labyrinthPiece3 = labyrinth[x][y - 1];
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
+		yPos = y - 1;
+		if (yPos >= 0)
+			labyrinthPiece3 = labyrinth[x][yPos];
 
 		LabyrinthPiece labyrinthPiece4 = null;
-		try {
-			labyrinthPiece4 = labyrinth[x - 1][y];
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
+		xPos = x - 1;
+		if (xPos >= 0)
+			labyrinthPiece4 = labyrinth[xPos][y];
 
 		setDoorClosed(piece, new LabyrinthPiece[] { labyrinthPiece,
 				labyrinthPiece2, labyrinthPiece3, labyrinthPiece4 });
@@ -113,9 +106,9 @@ public class LabyrinthUtil {
 			tiles[5][7] = new LevelTile(LevelTileType.DOOR);
 			tiles[6][7] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[5][7] = tiles[5][7].type != LevelTileType.WALL ? new LevelTile(
+			tiles[5][7] = tiles[5][7].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[5][7];
-			tiles[6][7] = tiles[6][7].type != LevelTileType.WALL ? new LevelTile(
+			tiles[6][7] = tiles[6][7].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[6][7];
 		}
 		// right piece
@@ -125,9 +118,9 @@ public class LabyrinthUtil {
 			tiles[11][3] = new LevelTile(LevelTileType.DOOR);
 			tiles[11][4] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[11][3] = tiles[11][3].type != LevelTileType.WALL ? new LevelTile(
+			tiles[11][3] = tiles[11][3].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[11][3];
-			tiles[11][4] = tiles[11][4].type != LevelTileType.WALL ? new LevelTile(
+			tiles[11][4] = tiles[11][4].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[11][4];
 		}
 
@@ -138,9 +131,9 @@ public class LabyrinthUtil {
 			tiles[5][0] = new LevelTile(LevelTileType.DOOR);
 			tiles[6][0] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[5][0] = tiles[5][0].type != LevelTileType.WALL ? new LevelTile(
+			tiles[5][0] = tiles[5][0].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[5][0];
-			tiles[6][0] = tiles[6][0].type != LevelTileType.WALL ? new LevelTile(
+			tiles[6][0] = tiles[6][0].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[6][0];
 		}
 
@@ -151,9 +144,9 @@ public class LabyrinthUtil {
 			tiles[0][3] = new LevelTile(LevelTileType.DOOR);
 			tiles[0][4] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[0][3] = tiles[0][3].type != LevelTileType.WALL ? new LevelTile(
+			tiles[0][3] = tiles[0][3].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[0][3];
-			tiles[0][4] = tiles[0][4].type != LevelTileType.WALL ? new LevelTile(
+			tiles[0][4] = tiles[0][4].type != LevelTileType.WALL_FRONT ? new LevelTile(
 					LevelTileType.GROUND) : tiles[0][4];
 		}
 

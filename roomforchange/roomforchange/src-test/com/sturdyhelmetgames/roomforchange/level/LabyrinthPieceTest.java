@@ -20,8 +20,8 @@ public class LabyrinthPieceTest {
 		}
 
 		PieceTemplate pieceTemplate = Mockito.mock(PieceTemplate.class);
-		RoomObjectTemplate roomObjectTemplate = Mockito
-				.mock(RoomObjectTemplate.class);
+		RoomTemplate roomObjectTemplate = Mockito
+				.mock(RoomTemplate.class);
 		Mockito.when(pieceTemplate.getTileTypes()).thenReturn(tileTypes);
 
 		LabyrinthPiece piece = new LabyrinthPiece(pieceTemplate,

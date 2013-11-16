@@ -3,16 +3,24 @@ package com.sturdyhelmetgames.roomforchange.level;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.sturdyhelmetgames.roomforchange.level.Level.LevelTileType;
 
-public class RoomObjectTemplate {
+public class RoomTemplate {
 
-	private static final int WIDTH = 10;
-	private static final int HEIGHT = 6;
-	public final LevelTileType[][] tileTypes;
-	public final Pixmap pixmap;
+	public static final int WIDTH = 10;
+	public static final int HEIGHT = 6;
+	private final LevelTileType[][] tileTypes;
+	private final Pixmap pixmap;
+
+	public Pixmap getPixmap() {
+		return pixmap;
+	}
+
+	public LevelTileType[][] getTileTypes() {
+		return tileTypes;
+	}
 
 	// TODO add entity and object types also
 
-	public RoomObjectTemplate(Pixmap pixmap) {
+	public RoomTemplate(Pixmap pixmap) {
 		this.pixmap = pixmap;
 		tileTypes = new LevelTileType[WIDTH][HEIGHT];
 		if (pixmap.getWidth() > WIDTH || pixmap.getHeight() > HEIGHT) {
@@ -22,8 +30,12 @@ public class RoomObjectTemplate {
 		for (int x = 0; x < pixmap.getWidth(); x++) {
 			for (int y = 0; y < pixmap.getHeight(); y++) {
 				int pixel = pixmap.getPixel(x, y);
-				if (pixel == 255) {
-					tileTypes[x][y] = LevelTileType.WALL;
+				if (pixel == Color.BLACK) {
+					tileTypes[x][y] = LevelTileType.WALL_FRONT;
+				} else if (pixel == Color.RED) {
+					tileTypes[x][y] = LevelTileType.HOLE;
+				} else if (pixel == Color.BLUE) {
+					tileTypes[x][y] = LevelTileType.ROCK;
 				} else {
 					tileTypes[x][y] = LevelTileType.GROUND;
 				}

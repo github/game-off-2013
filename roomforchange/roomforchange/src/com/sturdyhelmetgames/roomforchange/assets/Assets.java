@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.level.PieceTemplate;
-import com.sturdyhelmetgames.roomforchange.level.RoomObjectTemplate;
+import com.sturdyhelmetgames.roomforchange.level.RoomTemplate;
 
 public class Assets {
 
@@ -51,7 +51,7 @@ public class Assets {
 	public static Animation playerWalkLeft;
 
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
-	public static final Array<RoomObjectTemplate> roomObjectTemplates = new Array<RoomObjectTemplate>();
+	public static final Array<RoomTemplate> roomTemplates = new Array<RoomTemplate>();
 
 	public static void loadGameData() {
 		assetManager.load(ATLAS_FILEPATH_OBJECTS_ALL, TextureAtlas.class);
@@ -105,10 +105,14 @@ public class Assets {
 		addPieceTemplate(pieceTemplateHandles[14], new boolean[] { true, true,
 				true, true });
 
-		final FileHandle[] roomObjectHandles = new FileHandle[0];
+		final FileHandle[] roomObjectHandles = new FileHandle[7];
+		for (int i = 1; i <= 7; i++) {
+			roomObjectHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
+					+ "roomtemplates" + File.separator + i + "_piece.png");
+		}
 		for (FileHandle handle : roomObjectHandles) {
 			final Pixmap pixmap = new Pixmap(handle);
-			roomObjectTemplates.add(new RoomObjectTemplate(pixmap));
+			roomTemplates.add(new RoomTemplate(pixmap));
 		}
 	}
 
@@ -184,19 +188,18 @@ public class Assets {
 		}
 		pieceTemplates.clear();
 
-		for (int i = 0; i < roomObjectTemplates.size; i++) {
-			roomObjectTemplates.get(i).pixmap.dispose();
+		for (int i = 0; i < roomTemplates.size; i++) {
+			roomTemplates.get(i).getPixmap().dispose();
 		}
-		roomObjectTemplates.clear();
+		roomTemplates.clear();
 	}
 
 	public static PieceTemplate getRandomPieceTemplate() {
 		return pieceTemplates.get(MathUtils.random(pieceTemplates.size - 1));
 	}
 
-	public static RoomObjectTemplate getRandomRoomObjectTemplate() {
-		return roomObjectTemplates.get(MathUtils
-				.random(roomObjectTemplates.size));
+	public static RoomTemplate getRandomRoomTemplate() {
+		return roomTemplates.get(MathUtils.random(roomTemplates.size - 1));
 	}
 
 }

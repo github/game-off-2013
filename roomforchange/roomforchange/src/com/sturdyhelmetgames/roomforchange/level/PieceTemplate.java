@@ -36,8 +36,16 @@ public class PieceTemplate {
 		for (int x = 0; x < pixmap.getWidth(); x++) {
 			for (int y = pixmap.getHeight() - 1; y >= 0; y--) {
 				int pixel = pixmap.getPixel(x, yFlip);
-				if (pixel == 255) {
-					tileTypes[x][y] = LevelTileType.WALL;
+				if (pixel == Color.BLUE) {
+					tileTypes[x][y] = LevelTileType.WALL_CORNER;
+				} else if (pixel == Color.BLACK) {
+					tileTypes[x][y] = LevelTileType.WALL_FRONT;
+				} else if (pixel == Color.GREEN) {
+					tileTypes[x][y] = LevelTileType.WALL_RIGHT;
+				} else if (pixel == Color.RED) {
+					tileTypes[x][y] = LevelTileType.WALL_LEFT;
+				} else if (pixel == Color.YELLOW) {
+					tileTypes[x][y] = LevelTileType.WALL_BACK;
 				} else {
 					tileTypes[x][y] = LevelTileType.GROUND;
 				}

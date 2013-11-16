@@ -22,17 +22,24 @@ public class LabyrinthPiece {
 	}
 
 	public LabyrinthPiece(PieceTemplate pieceTemplate,
-			RoomObjectTemplate roomObjectTemplate, int orderNumber) {
+			RoomTemplate roomTemplate, int orderNumber) {
 		tiles = new LevelTile[WIDTH][HEIGHT];
 		this.orderNumber = orderNumber;
 		for (int i = 0; i < pieceTemplate.doorsOpen.length; i++) {
 			this.doorsOpen[i] = pieceTemplate.doorsOpen[i];
 		}
 
-		final LevelTileType[][] pcs = pieceTemplate.getTileTypes();
+		LevelTileType[][] pcs = pieceTemplate.getTileTypes();
 		for (int x = 0; x < PieceTemplate.WIDTH; x++) {
 			for (int y = 0; y < PieceTemplate.HEIGHT; y++) {
 				tiles[x][y] = new LevelTile(pcs[x][y]);
+			}
+		}
+
+		pcs = roomTemplate.getTileTypes();
+		for (int x = 0; x < RoomTemplate.WIDTH; x++) {
+			for (int y = 0; y < RoomTemplate.HEIGHT; y++) {
+				tiles[x + 1][y + 1] = new LevelTile(pcs[x][y]);
 			}
 		}
 
