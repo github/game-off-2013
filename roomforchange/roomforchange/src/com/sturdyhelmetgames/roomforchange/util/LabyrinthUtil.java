@@ -106,9 +106,9 @@ public class LabyrinthUtil {
 			tiles[5][7] = new LevelTile(LevelTileType.DOOR);
 			tiles[6][7] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[5][7] = tiles[5][7].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[5][7] = tiles[5][7].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[5][7];
-			tiles[6][7] = tiles[6][7].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[6][7] = tiles[6][7].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[6][7];
 		}
 		// right piece
@@ -118,9 +118,9 @@ public class LabyrinthUtil {
 			tiles[11][3] = new LevelTile(LevelTileType.DOOR);
 			tiles[11][4] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[11][3] = tiles[11][3].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[11][3] = tiles[11][3].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[11][3];
-			tiles[11][4] = tiles[11][4].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[11][4] = tiles[11][4].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[11][4];
 		}
 
@@ -131,9 +131,9 @@ public class LabyrinthUtil {
 			tiles[5][0] = new LevelTile(LevelTileType.DOOR);
 			tiles[6][0] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[5][0] = tiles[5][0].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[5][0] = tiles[5][0].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[5][0];
-			tiles[6][0] = tiles[6][0].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[6][0] = tiles[6][0].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[6][0];
 		}
 
@@ -144,9 +144,9 @@ public class LabyrinthUtil {
 			tiles[0][3] = new LevelTile(LevelTileType.DOOR);
 			tiles[0][4] = new LevelTile(LevelTileType.DOOR);
 		} else {
-			tiles[0][3] = tiles[0][3].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[0][3] = tiles[0][3].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[0][3];
-			tiles[0][4] = tiles[0][4].type != LevelTileType.WALL_FRONT ? new LevelTile(
+			tiles[0][4] = tiles[0][4].type.isNotWall() ? new LevelTile(
 					LevelTileType.GROUND) : tiles[0][4];
 		}
 

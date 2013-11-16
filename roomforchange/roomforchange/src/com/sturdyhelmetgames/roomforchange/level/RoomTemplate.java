@@ -27,9 +27,11 @@ public class RoomTemplate {
 			throw new IllegalArgumentException(
 					"Template is too big! Should be 10x6px.");
 		}
+
+		int yFlip = 0;
 		for (int x = 0; x < pixmap.getWidth(); x++) {
-			for (int y = 0; y < pixmap.getHeight(); y++) {
-				int pixel = pixmap.getPixel(x, y);
+			for (int y = pixmap.getHeight() - 1; y >= 0; y--) {
+				int pixel = pixmap.getPixel(x, yFlip);
 				if (pixel == Color.BLACK) {
 					tileTypes[x][y] = LevelTileType.WALL_FRONT;
 				} else if (pixel == Color.RED) {
@@ -39,7 +41,9 @@ public class RoomTemplate {
 				} else {
 					tileTypes[x][y] = LevelTileType.GROUND;
 				}
+				yFlip++;
 			}
+			yFlip = 0;
 		}
 	}
 

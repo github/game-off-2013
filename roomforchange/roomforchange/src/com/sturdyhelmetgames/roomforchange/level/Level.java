@@ -91,6 +91,12 @@ public class Level {
 			return this == EXIT;
 		}
 
+		public boolean isNotWall() {
+			return this != WALL_CORNER && this != WALL_BACK
+					&& this != WALL_FRONT && this != WALL_LEFT
+					&& this != WALL_RIGHT;
+		}
+
 		public boolean isCollidable() {
 			return collidable;
 		}
