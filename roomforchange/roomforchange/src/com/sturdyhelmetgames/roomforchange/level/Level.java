@@ -12,7 +12,7 @@ import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
 public class Level {
 
-	private final GameScreen gameScreen;
+	public final GameScreen gameScreen;
 	private LabyrinthPiece[][] labyrinth;
 	private LevelTile[][] tiles;
 
@@ -168,8 +168,11 @@ public class Level {
 			}
 		}
 		for (int i = 0; i < entities.size; i++) {
-			entities.get(i).render(delta, batch);
+			final Entity entity = entities.get(i);
+			if (entity != player)
+				entity.render(delta, batch);
 		}
+		player.render(delta, batch);
 	}
 
 	public static final int LEFT = 0;

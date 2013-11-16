@@ -5,224 +5,266 @@ filter: Nearest,Nearest
 repeat: none
 black
   rotate: false
-  xy: 4, 48
+  xy: 4, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-back
   rotate: false
-  xy: 279, 229
+  xy: 76, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-corner
   rotate: false
-  xy: 279, 229
+  xy: 76, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-front
   rotate: false
-  xy: 4, 26
+  xy: 279, 149
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-left
   rotate: false
-  xy: 26, 48
+  xy: 315, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 brick-right
   rotate: false
-  xy: 279, 207
+  xy: 351, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 door
   rotate: false
-  xy: 301, 229
+  xy: 26, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 ground-1
   rotate: false
-  xy: 4, 4
+  xy: 98, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 ground-2
   rotate: false
-  xy: 26, 26
+  xy: 279, 127
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 heart-empty
   rotate: false
-  xy: 48, 48
+  xy: 373, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 heart-full
   rotate: false
-  xy: 279, 185
+  xy: 48, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 hole
   rotate: false
-  xy: 301, 207
+  xy: 120, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
+lever
+  rotate: false
+  xy: 279, 105
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+lever-down
+  rotate: false
+  xy: 4, 26
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+lever-left
+  rotate: false
+  xy: 279, 207
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+lever-neutral
+  rotate: false
+  xy: 40, 26
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+lever-right
+  rotate: false
+  xy: 279, 171
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+lever-up
+  rotate: false
+  xy: 315, 207
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 mummy-back-1
   rotate: false
-  xy: 323, 229
+  xy: 395, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-2
   rotate: false
-  xy: 26, 4
+  xy: 142, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-3
   rotate: false
-  xy: 48, 26
+  xy: 279, 83
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-4
   rotate: false
-  xy: 70, 48
+  xy: 417, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-1
   rotate: false
-  xy: 279, 163
+  xy: 164, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-2
   rotate: false
-  xy: 301, 185
+  xy: 439, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-3
   rotate: false
-  xy: 323, 207
+  xy: 186, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-front-4
   rotate: false
-  xy: 345, 229
+  xy: 461, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-back-1
   rotate: false
-  xy: 48, 4
+  xy: 208, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-back-2
   rotate: false
-  xy: 70, 26
+  xy: 483, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-back-idle
   rotate: false
-  xy: 92, 48
+  xy: 230, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-1
   rotate: false
-  xy: 279, 141
+  xy: 252, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-2
   rotate: false
-  xy: 301, 163
+  xy: 279, 61
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-front-idle
   rotate: false
-  xy: 323, 185
+  xy: 274, 39
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-left-1
   rotate: false
-  xy: 345, 207
+  xy: 301, 149
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-left-2
   rotate: false
-  xy: 367, 229
+  xy: 301, 127
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-right-1
   rotate: false
-  xy: 70, 4
+  xy: 301, 105
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 player-right-2
   rotate: false
-  xy: 92, 26
+  xy: 301, 83
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 pyramid
   rotate: false
-  xy: 4, 70
+  xy: 4, 62
   size: 271, 177
   orig: 271, 177
   offset: 0, 0
   index: -1
 rock
   rotate: false
-  xy: 114, 48
+  xy: 301, 61
   size: 18, 18
   orig: 18, 18
   offset: 0, 0

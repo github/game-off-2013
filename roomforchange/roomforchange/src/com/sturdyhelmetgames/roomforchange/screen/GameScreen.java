@@ -116,21 +116,8 @@ public class GameScreen extends Basic2DScreen {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.W) {
-			startScreenQuake(Level.UP);
-			return true;
-		}
-		if (keycode == Keys.S) {
-			startScreenQuake(Level.DOWN);
-			return true;
-		}
-		if (keycode == Keys.A) {
-			startScreenQuake(Level.LEFT);
-			return true;
-		}
-		if (keycode == Keys.D) {
-			startScreenQuake(Level.RIGHT);
-			return true;
+		if (keycode == Keys.CONTROL_LEFT) {
+			level.player.tryHit();
 		}
 		return super.keyDown(keycode);
 	}
@@ -157,5 +144,9 @@ public class GameScreen extends Basic2DScreen {
 		});
 		Assets.getGameSound(Assets.SOUND_STONEDOOR).play(0.5f, 1.5f, 0f);
 		level.pauseEntities();
+	}
+
+	public void openLeverScreen() {
+		game.setScreen(new LeverScreen(game, this));
 	}
 }

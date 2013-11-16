@@ -22,7 +22,7 @@ public class Entity {
 	public float stateTime = 0f;
 	public float width, height;
 	public final Rectangle bounds = new Rectangle();
-	private Rectangle[] r = { new Rectangle(), new Rectangle(),
+	protected Rectangle[] r = { new Rectangle(), new Rectangle(),
 			new Rectangle(), new Rectangle() };
 	public int[][] tiles;
 
@@ -119,7 +119,7 @@ public class Entity {
 		}
 	}
 
-	private void fetchCollidableRects() {
+	protected void fetchCollidableRects() {
 		int p1x = (int) bounds.x;
 		int p1y = (int) Math.floor(bounds.y);
 		int p2x = (int) (bounds.x + bounds.width);
@@ -163,5 +163,10 @@ public class Entity {
 			return true;
 		}
 		return false;
+	}
+
+	public void hit(Rectangle hitBounds) {
+		// TODO Auto-generated method stub
+
 	}
 }
