@@ -1,13 +1,8 @@
 define('map', function() {
     'use strict';
 
-    var map = {};
-
-
     return function(imgUrl, area, projection, domElement, renderCallback) {
         var map = this;
-
-        var context;
 
         render();
 
@@ -30,7 +25,7 @@ define('map', function() {
                     map.updateSeaLevel(0);
 
                     rendered = true;
-                    if (typeof(renderCallback) === "function") {
+                    if (typeof(renderCallback) === 'function') {
                         renderCallback();
                     }
                 }
@@ -73,16 +68,16 @@ define('map', function() {
             }
 
             return Math.round(remainingLandProportion * area);
-        }
+        };
 
         function shouldPixelBeLand(x, y) {
             // Convert sea level in meters to greyscale values in source from
             // http://en.m.wikipedia.org/wiki/File:Srtm_ramp2.world.21600x10800.jpg
             var threshold = (map.seaLevel / 50) + 13;
             var pixelColour = getPixelColour(map.rawImageData, x, y);
-            return !(pixelColour.r === pixelColour.g
-                     && pixelColour.r === pixelColour.b
-                     && pixelColour.r < threshold);
+            return !(pixelColour.r === pixelColour.g &&
+                     pixelColour.r === pixelColour.b &&
+                     pixelColour.r < threshold);
         }
 
         function setPixelLand(imageData, x, y) {
@@ -110,5 +105,5 @@ define('map', function() {
             };
         }
 
-    }
+    };
 });

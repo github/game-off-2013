@@ -1,4 +1,6 @@
 define('gameStateUpdater', function() {
+    'use strict';
+    
     return function(map) {
         this.updateGameState = function(currentState, options) {
             var newYear = currentState.year + 1;
@@ -18,7 +20,7 @@ define('gameStateUpdater', function() {
                 deathsFromStarvation = 0;
             } else {
                 newFood = 0;
-                deathsFromStarvation = -1 * (currentState.food + foodProduction - foodConsumption)
+                deathsFromStarvation = -1 * (currentState.food + foodProduction - foodConsumption);
                 newPopulation = currentState.population - deathsFromStarvation;
             }
 
@@ -32,7 +34,7 @@ define('gameStateUpdater', function() {
                 population: newPopulation,
                 food: newFood,
                 deathsFromStarvation: deathsFromStarvation
-            }
-        }
-    }
-})
+            };
+        };
+    };
+});
