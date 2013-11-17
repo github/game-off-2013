@@ -42,6 +42,8 @@ game.FallingPiece = me.ObjectContainer.extend({
     },
 
     reset: function () {
+        var dungeon = me.game.world.getEntityByProp("name", "dungeon")[0];
+
         this.pos = new me.Vector2d(32 * 32, 8 * 32);
 
         var floor = PieceHelper.randomBool();
@@ -52,21 +54,23 @@ game.FallingPiece = me.ObjectContainer.extend({
                       [-1, -1, -1],
                       [-1, -1, -1]];
 
-        if (floor) {
-            var piece = Math.floor(Math.random() * PieceHelper.FloorPieces.length);
-            for (var x = 0; x < 3; x++) {
-                for (var y = 0; y < 3; y++) {
-                    if(PieceHelper.FloorPieces[piece][y][x]>-1)
-                        this.Tiles[x][y] = PieceHelper.FloorPieces[piece][y][x];
+        if (!dungeon.isComplete) {
+            if (floor) {
+                var piece = Math.floor(Math.random() * PieceHelper.FloorPieces.length);
+                for (var x = 0; x < 3; x++) {
+                    for (var y = 0; y < 3; y++) {
+                        if (PieceHelper.FloorPieces[piece][y][x] > -1)
+                            this.Tiles[x][y] = PieceHelper.FloorPieces[piece][y][x];
+                    }
                 }
             }
-        }
-        if (wall) {
-            var piece = Math.floor(Math.random() * PieceHelper.WallPieces.length);
-            for (var x = 0; x < 3; x++) {
-                for (var y = 0; y < 3; y++) {
-                    if (PieceHelper.WallPieces[piece][y][x] > -1)
-                        this.Tiles[x][y] = PieceHelper.WallPieces[piece][y][x];
+            if (wall) {
+                var piece = Math.floor(Math.random() * PieceHelper.WallPieces.length);
+                for (var x = 0; x < 3; x++) {
+                    for (var y = 0; y < 3; y++) {
+                        if (PieceHelper.WallPieces[piece][y][x] > -1)
+                            this.Tiles[x][y] = PieceHelper.WallPieces[piece][y][x];
+                    }
                 }
             }
         }

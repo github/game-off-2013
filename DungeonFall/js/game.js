@@ -44,7 +44,7 @@ var game = {
         me.state.transition("fade", "#000000", 250);
 
         // add our player entity in the entity pool
-        //me.entityPool.add("tilly", game.PlayerEntity);
+        me.entityPool.add("hero", game.Hero);
 
         //// Collectibles
         //me.entityPool.add("SweetEntity", game.SweetEntity);

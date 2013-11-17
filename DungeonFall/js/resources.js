@@ -1,7 +1,8 @@
 game.resources = [
-    { name: "tiles", type: "image", src: "data/img/tiles.png" },
-  
+    { name: "hero", type: "image", src: "data/img/hero.png" },
 
+    { name: "tiles", type: "image", src: "data/img/tiles.png" },
+ 
     { name: "basedungeon", type: "tmx", src: "data/map/basedungeon.xml" },
 
 

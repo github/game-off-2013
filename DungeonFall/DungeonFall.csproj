@@ -59,11 +59,13 @@
     <Folder Include="data\sfx\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\img\hero.png" />
     <Content Include="data\img\tiles.png" />
     <Content Include="data\map\basedungeon.xml" />
     <Content Include="index.css" />
     <Content Include="js\entities\dungeon.js" />
     <Content Include="js\entities\fallingpiece.js" />
+    <Content Include="js\entities\hero.js" />
     <Content Include="js\game.js" />
     <Content Include="js\entities\hud.js" />
     <Content Include="js\piecehelper.js" />

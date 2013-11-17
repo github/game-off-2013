@@ -12,43 +12,49 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/DungeonFall.dll">
-      <publishTime>11/14/2013 22:16:35</publishTime>
+      <publishTime>11/17/2013 18:54:16</publishTime>
     </File>
     <File Include="bin/index.html">
       <publishTime>11/14/2013 19:58:55</publishTime>
     </File>
+    <File Include="data/img/hero.png">
+      <publishTime>11/17/2013 12:31:23</publishTime>
+    </File>
     <File Include="index.html">
-      <publishTime>11/14/2013 22:20:38</publishTime>
+      <publishTime>11/17/2013 12:55:18</publishTime>
     </File>
     <File Include="data/bgm/.placeholder">
       <publishTime>11/12/2013 19:35:23</publishTime>
     </File>
     <File Include="data/img/tiles.png">
-      <publishTime>11/13/2013 18:31:45</publishTime>
+      <publishTime>11/16/2013 11:23:48</publishTime>
     </File>
     <File Include="data/map/basedungeon.xml">
-      <publishTime>11/14/2013 20:12:56</publishTime>
+      <publishTime>11/17/2013 12:55:32</publishTime>
     </File>
     <File Include="index.css">
       <publishTime>11/14/2013 19:56:39</publishTime>
     </File>
     <File Include="js/entities/dungeon.js">
-      <publishTime>11/14/2013 21:06:47</publishTime>
+      <publishTime>11/17/2013 18:53:07</publishTime>
     </File>
     <File Include="js/entities/fallingpiece.js">
-      <publishTime>11/14/2013 22:01:20</publishTime>
+      <publishTime>11/16/2013 14:02:24</publishTime>
+    </File>
+    <File Include="js/entities/hero.js">
+      <publishTime>11/17/2013 18:35:00</publishTime>
     </File>
     <File Include="js/entities/hud.js">
       <publishTime>11/14/2013 19:56:39</publishTime>
     </File>
     <File Include="js/game.js">
-      <publishTime>11/14/2013 19:56:39</publishTime>
+      <publishTime>11/17/2013 12:23:56</publishTime>
     </File>
     <File Include="js/piecehelper.js">
-      <publishTime>11/14/2013 19:56:39</publishTime>
+      <publishTime>11/16/2013 11:25:58</publishTime>
     </File>
     <File Include="js/resources.js">
-      <publishTime>11/14/2013 19:56:39</publishTime>
+      <publishTime>11/17/2013 12:33:23</publishTime>
     </File>
     <File Include="js/screens/loading.js">
       <publishTime>11/12/2013 19:35:23</publishTime>
@@ -58,6 +64,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="js/screens/title.js">
       <publishTime>11/12/2013 19:35:23</publishTime>
+    </File>
+    <File Include="lib/astar.js">
+      <publishTime>11/16/2013 12:09:42</publishTime>
+    </File>
+    <File Include="lib/graph.js">
+      <publishTime>11/16/2013 12:09:42</publishTime>
     </File>
     <File Include="lib/melonJS-0.9.10.js">
       <publishTime>11/14/2013 21:16:38</publishTime>

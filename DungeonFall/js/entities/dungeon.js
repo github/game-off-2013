@@ -14,6 +14,8 @@ game.Dungeon = me.ObjectContainer.extend({
     highestUsedColumn: 1,
     highestCompletedColumn: 0,
 
+    isComplete: false,
+
     init: function () {
         this.parent();
 
@@ -45,6 +47,18 @@ game.Dungeon = me.ObjectContainer.extend({
 
     update: function () {
         
+        if (this.highestUsedColumn >= this.DUNGEON_WIDTH - 2) {
+            for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
+                for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
+                    if (this.Tiles[x][y] == -1) this.Tiles[x][y] = 1;
+                }
+            }
+            this.isComplete = true;
+            this.highestUsedColumn = this.DUNGEON_WIDTH - 1;
+            this.highestCompletedColumn = 1;
+            this.rebuild();
+        }
+
         for (var y = 1; y < this.DUNGEON_HEIGHT - 1; y++) {
             if (this.Tiles[this.wallInCheckX][y] == -1) {
                 var path = this.findPath(this.wallInGrid, this.wallInCheckX, y, this.DUNGEON_WIDTH - 1, y);
@@ -54,6 +68,8 @@ game.Dungeon = me.ObjectContainer.extend({
                 }
             }
         }
+
+        
 
         //this.wallInCheckY += 1;
         //if (this.wallInCheckY > this.DUNGEON_HEIGHT-2) {
@@ -101,7 +117,7 @@ game.Dungeon = me.ObjectContainer.extend({
                 }
 
                 // Build astar
-                if (this.Tiles[x][y] >= PieceHelper.MIN_WALL_TILE && this.Tiles[x][y] <= PieceHelper.MAX_WALL_TILE)
+                if (this.Tiles[x][y] == -1 || (this.Tiles[x][y] >= PieceHelper.MIN_WALL_TILE && this.Tiles[x][y] <= PieceHelper.MAX_WALL_TILE))
                     this.pathGrid[x][y] = 0;
                 else
                     this.pathGrid[x][y] = 1;
@@ -120,7 +136,11 @@ game.Dungeon = me.ObjectContainer.extend({
 
             if (colUsed && x > this.highestUsedColumn) this.highestUsedColumn = x;
             if (colComplete && this.highestCompletedColumn == x - 1) this.highestCompletedColumn = x;
+
         }
+
+        
+
 
         var layer = me.game.currentLevel.getLayerByName("foreground");
         for (var x = 0; x < this.DUNGEON_WIDTH; x++) {

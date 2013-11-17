@@ -2,3 +2,4 @@ C:\inetpub\wwwroot\game-off-2013\DungeonFall\bin\DungeonFall.dll
 C:\inetpub\wwwroot\game-off-2013\DungeonFall\bin\DungeonFall.pdb
 C:\inetpub\wwwroot\game-off-2013\DungeonFall\obj\Debug\DungeonFall.dll
 C:\inetpub\wwwroot\game-off-2013\DungeonFall\obj\Debug\DungeonFall.pdb
+C:\inetpub\wwwroot\game-off-2013\DungeonFall\obj\Debug\DungeonFall.csprojResolveAssemblyReference.cache
