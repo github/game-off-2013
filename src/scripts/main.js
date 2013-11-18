@@ -1,6 +1,6 @@
-requirejs.config({
-    "paths": {
-        "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min"
+require.config({
+    'paths': {
+        'jquery': '//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min'
     }
 });
 
@@ -29,13 +29,13 @@ require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection'],
                 refreshDisplay();
             }
 
-            $("#nextTurnButton").click(function() {
-                var agricultureIncrease = parseInt($('input[name=agricultureIncrease]:checked').val());
+            $('#nextTurnButton').click(function() {
+                var agricultureIncrease = parseInt($('input[name=agricultureIncrease]:checked').val(), 10);
 
                 game.update({agricultureIncrease: agricultureIncrease});
                 refreshDisplay();
                 if (game.state.population === 0) {
-                    $("#nextTurnButton").prop('disabled', 'disabled')
+                    $('#nextTurnButton').prop('disabled', 'disabled');
                 }
             });
 
