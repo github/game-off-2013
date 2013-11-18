@@ -122,16 +122,23 @@ game.Hero = me.ObjectEntity.extend({
         return true;
     },
 
-    targetReached: function() {
+    targetReached: function () {
+        var dungeon = me.game.world.getEntityByProp("name", "dungeon")[0];
+
         this.isTravelling = false;
         if (this.isFollowingPath) {
             if (this.currentPathStep < this.currentPath.length - 1) {
-                this.currentPathStep++;
-                this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
-                this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
-                this.walkTween.easing(me.Tween.Easing.Linear.None);
-                this.walkTween.start();
-                this.isTravelling = true;
+                var path = dungeon.findPath(dungeon.pathGrid, this.pos.x / 32, this.pos.y / 32, this.currentPath[this.currentPath.length - 1].x, this.currentPath[this.currentPath.length - 1].y);
+                if (path.length > 0) {
+                    this.currentPathStep++;
+                    this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
+                    this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
+                    this.walkTween.easing(me.Tween.Easing.Linear.None);
+                    this.walkTween.start();
+                    this.isTravelling = true;
+                } else {
+                    this.isFollowingPath = false;
+                }
             }
             else {
                 this.isFollowingPath = false;

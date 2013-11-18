@@ -60,9 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\img\hero.png" />
+    <Content Include="data\img\mob0.png" />
     <Content Include="data\img\tiles.png" />
     <Content Include="data\map\basedungeon.xml" />
     <Content Include="index.css" />
+    <Content Include="js\entities\mob.js" />
     <Content Include="js\entities\dungeon.js" />
     <Content Include="js\entities\fallingpiece.js" />
     <Content Include="js\entities\hero.js" />

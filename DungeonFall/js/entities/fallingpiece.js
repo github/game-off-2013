@@ -155,6 +155,16 @@ game.FallingPiece = me.ObjectContainer.extend({
                 var ty = posy + y;
 
                 if (this.Tiles[x][y] > -1) dungeon.Tiles[tx][ty] = this.Tiles[x][y];
+
+                // Chest spawn
+                if (this.Tiles[x][y] == PieceHelper.CHEST_TILE) { }
+
+                // Mob spawn
+                if (this.Tiles[x][y] >= PieceHelper.MIN_MOB_TILE && this.Tiles[x][y] <= PieceHelper.MAX_MOB_TILE) {
+                    var newMob = new game.Mob(tx * 32, ty * 32, { type: this.Tiles[x][y] - PieceHelper.MIN_MOB_TILE });
+                    me.game.add(newMob);
+                    dungeon.Tiles[tx][ty] = 0;
+                }
             }
         }
 

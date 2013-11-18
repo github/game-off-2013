@@ -45,6 +45,7 @@ var game = {
 
         // add our player entity in the entity pool
         me.entityPool.add("hero", game.Hero);
+        me.entityPool.add("mob", game.Mob);
 
         //// Collectibles
         //me.entityPool.add("SweetEntity", game.SweetEntity);

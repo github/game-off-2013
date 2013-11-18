@@ -50,6 +50,8 @@ game.Dungeon = me.ObjectContainer.extend({
 
     update: function () {
         
+        var hero = me.game.world.getEntityByProp("name", "hero")[0];
+
         if (this.highestUsedColumn >= this.DUNGEON_WIDTH - 2) {
             for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
                 for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
@@ -70,8 +72,8 @@ game.Dungeon = me.ObjectContainer.extend({
                     this.rebuild();
                 }
             }
-            if (this.Tiles[this.wallInCheckX][y] == 0) {
-                var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, this.DUNGEON_WIDTH - 1, y);
+            if (this.Tiles[this.wallInCheckX][y] == 0 || this.Tiles[this.wallInCheckX][y] == PieceHelper.STAIRS_TILE) {
+                var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, hero.pos.x/32, hero.pos.y/32);
                 if (!path || path.length == 0) {
                     this.Tiles[this.wallInCheckX][y] = 1;
                     this.rebuild();
@@ -138,7 +140,7 @@ game.Dungeon = me.ObjectContainer.extend({
                 }
                 else {
                     this.wallInGrid[x][y] = 0;
-                    if (this.Tiles[x][y] == 0) {
+                    if (this.Tiles[x][y] == 0 || this.Tiles[x][y]==PieceHelper.STAIRS_TILE) {
                         this.wallInGridWithFloor[x][y] = 1;
                     } else this.wallInGridWithFloor[x][y] = 0;
                 }
