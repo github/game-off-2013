@@ -97,6 +97,14 @@ game.Hero = me.ObjectEntity.extend({
                         this.isFollowingPath = true;
                     }
                 }
+                if (dungeon.Tiles[this.scanX][this.scanY] == PieceHelper.STAIRS_TILE) {
+                    var path = dungeon.findPath(dungeon.pathGrid, tx, ty, this.scanX,this.scanY);
+                    if (path.length > 0) {
+                        dungeon.stairsOK = true;
+                    } else {
+                        dungeon.stairsOK = false;
+                    }
+                }
             }
         }
 

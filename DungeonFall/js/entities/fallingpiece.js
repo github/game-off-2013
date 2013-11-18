@@ -1,6 +1,5 @@
 ﻿/// <reference path="../../lib/melonJS-0.9.10.js" />
 
-
 game.FallingPiece = me.ObjectContainer.extend({
 
     init: function () {
@@ -75,7 +74,39 @@ game.FallingPiece = me.ObjectContainer.extend({
             }
         }
 
-        
+        // Place random stuff!
+        var ran;
+        var stairsPlaced = false;
+        var chestPlaced = false;
+        for (var x = 0; x < 3; x++) {
+            for (var y = 0; y < 3; y++) {
+                if (this.Tiles[x][y] == 0) {
+
+                    // Stairs
+                    if (!dungeon.stairsOK) {
+                        ran = Math.floor(Math.random() * (35 - dungeon.highestUsedColumn));
+                        if (ran == 0 && !stairsPlaced) {
+                            this.Tiles[x][y] = PieceHelper.STAIRS_TILE;
+                            stairsPlaced = true;
+                        }
+                    }
+
+                    // Chests
+                    ran = Math.floor(Math.random() * (50 - dungeon.highestUsedColumn));
+                    if (ran == 0 && !chestPlaced) {
+                        this.Tiles[x][y] = PieceHelper.CHEST_TILE;
+                        chestPlaced = true;
+                    }
+
+                    // Mobs (placement will be determined by hero's level i guess)
+                    ran = Math.floor(Math.random() * (10));
+                    if (ran == 0) {
+                        this.Tiles[x][y] = PieceHelper.MIN_MOB_TILE;
+                    }
+
+                }
+            }
+        }
 
         this.moveTimer = me.timer.getTime();
         this.moveTimerTarget = 500;

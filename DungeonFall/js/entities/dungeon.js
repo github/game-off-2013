@@ -8,6 +8,7 @@ game.Dungeon = me.ObjectContainer.extend({
     pathGrid: new Array(35),
 
     wallInGrid: new Array(35),
+    wallInGridWithFloor: new Array(35),
     wallInCheckX: 1,
     wallInCheckY: 1,
 
@@ -15,6 +16,7 @@ game.Dungeon = me.ObjectContainer.extend({
     highestCompletedColumn: 0,
 
     isComplete: false,
+    stairsOK: false,
 
     init: function () {
         this.parent();
@@ -33,6 +35,7 @@ game.Dungeon = me.ObjectContainer.extend({
             this.Tiles[x] = new Array(this.DUNGEON_HEIGHT);
             this.pathGrid[x] = new Array(this.DUNGEON_HEIGHT);
             this.wallInGrid[x] = new Array(this.DUNGEON_HEIGHT);
+            this.wallInGridWithFloor[x] = new Array(this.DUNGEON_HEIGHT);
             for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
                 var tile = me.game.currentLevel.getLayerByName("foreground").layerData[x][y];
                 if (tile != null)
@@ -67,6 +70,13 @@ game.Dungeon = me.ObjectContainer.extend({
                     this.rebuild();
                 }
             }
+            if (this.Tiles[this.wallInCheckX][y] == 0) {
+                var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, this.DUNGEON_WIDTH - 1, y);
+                if (!path || path.length == 0) {
+                    this.Tiles[this.wallInCheckX][y] = 1;
+                    this.rebuild();
+                }
+            }
         }
 
         
@@ -76,7 +86,7 @@ game.Dungeon = me.ObjectContainer.extend({
             if(this.wallInCheckX<this.DUNGEON_WIDTH-1) this.wallInCheckX++;
         //    this.wallInCheckY = 1;
             if (this.wallInCheckX > this.highestUsedColumn) {
-                this.wallInCheckX = this.highestCompletedColumn+1;
+                this.wallInCheckX = 1;
             }
         //}
 
@@ -122,10 +132,16 @@ game.Dungeon = me.ObjectContainer.extend({
                 else
                     this.pathGrid[x][y] = 1;
 
-                if (this.Tiles[x][y] == -1)
+                if (this.Tiles[x][y] == -1) {
                     this.wallInGrid[x][y] = 1;
-                else
+                    this.wallInGridWithFloor[x][y] = 1;
+                }
+                else {
                     this.wallInGrid[x][y] = 0;
+                    if (this.Tiles[x][y] == 0) {
+                        this.wallInGridWithFloor[x][y] = 1;
+                    } else this.wallInGridWithFloor[x][y] = 0;
+                }
 
                 // Calculate used/complete cols
                 if(x>=1 && y>=1 && x<=this.DUNGEON_WIDTH-1 && y<=this.DUNGEON_HEIGHT-2) {

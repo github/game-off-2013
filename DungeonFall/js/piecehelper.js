@@ -1,6 +1,11 @@
 ﻿function PieceHelper() { };
+PieceHelper.FLOOR_TILE = 1,
 PieceHelper.MIN_WALL_TILE = 1;
 PieceHelper.MAX_WALL_TILE = 47;
+PieceHelper.CHEST_TILE = 48,
+PieceHelper.STAIRS_TILE = 49,
+PieceHelper.MIN_MOB_TILE = 50,
+PieceHelper.MAX_MOB_TILE = 50,
 PieceHelper.FloorPieces = [  
 
                            [  [0, 0, 0],
@@ -35,7 +40,19 @@ PieceHelper.WallPieces = [
 
                             [ [-1, 1, -1],
                               [ 1, 1,  1],
-                              [-1, 1, -1]]
+                              [-1, 1, -1]],
+
+                              [[1, -1, 1],
+                              [1, -1, 1],
+                              [1, -1, 1]],
+
+                              [[1, -1, 1],
+                              [-1, -1, -1],
+                              [1, -1, 1]],
+
+                              [[-1, 1, -1],
+                              [-1, 1, -1],
+                              [-1, 1, -1]],
 ];
 PieceHelper.rotateRight = function (tiles) {
     var transformedArray = new Array();
