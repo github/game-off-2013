@@ -75,7 +75,7 @@ public class Entity {
 		this.level = level;
 		this.width = width;
 		this.height = height;
-		bounds.set(x, y, width, height);
+		bounds.set(x, y, width - 0.2f, height - 0.2f);
 		state = EntityState.IDLE;
 	}
 

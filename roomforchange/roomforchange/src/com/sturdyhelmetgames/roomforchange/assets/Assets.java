@@ -44,6 +44,8 @@ public class Assets {
 
 	public static Animation mummyWalkFront;
 	public static Animation mummyWalkBack;
+	public static Animation mummyWalkLeft;
+	public static Animation mummyWalkRight;
 
 	public static Animation snakeWalkFront;
 	public static Animation snakeWalkBack;
@@ -154,16 +156,19 @@ public class Assets {
 				getGameObject("snake-left-1"), getGameObject("snake-left-2"),
 				getGameObject("snake-left-3") };
 		snakeWalkLeft = new Animation(0.1f, snakeLeftRegions);
-		final TextureRegion[] snakeRightRegions = new TextureRegion[snakeLeftRegions.length];
-		for (int i = 0; i < snakeLeftRegions.length; i++) {
-			snakeRightRegions[i] = new TextureRegion(snakeLeftRegions[i]);
-			snakeRightRegions[i].flip(true, false);
-		}
-		snakeWalkRight = new Animation(0.1f, snakeRightRegions);
+		snakeWalkRight = new Animation(0.1f,
+				flipRegionsHorizontally(snakeLeftRegions));
 
 		mummyWalkBack = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("mummy-back-1"), getGameObject("mummy-back-2"),
 				getGameObject("mummy-back-3"), getGameObject("mummy-back-4"), });
+
+		TextureRegion[] mummyLeftRegions = new TextureRegion[] {
+				getGameObject("mummy-left-1"), getGameObject("mummy-left-2"),
+				getGameObject("mummy-left-3"), getGameObject("mummy-left-4"), };
+		mummyWalkLeft = new Animation(0.2f, mummyLeftRegions);
+		mummyWalkRight = new Animation(0.2f,
+				flipRegionsHorizontally(mummyLeftRegions));
 
 		playerWalkFront = new Animation(0.15f, new TextureRegion[] {
 				getGameObject("player-front-1"),
@@ -181,6 +186,16 @@ public class Assets {
 		playerWalkLeft = new Animation(0.2f,
 				new TextureRegion[] { getGameObject("player-left-1"),
 						getGameObject("player-left-2"), });
+	}
+
+	private static TextureRegion[] flipRegionsHorizontally(
+			final TextureRegion[] origRegions) {
+		final TextureRegion[] flippedRegions = new TextureRegion[origRegions.length];
+		for (int i = 0; i < origRegions.length; i++) {
+			flippedRegions[i] = new TextureRegion(origRegions[i]);
+			flippedRegions[i].flip(true, false);
+		}
+		return flippedRegions;
 	}
 
 	public static TextureRegion getFullGameObject(String objectName) {

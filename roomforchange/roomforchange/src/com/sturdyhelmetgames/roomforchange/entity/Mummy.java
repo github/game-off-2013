@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 
-public class Mummy extends Entity {
+public class Mummy extends Enemy {
 
 	private float ACCEL_MAX = 1f;
 	private float MAX_WALK_TIME = 3f;
@@ -32,8 +32,12 @@ public class Mummy extends Entity {
 
 		if (direction == Direction.UP) {
 			animation = Assets.mummyWalkBack;
-		} else {
+		} else if (direction == Direction.DOWN) {
 			animation = Assets.mummyWalkFront;
+		} else if (direction == Direction.RIGHT) {
+			animation = Assets.mummyWalkRight;
+		} else if (direction == Direction.LEFT) {
+			animation = Assets.mummyWalkLeft;
 		}
 
 		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x, bounds.y,
@@ -58,14 +62,17 @@ public class Mummy extends Entity {
 				walkTime = 0;
 			}
 			if (walkTime == 0) {
-				if (MathUtils.randomBoolean()) {
+				float randomX = MathUtils.random(300);
+				if (randomX < 100) {
 					constantAccel.x = ACCEL_MAX;
-				} else {
+				} else if (randomX > 100 && randomX < 200) {
 					constantAccel.x = -ACCEL_MAX;
 				}
-				if (MathUtils.randomBoolean()) {
+
+				float randomY = MathUtils.random(300);
+				if (randomY < 100) {
 					constantAccel.y = ACCEL_MAX;
-				} else {
+				} else if (randomY > 100 && randomY < 200) {
 					constantAccel.y = -ACCEL_MAX;
 				}
 			} else {
@@ -78,10 +85,21 @@ public class Mummy extends Entity {
 		}
 		walkTime += fixedStep;
 
-		if (vel.y <= 0f) {
-			direction = Direction.DOWN;
+		float absVelX = Math.abs(vel.x);
+		float absVelY = Math.abs(vel.y);
+
+		if (absVelX >= absVelY) {
+			if (vel.x <= 0f) {
+				direction = Direction.LEFT;
+			} else if (vel.x >= 0f) {
+				direction = Direction.RIGHT;
+			}
 		} else {
-			direction = Direction.UP;
+			if (vel.y <= 0f) {
+				direction = Direction.DOWN;
+			} else if (vel.y >= 0f) {
+				direction = Direction.UP;
+			}
 		}
 	}
 

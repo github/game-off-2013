@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
+import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
@@ -76,6 +77,25 @@ public class GameScreen extends Basic2DScreen {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 		level.render(delta, spriteBatch, false);
+
+		// calculate heart positions
+		final float heartPositionX = camera.position.x - 5.9f;
+		final float heartPositionY = camera.position.y + 2.9f;
+		// draw player health
+		final Player player = level.player;
+		if (player != null) {
+			for (int i = 0; i < player.maxHealth; i++) {
+				final float x = heartPositionX + i * 0.55f;
+				if (i < player.health) {
+					spriteBatch.draw(Assets.getGameObject("heart-full"), x,
+							heartPositionY, 1f, 1f);
+				} else {
+					spriteBatch.draw(Assets.getGameObject("heart-empty"), x,
+							heartPositionY, 1f, 1f);
+				}
+			}
+		}
+
 		spriteBatch.end();
 
 		batchMiniMap.setProjectionMatrix(cameraMiniMap.combined);

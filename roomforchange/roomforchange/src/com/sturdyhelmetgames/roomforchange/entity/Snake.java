@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 
-public class Snake extends Entity {
+public class Snake extends Enemy {
 
 	public Snake(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);

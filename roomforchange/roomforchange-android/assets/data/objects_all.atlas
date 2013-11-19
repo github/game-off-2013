@@ -185,72 +185,100 @@ mummy-front-4
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-back-1
+mummy-left-1
   rotate: false
   xy: 208, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-back-2
+mummy-left-2
   rotate: false
   xy: 483, 221
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-back-idle
+mummy-left-3
   rotate: false
   xy: 230, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-front-1
+mummy-left-4
   rotate: false
   xy: 252, 40
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-front-2
+player-back-1
   rotate: false
   xy: 279, 61
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-front-idle
+player-back-2
   rotate: false
   xy: 274, 39
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-left-1
+player-back-idle
   rotate: false
   xy: 301, 149
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-left-2
+player-front-1
   rotate: false
   xy: 301, 127
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-right-1
+player-front-2
   rotate: false
   xy: 301, 105
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-right-2
+player-front-idle
   rotate: false
   xy: 301, 83
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-left-1
+  rotate: false
+  xy: 301, 61
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-left-2
+  rotate: false
+  xy: 296, 39
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-right-1
+  rotate: false
+  xy: 337, 185
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-right-2
+  rotate: false
+  xy: 76, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -264,70 +292,70 @@ pyramid
   index: -1
 rock
   rotate: false
-  xy: 301, 61
+  xy: 98, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-back-1
   rotate: false
-  xy: 296, 39
+  xy: 120, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-back-2
   rotate: false
-  xy: 337, 185
+  xy: 142, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-back-3
   rotate: false
-  xy: 76, 18
+  xy: 164, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-front-1
   rotate: false
-  xy: 98, 18
+  xy: 186, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-front-2
   rotate: false
-  xy: 120, 18
+  xy: 208, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-front-3
   rotate: false
-  xy: 142, 18
+  xy: 230, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-left-1
   rotate: false
-  xy: 164, 18
+  xy: 252, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-left-2
   rotate: false
-  xy: 186, 18
+  xy: 274, 17
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-left-3
   rotate: false
-  xy: 208, 18
+  xy: 296, 17
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
