@@ -137,18 +137,18 @@ public class GameScreen extends Basic2DScreen {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.W) {
-			startScreenQuake(Level.UP);
-		}
-		if (keycode == Keys.S) {
-			startScreenQuake(Level.DOWN);
-		}
-		if (keycode == Keys.A) {
-			startScreenQuake(Level.LEFT);
-		}
-		if (keycode == Keys.D) {
-			startScreenQuake(Level.RIGHT);
-		}
+		// if (keycode == Keys.W) {
+		// startScreenQuake(Level.UP);
+		// }
+		// if (keycode == Keys.S) {
+		// startScreenQuake(Level.DOWN);
+		// }
+		// if (keycode == Keys.A) {
+		// startScreenQuake(Level.LEFT);
+		// }
+		// if (keycode == Keys.D) {
+		// startScreenQuake(Level.RIGHT);
+		// }
 		if (keycode == Keys.CONTROL_LEFT) {
 			level.player.tryHit();
 		}
