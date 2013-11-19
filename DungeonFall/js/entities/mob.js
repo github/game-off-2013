@@ -42,6 +42,8 @@ game.Mob = me.ObjectEntity.extend({
       
         this.collidable = false;
 
+        this.name = "mob";
+
         this.alwaysUpdate = true;
 
         this.z = 3;
@@ -77,6 +79,8 @@ game.Mob = me.ObjectEntity.extend({
 
         this.parent();
        
+        if (dungeon.Tiles[tx][ty] >= PieceHelper.MIN_WALL_TILE && dungeon.Tiles[tx][ty] <= PieceHelper.MAX_WALL_TILE) me.game.remove(this);
+
         return true;
     },
 

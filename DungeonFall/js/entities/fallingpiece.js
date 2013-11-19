@@ -2,6 +2,9 @@
 
 game.FallingPiece = me.ObjectContainer.extend({
 
+    counter: 0,
+    guidePos: null,
+    guideOpacity: 0,
     init: function () {
         // call the constructor
         this.parent();
@@ -20,16 +23,34 @@ game.FallingPiece = me.ObjectContainer.extend({
 
         this.Tiles = new Array(3);
         this.Sprites = new Array(3);
+        this.guideSprites = new Array(2);
+        this.guideSprites[0] = new Array(3);
+        this.guideSprites[1] = new Array(3);
+
 
         for (var x = 0; x < 3; x++) {
             this.Sprites[x] = new Array(3);
+            this.guideSprites[0][x] = new Array(3);
+            this.guideSprites[1][x] = new Array(3);
             for (var y = 0; y < 3; y++) {
                 this.Sprites[x][y] = new me.AnimationSheet(x * 32, y * 32, me.loader.getImage("tiles"), 32, 32);
                 this.Sprites[x][y].setOpacity(0);
                 this.Sprites[x][y].animationpause = true;
                 this.Sprites[x][y].z = 2;
-
                 this.addChild(this.Sprites[x][y]);
+
+                this.guideSprites[0][x][y] = new me.AnimationSheet(x * 32, y * 32, me.loader.getImage("tiles"), 32, 32);
+                this.guideSprites[0][x][y].setOpacity(0);
+                this.guideSprites[0][x][y].animationpause = true;
+                this.guideSprites[0][x][y].z = 2;
+                this.guideSprites[0][x][y].floating = true;
+                this.addChild(this.guideSprites[0][x][y]);
+                this.guideSprites[1][x][y] = new me.AnimationSheet(x * 32, y * 32, me.loader.getImage("placeholder"), 32, 32);
+                this.guideSprites[1][x][y].setOpacity(0);
+                this.guideSprites[1][x][y].animationpause = true;
+                this.guideSprites[1][x][y].z = 2;
+                this.guideSprites[1][x][y].floating = true;
+                this.addChild(this.guideSprites[1][x][y]);
             }
         }
 
@@ -38,6 +59,16 @@ game.FallingPiece = me.ObjectContainer.extend({
         this.alwaysUpdate = true;
 
         this.reset();
+
+        var gt = new me.Tween(this).to({guideOpacity: 1}, 500).onComplete(this.opacityTween.bind(this));
+        gt.easing(me.Tween.Easing.Linear.None);
+        gt.start();
+    },
+
+    opacityTween: function() {
+        var gt = new me.Tween(this).to({ guideOpacity: this.guideOpacity==1?0:1 }, 500).onComplete(this.opacityTween.bind(this));
+        gt.easing(me.Tween.Easing.Linear.None);
+        gt.start();
     },
 
     reset: function () {
@@ -72,38 +103,41 @@ game.FallingPiece = me.ObjectContainer.extend({
                     }
                 }
             }
-        }
 
-        // Place random stuff!
-        var ran;
-        var stairsPlaced = false;
-        var chestPlaced = false;
-        for (var x = 0; x < 3; x++) {
-            for (var y = 0; y < 3; y++) {
-                if (this.Tiles[x][y] == 0) {
 
-                    // Stairs
-                    if (!dungeon.stairsOK) {
-                        ran = Math.floor(Math.random() * (35 - dungeon.highestUsedColumn));
-                        if (ran == 0 && !stairsPlaced) {
-                            this.Tiles[x][y] = PieceHelper.STAIRS_TILE;
-                            stairsPlaced = true;
+            // Place random stuff!
+            var ran;
+            var stairsPlaced = false;
+            var chestPlaced = false;
+            var mobPlaced = false;
+            for (var x = 0; x < 3; x++) {
+                for (var y = 0; y < 3; y++) {
+                    if (this.Tiles[x][y] == 0) {
+
+                        // Stairs
+                        if (dungeon.stairsOK == false && this.counter > 10) {
+                            ran = Math.floor(Math.random() * (35 - dungeon.highestUsedColumn));
+                            if (ran == 0 && !stairsPlaced) {
+                                this.Tiles[x][y] = PieceHelper.STAIRS_TILE;
+                                stairsPlaced = true;
+                            }
                         }
-                    }
 
-                    // Chests
-                    ran = Math.floor(Math.random() * (50 - dungeon.highestUsedColumn));
-                    if (ran == 0 && !chestPlaced) {
-                        this.Tiles[x][y] = PieceHelper.CHEST_TILE;
-                        chestPlaced = true;
-                    }
+                        // Chests
+                        ran = Math.floor(Math.random() * (40 - dungeon.highestUsedColumn));
+                        if (ran == 0 && !chestPlaced) {
+                            this.Tiles[x][y] = PieceHelper.CHEST_TILE;
+                            chestPlaced = true;
+                        }
 
-                    // Mobs (placement will be determined by hero's level i guess)
-                    ran = Math.floor(Math.random() * (10));
-                    if (ran == 0) {
-                        this.Tiles[x][y] = PieceHelper.MIN_MOB_TILE;
-                    }
+                        // Mobs (placement will be determined by hero's level i guess)
+                        ran = Math.floor(Math.random() * (10));
+                        if (ran == 0 && !mobPlaced) {
+                            this.Tiles[x][y] = PieceHelper.MIN_MOB_TILE;
+                            mobPlaced = true;
+                        }
 
+                    }
                 }
             }
         }
@@ -112,8 +146,10 @@ game.FallingPiece = me.ObjectContainer.extend({
         this.moveTimerTarget = 500;
 
         this.keyTimer = me.timer.getTime();
-        this.keyMoveTimerTarget = 100;
+        this.keyMoveTimerTarget = 80;
         this.keyRotTimerTarget = 200;
+
+        this.counter++;
     },
 
     update: function () {
@@ -123,6 +159,7 @@ game.FallingPiece = me.ObjectContainer.extend({
         if (me.input.isKeyPressed("moveup")) this.moveUp();
         if (me.input.isKeyPressed("movedown")) this.moveDown();
         if (me.input.isKeyPressed("push")) this.push();
+        if (me.input.isKeyPressed("fastpush")) this.fastpush();
 
         if (me.timer.getTime() >= this.moveTimer + this.moveTimerTarget) {
             this.moveTimer = me.timer.getTime();
@@ -130,13 +167,31 @@ game.FallingPiece = me.ObjectContainer.extend({
             else this.lockPiece();
         }
 
+        for (var x = this.pos.x; x >= 0; x -= 32) {
+            this.guidePos = new me.Vector2d(x, this.pos.y);
+            if (!this.checkMove(x - 32, this.pos.y)) break;
+        }
+
         for (var x = 0; x < 3; x++) {
             for (var y = 0; y < 3; y++) {
                 if (this.Tiles[x][y] > -1) {
                     this.Sprites[x][y].setOpacity(1);
                     this.Sprites[x][y].setAnimationFrame(this.Tiles[x][y]);
+                    this.guideSprites[0][x][y].setOpacity(this.guideOpacity);
+                    this.guideSprites[0][x][y].setAnimationFrame(this.Tiles[x][y]);
+                    this.guideSprites[0][x][y].pos.x = this.guidePos.x + (x * 32);
+                    this.guideSprites[0][x][y].pos.y = this.guidePos.y + (y * 32);
+                    this.guideSprites[1][x][y].setOpacity(this.guideOpacity);
+                    this.guideSprites[1][x][y].setAnimationFrame(0);
+                    this.guideSprites[1][x][y].pos.x = this.guidePos.x + (x * 32);
+                    this.guideSprites[1][x][y].pos.y = this.guidePos.y + (y * 32);
+
                 }
-                else this.Sprites[x][y].setOpacity(0);
+                else {
+                    this.Sprites[x][y].setOpacity(0);
+                    this.guideSprites[0][x][y].setOpacity(0);
+                    this.guideSprites[1][x][y].setOpacity(0);
+                }
             }
         }
 
@@ -149,6 +204,8 @@ game.FallingPiece = me.ObjectContainer.extend({
 
         var dungeon = me.game.world.getEntityByProp("name", "dungeon")[0];
 
+        
+
         for (var x = 0; x < 3; x++) {
             for (var y = 0; y < 3; y++) {
                 var tx = posx + x;
@@ -157,7 +214,11 @@ game.FallingPiece = me.ObjectContainer.extend({
                 if (this.Tiles[x][y] > -1) dungeon.Tiles[tx][ty] = this.Tiles[x][y];
 
                 // Chest spawn
-                if (this.Tiles[x][y] == PieceHelper.CHEST_TILE) { }
+                if (this.Tiles[x][y] == PieceHelper.CHEST_TILE) {
+                    var newChest = new game.Chest(tx * 32, ty * 32, { });
+                    me.game.add(newChest);
+                    dungeon.Tiles[tx][ty] = 0;
+                }
 
                 // Mob spawn
                 if (this.Tiles[x][y] >= PieceHelper.MIN_MOB_TILE && this.Tiles[x][y] <= PieceHelper.MAX_MOB_TILE) {
@@ -167,6 +228,8 @@ game.FallingPiece = me.ObjectContainer.extend({
                 }
             }
         }
+
+        me.game.viewport.shake(5, 100);
 
         dungeon.rebuild();
         this.reset();
@@ -218,10 +281,21 @@ game.FallingPiece = me.ObjectContainer.extend({
 
     push: function () {
         if (me.timer.getTime() < this.keyTimer + this.keyMoveTimerTarget) return;
-        this.keyTimer = me.timer.getTime();
-        this.moveTimer = me.timer.getTime();
+        if (this.checkMove(this.pos.x - 32, this.pos.y)) {
+            this.keyTimer = me.timer.getTime();
+            this.moveTimer = me.timer.getTime();
+            this.pos.x -= 32;
+        }
+    },
 
-        if (this.checkMove(this.pos.x - 32, this.pos.y)) this.pos.x -= 32;
+    fastpush: function () {
+        //if (me.timer.getTime() < this.keyTimer + this.keyMoveTimerTarget) return;
+        if (this.checkMove(this.guidePos.x, this.pos.y)) {
+            this.keyTimer = me.timer.getTime();
+            this.moveTimer = me.timer.getTime();
+            this.pos = this.guidePos;
+            this.lockPiece();
+        }
     },
 
     checkMove: function (posx,posy) {

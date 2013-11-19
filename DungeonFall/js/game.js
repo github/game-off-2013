@@ -6,7 +6,7 @@ var game = {
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
-        if (!me.video.init("screen", 1120, 608, true)) {
+        if (!me.video.init("screen", 1120, 736, true)) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
@@ -46,6 +46,7 @@ var game = {
         // add our player entity in the entity pool
         me.entityPool.add("hero", game.Hero);
         me.entityPool.add("mob", game.Mob);
+        me.entityPool.add("chest", game.Chest);
 
         //// Collectibles
         //me.entityPool.add("SweetEntity", game.SweetEntity);
@@ -64,7 +65,7 @@ var game = {
         me.input.bindKey(me.input.KEY.RIGHT, "rotright", false);
         me.input.bindKey(me.input.KEY.UP, "moveup", false);
         me.input.bindKey(me.input.KEY.DOWN, "movedown", false);
-        //me.input.bindKey(me.input.KEY.X, "attack", true);
+        me.input.bindKey(me.input.KEY.X, "fastpush", true);
         me.input.bindKey(me.input.KEY.Z, "push");
 
         //me.input.bindKey(me.input.KEY.L, "levelskip", true); //function () { me.levelDirector.loadLevel("map2"); }.bind(this), true);

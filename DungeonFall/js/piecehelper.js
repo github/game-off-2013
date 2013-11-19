@@ -1,5 +1,5 @@
 ﻿function PieceHelper() { };
-PieceHelper.FLOOR_TILE = 1,
+PieceHelper.FLOOR_TILE = 0,
 PieceHelper.MIN_WALL_TILE = 1;
 PieceHelper.MAX_WALL_TILE = 47;
 PieceHelper.CHEST_TILE = 48,

@@ -6,6 +6,7 @@ game.Dungeon = me.ObjectContainer.extend({
     DUNGEON_HEIGHT: 19,
     Tiles: new Array(35),
     pathGrid: new Array(35),
+    pathGridMobs: new Array(35),
 
     wallInGrid: new Array(35),
     wallInGridWithFloor: new Array(35),
@@ -17,6 +18,7 @@ game.Dungeon = me.ObjectContainer.extend({
 
     isComplete: false,
     stairsOK: false,
+    doneFinalBlocking: false,
 
     init: function () {
         this.parent();
@@ -34,6 +36,7 @@ game.Dungeon = me.ObjectContainer.extend({
         for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
             this.Tiles[x] = new Array(this.DUNGEON_HEIGHT);
             this.pathGrid[x] = new Array(this.DUNGEON_HEIGHT);
+            this.pathGridMobs[x] = new Array(this.DUNGEON_HEIGHT);
             this.wallInGrid[x] = new Array(this.DUNGEON_HEIGHT);
             this.wallInGridWithFloor[x] = new Array(this.DUNGEON_HEIGHT);
             for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
@@ -46,39 +49,68 @@ game.Dungeon = me.ObjectContainer.extend({
         }
 
         this.rebuild();
+
+        this.alwaysUpdate = true;
     },
 
     update: function () {
         
         var hero = me.game.world.getEntityByProp("name", "hero")[0];
+        var mobs = me.game.world.getEntityByProp("name", "mob")
 
-        if (this.highestUsedColumn >= this.DUNGEON_WIDTH - 2) {
-            for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
-                for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
-                    if (this.Tiles[x][y] == -1) this.Tiles[x][y] = 1;
+        for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
+            for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
+                this.pathGridMobs[x][y] = this.pathGrid[x][y];
+                if (this.Tiles[x][y] == PieceHelper.FLOOR_TILE || this.Tiles[x][y] == PieceHelper.STAIRS_TILE) {
+                    this.pathGridMobs[x][y] = 1;
+                    for (var i = 0; i < mobs.length; i++) {
+                        var mob = mobs[i];
+                        var mx = Math.floor(mob.pos.x / 32);
+                        var my = Math.floor(mob.pos.y / 32);
+                        if (mx == x && my == y)
+                            this.pathGridMobs[x][y] = 0;
+                    }
                 }
             }
-            this.isComplete = true;
-            this.highestUsedColumn = this.DUNGEON_WIDTH - 1;
-            this.highestCompletedColumn = 1;
-            this.rebuild();
         }
 
-        for (var y = 1; y < this.DUNGEON_HEIGHT - 1; y++) {
-            if (this.Tiles[this.wallInCheckX][y] == -1) {
-                var path = this.findPath(this.wallInGrid, this.wallInCheckX, y, this.DUNGEON_WIDTH - 1, y);
-                if (!path || path.length == 0) {
-                    this.Tiles[this.wallInCheckX][y] = 1;
-                    this.rebuild();
+        if (!this.doneFinalBlocking) {
+            var rebuild = false;
+            if (this.highestUsedColumn >= this.DUNGEON_WIDTH - 2 && !this.isComplete) {
+                for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
+                    for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
+                        if (this.Tiles[x][y] == -1) this.Tiles[x][y] = 1;
+                    }
+                }
+                this.isComplete = true;
+                this.wallInCheckX = 0;
+                this.highestUsedColumn = this.DUNGEON_WIDTH - 1;
+                this.highestCompletedColumn = 1;
+                rebuild = true;
+            }
+
+
+            for (var y = 1; y < this.DUNGEON_HEIGHT - 1; y++) {
+                if (this.Tiles[this.wallInCheckX][y] == -1) {
+                    var path = this.findPath(this.wallInGrid, this.wallInCheckX, y, this.DUNGEON_WIDTH - 1, y);
+                    if (!path || path.length == 0) {
+                        this.Tiles[this.wallInCheckX][y] = 1;
+                        rebuild = true;
+                        me.game.viewport.shake(5, 100);
+                    }
+                }
+                if (this.Tiles[this.wallInCheckX][y] == 0 || this.Tiles[this.wallInCheckX][y] == PieceHelper.STAIRS_TILE) {
+                    if (this.wallInCheckX != Math.floor(hero.pos.x / 32) || y != Math.floor(hero.pos.y / 32)) {
+                        var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, Math.floor(hero.pos.x / 32), Math.floor(hero.pos.y / 32));
+                        if (!path || path.length == 0) {
+                            this.Tiles[this.wallInCheckX][y] = 1;
+                            rebuild = true;
+                            me.game.viewport.shake(5, 100);
+                        }
+                    }
                 }
             }
-            if (this.Tiles[this.wallInCheckX][y] == 0 || this.Tiles[this.wallInCheckX][y] == PieceHelper.STAIRS_TILE) {
-                var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, hero.pos.x/32, hero.pos.y/32);
-                if (!path || path.length == 0) {
-                    this.Tiles[this.wallInCheckX][y] = 1;
-                    this.rebuild();
-                }
-            }
+            if (rebuild) this.rebuild();
         }
 
         
@@ -88,9 +120,17 @@ game.Dungeon = me.ObjectContainer.extend({
             if(this.wallInCheckX<this.DUNGEON_WIDTH-1) this.wallInCheckX++;
         //    this.wallInCheckY = 1;
             if (this.wallInCheckX > this.highestUsedColumn) {
-                this.wallInCheckX = 1;
+                if (!this.isComplete) {
+                    this.wallInCheckX = 1;
+                }
+                else {
+                    this.doneFinalBlocking = true;
+                }
+
             }
         //}
+
+        
 
         return true;
     },
@@ -152,8 +192,10 @@ game.Dungeon = me.ObjectContainer.extend({
                 }
             }
 
-            if (colUsed && x > this.highestUsedColumn) this.highestUsedColumn = x;
-            if (colComplete && this.highestCompletedColumn == x - 1) this.highestCompletedColumn = x;
+            if(!this.isComplete) {
+                if (colUsed && x > this.highestUsedColumn) this.highestUsedColumn = x;
+                if (colComplete && this.highestCompletedColumn == x - 1) this.highestCompletedColumn = x;
+            }
 
         }
 
@@ -170,7 +212,8 @@ game.Dungeon = me.ObjectContainer.extend({
         
     },
 
-    findPath: function(grid,startx,starty,endx,endy) {
+    findPath: function (grid, startx, starty, endx, endy) {
+        if (endx < 0) endx = 0;
         var graph = new Graph(grid);
         var start = graph.nodes[startx][starty];
         var end = graph.nodes[endx][endy];

@@ -15,6 +15,8 @@ game.Hero = me.ObjectEntity.extend({
     isFollowingPath: false,
     currentPath: null,
     currentPathStep: 0,
+    stairsFound: null,
+    isEntering: true,
 
     init: function (x, y, settings) {
         // call the constructor
@@ -54,6 +56,8 @@ game.Hero = me.ObjectEntity.extend({
         this.walkTween.easing(me.Tween.Easing.Linear.None);
         this.walkTween.start();
         this.isTravelling = true;
+
+        game.HUD.addLine("The Hero has arrived in the dungeon");
     },
 
     scanX: 0,
@@ -77,36 +81,64 @@ game.Hero = me.ObjectEntity.extend({
 
         for (var x = tx-1; x <= tx+1; x++) {
             for (var y = ty - 1; y <= ty + 1; y++) {
-                if (x >= 1 && y >= 1 && x <= this.DUNGEON_WIDTH - 1 && y <= this.DUNGEON_HEIGHT - 2) this.DiscoveredTiles[x][y] = 1;
+                if (x >= 1 && y >= 1 && x <= this.DUNGEON_WIDTH - 1 && y <= this.DUNGEON_HEIGHT - 2) {
+                    this.DiscoveredTiles[x][y] = 1;
+                    if (dungeon.Tiles[x][y] == PieceHelper.STAIRS_TILE && this.stairsFound == null) {
+                        this.stairsFound = new me.Vector2d(x, y);
+                        game.HUD.addLine("Hero found stairs to level <x>");
+                        game.HUD.addLine("...and will remember their location");
+                    }
+                }
             }
         }
 
+        for (var i = 0; i < me.game.world.getEntityByProp("name", "chest").length; i++) {
+            var chest = me.game.world.getEntityByProp("name", "chest")[i];
+            var cx = Math.floor(chest.pos.x / 32);
+            var cy = Math.floor(chest.pos.y / 32);
+            if (tx == cx && ty == cy && !chest.isOpen) {
+                chest.open();
+                game.HUD.addLine("Hero opened a chest!");
+            }
+        }
+
+        if (!this.isTravelling && !this.isFollowingPath) {
+
+            for (var i = 0; i < me.game.world.getEntityByProp("name", "chest").length; i++) {
+                var chest = me.game.world.getEntityByProp("name", "chest")[i];
+                if (!chest.isOpen) {
+                    var cx = Math.floor(chest.pos.x/32);
+                    var cy = Math.floor(chest.pos.y/32);
+                    var path = dungeon.findPath(dungeon.pathGridMobs, tx, ty, cx, cy);
+                    if (path.length > 0) {
+                        this.explore(cx, cy,path);
+                    }
+                }
+            }
+        }
+        
         for(this.scanY=1;this.scanY<this.DUNGEON_HEIGHT-2;this.scanY++)
         {
             if (!this.isTravelling && !this.isFollowingPath) {
                 if (this.DiscoveredTiles[this.scanX][this.scanY] == 0) {
-                    var path = dungeon.findPath(dungeon.pathGrid, tx, ty, this.scanX,this.scanY);
+                    var path = dungeon.findPath(dungeon.pathGridMobs, tx, ty, this.scanX,this.scanY);
                     if (path.length > 0) {
-                        this.currentPath = path;
-                        this.currentPathStep = 0;
-                        this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
-                        this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
-                        this.walkTween.easing(me.Tween.Easing.Linear.None);
-                        this.walkTween.start();
-                        this.isTravelling = true;
-                        this.isFollowingPath = true;
-                    }
-                }
-                if (dungeon.Tiles[this.scanX][this.scanY] == PieceHelper.STAIRS_TILE) {
-                    var path = dungeon.findPath(dungeon.pathGrid, tx, ty, this.scanX,this.scanY);
-                    if (path.length > 0) {
-                        dungeon.stairsOK = true;
-                    } else {
-                        dungeon.stairsOK = false;
+                        this.explore(tx, ty,path);
                     }
                 }
             }
+            
+
+            if (dungeon.Tiles[this.scanX][this.scanY] == PieceHelper.STAIRS_TILE) {
+                var path = dungeon.findPath(dungeon.pathGrid, tx, ty, this.scanX,this.scanY);
+                if (path.length > 0) {
+                    dungeon.stairsOK = true;
+                } else {
+                    dungeon.stairsOK = false;
+                }
+            }
         }
+        
 
         
         this.scanX++;
@@ -122,8 +154,27 @@ game.Hero = me.ObjectEntity.extend({
         return true;
     },
 
+    explore: function(tx,ty,path) {
+        this.currentPath = path;
+        this.currentPathStep = 0;
+        this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
+        this.walkTween = new me.Tween(this.pos).to(this.target, 200).onComplete(this.targetReached.bind(this));
+        this.walkTween.easing(me.Tween.Easing.Linear.None);
+        this.walkTween.start();
+        this.isTravelling = true;
+        this.isFollowingPath = true;
+        if (path.length > 3) game.HUD.addLine("The Hero is exploring...");
+    },
+
     targetReached: function () {
         var dungeon = me.game.world.getEntityByProp("name", "dungeon")[0];
+
+        if (this.isEntering) {
+            this.isEntering = false;
+            dungeon.Tiles[0][9] = 1;
+            dungeon.rebuild();
+            me.game.viewport.shake(10, 500);
+        }
 
         this.isTravelling = false;
         if (this.isFollowingPath) {
@@ -132,7 +183,7 @@ game.Hero = me.ObjectEntity.extend({
                 if (path.length > 0) {
                     this.currentPathStep++;
                     this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
-                    this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
+                    this.walkTween = new me.Tween(this.pos).to(this.target, 200).onComplete(this.targetReached.bind(this));
                     this.walkTween.easing(me.Tween.Easing.Linear.None);
                     this.walkTween.start();
                     this.isTravelling = true;

@@ -1,17 +1,22 @@
+/// <reference path="../../lib/melonJS-0.9.10.js" />
 game.PlayScreen = me.ScreenObject.extend({
 
     init: function() {
         this.alwaysUpdate = true;
+
+        me.game.viewport = new me.Viewport(0, 0, 1120, 608);
     },
 
 	/**	
 	 *  action to perform on state change
 	 */
-	onResetEvent: function() {	
+    onResetEvent: function () {
+        // add our HUD to the game world        
+        me.game.world.addChild(new game.HUD.Container());
+
 	    me.levelDirector.loadLevel("basedungeon");
 
-	    // add our HUD to the game world        
-	    me.game.world.addChild(new game.HUD.Container());
+	    
 	    me.game.world.addChild(new game.Dungeon());
 	    me.game.world.addChild(new game.FallingPiece());
 	},
