@@ -4,8 +4,8 @@ require.config({
     }
 });
 
-require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection'],
-        function($, Game, GameStateUpdater, Map, plateCareeProjection) {
+require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'globe'],
+        function($, Game, GameStateUpdater, Map, plateCareeProjection, globe) {
             'use strict';
 
             var EARTH_SURFACE_AREA = 510100000;
@@ -21,7 +21,8 @@ require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection'],
             };
 
             var mapElement = document.getElementById('map');
-            var map = new Map('map.png', EARTH_SURFACE_AREA, plateCareeProjection, mapElement, onRender);
+            //var map = new Map('map.png', EARTH_SURFACE_AREA, plateCareeProjection, mapElement, onRender);
+            globe.render();
             var gameStateUpdater = new GameStateUpdater(map);
             var game = new Game(initialGameState, gameStateUpdater);
 

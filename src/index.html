@@ -2,9 +2,45 @@
 <html>
 <head>
     <title></title>
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script data-main="scripts/main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.1/slate/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+    <style>
+
+        svg {
+            background: #fcfcfa;
+        }
+
+        svg .stroke {
+            fill: none;
+            stroke: #000;
+            stroke-width: 3px;
+        }
+
+        svg .fill {
+            fill: #fff;
+        }
+
+        svg .graticule {
+            fill: none;
+            stroke: #777;
+            stroke-width: .5px;
+            stroke-opacity: .5;
+        }
+
+        svg .land {
+            fill: #222;
+        }
+
+        svg .boundary {
+            fill: none;
+            stroke: #fff;
+            stroke-width: .5px;
+        }
+
+    </style>
 </head>
 <body>
     <div id="game" class="container">
