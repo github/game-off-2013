@@ -63,22 +63,24 @@ public class LeverScreen extends Basic2DScreen {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.UP) {
-			gameScreen.startScreenQuake(Level.UP);
-			leverDirection = UP;
-		} else if (keycode == Keys.DOWN) {
-			gameScreen.startScreenQuake(Level.DOWN);
-			leverDirection = DOWN;
-		} else if (keycode == Keys.LEFT) {
-			gameScreen.startScreenQuake(Level.LEFT);
-			leverDirection = LEFT;
-		} else if (keycode == Keys.RIGHT) {
-			gameScreen.startScreenQuake(Level.RIGHT);
-			leverDirection = RIGHT;
-		} else if (keycode == Keys.CONTROL_LEFT || keycode == Keys.ESCAPE) {
-			Gdx.input.setInputProcessor(gameScreen);
-			game.setScreen(gameScreen);
-		}
+
+		if (leverDirection == NEUTRAL)
+			if (keycode == Keys.UP) {
+				gameScreen.startScreenQuake(Level.UP);
+				leverDirection = UP;
+			} else if (keycode == Keys.DOWN) {
+				gameScreen.startScreenQuake(Level.DOWN);
+				leverDirection = DOWN;
+			} else if (keycode == Keys.LEFT) {
+				gameScreen.startScreenQuake(Level.LEFT);
+				leverDirection = LEFT;
+			} else if (keycode == Keys.RIGHT) {
+				gameScreen.startScreenQuake(Level.RIGHT);
+				leverDirection = RIGHT;
+			} else if (keycode == Keys.CONTROL_LEFT || keycode == Keys.ESCAPE) {
+				Gdx.input.setInputProcessor(gameScreen);
+				game.setScreen(gameScreen);
+			}
 		return super.keyDown(keycode);
 	}
 

@@ -18,11 +18,6 @@ public class Lever extends Entity {
 	}
 
 	@Override
-	public void update(float fixedStep) {
-		super.update(fixedStep);
-	}
-
-	@Override
 	public void hit(Rectangle hitBounds) {
 		if (hitBounds.overlaps(bounds)) {
 			level.gameScreen.openLeverScreen();

@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
+import com.sturdyhelmetgames.roomforchange.level.Level.LevelTile;
 
 public class Player extends Entity {
 
 	private int health;
-	private final Rectangle hitBounds = new Rectangle(0f, 0f, 1f, 1f);
+	private final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
 
 	public Player(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
@@ -42,7 +43,8 @@ public class Player extends Entity {
 
 	}
 
-	private static final float HIT_DISTANCE = 0.5f;
+	private static final float HIT_DISTANCE = 1f;
+	private final Rectangle hitTileRect = new Rectangle(0f, 0f, 1f, 1f);
 
 	public void tryHit() {
 		hitBounds.x = bounds.x;
@@ -61,6 +63,12 @@ public class Player extends Entity {
 			final Entity entity = level.entities.get(i);
 			entity.hit(hitBounds);
 		}
+
+		LevelTile tile = level.getTiles()[(int) hitBounds.x][(int) hitBounds.y];
+		if (tile.type == Level.LevelTileType.LEVER) {
+			level.gameScreen.openLeverScreen();
+		}
+
 	}
 
 }

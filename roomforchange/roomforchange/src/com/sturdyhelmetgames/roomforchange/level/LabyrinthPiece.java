@@ -12,6 +12,7 @@ public class LabyrinthPiece {
 	private final Rectangle bounds = new Rectangle();
 	private final int orderNumber;
 	public final boolean[] doorsOpen = new boolean[4];
+	public final RoomTemplate roomTemplate;
 
 	public LabyrinthPieceState state = LabyrinthPieceState.LIGHTS_OFF;
 
@@ -28,28 +29,29 @@ public class LabyrinthPiece {
 	}
 
 	public LabyrinthPiece(PieceTemplate pieceTemplate,
-			RoomTemplate roomTemplate, int orderNumber) {
+			RoomTemplate roomTemplate, int orderNumber, Level level) {
 		tiles = new LevelTile[WIDTH][HEIGHT];
 		this.orderNumber = orderNumber;
+		this.roomTemplate = roomTemplate;
 		for (int i = 0; i < pieceTemplate.doorsOpen.length; i++) {
 			this.doorsOpen[i] = pieceTemplate.doorsOpen[i];
 		}
 
-		LevelTileType[][] pcs = pieceTemplate.getTileTypes();
+		LevelTileType[][] pieceTemplates = pieceTemplate.getTileTypes();
 		for (int x = 0; x < PieceTemplate.WIDTH; x++) {
 			for (int y = 0; y < PieceTemplate.HEIGHT; y++) {
-				tiles[x][y] = new LevelTile(this, pcs[x][y]);
+				tiles[x][y] = new LevelTile(this, pieceTemplates[x][y]);
 			}
 		}
 
-		pcs = roomTemplate.getTileTypes();
+		LevelTileType[][] roomTemplates = roomTemplate.getTileTypes();
 		for (int x = 0; x < RoomTemplate.WIDTH; x++) {
 			for (int y = 0; y < RoomTemplate.HEIGHT; y++) {
-				tiles[x + 1][y + 1] = new LevelTile(this, pcs[x][y]);
+				tiles[x + 1][y + 1] = new LevelTile(this,
+						roomTemplates[x][y] != null ? roomTemplates[x][y]
+								: LevelTileType.GROUND);
 			}
 		}
-
-		// TODO roomObjectTemplate handling
 
 	}
 

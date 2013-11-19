@@ -1,11 +1,14 @@
 package com.sturdyhelmetgames.roomforchange.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
+import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
+import com.sturdyhelmetgames.roomforchange.entity.Snake;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
@@ -84,7 +87,7 @@ public class Level {
 				true, "brick-left"), WALL_RIGHT(true, "brick-right"), WALL_FRONT(
 				true, "brick-front"), WALL_BACK(true, "brick-back"), DOOR(true,
 				"door"), EXIT(false, "exit"), HOLE(false, "hole"), ROCK(true,
-				"rock");
+				"rock"), LEVER(true, "lever");
 
 		private final boolean collidable;
 		private final String objectName;
@@ -118,6 +121,10 @@ public class Level {
 		public final LevelTileType type;
 
 		public LevelTile(LabyrinthPiece parent, LevelTileType type) {
+			if (parent == null || type == null) {
+				throw new RuntimeException(
+						"Cannot create LevelTile without parent Level or type!");
+			}
 			this.parent = parent;
 			this.type = type;
 		}
@@ -169,7 +176,7 @@ public class Level {
 		}
 		for (int i = 0; i < entities.size; i++) {
 			final Entity entity = entities.get(i);
-			if (entity != player)
+			if (entity != player && !minimap)
 				entity.render(delta, batch);
 		}
 		player.render(delta, batch);
@@ -296,5 +303,46 @@ public class Level {
 
 	public void resumeEntities() {
 		pauseEntities = false;
+	}
+
+	private static final Array<Entity> toBeRemoved = new Array<Entity>();
+
+	/**
+	 * Do stuff that happens when the player moves to another piece.
+	 */
+	public void moveToAnotherPieceHook() {
+		// clean up old entities old-school style
+
+		for (int i = 0; i < entities.size; i++) {
+			final Entity entity = entities.get(i);
+			if (entity != player) {
+				toBeRemoved.add(entity);
+			}
+		}
+		entities.removeAll(toBeRemoved, true);
+		toBeRemoved.clear();
+
+		final Vector2 currentPiecePos = findCurrentPiecePos();
+		final LabyrinthPiece currentPiece = labyrinth[(int) currentPiecePos.x][(int) currentPiecePos.y];
+		final Vector2 currentPieceRelativePos = findCurrentPieceRelativeToMapPosition();
+		spawnNewEnemiesAround(currentPiece, currentPieceRelativePos);
+	}
+
+	private void spawnNewEnemiesAround(LabyrinthPiece piece,
+			Vector2 currentPieceRelativePos) {
+		final RoomTemplate template = piece.roomTemplate;
+		for (int i = 0; i < template.getEntityTypes().size; i++) {
+
+			final float randomX = currentPieceRelativePos.x + 1
+					+ MathUtils.random(9);
+			final float randomY = currentPieceRelativePos.y + 1
+					+ MathUtils.random(5);
+			final Class<?> entityType = template.getEntityTypes().get(i);
+			if (entityType == Mummy.class) {
+				entities.add(new Mummy(randomX, randomY, this));
+			} else if (entityType == Snake.class) {
+				entities.add(new Snake(randomX, randomY, this));
+			}
+		}
 	}
 }

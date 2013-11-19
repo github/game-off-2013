@@ -74,7 +74,7 @@ public class Assets {
 
 	private static void setupPieceTemplates() {
 		final FileHandle[] pieceTemplateHandles = new FileHandle[15];
-		for (int i = 1; i <= 15; i++) {
+		for (int i = 1; i <= pieceTemplateHandles.length; i++) {
 			pieceTemplateHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
 					+ "piecetemplates" + File.separator + i + "_piece.png");
 		}
@@ -110,8 +110,8 @@ public class Assets {
 		addPieceTemplate(pieceTemplateHandles[14], new boolean[] { true, true,
 				true, true });
 
-		final FileHandle[] roomObjectHandles = new FileHandle[7];
-		for (int i = 1; i <= 7; i++) {
+		final FileHandle[] roomObjectHandles = new FileHandle[9];
+		for (int i = 1; i <= roomObjectHandles.length; i++) {
 			roomObjectHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
 					+ "roomtemplates" + File.separator + i + "_piece.png");
 		}

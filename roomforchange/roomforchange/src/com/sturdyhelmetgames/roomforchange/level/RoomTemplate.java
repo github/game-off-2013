@@ -1,6 +1,10 @@
 package com.sturdyhelmetgames.roomforchange.level;
 
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+import com.sturdyhelmetgames.roomforchange.entity.Mummy;
+import com.sturdyhelmetgames.roomforchange.entity.Snake;
 import com.sturdyhelmetgames.roomforchange.level.Level.LevelTileType;
 
 public class RoomTemplate {
@@ -10,6 +14,8 @@ public class RoomTemplate {
 	private final LevelTileType[][] tileTypes;
 	private final Pixmap pixmap;
 
+	private final Array<Class<?>> entityTypes = new Array<Class<?>>();
+
 	public Pixmap getPixmap() {
 		return pixmap;
 	}
@@ -18,7 +24,9 @@ public class RoomTemplate {
 		return tileTypes;
 	}
 
-	// TODO add entity and object types also
+	public Array<Class<?>> getEntityTypes() {
+		return entityTypes;
+	}
 
 	public RoomTemplate(Pixmap pixmap) {
 		this.pixmap = pixmap;
@@ -38,6 +46,8 @@ public class RoomTemplate {
 					tileTypes[x][y] = LevelTileType.HOLE;
 				} else if (pixel == Color.BLUE) {
 					tileTypes[x][y] = LevelTileType.ROCK;
+				} else if (pixel == Color.GREEN) {
+					tileTypes[x][y] = LevelTileType.LEVER;
 				} else {
 					tileTypes[x][y] = LevelTileType.GROUND;
 				}
@@ -45,6 +55,16 @@ public class RoomTemplate {
 			}
 			yFlip = 0;
 		}
-	}
 
+		// randomize room difficulty level
+		final int difficultyLevel = MathUtils.random(5);
+		for (int i = 0; i < difficultyLevel; i++) {
+			final int enemyType = MathUtils.random(2);
+			if (enemyType == 0) {
+				entityTypes.add(Mummy.class);
+			} else if (enemyType > 1) {
+				entityTypes.add(Snake.class);
+			}
+		}
+	}
 }
