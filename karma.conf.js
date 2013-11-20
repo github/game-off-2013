@@ -18,7 +18,8 @@ module.exports = function(config) {
       {pattern: 'test/map.test.png', included: false, served: true },
       {pattern: 'node_modules/squirejs/src/Squire.js', included: false },
       {pattern: 'src/**/*.js', included: false },
-      {pattern: 'test/**/*.test.js', included: false}
+      {pattern: 'test/**/*.test.js', included: false},
+      {pattern: 'node_modules/underscore/*.js', included: false}
     ],
 
 
