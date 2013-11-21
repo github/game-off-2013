@@ -18,6 +18,10 @@ game.Hero = me.ObjectEntity.extend({
     stairsFound: null,
     isEntering: true,
 
+    isInCombat: false,
+    attackCooldown: 0,
+    attackCooldownTarget: 2000,
+
     init: function (x, y, settings) {
         // call the constructor
         settings.spritewidth = 32;
@@ -64,9 +68,22 @@ game.Hero = me.ObjectEntity.extend({
     scanY: 0,
     update: function () {
         var dungeon = me.game.world.getEntityByProp("name", "dungeon")[0];
+        var mobs = me.game.world.getEntityByProp("name", "mob");
 
         var tx = Math.floor(this.pos.x / 32);
         var ty = Math.floor(this.pos.y / 32);
+
+        this.isInCombat = false;
+        for (var i = 0; i < mobs.length; i++) {
+            var mob = mobs[i];
+            var mx = Math.floor(mob.pos.x / 32);
+            var my = Math.floor(mob.pos.y / 32);
+            if (((mx == tx - 1 || mx == tx + 1) && my == ty) ||
+                ((my == ty - 1 || my == ty + 1) && mx == tx)) {
+                this.isInCombat = true;
+                this.attack(mob);
+            }
+        }
 
         for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
             for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
@@ -154,7 +171,27 @@ game.Hero = me.ObjectEntity.extend({
         return true;
     },
 
-    explore: function(tx,ty,path) {
+    attack: function(mob) {
+        if (me.timer.getTime() < this.attackCooldown + this.attackCooldownTarget) return;
+
+        this.attackCooldown = me.timer.getTime();
+
+        game.HUD.addLine("Hero attacks " + mob.mobName);
+        mob.attackedBy(this);
+    },
+
+    attackedBy: function (attacker) {
+        game.HUD.addLine("Hero is attacked by " + attacker.mobName);
+        game.HUD.addFloatyText(new me.Vector2d(this.pos.x + 3 + Math.floor(Math.random() * 16), this.pos.y), "1");
+        if (!this.isInCombat) {
+            this.attackCooldown = me.timer.getTime() + (Math.random() * 2000);
+            game.HUD.addFloatyText(new me.Vector2d((this.pos.x - 40) + Math.floor(Math.random() * 16), this.pos.y-16), "Stunned!");
+        }
+        this.isInCombat = true;
+    },
+
+    explore: function (tx, ty, path) {
+        if (this.isInCombat) return;
         this.currentPath = path;
         this.currentPathStep = 0;
         this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
@@ -175,6 +212,8 @@ game.Hero = me.ObjectEntity.extend({
             dungeon.rebuild();
             me.game.viewport.shake(10, 500);
         }
+
+        if (this.isInCombat) this.isFollowingPath = false;
 
         this.isTravelling = false;
         if (this.isFollowingPath) {

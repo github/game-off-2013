@@ -9,6 +9,7 @@ game.resources = [
     { name: "placeholder", type: "image", src: "data/img/placeholder.png" },
 
     { name: "font", type: "image", src: "data/img/font2.png" },
+    { name: "floatfont", type: "image", src: "data/img/floatfont.png" },
     { name: "hudbg", type: "image", src: "data/img/hudbg.png" },
  
     { name: "basedungeon", type: "tmx", src: "data/map/basedungeon.xml" },

@@ -7,7 +7,7 @@ game.HUD = game.HUD || {};
 
 game.HUD.TextLines = [],
 game.HUD.addLine = function (line) {
-    game.HUD.TextLines[game.HUD.TextLines.length] = line;
+    game.HUD.TextLines[game.HUD.TextLines.length] = capitaliseFirstLetter(line);
 };
 
 game.HUD.Container = me.ObjectContainer.extend({
@@ -44,7 +44,70 @@ game.HUD.Container = me.ObjectContainer.extend({
    
 });
 
+game.HUD.FloatyTextContainer = me.ObjectContainer.extend({
 
+    init: function () {
+        // call the constructor
+        this.parent();
+
+        // persistent across level change
+        this.isPersistent = true;
+
+        // non collidable
+        this.collidable = false;
+
+        // make sure our object is always draw first
+        this.z = 10;
+
+        // give a name
+        this.name = "FloatyTextContainer";
+
+        this.alwaysUpdate = true;
+    },
+
+
+});
+
+game.HUD.addFloatyText = function (pos, text) {
+    var ft = new game.HUD.FloatyText(pos.x, pos.y, text);
+    me.game.world.getEntityByProp("name", "FloatyTextContainer")[0].addChild(ft);
+}
+
+game.HUD.FloatyText = me.ObjectContainer.extend({
+    init: function (x, y, text) {
+        this.parent(x, y,100,100);
+
+        this.text = text;
+
+        this.font = new me.BitmapFont("floatfont", { x: 13, y: 13 }, 1);
+        this.font.alignText = "top";
+
+        this.floating = true;
+        this.z = 10;
+
+        this.setOpacity(1);
+
+        var posTween = new me.Tween(this.pos).to({ y: y - 100 }, 2000).onComplete(this.remove.bind(this));
+        posTween.easing(me.Tween.Easing.Linear.None);
+        posTween.start();
+
+        var alphaTween = new me.Tween(this).to({ alpha: 0 }, 1800);
+        alphaTween.easing(me.Tween.Easing.Linear.None);
+        alphaTween.start();
+
+        this.alwaysUpdate = true;
+    },
+
+    remove: function() {
+        me.game.world.getEntityByProp("name", "FloatyTextContainer")[0].removeChild(this);
+    },
+
+    draw: function (context) {
+        context.globalAlpha = this.alpha;
+        this.font.draw(context, this.text, this.pos.x, this.pos.y);
+        context.globalAlpha = 1;
+    }
+});
 
 game.HUD.TextWindow = me.ObjectContainer.extend({ 
     init: function (x, y) {
@@ -71,6 +134,10 @@ game.HUD.TextWindow = me.ObjectContainer.extend({
         }
     }
 });
+
+function capitaliseFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 //game.HUD.ScoreItem = me.Renderable.extend({
 //    init: function (x, y) {

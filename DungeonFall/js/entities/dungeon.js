@@ -69,6 +69,10 @@ game.Dungeon = me.ObjectContainer.extend({
                         var my = Math.floor(mob.pos.y / 32);
                         if (mx == x && my == y)
                             this.pathGridMobs[x][y] = 0;
+                        mx = Math.floor(mob.target.x / 32);
+                        my = Math.floor(mob.target.y / 32);
+                        if (mx == x && my == y)
+                            this.pathGridMobs[x][y] = 0;
                     }
                 }
             }
