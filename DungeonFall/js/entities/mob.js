@@ -18,7 +18,12 @@ game.Mob = me.ObjectEntity.extend({
     attackCooldown: 0,
     attackCooldownTarget: 2000,
 
-    health: 5,
+    Level: 1,
+    DRMin: 0,
+    DRMax: 1,
+    SRMin: 0,
+    SRMax: 1,
+    HP: 1,
 
     init: function (x, y, settings) {
         // call the constructor
@@ -58,6 +63,26 @@ game.Mob = me.ObjectEntity.extend({
         this.alwaysUpdate = true;
 
         this.z = 3;
+
+        // Distribute stats
+        var points = this.Level * 3;
+        for (var i = 0; i < points; i++) {
+            var r = Math.floor(Math.random() * 3);
+            switch (r) {
+                case 0:
+                    this.HP++;
+                    break;
+                case 1:
+                    this.DRMax++;
+                    break;
+                case 2:
+                    this.SRMax++;
+                    break;
+            }
+        }
+        this.DRMin = this.Level - 1;
+        this.SRMin = this.Level - 1;
+
 
         //this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
         //this.walkTween.easing(me.Tween.Easing.Linear.None);
@@ -125,7 +150,11 @@ game.Mob = me.ObjectEntity.extend({
        
         if (dungeon.Tiles[tx][ty] >= PieceHelper.MIN_WALL_TILE && dungeon.Tiles[tx][ty] <= PieceHelper.MAX_WALL_TILE) me.game.remove(this);
 
-        if (this.health <= 0) this.die();
+        if (this.HP <= 0) {
+            this.die();
+            hero.XP += this.Level * 10;
+            game.HUD.addFloatyText(new me.Vector2d(hero.pos.x + 3 + Math.floor(Math.random() * 16), hero.pos.y), (this.Level * 10) + "XP", "blue");
+        }
 
         return true;
     },
@@ -141,13 +170,40 @@ game.Mob = me.ObjectEntity.extend({
     },
 
     attackedBy: function (attacker) {
-        game.HUD.addFloatyText(new me.Vector2d(this.pos.x + 3 + Math.floor(Math.random() * 16), this.pos.y), "1");
-        this.health--;
+
         if (!this.isInCombat) {
             this.attackCooldown = me.timer.getTime() + (Math.random() * 2000);
-            game.HUD.addFloatyText(new me.Vector2d((this.pos.x - 40) + Math.floor(Math.random() * 16), this.pos.y - 16), "Stunned!");
+            game.HUD.addFloatyText(new me.Vector2d((this.pos.x - 40) + Math.floor(Math.random() * 16), this.pos.y - 16), "Stunned!", "red");
         }
         this.isInCombat = true;
+
+        var dam = attacker.DRMin + Math.floor(Math.random() * ((attacker.DRMax+1) - attacker.DRMin));
+        var sav = this.SRMin + Math.floor(Math.random() * ((this.SRMax + 1) - this.SRMin));
+
+        var totaldam = dam - sav;
+
+        var report = "Hero attacks " + this.mobName;
+
+        if (dam == 0) {
+            report += " but misses!";
+            game.HUD.addFloatyText(new me.Vector2d(attacker.pos.x + 3 + Math.floor(Math.random() * 16), attacker.pos.y), "Miss!", "white");
+        }
+        else {
+            if (totaldam > 0) {
+                report += " and hits for " + totaldam;
+                game.HUD.addFloatyText(new me.Vector2d(this.pos.x + 3 + Math.floor(Math.random() * 16), this.pos.y), totaldam, "red");
+                this.HP -= totaldam;
+            }
+            else {
+                report = this.mobName + " defends the Hero's attack!";
+                game.HUD.addFloatyText(new me.Vector2d(this.pos.x + 3 + Math.floor(Math.random() * 16), this.pos.y), "Defend!", "green");
+
+            }
+        }
+
+        game.HUD.addLine(report);
+
+        
     },
 
     targetReached: function() {

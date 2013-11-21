@@ -68,18 +68,18 @@ game.HUD.FloatyTextContainer = me.ObjectContainer.extend({
 
 });
 
-game.HUD.addFloatyText = function (pos, text) {
-    var ft = new game.HUD.FloatyText(pos.x, pos.y, text);
+game.HUD.addFloatyText = function (pos, text, col) {
+    var ft = new game.HUD.FloatyText(pos.x, pos.y, text, col);
     me.game.world.getEntityByProp("name", "FloatyTextContainer")[0].addChild(ft);
 }
 
 game.HUD.FloatyText = me.ObjectContainer.extend({
-    init: function (x, y, text) {
+    init: function (x, y, text, col) {
         this.parent(x, y,100,100);
 
         this.text = text;
 
-        this.font = new me.BitmapFont("floatfont", { x: 13, y: 13 }, 1);
+        this.font = new me.BitmapFont("floatfont-" + col, { x: 13, y: 13 }, 1);
         this.font.alignText = "top";
 
         this.floating = true;

@@ -105,11 +105,15 @@ game.Dungeon = me.ObjectContainer.extend({
                 }
                 if (this.Tiles[this.wallInCheckX][y] == 0 || this.Tiles[this.wallInCheckX][y] == PieceHelper.STAIRS_TILE) {
                     if (this.wallInCheckX != Math.floor(hero.pos.x / 32) || y != Math.floor(hero.pos.y / 32)) {
-                        var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, Math.floor(hero.pos.x / 32), Math.floor(hero.pos.y / 32));
-                        if (!path || path.length == 0) {
-                            this.Tiles[this.wallInCheckX][y] = 1;
-                            rebuild = true;
-                            me.game.viewport.shake(5, 100);
+                        if (Math.floor(hero.pos.x / 32) > 0 && Math.floor(hero.pos.y / 32) > 0) {
+                            if (this.Tiles[Math.floor(hero.pos.x / 32)][Math.floor(hero.pos.y / 32)] == 0 || this.Tiles[Math.floor(hero.pos.x / 32)][Math.floor(hero.pos.y / 32)] == PieceHelper.STAIRS_TILE) {
+                                var path = this.findPath(this.wallInGridWithFloor, this.wallInCheckX, y, Math.floor(hero.pos.x / 32), Math.floor(hero.pos.y / 32));
+                                if (!path || path.length == 0) {
+                                    this.Tiles[this.wallInCheckX][y] = 1;
+                                    rebuild = true;
+                                    me.game.viewport.shake(5, 100);
+                                }
+                            }
                         }
                     }
                 }
