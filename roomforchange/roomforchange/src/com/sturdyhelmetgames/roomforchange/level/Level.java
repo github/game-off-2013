@@ -301,6 +301,8 @@ public class Level {
 			break;
 		}
 		LabyrinthUtil.updateLabyrinthTiles(this);
+		gameScreen.currentCamPosition
+				.set(findCurrentPieceRelativeToMapPosition());
 	}
 
 	public void pauseEntities() {
