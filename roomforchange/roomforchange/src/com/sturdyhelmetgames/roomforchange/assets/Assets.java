@@ -57,6 +57,8 @@ public class Assets {
 	public static Animation playerWalkRight;
 	public static Animation playerWalkLeft;
 
+	public static Animation spiderFront;
+
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
 	public static final Array<RoomTemplate> roomTemplates = new Array<RoomTemplate>();
 
@@ -186,6 +188,10 @@ public class Assets {
 		playerWalkLeft = new Animation(0.2f,
 				new TextureRegion[] { getGameObject("player-left-1"),
 						getGameObject("player-left-2"), });
+
+		spiderFront = new Animation(0.2f, new TextureRegion[] {
+				getGameObject("spider-front-1"),
+				getGameObject("spider-front-2") });
 	}
 
 	private static TextureRegion[] flipRegionsHorizontally(

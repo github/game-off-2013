@@ -38,9 +38,6 @@ public class LabyrinthUtil {
 		level.player = new Player(2, 2, level);
 		level.entities.add(level.player);
 
-		level.entities.add(new Mummy(10f, 5f, level));
-		level.entities.add(new Snake(10f, 5f, level));
-
 		return level;
 	}
 

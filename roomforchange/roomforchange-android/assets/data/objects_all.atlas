@@ -360,3 +360,24 @@ snake-left-3
   orig: 18, 18
   offset: 0, 0
   index: -1
+spider-front-1
+  rotate: false
+  xy: 323, 163
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+spider-front-2
+  rotate: false
+  xy: 323, 141
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+spider-thread
+  rotate: false
+  xy: 323, 119
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1

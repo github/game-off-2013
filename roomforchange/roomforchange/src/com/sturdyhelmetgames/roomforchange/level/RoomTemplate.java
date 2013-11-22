@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Snake;
+import com.sturdyhelmetgames.roomforchange.entity.Spider;
 import com.sturdyhelmetgames.roomforchange.level.Level.LevelTileType;
 
 public class RoomTemplate {
@@ -59,12 +60,14 @@ public class RoomTemplate {
 		// randomize room difficulty level
 		final int difficultyLevel = MathUtils.random(5);
 		for (int i = 0; i < difficultyLevel; i++) {
-			final int enemyType = MathUtils.random(2);
-			if (enemyType == 0) {
-				entityTypes.add(Mummy.class);
-			} else if (enemyType > 1) {
-				entityTypes.add(Snake.class);
-			}
+			final int enemyType = MathUtils.random(100);
+//			if (enemyType < 30) {
+//				entityTypes.add(Mummy.class);
+//			} else if (enemyType < 60) {
+//				entityTypes.add(Snake.class);
+//			} else if (enemyType < 100) {
+				entityTypes.add(Spider.class);
+//			}
 		}
 	}
 }

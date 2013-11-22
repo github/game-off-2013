@@ -1,5 +1,7 @@
 package com.sturdyhelmetgames.roomforchange.level;
 
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -9,12 +11,14 @@ import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.entity.Snake;
+import com.sturdyhelmetgames.roomforchange.entity.Spider;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
 
 public class Level {
 
+	public final TweenManager entityTweenManager = new TweenManager();
 	public final GameScreen gameScreen;
 	private LabyrinthPiece[][] labyrinth;
 	private LevelTile[][] tiles;
@@ -161,10 +165,12 @@ public class Level {
 	}
 
 	public void update(float fixedStep) {
-		if (!pauseEntities)
+		if (!pauseEntities) {
+			entityTweenManager.update(fixedStep);
 			for (int i = 0; i < entities.size; i++) {
 				entities.get(i).update(fixedStep);
 			}
+		}
 	}
 
 	public void render(float delta, SpriteBatch batch, boolean minimap) {
@@ -342,6 +348,8 @@ public class Level {
 				entities.add(new Mummy(randomX, randomY, this));
 			} else if (entityType == Snake.class) {
 				entities.add(new Snake(randomX, randomY, this));
+			} else if (entityType == Spider.class) {
+				entities.add(new Spider(randomX, randomY, this));
 			}
 		}
 	}
