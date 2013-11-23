@@ -146,7 +146,6 @@ public class Entity {
 			HoleFallWrapper hole = holes[i];
 			if (bounds.overlaps(hole.bounds)) {
 				state = EntityState.FALLING;
-				bounds.setPosition(hole.bounds.x, hole.bounds.y);
 			}
 		}
 
@@ -168,7 +167,6 @@ public class Entity {
 			HoleFallWrapper hole = holes[i];
 			if (bounds.overlaps(hole.bounds)) {
 				state = EntityState.FALLING;
-				bounds.setPosition(hole.bounds.x, hole.bounds.y);
 			}
 		}
 

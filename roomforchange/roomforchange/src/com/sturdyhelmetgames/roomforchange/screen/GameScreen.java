@@ -235,4 +235,8 @@ public class GameScreen extends Basic2DScreen {
 	public void openLeverScreen() {
 		game.setScreen(new LeverScreen(game, this));
 	}
+
+	public void gameOver() {
+		game.setScreen(new GameOverScreen(game, this));
+	}
 }

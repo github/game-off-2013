@@ -40,8 +40,8 @@ public class Mummy extends Enemy {
 			animation = Assets.mummyWalkLeft;
 		}
 
-		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x, bounds.y,
-				width, height);
+		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
+				bounds.y - 0.1f, width, height);
 	}
 
 	private final Vector2 playerPos = new Vector2();

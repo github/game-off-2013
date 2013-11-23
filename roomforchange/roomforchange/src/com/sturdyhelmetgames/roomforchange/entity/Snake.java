@@ -33,8 +33,8 @@ public class Snake extends Enemy {
 			animation = Assets.snakeWalkLeft;
 		}
 
-		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x, bounds.y,
-				width, height);
+		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
+				bounds.y - 0.1f, width, height);
 	}
 
 	@Override

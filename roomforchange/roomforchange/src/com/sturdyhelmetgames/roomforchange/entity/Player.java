@@ -31,11 +31,11 @@ public class Player extends Entity {
 		if (isFalling()) {
 			animation = Assets.playerFalling;
 			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x - 0.1f,
-					bounds.y - 0.1f, width, height + 0.4f);
+					bounds.y, width, height + 0.4f);
 		} else if (isDying() || isDead()) {
 			animation = Assets.playerDying;
 			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x - 0.1f,
-					bounds.y - 0.1f, width, height + 0.4f);
+					bounds.y, width, height + 0.4f);
 		} else {
 			if (direction == Direction.UP) {
 				animation = Assets.playerWalkBack;
@@ -48,10 +48,10 @@ public class Player extends Entity {
 			}
 			if (isNotWalking()) {
 				batch.draw(animation.getKeyFrame(0.25f), bounds.x - 0.1f,
-						bounds.y - 0.1f, width, height + 0.4f);
+						bounds.y, width, height + 0.4f);
 			} else {
 				batch.draw(animation.getKeyFrame(stateTime, true),
-						bounds.x - 0.1f, bounds.y - 0.1f, width, height + 0.4f);
+						bounds.x - 0.1f, bounds.y, width, height + 0.4f);
 			}
 		}
 
@@ -65,6 +65,7 @@ public class Player extends Entity {
 			dyingTime += fixedStep;
 			if (dyingTime >= maxDyingTime) {
 				state = EntityState.DEAD;
+				level.gameScreen.gameOver();
 			}
 		}
 
