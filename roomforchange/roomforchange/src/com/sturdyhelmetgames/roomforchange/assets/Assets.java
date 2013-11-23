@@ -71,6 +71,7 @@ public class Assets {
 	public static Animation playerWalkRight;
 	public static Animation playerWalkLeft;
 	public static Animation playerDying;
+	public static Animation playerFalling;
 
 	public static Animation spiderFront;
 
@@ -214,13 +215,19 @@ public class Assets {
 		playerWalkLeft = new Animation(0.2f,
 				new TextureRegion[] { getGameObject("player-left-1"),
 						getGameObject("player-left-2"), });
-		playerDying = new Animation(0.2f, new TextureRegion[] {
+		playerDying = new Animation(0.3f, new TextureRegion[] {
 				getGameObject("player-dying-1"),
 				getGameObject("player-dying-2"),
 				getGameObject("player-dying-3"),
 				getGameObject("player-dying-4"),
 				getGameObject("player-dying-5"), });
 		playerDying.setPlayMode(Animation.NORMAL);
+
+		playerFalling = new Animation(0.3f, new TextureRegion[] {
+				getGameObject("player-falling-1"),
+				getGameObject("player-falling-2"),
+				getGameObject("player-falling-3"), getGameObject("empty") });
+		playerFalling.setPlayMode(Animation.NORMAL);
 
 		spiderFront = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("spider-front-1"),

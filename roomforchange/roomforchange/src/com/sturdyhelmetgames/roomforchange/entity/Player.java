@@ -19,7 +19,7 @@ public class Player extends Entity {
 	private final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
 
 	public Player(float x, float y, Level level) {
-		super(x, y, 1f, 1f, level);
+		super(x, y, 1f, 0.6f, level);
 	}
 
 	@Override
@@ -28,10 +28,14 @@ public class Player extends Entity {
 
 		Animation animation = null;
 
-		if (isDying() || isDead()) {
+		if (isFalling()) {
+			animation = Assets.playerFalling;
+			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x - 0.1f,
+					bounds.y - 0.1f, width, height + 0.4f);
+		} else if (isDying() || isDead()) {
 			animation = Assets.playerDying;
-			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x,
-					bounds.y, width, height);
+			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x - 0.1f,
+					bounds.y - 0.1f, width, height + 0.4f);
 		} else {
 			if (direction == Direction.UP) {
 				animation = Assets.playerWalkBack;
@@ -43,11 +47,11 @@ public class Player extends Entity {
 				animation = Assets.playerWalkLeft;
 			}
 			if (isNotWalking()) {
-				batch.draw(animation.getKeyFrame(0.25f), bounds.x, bounds.y,
-						width, height);
+				batch.draw(animation.getKeyFrame(0.25f), bounds.x - 0.1f,
+						bounds.y - 0.1f, width, height + 0.4f);
 			} else {
-				batch.draw(animation.getKeyFrame(stateTime, true), bounds.x,
-						bounds.y, width, height);
+				batch.draw(animation.getKeyFrame(stateTime, true),
+						bounds.x - 0.1f, bounds.y - 0.1f, width, height + 0.4f);
 			}
 		}
 
@@ -56,7 +60,7 @@ public class Player extends Entity {
 	@Override
 	public void update(float fixedStep) {
 
-		if (isDying()) {
+		if (isDying() || isFalling()) {
 			dyingAnimState += fixedStep;
 			dyingTime += fixedStep;
 			if (dyingTime >= maxDyingTime) {

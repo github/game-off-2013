@@ -23,9 +23,23 @@ public class Entity {
 	public float stateTime = 0f;
 	public float width, height;
 	public final Rectangle bounds = new Rectangle();
-	protected Rectangle[] r = { new Rectangle(), new Rectangle(),
+	public final Rectangle[] r = { new Rectangle(), new Rectangle(),
 			new Rectangle(), new Rectangle() };
+	public final HoleFallWrapper[] holes = { new HoleFallWrapper(),
+			new HoleFallWrapper(), new HoleFallWrapper(), new HoleFallWrapper() };
 	public int[][] tiles;
+
+	public class HoleFallWrapper {
+		public final Rectangle bounds = new Rectangle();
+
+		public void set(float x, float y, float width, float height) {
+			bounds.set(x, y, width, height);
+		}
+
+		public void unset() {
+			bounds.set(-1, -1, 0, 0);
+		}
+	}
 
 	public float getMaxVelocity() {
 		return VEL_MAX;
@@ -127,6 +141,15 @@ public class Entity {
 	protected void tryMove() {
 		bounds.y += vel.y;
 		fetchCollidableRects();
+
+		for (int i = 0; i < holes.length; i++) {
+			HoleFallWrapper hole = holes[i];
+			if (bounds.overlaps(hole.bounds)) {
+				state = EntityState.FALLING;
+				bounds.setPosition(hole.bounds.x, hole.bounds.y);
+			}
+		}
+
 		for (int i = 0; i < r.length; i++) {
 			Rectangle rect = r[i];
 			if (bounds.overlaps(rect)) {
@@ -141,6 +164,14 @@ public class Entity {
 
 		bounds.x += vel.x;
 		fetchCollidableRects();
+		for (int i = 0; i < holes.length; i++) {
+			HoleFallWrapper hole = holes[i];
+			if (bounds.overlaps(hole.bounds)) {
+				state = EntityState.FALLING;
+				bounds.setPosition(hole.bounds.x, hole.bounds.y);
+			}
+		}
+
 		for (int i = 0; i < r.length; i++) {
 			Rectangle rect = r[i];
 			if (bounds.overlaps(rect)) {
@@ -170,22 +201,46 @@ public class Entity {
 			LevelTile tile3 = level.getTiles()[p3x][p3y];
 			LevelTile tile4 = level.getTiles()[p4x][p4y];
 
-			if (tile1.isCollidable())
+			if (tile1.isHole())
+				holes[0].set(p1x + 0.4f, p1y + 0.5f, 0.2f, 0.05f);
+			else
+				holes[0].unset();
+			if (tile1.isCollidable()) {
 				r[0].set(p1x, p1y, 1, 1);
-			else
+			} else {
 				r[0].set(-1, -1, 0, 0);
-			if (tile2.isCollidable())
+			}
+
+			if (tile2.isHole())
+				holes[1].set(p2x + 0.4f, p2y + 0.5f, 0.2f, 0.05f);
+			else
+				holes[1].unset();
+			if (tile2.isCollidable()) {
 				r[1].set(p2x, p2y, 1, 1);
-			else
+			} else {
 				r[1].set(-1, -1, 0, 0);
-			if (tile3.isCollidable())
+			}
+
+			if (tile3.isHole())
+				holes[2].set(p3x + 0.4f, p3y + 0.5f, 0.2f, 0.05f);
+			else
+				holes[2].unset();
+			if (tile3.isCollidable()) {
 				r[2].set(p3x, p3y, 1, 1);
-			else
+
+			} else {
 				r[2].set(-1, -1, 0, 0);
-			if (tile4.isCollidable())
-				r[3].set(p4x, p4y, 1, 1);
+			}
+
+			if (tile4.isHole())
+				holes[3].set(p4x + 0.4f, p4y + 0.5f, 0.2f, 0.05f);
 			else
+				holes[3].unset();
+			if (tile4.isCollidable()) {
+				r[3].set(p4x, p4y, 1, 1);
+			} else {
 				r[3].set(-1, -1, 0, 0);
+			}
 		} catch (ArrayIndexOutOfBoundsException e) {
 			Gdx.app.log("Creature", "Player went off screen");
 		}
@@ -209,6 +264,10 @@ public class Entity {
 
 	}
 
+	public boolean isFalling() {
+		return state == EntityState.FALLING;
+	}
+
 	public boolean isDying() {
 		return state == EntityState.DYING;
 	}
@@ -218,6 +277,6 @@ public class Entity {
 	}
 
 	public boolean isAlive() {
-		return !isDying() && !isDead();
+		return !isDying() && !isDead() && !isFalling();
 	}
 }

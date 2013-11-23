@@ -120,6 +120,10 @@ public class Level {
 		public boolean isCollidable() {
 			return collidable;
 		}
+
+		public boolean isHole() {
+			return this == HOLE;
+		}
 	}
 
 	public static class LevelTile {
@@ -163,6 +167,10 @@ public class Level {
 
 		public boolean isCollidable() {
 			return type.isCollidable();
+		}
+
+		public boolean isHole() {
+			return type.isHole();
 		}
 	}
 

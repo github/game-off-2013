@@ -9,11 +9,15 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RandomUtil;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
+import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
+import com.sturdyhelmetgames.roomforchange.entity.Entity.HoleFallWrapper;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
@@ -27,6 +31,8 @@ public class GameScreen extends Basic2DScreen {
 	public ScreenQuake screenQuake;
 	public final Vector2 currentCamPosition = new Vector2();
 	public final TweenManager cameraTweenManager = new TweenManager();
+
+	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 	private Level level;
 
@@ -107,6 +113,25 @@ public class GameScreen extends Basic2DScreen {
 		batchMiniMap.setColor(origColor);
 		level.render(delta, batchMiniMap, true);
 		batchMiniMap.end();
+
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Line);
+
+		for (int i = 0; i < level.entities.size; i++) {
+			shapeRenderer.setColor(Color.WHITE);
+			final Entity entity = level.entities.get(i);
+			shapeRenderer.rect(entity.bounds.x, entity.bounds.y,
+					entity.bounds.width, entity.bounds.height);
+
+			shapeRenderer.setColor(Color.RED);
+			for (int i2 = 0; i2 < entity.holes.length; i2++) {
+				HoleFallWrapper hole = entity.holes[i2];
+				shapeRenderer.rect(hole.bounds.x, hole.bounds.y,
+						hole.bounds.width, hole.bounds.height);
+			}
+		}
+
+		shapeRenderer.end();
 	}
 
 	protected void processKeys() {
