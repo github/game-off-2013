@@ -16,7 +16,7 @@ public class Mummy extends Enemy {
 	private final Vector2 constantAccel = new Vector2();
 
 	public Mummy(float x, float y, Level level) {
-		super(x, y, 1f, 1f, level);
+		super(x, y, 1f, 0.6f, level);
 		state = EntityState.WALKING;
 	}
 
@@ -41,7 +41,7 @@ public class Mummy extends Enemy {
 		}
 
 		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
-				bounds.y - 0.1f, width, height);
+				bounds.y - 0.1f, width, height + 0.4f);
 	}
 
 	private final Vector2 playerPos = new Vector2();
