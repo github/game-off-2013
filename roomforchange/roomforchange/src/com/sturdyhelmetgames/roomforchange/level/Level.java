@@ -208,6 +208,12 @@ public class Level {
 	public static final int DOWN = 3;
 
 	private void moveEntitiesAndCamera(float xOffset, float yOffset) {
+		for (int i = 0; i < particleEffects.size; i++) {
+			final PooledEffect effect = particleEffects.get(i);
+			float x = effect.getEmitters().get(0).getX();
+			float y = effect.getEmitters().get(0).getY();
+			effect.setPosition(x + xOffset, y + yOffset);
+		}
 		for (int i = 0; i < entities.size; i++) {
 			final Entity entity = entities.get(i);
 			entity.bounds.x += xOffset;

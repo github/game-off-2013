@@ -2,8 +2,8 @@ smokes
 - Delay -
 active: false
 - Duration - 
-lowMin: 2000.0
-lowMax: 2000.0
+lowMin: 3000.0
+lowMax: 3000.0
 - Count - 
 min: 0
 max: 100
