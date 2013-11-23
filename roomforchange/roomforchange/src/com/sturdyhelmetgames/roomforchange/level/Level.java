@@ -2,6 +2,7 @@ package com.sturdyhelmetgames.roomforchange.level;
 
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +29,7 @@ public class Level {
 
 	public Player player;
 	public final Array<Entity> entities = new Array<Entity>();
+	public final Array<PooledEffect> particleEffects = new Array<PooledEffect>();
 
 	public boolean pauseEntities = false;
 
@@ -165,6 +167,14 @@ public class Level {
 	}
 
 	public void update(float fixedStep) {
+		for (int i = 0; i < particleEffects.size; i++) {
+			final PooledEffect pooledEffect = particleEffects.get(i);
+			pooledEffect.update(fixedStep);
+			if (pooledEffect.isComplete()) {
+				particleEffects.removeIndex(i);
+				pooledEffect.free();
+			}
+		}
 		if (!pauseEntities) {
 			entityTweenManager.update(fixedStep);
 			for (int i = 0; i < entities.size; i++) {
@@ -186,6 +196,10 @@ public class Level {
 				entity.render(delta, batch);
 		}
 		player.render(delta, batch);
+
+		for (int i = 0; i < particleEffects.size; i++) {
+			particleEffects.get(i).draw(batch);
+		}
 	}
 
 	public static final int LEFT = 0;
@@ -353,6 +367,25 @@ public class Level {
 			} else if (entityType == Spider.class) {
 				entities.add(new Spider(randomX, randomY, this));
 			}
+		}
+	}
+
+	public void addParticleEffect(String name, float x, float y) {
+		PooledEffect effect = null;
+		if (name.equals(Assets.PARTICLE_SANDSMOKE_RIGHT)) {
+			effect = Assets.sandSmokeRightPool.obtain();
+		} else if (name.equals(Assets.PARTICLE_SANDSMOKE_LEFT)) {
+			effect = Assets.sandSmokeLeftPool.obtain();
+		} else if (name.equals(Assets.PARTICLE_SANDSMOKE_UP)) {
+			effect = Assets.sandSmokeUpPool.obtain();
+		} else if (name.equals(Assets.PARTICLE_SANDSMOKE_DOWN)) {
+			effect = Assets.sandSmokeDownPool.obtain();
+		} else if (name.equals(Assets.PARTICLE_SANDSTREAM)) {
+			effect = Assets.sandStreamPool.obtain();
+		}
+		if (effect != null) {
+			effect.setPosition(x, y);
+			particleEffects.add(effect);
 		}
 	}
 }

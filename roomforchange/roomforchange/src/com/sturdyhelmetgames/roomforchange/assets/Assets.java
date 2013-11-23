@@ -9,6 +9,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -23,11 +25,23 @@ public class Assets {
 	public static final String ATLAS_FILE_OBJECTS_ALL = "objects_all";
 	private static final String FOLDER_DATA = "data/";
 	private static final String FOLDER_SOUNDS = "data/sounds/";
+	private static final String FOLDER_PARTICLE = "data/particles/";
 	private static final String ATLAS_FILEPATH_OBJECTS_ALL = FOLDER_DATA
 			+ ATLAS_FILE_OBJECTS_ALL + ".atlas";
 
 	public static final String SOUND_STONEDOOR = FOLDER_SOUNDS
 			+ "stonedoor.mp3";
+
+	public static final String PARTICLE_SANDSTREAM = FOLDER_PARTICLE
+			+ "sandstream.p";
+	public static final String PARTICLE_SANDSMOKE_RIGHT = FOLDER_PARTICLE
+			+ "sandsmoke_right.p";
+	public static final String PARTICLE_SANDSMOKE_LEFT = FOLDER_PARTICLE
+			+ "sandsmoke_left.p";
+	public static final String PARTICLE_SANDSMOKE_UP = FOLDER_PARTICLE
+			+ "sandsmoke_up.p";
+	public static final String PARTICLE_SANDSMOKE_DOWN = FOLDER_PARTICLE
+			+ "sandsmoke_down.p";
 
 	public static final String TEXTURE_FONT_BIG_BLACK = FOLDER_DATA
 			+ "font-big-black.png";
@@ -59,6 +73,12 @@ public class Assets {
 
 	public static Animation spiderFront;
 
+	public static ParticleEffectPool sandStreamPool;
+	public static ParticleEffectPool sandSmokeRightPool;
+	public static ParticleEffectPool sandSmokeLeftPool;
+	public static ParticleEffectPool sandSmokeUpPool;
+	public static ParticleEffectPool sandSmokeDownPool;
+
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
 	public static final Array<RoomTemplate> roomTemplates = new Array<RoomTemplate>();
 
@@ -69,6 +89,11 @@ public class Assets {
 		assetManager.load(TEXTURE_FONT_BIG_WHITE, Texture.class);
 		assetManager.load(TEXTURE_FONT_SMALL_BLACK, Texture.class);
 		assetManager.load(TEXTURE_FONT_SMALL_WHITE, Texture.class);
+		assetManager.load(PARTICLE_SANDSTREAM, ParticleEffect.class);
+		assetManager.load(PARTICLE_SANDSMOKE_RIGHT, ParticleEffect.class);
+		assetManager.load(PARTICLE_SANDSMOKE_LEFT, ParticleEffect.class);
+		assetManager.load(PARTICLE_SANDSMOKE_UP, ParticleEffect.class);
+		assetManager.load(PARTICLE_SANDSMOKE_DOWN, ParticleEffect.class);
 		assetManager.load(SOUND_STONEDOOR, Sound.class);
 
 		finishLoading();
@@ -192,6 +217,17 @@ public class Assets {
 		spiderFront = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("spider-front-1"),
 				getGameObject("spider-front-2") });
+
+		sandStreamPool = new ParticleEffectPool(get(PARTICLE_SANDSTREAM,
+				ParticleEffect.class), 5, 10);
+		sandSmokeRightPool = new ParticleEffectPool(get(
+				PARTICLE_SANDSMOKE_RIGHT, ParticleEffect.class), 5, 10);
+		sandSmokeLeftPool = new ParticleEffectPool(get(PARTICLE_SANDSMOKE_LEFT,
+				ParticleEffect.class), 5, 10);
+		sandSmokeUpPool = new ParticleEffectPool(get(PARTICLE_SANDSMOKE_UP,
+				ParticleEffect.class), 5, 10);
+		sandSmokeDownPool = new ParticleEffectPool(get(PARTICLE_SANDSMOKE_DOWN,
+				ParticleEffect.class), 5, 10);
 	}
 
 	private static TextureRegion[] flipRegionsHorizontally(

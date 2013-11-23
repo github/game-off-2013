@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sturdyhelmetgames.roomforchange.RandomUtil;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
@@ -176,6 +177,33 @@ public class GameScreen extends Basic2DScreen {
 			}
 		});
 		Assets.getGameSound(Assets.SOUND_STONEDOOR).play(0.5f, 1.5f, 0f);
+		for (int i = 0; i < 5; i++) {
+			level.addParticleEffect(Assets.PARTICLE_SANDSTREAM,
+					camera.position.x + RandomUtil.bigRangeRandom(6f),
+					camera.position.y + 4f);
+		}
+
+		if (dir == Level.RIGHT) {
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_RIGHT,
+					camera.position.x - 6f, camera.position.y + 3f);
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_RIGHT,
+					camera.position.x - 6f, camera.position.y - 4f);
+		} else if (dir == Level.LEFT) {
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_LEFT,
+					camera.position.x - 6f, camera.position.y + 3f);
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_LEFT,
+					camera.position.x - 6f, camera.position.y - 4f);
+		} else if (dir == Level.UP) {
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_UP,
+					camera.position.x - 6f, camera.position.y - 3f);
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_UP,
+					camera.position.x + 6f, camera.position.y - 3f);
+		} else if (dir == Level.DOWN) {
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_DOWN,
+					camera.position.x - 6f, camera.position.y - 3f);
+			level.addParticleEffect(Assets.PARTICLE_SANDSMOKE_DOWN,
+					camera.position.x + 6f, camera.position.y - 3f);
+		}
 		level.pauseEntities();
 	}
 
