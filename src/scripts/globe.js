@@ -1,4 +1,4 @@
-define('globe', ['splat'], function(splat) {
+define('globe', ['dual'], function(dual) {
     'use strict';
 
     var width = 950;
@@ -9,59 +9,87 @@ define('globe', ['splat'], function(splat) {
             var width = 960,
                 height = 500;
 
+            var origin = [-80, 20],
+                velocity = [0.029, 0.01],
+                t0 = Date.now();
+
             var projection = d3.geo.orthographic()
-                .scale(250)
-                .translate([width / 2, height / 2])
+                .rotate(origin)
+                .scale(240)
                 .clipAngle(90);
 
             var path = d3.geo.path()
                 .projection(projection);
 
-            var λ = d3.scale.linear()
-                .domain([0, width])
-                .range([-180, 180]);
-
-            var φ = d3.scale.linear()
-                .domain([0, height])
-                .range([90, -90]);
-
             var svg = d3.select("body").append("svg")
                 .attr("width", width)
                 .attr("height", height);
 
-            svg.on("mousemove", function() {
-                var p = d3.mouse(this);
-                projection.rotate([λ(p[0]), φ(p[1])]);
-                svg.selectAll("path").attr("d", path);
+            var n = 13;
+
+            var centroids = d3.geodesic.polygons(n).map(function(d) {
+                return d3.geo.centroid(d);
             });
 
-            svg.append("defs").append("path")
-                .datum({type: "Sphere"})
-                .attr("id", "sphere")
-                .attr("d", path);
+            var dualMap = dual.findFaceVertexNodes(n).concat(
+                dual.findEdgeVertexNodes(n, dual.buildEdgeMap(n), dual.findEdgeJoins(d3.geodesic.faces)));
 
-            svg.append("use")
-                .attr("class", "stroke")
-                .attr("xlink:href", "#sphere");
+            var fillInside = function(polygon) {
+                if (d3.geo.area(polygon) > Math.PI) {
+                    polygon.coordinates.forEach(function(coords) { coords.reverse() } );
+                }
+                return polygon;
+            };
 
-            svg.append("use")
-                .attr("class", "fill")
-                .attr("xlink:href", "#sphere");
+            var hexes = dualMap.map(function(duals) {
+                return fillInside({
+                    type: "Polygon",
+                    coordinates: [duals.map(function(centroidIndex) {
+                        return centroids[centroidIndex];
+                    })]
+                });
+            });
 
-            svg.append("path")
-                .datum(d3.geo.graticule())
-                .attr("class", "graticule")
-                .attr("d", path);
+            var polygon = svg.selectAll("path")
+                .data(hexes)
+                .enter().append("path");
+                //.style("fill", function(d, i) { return d3.hsl(i * 10 / n, .7, .5); });
 
-            svg.append("path")
-                .datum({type: 'FeatureCollection', features: [
-                    {
-                        geometry: splat.generate(0, 0, 24, 10),
-                        properties: {}
-                    }
-                ]})
-                .attr("class", "land")
-                .attr("d", path);
+            $('path').each(function(i, elem) {
+                $(elem).click(function() {
+                    console.log(i % (n*n));
+                    $(elem).css('fill', 'black');
+                })
+            });
+
+            polygon.attr("d", path);
+
+            $(document).keydown(function(e) {
+                switch (e.keyCode) {
+                    case 37:
+                        origin[0] -=5;
+                        projection.rotate(origin);
+                        polygon.attr("d", path);
+                        break;
+                    case 38:
+                        origin[1] +=5;
+                        projection.rotate(origin);
+                        polygon.attr("d", path);
+                        break;
+                    case 39:
+                        origin[0] +=5;
+                        projection.rotate(origin);
+                        polygon.attr("d", path);
+                        break;
+                    case 40:
+                        origin[1] -=5;
+                        projection.rotate(origin);
+                        polygon.attr("d", path);
+                        break;
+                    default:
+                        break;
+                }
+            });
         }
     };
 });
