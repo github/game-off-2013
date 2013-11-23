@@ -9,9 +9,7 @@ define('globe', ['dual'], function(dual) {
             var width = 960,
                 height = 500;
 
-            var origin = [-80, 20],
-                velocity = [0.029, 0.01],
-                t0 = Date.now();
+            var origin = [-80, 20];
 
             var projection = d3.geo.orthographic()
                 .rotate(origin)
@@ -25,14 +23,26 @@ define('globe', ['dual'], function(dual) {
                 .attr("width", width)
                 .attr("height", height);
 
-            var n = 13;
+            var n = 2;
 
-            var centroids = d3.geodesic.polygons(n).map(function(d) {
-                return d3.geo.centroid(d);
-            });
+            var faces = d3.geodesic.polygons(n);
+            var duals = [];
 
-            var dualMap = dual.findFaceVertexNodes(n).concat(
-                dual.findEdgeVertexNodes(n, dual.buildEdgeMap(n), dual.findEdgeJoins(d3.geodesic.faces)));
+            var incomplete = faces.concat();
+
+            var areEqual = function(arr1, arr2) {
+                if (arr1.length !== arr2.length) {
+                    return false;
+                }
+
+                for (var i = 0; i < arr1.length; ++i) {
+                    if (arr1[i] !== arr2[i]) {
+                        return false;
+                    }
+                }
+
+                return true;
+            };
 
             var fillInside = function(polygon) {
                 if (d3.geo.area(polygon) > Math.PI) {
@@ -41,19 +51,63 @@ define('globe', ['dual'], function(dual) {
                 return polygon;
             };
 
-            var hexes = dualMap.map(function(duals) {
-                return fillInside({
-                    type: "Polygon",
-                    coordinates: [duals.map(function(centroidIndex) {
-                        return centroids[centroidIndex];
-                    })]
-                });
-            });
+            while (incomplete.length >= 1) {
+                var current = incomplete[0];
+                var points = current.coordinates[0];
+
+                for (var i = points.length - 2; i >= 0; --i) {
+                    var dual = {
+                        type: "Polygon",
+                        coordinates: [[d3.geo.centroid(current)]]
+                    };
+
+                    var nextEdge = [points[i + 1], points[i]];
+                    var nextFace = current;
+                    var vertex = nextEdge[0];
+
+                    do {
+                        var possibleNextEdge = null;
+                        var found = false;
+
+                        for (var k = 0; k < incomplete.length && !found; ++k) {
+                            if (incomplete[k] === nextFace) {
+                                continue;
+                            }
+                            //console.log(k);
+
+                            var other = incomplete[k].coordinates[0];
+
+                            for (var j = 0; j < other.length - 1; ++j) {
+                                var otherEdge = [other[j], other[j + 1]];
+
+                                if ((areEqual(otherEdge[0], nextEdge[0]) && areEqual(otherEdge[1], nextEdge[1])) ||
+                                    (areEqual(otherEdge[0], nextEdge[1]) && areEqual(otherEdge[1], nextEdge[0]))) {
+                                    nextFace = incomplete[k];
+                                    found = true;
+                                } else if (areEqual(otherEdge[0], vertex) || areEqual(otherEdge[1], vertex)) {
+                                    possibleNextEdge = otherEdge;
+                                }
+                            }
+                        }
+
+                        dual.coordinates[0].push(d3.geo.centroid(nextFace));
+                        nextEdge = possibleNextEdge;
+                    } while (found && (nextFace !== current));
+
+                    if (found) {
+                        // May be unnecessary?
+                        duals.push(fillInside(dual));
+                    }
+
+
+                }
+
+                incomplete.shift();
+            }
 
             var polygon = svg.selectAll("path")
-                .data(hexes)
+                .data(duals)
                 .enter().append("path");
-                //.style("fill", function(d, i) { return d3.hsl(i * 10 / n, .7, .5); });
 
             $('path').each(function(i, elem) {
                 $(elem).click(function() {
