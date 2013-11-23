@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+    path {
+        stroke: black;
+        fill: white;
+    }
+
+    path:hover {
+        fill: green;
+    }
+
+    circle {
+        fill: none;
+        stroke: #000;
+        stroke-width: 2px;
+    }
+
+</style>
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/geodesic.js"></script>
+<script>
+
+    var width = 960,
+            height = 500;
+
+    var origin = [-80, 20],
+            velocity = [0.029, 0.01],
+            t0 = Date.now();
+
+    var projection = d3.geo.orthographic()
+            .rotate(origin)
+            .scale(240)
+            .clipAngle(90);
+
+    var path = d3.geo.path()
+            .projection(projection);
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    var n = 3;
+
+    var polygon = svg.selectAll("path")
+            .data(d3.geodesic.polygons(n))
+            .enter().append("path")
+            .style("fill", function(d, i) { return d3.hsl(i * 10 / n, .7, .5); });
+
+    $('path').each(function(i, elem) {
+        $(elem).click(function() {
+            console.log(i % (n*n));
+            //$(elem).css('fill', 'black');
+        })
+    });
+
+//    svg.append("circle")
+//            .attr("transform", "translate(" + projection.translate() + ")")
+//            .attr("r", 240);
+
+    //d3.timer(function() {
+      //  var t = Date.now() - t0,
+      //     //     o = [origin[0] + t * velocity[0], origin[1] + t * velocity[1]];
+      //  projection.rotate(o);
+        polygon.attr("d", path);
+    //});
+
+    $(document).keydown(function(e) {
+        switch (e.keyCode) {
+            case 37:
+                origin[0] -=5;
+                projection.rotate(origin);
+                polygon.attr("d", path);
+                break;
+            case 38:
+                origin[1] +=5;
+                projection.rotate(origin);
+                polygon.attr("d", path);
+                break;
+            case 39:
+                origin[0] +=5;
+                projection.rotate(origin);
+                polygon.attr("d", path);
+                break;
+            case 40:
+                origin[1] -=5;
+                projection.rotate(origin);
+                polygon.attr("d", path);
+                break;
+            default:
+                break;
+        }
+    });
+
+</script>
