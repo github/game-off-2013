@@ -110,7 +110,7 @@ public class GameScreen extends Basic2DScreen {
 	}
 
 	protected void processKeys() {
-		if (!paused) {
+		if (!paused && level.player.isAlive()) {
 			// process player movement keys
 			if (Gdx.input.isKeyPressed(Keys.UP)) {
 				level.player.moveWithAccel(Direction.UP);

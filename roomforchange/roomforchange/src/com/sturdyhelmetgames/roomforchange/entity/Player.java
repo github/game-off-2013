@@ -9,6 +9,9 @@ import com.sturdyhelmetgames.roomforchange.level.Level.LevelTile;
 
 public class Player extends Entity {
 
+	public float dyingAnimState = 0f;
+	public float dyingTime = 0f;
+	public float maxDyingTime = 3f;
 	public float invulnerableTime = 0f;
 	public float maxInvulnerableTime = 4f;
 	public int health = 5;
@@ -25,28 +28,42 @@ public class Player extends Entity {
 
 		Animation animation = null;
 
-		if (direction == Direction.UP) {
-			animation = Assets.playerWalkBack;
-		} else if (direction == Direction.DOWN) {
-			animation = Assets.playerWalkFront;
-		} else if (direction == Direction.RIGHT) {
-			animation = Assets.playerWalkRight;
-		} else if (direction == Direction.LEFT) {
-			animation = Assets.playerWalkLeft;
-		}
-
-		if (isNotWalking()) {
-			batch.draw(animation.getKeyFrame(0.25f), bounds.x, bounds.y, width,
-					height);
-		} else {
-			batch.draw(animation.getKeyFrame(stateTime, true), bounds.x,
+		if (isDying() || isDead()) {
+			animation = Assets.playerDying;
+			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x,
 					bounds.y, width, height);
+		} else {
+			if (direction == Direction.UP) {
+				animation = Assets.playerWalkBack;
+			} else if (direction == Direction.DOWN) {
+				animation = Assets.playerWalkFront;
+			} else if (direction == Direction.RIGHT) {
+				animation = Assets.playerWalkRight;
+			} else if (direction == Direction.LEFT) {
+				animation = Assets.playerWalkLeft;
+			}
+			if (isNotWalking()) {
+				batch.draw(animation.getKeyFrame(0.25f), bounds.x, bounds.y,
+						width, height);
+			} else {
+				batch.draw(animation.getKeyFrame(stateTime, true), bounds.x,
+						bounds.y, width, height);
+			}
 		}
 
 	}
 
 	@Override
 	public void update(float fixedStep) {
+
+		if (isDying()) {
+			dyingAnimState += fixedStep;
+			dyingTime += fixedStep;
+			if (dyingTime >= maxDyingTime) {
+				state = EntityState.DEAD;
+			}
+		}
+
 		super.update(fixedStep);
 
 		if (invulnerableTime > 0f) {

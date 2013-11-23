@@ -208,4 +208,16 @@ public class Entity {
 	public void hitWallHook() {
 
 	}
+
+	public boolean isDying() {
+		return state == EntityState.DYING;
+	}
+
+	public boolean isDead() {
+		return state == EntityState.DEAD;
+	}
+
+	public boolean isAlive() {
+		return !isDying() && !isDead();
+	}
 }
