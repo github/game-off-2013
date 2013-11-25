@@ -23,7 +23,7 @@ define('globe', ['dual'], function(dual) {
                 .attr("width", width)
                 .attr("height", height);
 
-            var n = 2;
+            var n = 13;
 
             var faces = d3.geodesic.polygons(n);
 
