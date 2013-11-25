@@ -27,15 +27,22 @@ define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
 
             var faces = d3.geodesic.polygons(n);
 
+            var previous = false;
             var polygon = svg.selectAll("path")
                 .data(dual.generateDual(faces))
-                .enter().append("path");
+                .enter().append("path")
+                .attr('class', function() {
+                    if (previous) {
+                        return (Math.random() > 0.25) ? 'land' : 'sea'
+                    } else {
+                        return (Math.random() > 0.5) ? 'land' : 'sea'
+                    }
+                });
 
             $('path').each(function(i, elem) {
                 $(elem).click(function() {
-                    console.log(i % (n*n));
-                    $(elem).css('fill', 'black');
-                })
+                    $(elem).attr('class', 'developed land');
+                });
             });
 
             polygon.attr("d", path);

@@ -8,7 +8,7 @@
     <style>
 
         svg {
-            background-color: blue;
+            background-color: black;
         }
 
         path {
@@ -16,8 +16,24 @@
             fill: white;
         }
 
-        path:hover {
-            fill: green;
+        path.land {
+            fill: LimeGreen;
+            stroke: LimeGreen;
+        }
+
+        path.sea {
+            fill: DodgerBlue;
+            stroke: DodgerBlue;
+        }
+
+        path.land:hover {
+            fill: DarkGreen ;
+            stroke: DarkGreen ;
+        }
+
+        path.land.developed {
+            fill: Gray;
+            stroke: Gray;
         }
 
         circle {
