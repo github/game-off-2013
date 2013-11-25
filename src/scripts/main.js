@@ -1,6 +1,15 @@
 require.config({
     'paths': {
-        'jquery': '//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min'
+        'jquery': '//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min',
+        'd3': '../lib/d3.v3.min',
+        'geodesic': '../lib/geodesic'
+    },
+
+    shim: {
+        'd3': {
+            exports: 'd3'
+        },
+        'geodesic': ['d3']
     }
 });
 
@@ -22,7 +31,7 @@ require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'g
 
             var mapElement = document.getElementById('map');
             //var map = new Map('map.png', EARTH_SURFACE_AREA, plateCareeProjection, mapElement, onRender);
-            globe.render();
+            setTimeout(globe.render, 3000);
             var gameStateUpdater = new GameStateUpdater(map);
             var game = new Game(initialGameState, gameStateUpdater);
 
