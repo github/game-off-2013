@@ -85,10 +85,6 @@ define(function (require) {
             throw new Error('Test not implemented');
         });
 
-        it ('updates energy based on facility production/consumption', function () {
-            throw new Error('Test not implemented');
-        });
-
         it('increments the year', function() {
             // Arrange
             var currentYear = 2020;
