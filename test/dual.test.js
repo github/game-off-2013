@@ -4,6 +4,7 @@ define(function (require) {
     var dual;
 
     beforeEach(function() {
+        require('geodesic');
         dual = require('dual');
     });
 

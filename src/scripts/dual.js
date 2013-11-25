@@ -1,4 +1,4 @@
-define('dual', function() {
+define('dual', ['d3'], function(d3) {
     'use strict';
 
     var areEqual = function(arr1, arr2) {
@@ -36,6 +36,7 @@ define('dual', function() {
 
                 do {
                     var possibleNextEdge = null;
+                    found = false;
 
                     for (var k = 0; k < incomplete.length && !found; ++k) {
                         if (incomplete[k] === nextFace) {

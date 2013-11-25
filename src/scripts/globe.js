@@ -1,4 +1,4 @@
-define('globe', ['dual'], function(dual) {
+define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
     'use strict';
 
     var width = 950;
