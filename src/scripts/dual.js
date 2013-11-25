@@ -1,15 +1,13 @@
 define('dual', function() {
     'use strict';
 
-    var duals = [];
-
     var areEqual = function(arr1, arr2) {
         if (arr1.length !== arr2.length) {
             return false;
         }
 
         for (var i = 0; i < arr1.length; ++i) {
-            if (arr1[i] !== arr2[i]) {
+            if (Math.abs(arr1[i] - arr2[i]) > 0.1) {
                 return false;
             }
         }
@@ -25,19 +23,20 @@ define('dual', function() {
     };
 
     var generateDual = function(faces) {
+        var duals = [];
         var incomplete = faces.concat(); // Take a copy of the source data
 
         while (incomplete.length >= 1) {
             var current = incomplete[0];
             var points = current.coordinates[0];
 
-            for (var i = points.length - 2; i >= 0; --i) {
+            for (var i = points.length - 1; i > 0; --i) {
                 var dual = {
                     type: "Polygon",
                     coordinates: [[d3.geo.centroid(current)]]
                 };
 
-                var nextEdge = [points[i + 1], points[i]];
+                var nextEdge = [points[i], points[i - 1]];
                 var nextFace = current;
                 var vertex = nextEdge[0];
 
