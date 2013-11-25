@@ -2,39 +2,41 @@ define('gameStateUpdater', function() {
     'use strict';
     
     return function(map) {
-        this.updateGameState = function(currentState, options) {
-            var newYear = currentState.year + 1;
-            var newAgricultureLevel = currentState.agricultureLevel + options.agricultureIncrease;
-
-            var newSeaLevel = currentState.seaLevel + currentState.pollution;
-            map.updateSeaLevel(newSeaLevel);
-
+        this.updateGameState = function(currentState) {
+            var newYear = incrementYear();
+            var newSeaLevel = updateSeaLevel();
             var newLandArea = map.calculateRemainingLandArea();
-            var foodProduction = newLandArea * newAgricultureLevel;
-            var foodConsumption = currentState.population;
-
-            var newFood, newPopulation, deathsFromStarvation;
-            if (foodProduction + currentState.food > foodConsumption) {
-                newFood = currentState.food + foodProduction - foodConsumption;
-                newPopulation = currentState.population;
-                deathsFromStarvation = 0;
-            } else {
-                newFood = 0;
-                deathsFromStarvation = -1 * (currentState.food + foodProduction - foodConsumption);
-                newPopulation = currentState.population - deathsFromStarvation;
-            }
-
-            var newPollution = currentState.pollution + currentState.agricultureLevel;
+            var newPollution = updatePollution();
 
             return {
                 year: newYear,
                 seaLevel: newSeaLevel,
-                pollution: newPollution,
-                agricultureLevel: newAgricultureLevel,
-                population: newPopulation,
-                food: newFood,
-                deathsFromStarvation: deathsFromStarvation
+                pollution: newPollution
             };
+
+            function incrementYear() {
+                return currentState.year + 1;
+            }
+
+            function updateSeaLevel() {
+                var updatedSeaLevel = currentState.seaLevel + currentState.pollution;
+                map.updateSeaLevel(updatedSeaLevel);
+                return updatedSeaLevel;
+            }
+
+            function updatePollution() {
+                return currentState.pollution - calculateModulusPollutionDecreaseFromForests() + getPollutionDeltaFromFacilities();
+            
+                function calculateModulusPollutionDecreaseFromForests() {
+                    return newLandArea * 0.00001;
+                }
+
+                function getPollutionDeltaFromFacilities() {
+                    return 0;
+                }
+
+            }
+
         };
     };
 });

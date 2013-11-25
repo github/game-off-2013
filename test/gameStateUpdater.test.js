@@ -25,7 +25,7 @@ define(function (require) {
             };
 
             // Act
-            var nextState = gameStateUpdater.updateGameState(currentState, {});
+            var nextState = gameStateUpdater.updateGameState(currentState);
 
             // Assert
             expect(nextState.seaLevel).toBe(currentSeaLevel + currentPollution);
@@ -46,42 +46,58 @@ define(function (require) {
             };
 
             // Act
-            var nextState = gameStateUpdater.updateGameState(currentState, {});
+            var nextState = gameStateUpdater.updateGameState(currentState);
 
             // Assert
             expect(updatedSeaLevel).toBe(currentSeaLevel + currentPollution);
         });
 
-        it ('increases pollution based on facilities', function() {
+        xit ('increases pollution based on facilities', function() {
             throw new Error('Test not implemented');
         });
 
-        //Assuming all land is forest
+        //Assuming all land is forest except for that used by facilities
         it ('decreases pollution based on land area', function () {
+            // Arrange
+            var currentPollution = 500;
+
+            var currentState = {
+                pollution: currentPollution
+            };
+
+            var newLandArea = 100;
+            mockMap.calculateRemainingLandArea = function() {
+                return newLandArea;
+            };
+
+            // Act
+            var nextState = gameStateUpdater.updateGameState(currentState);
+
+            // Assert
+            expect(nextState.pollution).toBeLessThan(500);
+        });
+
+        xit ('increases food based on facilities', function() {
             throw new Error('Test not implemented');
         });
 
-        it ('increases food based on facilities and land area', function() {
+        xit ('decreases food based on population', function() {
             throw new Error('Test not implemented');
         });
 
-        it ('decreases food based on population', function() {
+        xit('prevents food from becoming negative but starves people instead', function() {
             throw new Error('Test not implemented');
         });
 
-        it('prevents food from becoming negative but starves people instead', function() {
+        xit('increases the population if not limited by food or land area', function() {
             throw new Error('Test not implemented');
         });
 
-        it('increases the population if not limited by food or land area', function() {
+        xit('limits/reduces the population if insufficient food', function() {
             throw new Error('Test not implemented');
         });
 
-        it('limits/reduces the population if insufficient food', function() {
-            throw new Error('Test not implemented');
-        });
-
-        it('limits/reduces the population if insufficient land area', function() {
+        xit('limits/reduces the population if insufficient land area', function() {
             throw new Error('Test not implemented');
         });
 
@@ -93,10 +109,14 @@ define(function (require) {
             };
 
             // Act
-            var nextState = gameStateUpdater.updateGameState(currentState, {});
+            var nextState = gameStateUpdater.updateGameState(currentState);
 
             // Assert
             expect(nextState.year).toBe(currentYear + 1);
         })
+
+        xit('updates the facilities module with the total land area', function() {
+            throw new Error('Test not implemented');
+        });
     });
 });

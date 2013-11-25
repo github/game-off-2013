@@ -25,7 +25,6 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
                 year: 0,
                 seaLevel: 0,
                 pollution: 0,
-                agricultureLevel: 5,
                 population: 7000,
                 food: 0,
                 deathsFromStarvation: 0
@@ -46,9 +45,7 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
             refreshDisplay();
 
             $('#nextTurnButton').click(function() {
-                var agricultureIncrease = parseInt($('input[name=agricultureIncrease]:checked').val(), 10);
-
-                game.update({agricultureIncrease: agricultureIncrease});
+                game.update();
                 refreshDisplay();
                 if (game.state.population === 0) {
                     $('#nextTurnButton').prop('disabled', 'disabled');
@@ -62,7 +59,6 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
                 document.getElementById('population').value = game.state.population;
                 document.getElementById('food').value = game.state.food;
                 document.getElementById('pollution').value = game.state.pollution;
-                document.getElementById('agricultureLevel').value = game.state.agricultureLevel;
                 document.getElementById('deathsFromStarvation').value = game.state.deathsFromStarvation;
                 map.redraw();
             }
