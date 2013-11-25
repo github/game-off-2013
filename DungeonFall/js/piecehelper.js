@@ -46,14 +46,13 @@ PieceHelper.WallPieces = [
                               [1, -1, 1],
                               [1, -1, 1]],
 
-                              [[1, -1, 1],
-                              [-1, -1, -1],
-                              [1, -1, 1]],
-
                               [[-1, 1, -1],
                               [-1, 1, -1],
                               [-1, 1, -1]],
 ];
+PieceHelper.SpecialPieces = [[[1, -1, 1],
+                              [-1, 0, -1],
+                              [1, -1, 1]]];
 PieceHelper.rotateRight = function (tiles) {
     var transformedArray = new Array();
 	

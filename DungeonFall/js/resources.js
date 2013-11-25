@@ -9,6 +9,7 @@ game.resources = [
     { name: "placeholder", type: "image", src: "data/img/placeholder.png" },
 
     { name: "font", type: "image", src: "data/img/font2.png" },
+    { name: "textfont", type: "image", src: "data/img/textfont.png" },
     { name: "floatfont-red", type: "image", src: "data/img/floatfont-red.png" },
     { name: "floatfont-white", type: "image", src: "data/img/floatfont-white.png" },
     { name: "floatfont-green", type: "image", src: "data/img/floatfont-green.png" },

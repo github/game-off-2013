@@ -17,7 +17,9 @@ game.PlayScreen = me.ScreenObject.extend({
 
 	    me.levelDirector.loadLevel("basedungeon");
 
-	    
+	    var hero = new game.Hero(-32, 9 * 32, { name:"hero", image: "hero" });
+	    //hero.init(-32, 9 * 32, { image: "hero" });
+	    me.game.world.addChild(hero);
 	    me.game.world.addChild(new game.Dungeon());
 	    me.game.world.addChild(new game.FallingPiece());
 	},

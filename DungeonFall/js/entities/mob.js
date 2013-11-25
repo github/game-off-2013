@@ -20,10 +20,11 @@ game.Mob = me.ObjectEntity.extend({
 
     Level: 1,
     DRMin: 0,
-    DRMax: 1,
+    DRMax: 0,
     SRMin: 0,
-    SRMax: 1,
+    SRMax: 0,
     HP: 1,
+    HPMax: 1,
 
     init: function (x, y, settings) {
         // call the constructor
@@ -64,13 +65,18 @@ game.Mob = me.ObjectEntity.extend({
 
         this.z = 3;
 
+        // Choose level
+        var hero = me.game.world.getEntityByProp("name", "hero")[0];
+        this.Level = (game.Level-1) + (hero.Level + (Math.floor(Math.random() * 3)-1))
+
         // Distribute stats
-        var points = this.Level * 3;
+
+        var points = this.Level * 2;
         for (var i = 0; i < points; i++) {
             var r = Math.floor(Math.random() * 3);
             switch (r) {
                 case 0:
-                    this.HP++;
+                    this.HPMax++;
                     break;
                 case 1:
                     this.DRMax++;
@@ -80,9 +86,9 @@ game.Mob = me.ObjectEntity.extend({
                     break;
             }
         }
-        this.DRMin = this.Level - 1;
-        this.SRMin = this.Level - 1;
-
+        //this.DRMin = this.Level - 1;
+        //this.SRMin = this.Level - 1;
+        this.HP = this.HPMax;
 
         //this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
         //this.walkTween.easing(me.Tween.Easing.Linear.None);
@@ -152,8 +158,11 @@ game.Mob = me.ObjectEntity.extend({
 
         if (this.HP <= 0) {
             this.die();
-            hero.XP += this.Level * 10;
-            game.HUD.addFloatyText(new me.Vector2d(hero.pos.x + 3 + Math.floor(Math.random() * 16), hero.pos.y), (this.Level * 10) + "XP", "blue");
+            var reward = ((this.Level+ this.HPMax) * (game.Level * 2));
+            hero.XP += reward;
+            game.HUD.addFloatyText(new me.Vector2d(hero.pos.x + 3 + Math.floor(Math.random() * 16), hero.pos.y), reward + "XP", "blue", 1.5);
+            game.HUD.addLine("Hero gains " + reward + " experience!");
+
         }
 
         return true;
@@ -190,7 +199,7 @@ game.Mob = me.ObjectEntity.extend({
         }
         else {
             if (totaldam > 0) {
-                report += " and hits for " + totaldam;
+                report += " and hits for " + totaldam + "!";
                 game.HUD.addFloatyText(new me.Vector2d(this.pos.x + 3 + Math.floor(Math.random() * 16), this.pos.y), totaldam, "red");
                 this.HP -= totaldam;
             }

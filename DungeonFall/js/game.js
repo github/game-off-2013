@@ -3,6 +3,8 @@
 /* Game namespace */
 var game = {
 
+    Level: 1,
+
     // Run on page load.
     "onload" : function () {
         // Initialize the video.

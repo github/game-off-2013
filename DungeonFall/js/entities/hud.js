@@ -38,10 +38,26 @@ game.HUD.Container = me.ObjectContainer.extend({
 
         for(var i=0;i<7;i++) game.HUD.addLine("");
 
+        this.font = new me.BitmapFont("font", { x: 32, y: 32 }, 0.8);
+        this.font.alignText = "center";
+        this.floating = true;
+
+
         this.alwaysUpdate = true;
     },
 
-   
+    draw: function (context) {
+        this.parent(context);
+        try {
+            var hero = me.game.world.getEntityByProp("name", "hero")[0];
+
+            this.font.draw(context, hero.Level, 21, 630);
+            //this.font.draw(context, "HP: " + hero.HP + "/" + hero.HPMax + " Dam:" + hero.DRMax + " Def: " + hero.SRMax, 10, 628);
+            //this.font.draw(context, "XP " + hero.XP + "/" + hero.XPTNL, 10, 646);
+
+        }
+        catch (e) { }
+    }
 });
 
 game.HUD.FloatyTextContainer = me.ObjectContainer.extend({
@@ -68,18 +84,19 @@ game.HUD.FloatyTextContainer = me.ObjectContainer.extend({
 
 });
 
-game.HUD.addFloatyText = function (pos, text, col) {
-    var ft = new game.HUD.FloatyText(pos.x, pos.y, text, col);
+game.HUD.addFloatyText = function (pos, text, col, size) {
+    var ft = new game.HUD.FloatyText(pos.x, pos.y, text, col, size);
     me.game.world.getEntityByProp("name", "FloatyTextContainer")[0].addChild(ft);
 }
 
 game.HUD.FloatyText = me.ObjectContainer.extend({
-    init: function (x, y, text, col) {
+    init: function (x, y, text, col, size) {
+        if (!size) size = 1;
         this.parent(x, y,100,100);
 
         this.text = text;
 
-        this.font = new me.BitmapFont("floatfont-" + col, { x: 13, y: 13 }, 1);
+        this.font = new me.BitmapFont("floatfont-" + col, { x: 13, y: 14 }, size);
         this.font.alignText = "top";
 
         this.floating = true;
@@ -87,11 +104,11 @@ game.HUD.FloatyText = me.ObjectContainer.extend({
 
         this.setOpacity(1);
 
-        var posTween = new me.Tween(this.pos).to({ y: y - 100 }, 2000).onComplete(this.remove.bind(this));
+        var posTween = new me.Tween(this.pos).to({ y: y - 100 }, 2000 * size).onComplete(this.remove.bind(this));
         posTween.easing(me.Tween.Easing.Linear.None);
         posTween.start();
 
-        var alphaTween = new me.Tween(this).to({ alpha: 0 }, 1800);
+        var alphaTween = new me.Tween(this).to({ alpha: 0 }, 1800 * size);
         alphaTween.easing(me.Tween.Easing.Linear.None);
         alphaTween.start();
 
@@ -113,7 +130,7 @@ game.HUD.TextWindow = me.ObjectContainer.extend({
     init: function (x, y) {
         this.parent(x,y,620,128);
 
-        this.font = new me.BitmapFont("font", { x: 32, y:32 }, 0.5);
+        this.font = new me.BitmapFont("textfont", { x: 21, y:22 }, 0.8);
         this.font.alignText = "top";
 
         this.floating = true;

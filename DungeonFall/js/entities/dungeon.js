@@ -58,6 +58,9 @@ game.Dungeon = me.ObjectContainer.extend({
         var hero = me.game.world.getEntityByProp("name", "hero")[0];
         var mobs = me.game.world.getEntityByProp("name", "mob")
 
+        var hx = Math.floor(hero.pos.x / 32);
+        var hy = Math.floor(hero.pos.y / 32);
+
         for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
             for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
                 this.pathGridMobs[x][y] = this.pathGrid[x][y];
@@ -80,6 +83,17 @@ game.Dungeon = me.ObjectContainer.extend({
 
         if (!this.doneFinalBlocking) {
             var rebuild = false;
+
+            if (hx > 0 && !this.isComplete) {
+                var path = this.findPath(this.wallInGridWithFloor, hx, hy, this.DUNGEON_WIDTH - 1, hy);
+                if (path.length == 0) {
+                    this.wallInCheckX = 0;
+                    this.highestUsedColumn = this.DUNGEON_WIDTH - 1;
+                    this.highestCompletedColumn = 1;
+                    rebuild = true;
+                }
+            }
+
             if (this.highestUsedColumn >= this.DUNGEON_WIDTH - 2 && !this.isComplete) {
                 for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
                     for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
@@ -93,6 +107,7 @@ game.Dungeon = me.ObjectContainer.extend({
                 rebuild = true;
             }
 
+            
 
             for (var y = 1; y < this.DUNGEON_HEIGHT - 1; y++) {
                 if (this.Tiles[this.wallInCheckX][y] == -1) {
