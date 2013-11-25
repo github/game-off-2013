@@ -15,13 +15,6 @@ define('dual', function() {
         return true;
     };
 
-    var fillInside = function(polygon) {
-        if (d3.geo.area(polygon) > Math.PI) {
-            polygon.coordinates.forEach(function(coords) { coords.reverse() } );
-        }
-        return polygon;
-    };
-
     var generateDual = function(faces) {
         var duals = [];
         var incomplete = faces.concat(); // Take a copy of the source data
@@ -32,17 +25,17 @@ define('dual', function() {
 
             for (var i = points.length - 1; i > 0; --i) {
                 var dual = {
-                    type: "Polygon",
+                    type: 'Polygon',
                     coordinates: [[d3.geo.centroid(current)]]
                 };
 
                 var nextEdge = [points[i], points[i - 1]];
                 var nextFace = current;
                 var vertex = nextEdge[0];
+                var found = false;
 
                 do {
                     var possibleNextEdge = null;
-                    var found = false;
 
                     for (var k = 0; k < incomplete.length && !found; ++k) {
                         if (incomplete[k] === nextFace) {
@@ -69,8 +62,7 @@ define('dual', function() {
                 } while (found && (nextFace !== current));
 
                 if (found) {
-                    // May be unnecessary to use fillInside here (if we're careful about directions above)
-                    duals.push(fillInside(dual));
+                    duals.push(dual);
                 }
             }
 
