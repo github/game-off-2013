@@ -18,6 +18,7 @@ public class Player extends Entity {
 	public int bombs = 0;
 	public int maxHealth = 5;
 	private final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
+	private float tryHitTime = 0.3f;
 
 	public Player(float x, float y, Level level) {
 		super(x, y, 1f, 0.6f, level);
@@ -56,10 +57,34 @@ public class Player extends Entity {
 			}
 		}
 
+		if (tryHitTime < 0.3) {
+			float rotation = 0f;
+			float x = this.bounds.x;
+			float y = this.bounds.y;
+			if (direction == Direction.UP) {
+				rotation = 270f;
+				y += .8f;
+			} else if (direction == Direction.DOWN) {
+				rotation = 90f;
+				y -= .8f;
+			} else if (direction == Direction.RIGHT) {
+				rotation = 180f;
+				x += .8f;
+			} else if (direction == Direction.LEFT) {
+				x -= .8f;
+			}
+			batch.draw(Assets.hitTarget.getKeyFrame(tryHitTime, true), x, y,
+					1f / 2, 1f / 2, 1f, 1f, 1f, 1f, rotation);
+		}
+
 	}
 
 	@Override
 	public void update(float fixedStep) {
+
+		if (tryHitTime < 0.3) {
+			tryHitTime += fixedStep;
+		}
 
 		if (isDying() || isFalling()) {
 			dyingAnimState += fixedStep;
@@ -80,6 +105,7 @@ public class Player extends Entity {
 	private static final float HIT_DISTANCE = 0.5f;
 
 	public void tryHit() {
+		tryHitTime = 0f;
 		hitBounds.x = bounds.x;
 		hitBounds.y = bounds.y;
 		if (direction == Direction.LEFT) {

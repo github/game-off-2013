@@ -77,6 +77,8 @@ public class Assets {
 
 	public static Animation spiderFront;
 
+	public static Animation hitTarget;
+
 	public static ParticleEffectPool sandStreamPool;
 	public static ParticleEffectPool sandSmokeRightPool;
 	public static ParticleEffectPool sandSmokeLeftPool;
@@ -236,6 +238,10 @@ public class Assets {
 		spiderFront = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("spider-front-1"),
 				getGameObject("spider-front-2") });
+
+		hitTarget = new Animation(0.1f, new TextureRegion[] {
+				getGameObject("hit-1"), getGameObject("hit-2"),
+				getGameObject("hit-3"), });
 
 		sandStreamPool = new ParticleEffectPool(get(PARTICLE_SANDSTREAM,
 				ParticleEffect.class), 5, 10);

@@ -178,10 +178,10 @@ public class GameScreen extends Basic2DScreen {
 		if (keycode == Keys.CONTROL_LEFT) {
 			level.player.tryHit();
 		}
-		if (keycode == Keys.K) {
-			level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
-					level.player.bounds.x + 2f, level.player.bounds.y);
-		}
+		// if (keycode == Keys.K) {
+		// level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
+		// level.player.bounds.x + 2f, level.player.bounds.y);
+		// }
 		return super.keyDown(keycode);
 	}
 
