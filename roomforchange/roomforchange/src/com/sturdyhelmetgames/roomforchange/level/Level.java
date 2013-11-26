@@ -92,8 +92,10 @@ public class Level {
 		GROUND(false, "ground-1"), WALL_CORNER(true, "brick-corner"), WALL_LEFT(
 				true, "brick-left"), WALL_RIGHT(true, "brick-right"), WALL_FRONT(
 				true, "brick-front"), WALL_BACK(true, "brick-back"), DOOR(true,
-				"door"), EXIT(false, "exit"), HOLE(false, "hole"), ROCK(true,
-				"rock"), LEVER(true, "lever");
+				"door"), EXIT(false, "exit"), HOLE_1(false, "hole-1"), HOLE_2(
+				false, "hole-2"), HOLE_3(false, "hole-3"), HOLE_4(false,
+				"hole-4"), HOLE_5(false, "hole-5"), HOLE_6(false, "hole-6"), HOLE_7(
+				false, "hole-7"), ROCK(true, "rock"), LEVER(true, "lever");
 
 		private final boolean collidable;
 		private final String objectName;
@@ -122,7 +124,7 @@ public class Level {
 		}
 
 		public boolean isHole() {
-			return this == HOLE;
+			return this == HOLE_1;
 		}
 	}
 
@@ -186,7 +188,11 @@ public class Level {
 		if (!pauseEntities) {
 			entityTweenManager.update(fixedStep);
 			for (int i = 0; i < entities.size; i++) {
-				entities.get(i).update(fixedStep);
+				final Entity entity = entities.get(i);
+				entity.update(fixedStep);
+				if (!entity.isAlive() && entity != player) {
+					entities.removeIndex(i);
+				}
 			}
 		}
 	}

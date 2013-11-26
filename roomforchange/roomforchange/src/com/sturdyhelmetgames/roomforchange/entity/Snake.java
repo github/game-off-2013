@@ -3,7 +3,6 @@ package com.sturdyhelmetgames.roomforchange.entity;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 
@@ -11,6 +10,7 @@ public class Snake extends Enemy {
 
 	public Snake(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
+		health = 1;
 	}
 
 	@Override
@@ -59,10 +59,11 @@ public class Snake extends Enemy {
 	}
 
 	@Override
-	public void hit(Rectangle hitBounds) {
-		if (hitBounds.overlaps(bounds)) {
+	public void takeDamage() {
+		super.takeDamage();
 
-		}
+		accel.set(0f, 0f);
+		vel.set(0f, 0f);
 	}
 
 }

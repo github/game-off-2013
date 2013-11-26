@@ -14,6 +14,7 @@ public class Spider extends Enemy {
 
 	public Spider(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
+		health = 3;
 	}
 
 	@Override
@@ -42,4 +43,5 @@ public class Spider extends Enemy {
 			level.player.takeDamage();
 		}
 	}
+
 }

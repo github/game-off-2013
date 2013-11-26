@@ -44,7 +44,7 @@ public class RoomTemplate {
 				if (pixel == Color.BLACK) {
 					tileTypes[x][y] = LevelTileType.WALL_FRONT;
 				} else if (pixel == Color.RED) {
-					tileTypes[x][y] = LevelTileType.HOLE;
+					tileTypes[x][y] = LevelTileType.HOLE_1;
 				} else if (pixel == Color.BLUE) {
 					tileTypes[x][y] = LevelTileType.ROCK;
 				} else if (pixel == Color.GREEN) {
