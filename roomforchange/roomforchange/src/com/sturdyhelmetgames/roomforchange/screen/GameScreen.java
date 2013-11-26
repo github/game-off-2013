@@ -131,6 +131,9 @@ public class GameScreen extends Basic2DScreen {
 			}
 		}
 
+		shapeRenderer.rect(level.player.hitBounds.x, level.player.hitBounds.y,
+				level.player.hitBounds.width, level.player.hitBounds.height);
+
 		shapeRenderer.end();
 	}
 

@@ -17,7 +17,7 @@ public class Player extends Entity {
 	public int health = 5;
 	public int bombs = 0;
 	public int maxHealth = 5;
-	private final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
+	public final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
 	private float tryHitTime = 0.3f;
 
 	public Player(float x, float y, Level level) {

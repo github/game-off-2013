@@ -33,7 +33,28 @@ public class Spider extends Enemy {
 
 	@Override
 	public void update(float fixedStep) {
-		stateTime += fixedStep;
+		if (pause > 0f) {
+			pause -= fixedStep;
+		}
+		// tick dying
+		if (blinkTick > BLINK_TICK_MAX) {
+			blinkTick = 0f;
+		}
+		// tick alive & dying times
+		invulnerableTick -= fixedStep;
+		if (invulnerableTick > 0f) {
+			blinkTick += fixedStep;
+		}
+		if (invulnerableTick <= 0f) {
+			blinkTick = 0f;
+		}
+		if (pause <= 0f) {
+
+			if (bounds.overlaps(level.player.bounds)) {
+				level.player.takeDamage();
+			}
+			stateTime += fixedStep;
+		}
 		final TweenManager tweenManager = level.entityTweenManager;
 		if (!tweenManager.containsTarget(this)) {
 			Tween.to(this, EntityAccessor.POSITIONY, MathUtils.random(3f))
