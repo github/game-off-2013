@@ -19,12 +19,15 @@ public class Spider extends Enemy {
 
 	@Override
 	public void render(float delta, SpriteBatch batch) {
-		super.render(delta, batch);
-		batch.draw(Assets.spiderFront.getKeyFrame(stateTime, true),
-				bounds.x - 0.1f, bounds.y - 0.1f, width, height);
-		for (int i = 0; i < 10; i++) {
-			batch.draw(Assets.getGameObject("spider-thread"), bounds.x - 0.1f,
-					bounds.y + i * height + 1f - 0.1f, width, height);
+		if (blinkTick < BLINK_TICK_MAX) {
+			super.render(delta, batch);
+			batch.draw(Assets.spiderFront.getKeyFrame(stateTime, true),
+					bounds.x - 0.1f, bounds.y - 0.1f, width, height);
+			for (int i = 0; i < 10; i++) {
+				batch.draw(Assets.getGameObject("spider-thread"),
+						bounds.x - 0.1f, bounds.y + i * height + 1f - 0.1f,
+						width, height);
+			}
 		}
 	}
 

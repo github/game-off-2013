@@ -20,21 +20,23 @@ public class Snake extends Enemy {
 
 	@Override
 	public void render(float delta, SpriteBatch batch) {
-		super.render(delta, batch);
-		Animation animation = null;
+		if (blinkTick < BLINK_TICK_MAX) {
+			super.render(delta, batch);
+			Animation animation = null;
 
-		if (direction == Direction.UP) {
-			animation = Assets.snakeWalkBack;
-		} else if (direction == Direction.DOWN) {
-			animation = Assets.snakeWalkFront;
-		} else if (direction == Direction.RIGHT) {
-			animation = Assets.snakeWalkRight;
-		} else if (direction == Direction.LEFT) {
-			animation = Assets.snakeWalkLeft;
+			if (direction == Direction.UP) {
+				animation = Assets.snakeWalkBack;
+			} else if (direction == Direction.DOWN) {
+				animation = Assets.snakeWalkFront;
+			} else if (direction == Direction.RIGHT) {
+				animation = Assets.snakeWalkRight;
+			} else if (direction == Direction.LEFT) {
+				animation = Assets.snakeWalkLeft;
+			}
+
+			batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
+					bounds.y - 0.1f, width, height);
 		}
-
-		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
-				bounds.y - 0.1f, width, height);
 	}
 
 	@Override
@@ -42,6 +44,7 @@ public class Snake extends Enemy {
 		super.update(fixedStep);
 
 		if (isNotWalking()) {
+
 			direction = direction.turnRight();
 		}
 		moveWithAccel(direction);
@@ -56,14 +59,6 @@ public class Snake extends Enemy {
 	@Override
 	public float getInertia() {
 		return 20f;
-	}
-
-	@Override
-	public void takeDamage() {
-		super.takeDamage();
-
-		accel.set(0f, 0f);
-		vel.set(0f, 0f);
 	}
 
 }

@@ -29,6 +29,8 @@ public class Entity {
 			new HoleFallWrapper(), new HoleFallWrapper(), new HoleFallWrapper() };
 	public int[][] tiles;
 
+	public float pause = 0f;
+
 	public class HoleFallWrapper {
 		public final Rectangle bounds = new Rectangle();
 
@@ -98,30 +100,36 @@ public class Entity {
 	}
 
 	public void update(float fixedStep) {
-		tryMove();
-
-		vel.add(accel);
-		if (vel.x > getMaxVelocity()) {
-			vel.x = getMaxVelocity();
-		}
-		if (vel.x < -getMaxVelocity()) {
-			vel.x = -getMaxVelocity();
-		}
-		if (vel.y > getMaxVelocity()) {
-			vel.y = getMaxVelocity();
-		}
-		if (vel.y < -getMaxVelocity()) {
-			vel.y = -getMaxVelocity();
-		}
-		accel.scl(fixedStep);
-
-		if (state == EntityState.WALKING) {
-			vel.lerp(Vector2.Zero, getInertia() * fixedStep);
-		} else {
-			vel.scl(fixedStep);
+		if (pause > 0f) {
+			pause -= fixedStep;
 		}
 
-		stateTime += fixedStep;
+		if (pause <= 0f) {
+			tryMove();
+
+			vel.add(accel);
+			if (vel.x > getMaxVelocity()) {
+				vel.x = getMaxVelocity();
+			}
+			if (vel.x < -getMaxVelocity()) {
+				vel.x = -getMaxVelocity();
+			}
+			if (vel.y > getMaxVelocity()) {
+				vel.y = getMaxVelocity();
+			}
+			if (vel.y < -getMaxVelocity()) {
+				vel.y = -getMaxVelocity();
+			}
+			accel.scl(fixedStep);
+
+			if (state == EntityState.WALKING) {
+				vel.lerp(Vector2.Zero, getInertia() * fixedStep);
+			} else {
+				vel.scl(fixedStep);
+			}
+
+			stateTime += fixedStep;
+		}
 	}
 
 	public void moveWithAccel(Direction dir) {

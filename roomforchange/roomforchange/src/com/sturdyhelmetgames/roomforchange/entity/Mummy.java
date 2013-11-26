@@ -27,21 +27,23 @@ public class Mummy extends Enemy {
 
 	@Override
 	public void render(float delta, SpriteBatch batch) {
-		super.render(delta, batch);
-		Animation animation = null;
+		if (blinkTick < BLINK_TICK_MAX) {
+			super.render(delta, batch);
+			Animation animation = null;
 
-		if (direction == Direction.UP) {
-			animation = Assets.mummyWalkBack;
-		} else if (direction == Direction.DOWN) {
-			animation = Assets.mummyWalkFront;
-		} else if (direction == Direction.RIGHT) {
-			animation = Assets.mummyWalkRight;
-		} else if (direction == Direction.LEFT) {
-			animation = Assets.mummyWalkLeft;
+			if (direction == Direction.UP) {
+				animation = Assets.mummyWalkBack;
+			} else if (direction == Direction.DOWN) {
+				animation = Assets.mummyWalkFront;
+			} else if (direction == Direction.RIGHT) {
+				animation = Assets.mummyWalkRight;
+			} else if (direction == Direction.LEFT) {
+				animation = Assets.mummyWalkLeft;
+			}
+
+			batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
+					bounds.y - 0.1f, width, height + 0.4f);
 		}
-
-		batch.draw(animation.getKeyFrame(stateTime, true), bounds.x - 0.1f,
-				bounds.y - 0.1f, width, height + 0.4f);
 	}
 
 	private final Vector2 playerPos = new Vector2();
@@ -101,14 +103,6 @@ public class Mummy extends Enemy {
 				direction = Direction.UP;
 			}
 		}
-	}
-
-	@Override
-	public void takeDamage() {
-		super.takeDamage();
-
-		accel.set(0f, 0f);
-		vel.set(0f, 0f);
 	}
 
 }
