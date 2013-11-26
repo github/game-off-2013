@@ -2,6 +2,7 @@ package com.sturdyhelmetgames.roomforchange.entity;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.sturdyhelmetgames.roomforchange.RandomUtil;
+import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 
 public class Enemy extends Entity {
@@ -35,14 +36,15 @@ public class Enemy extends Entity {
 
 		if (pause <= 0f) {
 			if (state == EntityState.DYING) {
-				// TODO particle poof effect
+				level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE, bounds.x
+						+ width / 2, bounds.y + height / 2);
+
 				state = EntityState.DEAD;
 				final int random = RandomUtil.random(100);
 				if (random < 30) {
 					level.entities.add(new Heart(bounds.x, bounds.y, level));
 				} else if (random < 60) {
-					// TODO bomb
-
+					level.entities.add(new Bomb(bounds.x, bounds.y, level));
 				} else if (random < 100) {
 				}
 			}
@@ -54,12 +56,15 @@ public class Enemy extends Entity {
 	}
 
 	public void takeDamage() {
-		health--;
-		if (health <= 0) {
-			state = EntityState.DYING;
+		if (pause <= 0f) {
+			health--;
+			if (health <= 0) {
+				state = EntityState.DYING;
+			} else {
+				pause = INVULNERABLE_TIME_MIN;
+				invulnerableTick = INVULNERABLE_TIME_MIN;
+			}
 		}
-		pause = INVULNERABLE_TIME_MIN;
-		invulnerableTick = INVULNERABLE_TIME_MIN;
 	}
 
 	@Override
@@ -68,4 +73,10 @@ public class Enemy extends Entity {
 			takeDamage();
 		}
 	}
+
+	@Override
+	protected void fall() {
+		// do nothing
+	}
+
 }

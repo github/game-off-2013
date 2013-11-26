@@ -1,9 +1,7 @@
 package com.sturdyhelmetgames.roomforchange.util;
 
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
-import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
-import com.sturdyhelmetgames.roomforchange.entity.Snake;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.level.Level;
@@ -35,7 +33,7 @@ public class LabyrinthUtil {
 
 		level.getLabyrinth()[0][0].state = LabyrinthPieceState.LIGHTS_ON;
 
-		level.player = new Player(2, 2, level);
+		level.player = new Player(6, 1, level);
 		level.entities.add(level.player);
 
 		return level;
