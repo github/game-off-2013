@@ -30,6 +30,7 @@ game.Hero = me.ObjectEntity.extend({
     Level: 1,
     XP: 0,
     XPTNL: 50,
+    LastXPTNL: 0,
     DRMin: 0,
     DRMax: 3,
     DRBase:3,
@@ -40,6 +41,8 @@ game.Hero = me.ObjectEntity.extend({
     HP: 10,
 
     Items: new Array(8),
+
+    ItemNames: [ "a better helm", "a better chestplate", "better leggings", "better bracers", "better gloves", "better boots", "a better sword", "a potion" ],
 
     init: function (x, y, settings) {
         // call the constructor
@@ -79,6 +82,7 @@ game.Hero = me.ObjectEntity.extend({
         this.HP = this.HPMax;
         this.isEntering = true;
         this.stairsFound = null;
+        
 
         for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
             this.DiscoveredTiles[x] = new Array(this.DUNGEON_HEIGHT);
@@ -87,7 +91,10 @@ game.Hero = me.ObjectEntity.extend({
             }
         }
 
-        for (var i = 0; i < 8; i++) this.Items[i] = 0;
+        if (game.Level == 1) { // First level intialization
+            for (var i = 0; i < 8; i++) this.Items[i] = 0;
+            this.XPTNL = 50;
+        }
 
         this.z = 4;
 
@@ -107,12 +114,7 @@ game.Hero = me.ObjectEntity.extend({
         var tx = Math.floor(this.pos.x / 32);
         var ty = Math.floor(this.pos.y / 32);
 
-        if (this.stairsFound!=null && !this.isFollowingPath && dungeon.isComplete && tx == this.stairsFound.x && ty == this.stairsFound.y) {
-            me.game.viewport.fadeIn("#000000", 1000, this.nextLevel.bind(this));
-            this.updateMovement();
-            this.parent();
-            return true;
-        }
+      
 
         //if (tx > 0) this.lastKnownGoodX = tx;
         //if (ty > 0) this.lastKnownGoodY = ty;
@@ -162,7 +164,7 @@ game.Hero = me.ObjectEntity.extend({
             if (me.timer.getTime() > this.statsTick + this.statsTickTarget) {
                 this.statsTick = me.timer.getTime();
                 if (this.HP < this.HPMax) {
-                    this.HP++;
+                    this.HP+= (this.HPMax/20);
                     game.HUD.addFloatyText(new me.Vector2d((this.pos.x + 3) + Math.floor(Math.random() * 16), this.pos.y), "1", "green");
                     
 
@@ -181,6 +183,8 @@ game.Hero = me.ObjectEntity.extend({
             }
         }
 
+        if (this.HP > this.HPMax) this.HP = this.HPMax;
+
         for (var x = 0; x < this.DUNGEON_WIDTH; x++) {
             for (var y = 0; y < this.DUNGEON_HEIGHT; y++) {
                 if (this.DiscoveredTiles[x][y] == -1) {
@@ -198,7 +202,7 @@ game.Hero = me.ObjectEntity.extend({
             for (var y = ty - 1; y <= ty + 1; y++) {
                 if (x >= 1 && y >= 1 && x <= this.DUNGEON_WIDTH - 1 && y <= this.DUNGEON_HEIGHT - 2  && this.DiscoveredTiles[x][y]!=1) {
                     this.DiscoveredTiles[x][y] = 1;
-                    this.XP+=0.54;
+                    this.XP+=(game.Level/5);
                     if (dungeon.Tiles[x][y] == PieceHelper.STAIRS_TILE && this.stairsFound == null) {
                         this.stairsFound = new me.Vector2d(x, y);
                         dungeon.stairsOK = true;
@@ -215,15 +219,19 @@ game.Hero = me.ObjectEntity.extend({
             var cy = Math.floor(chest.pos.y / 32);
             if (tx == cx && ty == cy && !chest.isOpen) {
                 chest.open();
-                game.HUD.addLine("Hero opened a chest!");
+                game.HUD.addLine("Hero opened a chest");
+                var ran = Math.floor(Math.random() * 6);
+                this.Items[ran]++;
+                game.HUD.addLine("...and found " + this.ItemNames[ran] + "!");
             }
         }
 
         for (this.scanY = 1; this.scanY < this.DUNGEON_HEIGHT - 2; this.scanY++) {
-            if (dungeon.Tiles[this.scanX][this.scanY] == PieceHelper.STAIRS_TILE) {
+            if (dungeon.Tiles[this.scanX][this.scanY] == PieceHelper.STAIRS_TILE && this.stairsFound==null) {
                 var path = dungeon.findPath(dungeon.pathGrid, tx, ty, this.scanX, this.scanY);
                 if (path.length > 0) {
                     dungeon.stairsOK = true;
+                    this.explore(this.scanX, this.scanY, path);
                 } else {
                     dungeon.stairsOK = false;
                 }
@@ -301,6 +309,13 @@ game.Hero = me.ObjectEntity.extend({
             }
 
         }
+
+        if (this.stairsFound != null && !this.isFollowingPath && dungeon.isComplete && tx == this.stairsFound.x && ty == this.stairsFound.y && me.game.world.getEntityByProp("name", "mob").length == 0 && !this.isTravelling) {
+            me.game.viewport.fadeIn("#000000", 1000, this.nextLevel.bind(this));
+            this.updateMovement();
+            this.parent();
+            return true;
+        }
         
         this.scanX++;
         if (this.scanX == this.DUNGEON_WIDTH - 1) {
@@ -314,7 +329,9 @@ game.Hero = me.ObjectEntity.extend({
        
         if (this.XP >= this.XPTNL) {
             this.Level++;
+            this.LastXPTNL = this.XPTNL;
             this.XPTNL = 50 + (50 * this.Level);
+            this.XP = 0;
             this.HPMax += this.Level;
             this.HP = this.HPMax;
             game.HUD.addFloatyText(new me.Vector2d((this.pos.x - 50) + Math.floor(Math.random() * 16), this.pos.y - 16), "Level Up!", "gold", 2);

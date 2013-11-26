@@ -16,6 +16,15 @@ game.resources = [
     { name: "floatfont-gold", type: "image", src: "data/img/floatfont-gold.png" },
     { name: "floatfont-blue", type: "image", src: "data/img/floatfont-blue.png" },
     { name: "hudbg", type: "image", src: "data/img/hudbg.png" },
+
+    { name: "ihead", type: "image", src: "data/img/hud/head.png" },
+    { name: "ichest", type: "image", src: "data/img/hud/chest.png" },
+    { name: "ifeet", type: "image", src: "data/img/hud/feet.png" },
+    { name: "ihands", type: "image", src: "data/img/hud/hands.png" },
+    { name: "iarms", type: "image", src: "data/img/hud/arms.png" },
+    { name: "ilegs", type: "image", src: "data/img/hud/legs.png" },
+    { name: "ipotion", type: "image", src: "data/img/hud/potion.png" },
+    { name: "isword", type: "image", src: "data/img/hud/sword.png" },
  
     { name: "basedungeon", type: "tmx", src: "data/map/basedungeon.xml" },
 

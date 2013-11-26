@@ -12,6 +12,9 @@ game.HUD.addLine = function (line) {
 
 game.HUD.Container = me.ObjectContainer.extend({
 
+    itemSprites: new Array(8),
+    itemSpriteNames: ["ihead","ichest","ilegs","iarms","ihands","ifeet","isword","ipotion"],
+
     init: function () {
         // call the constructor
         this.parent();
@@ -36,10 +39,27 @@ game.HUD.Container = me.ObjectContainer.extend({
         bg.z = -2;
         this.addChild(bg);
 
+        this.itemSpriteNames = ["ihead", "ichest", "ilegs", "iarms", "ihands", "ifeet", "isword", "ipotion"];
+
+        var sx = 84;
+        var sy = 698;
+        for (var i = 0; i < 8; i++) {
+            this.itemSprites[i] = new me.SpriteObject(sx, sy, me.loader.getImage(this.itemSpriteNames[i]), 30, 30);
+            this.itemSprites[i].floating = true;
+            this.itemSprites[i].z = 0;
+            this.itemSprites[i].alpha = 0;
+            this.addChild(this.itemSprites[i]);
+            sx += 40;
+        }
+
         for(var i=0;i<7;i++) game.HUD.addLine("");
 
         this.font = new me.BitmapFont("font", { x: 32, y: 32 }, 0.8);
-        this.font.alignText = "center";
+        this.font.set("center");
+        this.itemfontgreen = new me.BitmapFont("floatfont-green", { x: 13, y: 14 }, 1);
+        this.itemfontgreen.set("center");
+        this.itemfontwhite = new me.BitmapFont("floatfont-white", { x: 13, y: 14 }, 1);
+        this.itemfontwhite.set("center");
         this.floating = true;
 
 
@@ -51,7 +71,27 @@ game.HUD.Container = me.ObjectContainer.extend({
         try {
             var hero = me.game.world.getEntityByProp("name", "hero")[0];
 
-            this.font.draw(context, hero.Level, 21, 630);
+            this.font.draw(context, hero.Level, 35, 630);
+
+            context.strokeStyle = "silver";
+            context.strokeRect(70, 618, 410, 26);
+            context.fillStyle = "#AA0000";
+            context.fillRect(72, 620, (406 / hero.HPMax) * hero.HP, 22);
+
+            context.strokeStyle = "silver";
+            context.strokeRect(70, 650, 410, 15);
+            context.fillStyle = "#AAAA00";
+            context.fillRect(72, 652, (406 / (hero.XPTNL)) * (hero.XP), 11);
+
+            for (var i = 0; i < 8; i++) {
+                if (hero.Items[i] > 0) {
+                    this.itemSprites[i].alpha = 1;
+                    this.itemfontgreen.draw(context, "+" + hero.Items[i], this.itemSprites[i].pos.x+14, this.itemSprites[i].pos.y+12);
+
+                }
+
+            }
+
             //this.font.draw(context, "HP: " + hero.HP + "/" + hero.HPMax + " Dam:" + hero.DRMax + " Def: " + hero.SRMax, 10, 628);
             //this.font.draw(context, "XP " + hero.XP + "/" + hero.XPTNL, 10, 646);
 
