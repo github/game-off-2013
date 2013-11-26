@@ -42,6 +42,8 @@ public class Assets {
 			+ "sandsmoke_up.p";
 	public static final String PARTICLE_SANDSMOKE_DOWN = FOLDER_PARTICLE
 			+ "sandsmoke_down.p";
+	public static final String PARTICLE_ENEMY_DIE = FOLDER_PARTICLE
+			+ "enemydie.p";
 
 	public static final String TEXTURE_FONT_BIG_BLACK = FOLDER_DATA
 			+ "font-big-black.png";
@@ -80,6 +82,7 @@ public class Assets {
 	public static ParticleEffectPool sandSmokeLeftPool;
 	public static ParticleEffectPool sandSmokeUpPool;
 	public static ParticleEffectPool sandSmokeDownPool;
+	public static ParticleEffectPool enemydiePool;
 
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
 	public static final Array<RoomTemplate> roomTemplates = new Array<RoomTemplate>();
@@ -96,6 +99,7 @@ public class Assets {
 		assetManager.load(PARTICLE_SANDSMOKE_LEFT, ParticleEffect.class);
 		assetManager.load(PARTICLE_SANDSMOKE_UP, ParticleEffect.class);
 		assetManager.load(PARTICLE_SANDSMOKE_DOWN, ParticleEffect.class);
+		assetManager.load(PARTICLE_ENEMY_DIE, ParticleEffect.class);
 		assetManager.load(SOUND_STONEDOOR, Sound.class);
 
 		finishLoading();
@@ -242,6 +246,8 @@ public class Assets {
 		sandSmokeUpPool = new ParticleEffectPool(get(PARTICLE_SANDSMOKE_UP,
 				ParticleEffect.class), 5, 10);
 		sandSmokeDownPool = new ParticleEffectPool(get(PARTICLE_SANDSMOKE_DOWN,
+				ParticleEffect.class), 5, 10);
+		enemydiePool = new ParticleEffectPool(get(PARTICLE_ENEMY_DIE,
 				ParticleEffect.class), 5, 10);
 	}
 

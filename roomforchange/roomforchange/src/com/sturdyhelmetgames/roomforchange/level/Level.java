@@ -402,6 +402,8 @@ public class Level {
 			effect = Assets.sandSmokeDownPool.obtain();
 		} else if (name.equals(Assets.PARTICLE_SANDSTREAM)) {
 			effect = Assets.sandStreamPool.obtain();
+		} else if (name.equals(Assets.PARTICLE_ENEMY_DIE)) {
+			effect = Assets.enemydiePool.obtain();
 		}
 		if (effect != null) {
 			effect.setPosition(x, y);

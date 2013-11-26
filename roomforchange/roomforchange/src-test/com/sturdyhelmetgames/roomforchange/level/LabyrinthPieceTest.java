@@ -1,12 +1,6 @@
 package com.sturdyhelmetgames.roomforchange.level;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
-import org.mockito.Mockito;
-
-import com.sturdyhelmetgames.roomforchange.level.Level.LevelTileType;
 
 public class LabyrinthPieceTest {
 

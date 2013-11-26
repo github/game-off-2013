@@ -153,7 +153,7 @@ public class Entity {
 		for (int i = 0; i < holes.length; i++) {
 			HoleFallWrapper hole = holes[i];
 			if (bounds.overlaps(hole.bounds)) {
-				state = EntityState.FALLING;
+				fall();
 			}
 		}
 
@@ -174,7 +174,7 @@ public class Entity {
 		for (int i = 0; i < holes.length; i++) {
 			HoleFallWrapper hole = holes[i];
 			if (bounds.overlaps(hole.bounds)) {
-				state = EntityState.FALLING;
+				fall();
 			}
 		}
 
@@ -189,6 +189,10 @@ public class Entity {
 				hitWallHook();
 			}
 		}
+	}
+
+	protected void fall() {
+		state = EntityState.FALLING;
 	}
 
 	protected void fetchCollidableRects() {
@@ -262,7 +266,6 @@ public class Entity {
 	}
 
 	public void hit(Rectangle hitBounds) {
-		// TODO Auto-generated method stub
 
 	}
 

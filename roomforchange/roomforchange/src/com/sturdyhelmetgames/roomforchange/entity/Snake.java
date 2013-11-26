@@ -10,7 +10,7 @@ public class Snake extends Enemy {
 
 	public Snake(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
-		health = 1;
+		health = 2;
 	}
 
 	@Override
@@ -44,10 +44,10 @@ public class Snake extends Enemy {
 		super.update(fixedStep);
 
 		if (isNotWalking()) {
-
 			direction = direction.turnRight();
 		}
-		moveWithAccel(direction);
+		if (!isDying() && !isDead() && !isFalling())
+			moveWithAccel(direction);
 	}
 
 	@Override
