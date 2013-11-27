@@ -1,4 +1,4 @@
-![GitHub Game Off Game Jam](https://f.cloud.github.com/assets/121322/1436486/25f88b78-4158-11e3-9b23-43596516362c.png)
+![Room for Change](http://sturdyhelmetgames.com/roomforchange_html/pyramid.png)
 
 ## Room for Change
 
@@ -10,6 +10,7 @@ But it's not as easy as it sounds! The pyramid is full of dangerous spiders, sna
 
 Try to collect all three artefacts and escape the pyramid! Have fun! :)
 
+![Room for Change](http://sturdyhelmetgames.com/roomforchange_html/screenshot.png)
 
 ## Links to the Game
 
