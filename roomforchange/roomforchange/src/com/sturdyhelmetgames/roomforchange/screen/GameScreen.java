@@ -293,7 +293,7 @@ public class GameScreen extends Basic2DScreen {
 	@Override
 	public void show() {
 		super.show();
-
+		Gdx.input.setInputProcessor(this);
 		Assets.getGameSound(Assets.SOUND_MUSIC).loop(0.5f);
 	}
 
