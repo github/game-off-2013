@@ -19,7 +19,6 @@ import com.sturdyhelmetgames.roomforchange.assets.FontBig;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.HoleFallWrapper;
-import com.sturdyhelmetgames.roomforchange.entity.ExplodingBomb;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
@@ -229,18 +228,18 @@ public class GameScreen extends Basic2DScreen {
 		// if (keycode == Keys.D) {
 		// startScreenQuake(Level.RIGHT);
 		// }
-		if (keycode == Keys.CONTROL_LEFT) {
+		if (keycode == Keys.Z) {
 			level.player.tryHit();
 		}
-		if (keycode == Keys.ALT_LEFT) {
+		if (keycode == Keys.X) {
 			level.player.dropBomb();
 		}
-		if (keycode == Keys.K) {
-			level.entities.add(new ExplodingBomb(level.player.bounds.x + 2f,
-					level.player.bounds.y, level));
-			// level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
-			// level.player.bounds.x + 2f, level.player.bounds.y);
-		}
+		// if (keycode == Keys.K) {
+		// level.entities.add(new ExplodingBomb(level.player.bounds.x + 2f,
+		// level.player.bounds.y, level));
+		// level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
+		// level.player.bounds.x + 2f, level.player.bounds.y);
+		// }
 		return super.keyDown(keycode);
 	}
 
