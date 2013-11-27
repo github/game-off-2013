@@ -1,5 +1,6 @@
 package com.sturdyhelmetgames.roomforchange.entity;
 
+import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 
 public abstract class Item extends Entity {
@@ -72,7 +73,9 @@ public abstract class Item extends Entity {
 		}
 	}
 
-	public abstract void collectItem();
+	public void collectItem() {
+		Assets.getGameSound(Assets.SOUND_COLLECT).play(0.5f);
+	}
 
 	/**
 	 * Checks if the {@link CollectableEntity} is alive or not.

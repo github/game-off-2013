@@ -148,8 +148,17 @@ public class Player extends Entity {
 			health--;
 			invulnerableTick = INVULNERABLE_TIME_MIN;
 		}
-		if (health <= 0) {
+		if (health <= 0 && !isDead() && !isDying()) {
 			state = EntityState.DYING;
+			Assets.getGameSound(Assets.SOUND_DEATH).play(0.5f);
+		}
+	}
+
+	@Override
+	protected void fall() {
+		if (!isFalling() && !isDead()) {
+			Assets.getGameSound(Assets.SOUND_DEATH).play(0.5f);
+			super.fall();
 		}
 	}
 

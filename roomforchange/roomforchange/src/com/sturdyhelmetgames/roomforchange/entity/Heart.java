@@ -24,6 +24,7 @@ public class Heart extends Item {
 
 	@Override
 	public void collectItem() {
+		super.collectItem();
 		level.player.gainHealth();
 		this.aliveTick = ALIVE_TIME_MAX;
 	}

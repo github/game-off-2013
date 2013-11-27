@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
+import com.sturdyhelmetgames.roomforchange.entity.Exit;
 import com.sturdyhelmetgames.roomforchange.entity.Gem;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
@@ -404,7 +405,9 @@ public class Level {
 			} else if (template.treasureType == Gem.class) {
 				entities.add(new Gem(randomX, randomY, this));
 			}
-
+		}
+		if (template.hasExit) {
+			entities.add(new Exit(3, 1, this));
 		}
 	}
 

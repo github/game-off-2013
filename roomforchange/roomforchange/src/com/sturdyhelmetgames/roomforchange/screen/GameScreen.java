@@ -18,6 +18,7 @@ import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.HoleFallWrapper;
+import com.sturdyhelmetgames.roomforchange.entity.Exit;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
@@ -222,12 +223,12 @@ public class GameScreen extends Basic2DScreen {
 		if (keycode == Keys.CONTROL_LEFT) {
 			level.player.tryHit();
 		}
-		// if (keycode == Keys.K) {
-		// level.entities.add(new Scroll(level.player.bounds.x + 2f,
-		// level.player.bounds.y, level));
-		// level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
-		// level.player.bounds.x + 2f, level.player.bounds.y);
-		// }
+		if (keycode == Keys.K) {
+			// level.entities.add(new Exit(level.player.bounds.x + 2f,
+			// level.player.bounds.y, level));
+			// level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
+			// level.player.bounds.x + 2f, level.player.bounds.y);
+		}
 		return super.keyDown(keycode);
 	}
 

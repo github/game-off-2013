@@ -31,6 +31,10 @@ public class Assets {
 
 	public static final String SOUND_STONEDOOR = FOLDER_SOUNDS
 			+ "stonedoor.mp3";
+	public static final String SOUND_ENEMYDIE = FOLDER_SOUNDS + "enemydie.wav";
+	public static final String SOUND_COLLECT = FOLDER_SOUNDS + "collect.wav";
+	public static final String SOUND_DEATH = FOLDER_SOUNDS + "death.wav";
+	public static final String SOUND_HIT = FOLDER_SOUNDS + "hit.wav";
 
 	public static final String PARTICLE_SANDSTREAM = FOLDER_PARTICLE
 			+ "sandstream.p";
@@ -103,6 +107,10 @@ public class Assets {
 		assetManager.load(PARTICLE_SANDSMOKE_DOWN, ParticleEffect.class);
 		assetManager.load(PARTICLE_ENEMY_DIE, ParticleEffect.class);
 		assetManager.load(SOUND_STONEDOOR, Sound.class);
+		assetManager.load(SOUND_ENEMYDIE, Sound.class);
+		assetManager.load(SOUND_COLLECT, Sound.class);
+		assetManager.load(SOUND_HIT, Sound.class);
+		assetManager.load(SOUND_DEATH, Sound.class);
 
 		finishLoading();
 		setupAssets();

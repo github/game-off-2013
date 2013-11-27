@@ -8,6 +8,7 @@ import com.sturdyhelmetgames.roomforchange.level.Level;
 public class Enemy extends Entity {
 
 	protected int health;
+
 	public Enemy(float x, float y, float width, float height, Level level) {
 		super(x, y, width, height, level);
 	}
@@ -20,7 +21,6 @@ public class Enemy extends Entity {
 			if (state == EntityState.DYING) {
 				level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE, bounds.x
 						+ width / 2, bounds.y + height / 2);
-
 				state = EntityState.DEAD;
 				final int random = RandomUtil.random(100);
 				if (random < 30) {
@@ -40,8 +40,10 @@ public class Enemy extends Entity {
 	public void takeDamage() {
 		if (pause <= 0f) {
 			health--;
-			if (health <= 0) {
+			Assets.getGameSound(Assets.SOUND_HIT).play(0.5f);
+			if (health <= 0 && !isDying() && !isDead()) {
 				state = EntityState.DYING;
+				Assets.getGameSound(Assets.SOUND_ENEMYDIE).play(0.5f);
 			} else {
 				pause = INVULNERABLE_TIME_MIN;
 				invulnerableTick = INVULNERABLE_TIME_MIN;

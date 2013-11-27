@@ -2,6 +2,7 @@ package com.sturdyhelmetgames.roomforchange.util;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
+import com.sturdyhelmetgames.roomforchange.entity.Exit;
 import com.sturdyhelmetgames.roomforchange.entity.Gem;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.entity.Scroll;
@@ -26,11 +27,31 @@ public class LabyrinthUtil {
 		int i = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				level.getLabyrinth()[x][y] = new LabyrinthPiece(
+				LabyrinthPiece labyrinthPiece = new LabyrinthPiece(
 						Assets.getRandomPieceTemplate(),
 						Assets.getRandomRoomTemplate(), i, level);
+				level.getLabyrinth()[x][y] = labyrinthPiece;
 				i++;
+
+				// first piece always has ladder
+				if (x == 0 && y == 0) {
+					labyrinthPiece.roomTemplate.hasExit = true;
+				}
 			}
+		}
+
+		boolean gemSpawned = false;
+		boolean talismanSpawned = false;
+		boolean scrollSpawned = false;
+		while (!gemSpawned) {
+			gemSpawned = spawnTreasure(level.getLabyrinth(), Gem.class);
+		}
+		while (!talismanSpawned) {
+			talismanSpawned = spawnTreasure(level.getLabyrinth(),
+					Talisman.class);
+		}
+		while (!scrollSpawned) {
+			scrollSpawned = spawnTreasure(level.getLabyrinth(), Scroll.class);
 		}
 
 		updateLabyrinthTiles(level);
@@ -39,6 +60,7 @@ public class LabyrinthUtil {
 
 		level.player = new Player(6, 1, level);
 		level.entities.add(level.player);
+		level.entities.add(new Exit(3, 1, level));
 
 		return level;
 	}
@@ -67,20 +89,6 @@ public class LabyrinthUtil {
 				}
 			}
 		}
-
-		boolean gemSpawned = false;
-		boolean talismanSpawned = false;
-		boolean scrollSpawned = false;
-		while (!gemSpawned) {
-			gemSpawned = spawnTreasure(labyrinth, Gem.class);
-		}
-		while (!talismanSpawned) {
-			talismanSpawned = spawnTreasure(labyrinth, Talisman.class);
-		}
-		while (!scrollSpawned) {
-			scrollSpawned = spawnTreasure(labyrinth, Scroll.class);
-		}
-
 	}
 
 	private static boolean spawnTreasure(final LabyrinthPiece[][] labyrinth,

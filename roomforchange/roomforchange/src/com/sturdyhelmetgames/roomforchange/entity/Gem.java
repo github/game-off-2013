@@ -27,6 +27,7 @@ public class Gem extends Item {
 
 	@Override
 	public void collectItem() {
+		super.collectItem();
 		level.player.gotGem = true;
 		aliveTick = ALIVE_TIME_MAX;
 	}

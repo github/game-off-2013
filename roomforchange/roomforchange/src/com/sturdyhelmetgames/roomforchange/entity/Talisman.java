@@ -27,6 +27,7 @@ public class Talisman extends Item {
 
 	@Override
 	public void collectItem() {
+		super.collectItem();
 		level.player.gotTalisman = true;
 		aliveTick = ALIVE_TIME_MAX;
 	}
