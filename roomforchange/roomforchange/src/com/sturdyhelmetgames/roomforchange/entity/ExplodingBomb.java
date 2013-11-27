@@ -36,6 +36,11 @@ public class ExplodingBomb extends Bomb {
 			for (int i = 0; i < level.entities.size; i++) {
 				final Entity entity = level.entities.get(i);
 				entity.hit(explosionRadius);
+				if (entity == level.player) {
+					if (explosionRadius.overlaps(level.player.bounds)) {
+						level.player.takeDamage();
+					}
+				}
 			}
 		}
 	}

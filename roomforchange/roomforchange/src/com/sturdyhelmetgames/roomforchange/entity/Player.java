@@ -143,13 +143,6 @@ public class Player extends Entity {
 
 	}
 
-	@Override
-	public void hit(Rectangle hitBounds) {
-		if (hitBounds.overlaps(bounds)) {
-			takeDamage();
-		}
-	}
-
 	public void takeDamage() {
 		if (!isInvulnerable()) {
 			health--;

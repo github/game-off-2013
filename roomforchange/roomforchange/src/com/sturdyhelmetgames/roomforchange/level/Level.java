@@ -398,11 +398,12 @@ public class Level {
 		final float randomY = currentPieceRelativePos.y + 1
 				+ MathUtils.random(5);
 		if (template.treasureType != null) {
-			if (template.treasureType == Scroll.class) {
+			if (template.treasureType == Scroll.class && !player.gotScroll) {
 				entities.add(new Scroll(randomX, randomY, this));
-			} else if (template.treasureType == Talisman.class) {
+			} else if (template.treasureType == Talisman.class
+					&& !player.gotTalisman) {
 				entities.add(new Talisman(randomX, randomY, this));
-			} else if (template.treasureType == Gem.class) {
+			} else if (template.treasureType == Gem.class && !player.gotGem) {
 				entities.add(new Gem(randomX, randomY, this));
 			}
 		}
