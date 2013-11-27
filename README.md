@@ -11,10 +11,10 @@ But it's not as easy as it sounds! The pyramid is full of dangerous spiders, sna
 Try to collect all three artefacts and escape the pyramid! Have fun! :)
 
 
-## Links to Web Game
+## Links to the Game
 
-* http://www.sturdyhelmetgames.com/roomforchange_applet (works best)
-* http://www.sturdyhelmetgames.com/roomforchange (very slow, needs a powerful computer and Chrome browser)
+* http://www.sturdyhelmetgames.com/roomforchange_html (pretty slow, needs a powerful computer and Chrome browser)
+* http://www.sturdyhelmetgames.com/roomforchange_applet (coming soon, works great)
 
 ## Frameworks and tools
 
