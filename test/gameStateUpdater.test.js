@@ -124,10 +124,6 @@ define(function (require) {
             throw new Error('Test not implemented');
         });
 
-        xit('limits/reduces the population if insufficient food', function() {
-            throw new Error('Test not implemented');
-        });
-
         xit('limits/reduces the population if insufficient land area', function() {
             throw new Error('Test not implemented');
         });
