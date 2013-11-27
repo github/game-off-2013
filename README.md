@@ -4,7 +4,7 @@
 
 RfC is a randomly generated action RPG. You play as a chubby archeologist who is tasked to retrieve three sacred artefacts from the pyramid of the legendary Pharaohs.
 
-Your way is blocked by stone chamber doors that can't be opened unless there is also a door on the other side. To access other chambers you must change the layout of the maze by moving the chamber's in vertical or horizontal direction.
+Your way is blocked by stone chamber doors that can't be opened unless there is also a door on the other side. To access other chambers you must change the layout of the maze by moving the chambers in vertical or horizontal direction.
 
 But it's not as easy as it sounds! The pyramid is full of dangerous spiders, snakes and mummies!
 
@@ -13,14 +13,14 @@ Try to collect all three artefacts and escape the pyramid! Have fun! :)
 
 ## Links to Web Game
 
-http://www.sturdyhelmetgames.com/roomforchange_applet (works best)
-http://www.sturdyhelmetgames.com/roomforchange (very slow, needs a powerful computer and Chrome browser)
+* http://www.sturdyhelmetgames.com/roomforchange_applet (works best)
+* http://www.sturdyhelmetgames.com/roomforchange (very slow, needs a powerful computer and Chrome browser)
 
 ## Frameworks and tools
 
-* LibGDX game framework
-* Eclipse IDE
+* LibGDX game framework http://libgdx.badlogicgames.com/
+* Eclipse IDE http://www.eclipse.org/
 * http://www.bfxr.net/
-* Audacity sound editor
-* Linux MultiMedia Studio
-* GraphicsGale
+* Audacity sound editor http://audacity.sourceforge.net/
+* Linux MultiMedia Studio http://lmms.sourceforge.net/
+* GraphicsGale http://www.humanbalance.net/gale/us/
