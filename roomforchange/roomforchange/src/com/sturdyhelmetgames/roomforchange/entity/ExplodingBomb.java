@@ -7,7 +7,7 @@ import com.sturdyhelmetgames.roomforchange.level.Level;
 
 public class ExplodingBomb extends Bomb {
 
-	private final Rectangle explosionRadius = new Rectangle(0f, 0f, 3f, 3f);
+	private final Rectangle explosionRadius = new Rectangle(0f, 0f, 3.5f, 3.5f);
 
 	public ExplodingBomb(float x, float y, Level level) {
 		super(x, y, level);
@@ -35,14 +35,13 @@ public class ExplodingBomb extends Bomb {
 			Assets.getGameSound(Assets.SOUND_EXPLOSION).play(0.7f);
 			for (int i = 0; i < level.entities.size; i++) {
 				final Entity entity = level.entities.get(i);
-				entity.hit(explosionRadius);
-				if (entity == level.player) {
-					if (explosionRadius.overlaps(level.player.bounds)) {
-						level.player.takeDamage();
-					}
+				if (entity != level.player
+						&& explosionRadius.overlaps(entity.bounds)) {
+					entity.state = EntityState.DYING;
+				} else if (explosionRadius.overlaps(level.player.bounds)) {
+					level.player.takeDamage();
 				}
 			}
 		}
 	}
-
 }
