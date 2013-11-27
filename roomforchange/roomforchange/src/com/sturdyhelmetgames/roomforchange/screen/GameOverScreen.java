@@ -32,6 +32,7 @@ public class GameOverScreen extends Basic2DScreen {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.Y) {
+			Assets.getGameSound(Assets.SOUND_MUSIC).loop(0.4f);
 			game.setScreen(new GameScreen(game));
 		} else if (keycode == Keys.N) {
 			game.setScreen(new MenuScreen(game));
