@@ -12,13 +12,15 @@ public class Player extends Entity {
 	public float dyingAnimState = 0f;
 	public float dyingTime = 0f;
 	public float maxDyingTime = 3f;
-	public float invulnerableTime = 0f;
-	public float maxInvulnerableTime = 4f;
 	public int health = 5;
 	public int bombs = 0;
 	public int maxHealth = 5;
 	public final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
 	private float tryHitTime = 0.3f;
+
+	public boolean gotScroll = false;
+	public boolean gotTalisman = false;
+	public boolean gotGem = false;
 
 	public Player(float x, float y, Level level) {
 		super(x, y, 1f, 0.6f, level);
@@ -30,30 +32,32 @@ public class Player extends Entity {
 
 		Animation animation = null;
 
-		if (isFalling()) {
-			animation = Assets.playerFalling;
-			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x - 0.1f,
-					bounds.y, width, height + 0.4f);
-		} else if (isDying() || isDead()) {
-			animation = Assets.playerDying;
-			batch.draw(animation.getKeyFrame(dyingAnimState), bounds.x - 0.1f,
-					bounds.y, width, height + 0.4f);
-		} else {
-			if (direction == Direction.UP) {
-				animation = Assets.playerWalkBack;
-			} else if (direction == Direction.DOWN) {
-				animation = Assets.playerWalkFront;
-			} else if (direction == Direction.RIGHT) {
-				animation = Assets.playerWalkRight;
-			} else if (direction == Direction.LEFT) {
-				animation = Assets.playerWalkLeft;
-			}
-			if (isNotWalking()) {
-				batch.draw(animation.getKeyFrame(0.25f), bounds.x - 0.1f,
-						bounds.y, width, height + 0.4f);
-			} else {
-				batch.draw(animation.getKeyFrame(stateTime, true),
+		if (blinkTick < BLINK_TICK_MAX) {
+			if (isFalling()) {
+				animation = Assets.playerFalling;
+				batch.draw(animation.getKeyFrame(dyingAnimState),
 						bounds.x - 0.1f, bounds.y, width, height + 0.4f);
+			} else if (isDying() || isDead()) {
+				animation = Assets.playerDying;
+				batch.draw(animation.getKeyFrame(dyingAnimState),
+						bounds.x - 0.1f, bounds.y, width, height + 0.4f);
+			} else {
+				if (direction == Direction.UP) {
+					animation = Assets.playerWalkBack;
+				} else if (direction == Direction.DOWN) {
+					animation = Assets.playerWalkFront;
+				} else if (direction == Direction.RIGHT) {
+					animation = Assets.playerWalkRight;
+				} else if (direction == Direction.LEFT) {
+					animation = Assets.playerWalkLeft;
+				}
+				if (isNotWalking()) {
+					batch.draw(animation.getKeyFrame(0.25f), bounds.x - 0.1f,
+							bounds.y, width, height + 0.4f);
+				} else {
+					batch.draw(animation.getKeyFrame(stateTime, true),
+							bounds.x - 0.1f, bounds.y, width, height + 0.4f);
+				}
 			}
 		}
 
@@ -97,12 +101,10 @@ public class Player extends Entity {
 
 		super.update(fixedStep);
 
-		if (invulnerableTime > 0f) {
-			invulnerableTime -= fixedStep;
-		}
 	}
 
 	private static final float HIT_DISTANCE = 0.5f;
+	private final Rectangle leverRect = new Rectangle();
 
 	public void tryHit() {
 		tryHitTime = 0f;
@@ -144,7 +146,7 @@ public class Player extends Entity {
 	public void takeDamage() {
 		if (!isInvulnerable()) {
 			health--;
-			invulnerableTime = maxInvulnerableTime;
+			invulnerableTick = INVULNERABLE_TIME_MIN;
 		}
 		if (health <= 0) {
 			state = EntityState.DYING;
@@ -156,7 +158,11 @@ public class Player extends Entity {
 	}
 
 	public boolean isInvulnerable() {
-		return invulnerableTime > 0f;
+		return invulnerableTick > 0f;
+	}
+
+	public boolean canFinishGame() {
+		return gotGem && gotScroll && gotTalisman;
 	}
 
 }

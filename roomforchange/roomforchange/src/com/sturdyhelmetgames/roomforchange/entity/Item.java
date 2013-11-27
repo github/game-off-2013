@@ -67,7 +67,7 @@ public abstract class Item extends Entity {
 			dyingTick += fixedStep;
 		}
 
-		if (bounds.overlaps(level.player.bounds)) {
+		if (bounds.overlaps(level.player.bounds) && aliveTick > 0.5f) {
 			collectItem();
 		}
 	}

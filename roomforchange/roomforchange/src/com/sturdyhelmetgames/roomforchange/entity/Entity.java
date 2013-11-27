@@ -17,6 +17,8 @@ public class Entity {
 	public static final float VEL_MAX = 0.05f;
 	public static final float INERTIA = 10f;
 	private static final float MIN_WALK_VELOCITY = 0.001f;
+	protected static final float INVULNERABLE_TIME_MIN = 1.5f;
+	protected static final float BLINK_TICK_MAX = 0.1f;
 
 	public final Vector2 accel = new Vector2(0f, 0f);
 	public final Vector2 vel = new Vector2(0f, 0f);
@@ -30,6 +32,8 @@ public class Entity {
 	public int[][] tiles;
 
 	public float pause = 0f;
+	protected float invulnerableTick;
+	protected float blinkTick;
 
 	public class HoleFallWrapper {
 		public final Rectangle bounds = new Rectangle();
@@ -102,6 +106,19 @@ public class Entity {
 	public void update(float fixedStep) {
 		if (pause > 0f) {
 			pause -= fixedStep;
+		}
+
+		// tick dying
+		if (blinkTick > BLINK_TICK_MAX) {
+			blinkTick = 0f;
+		}
+		// tick alive & dying times
+		invulnerableTick -= fixedStep;
+		if (invulnerableTick > 0f) {
+			blinkTick += fixedStep;
+		}
+		if (invulnerableTick <= 0f) {
+			blinkTick = 0f;
 		}
 
 		if (pause <= 0f) {

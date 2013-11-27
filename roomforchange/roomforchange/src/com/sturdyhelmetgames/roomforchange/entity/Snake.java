@@ -15,7 +15,7 @@ public class Snake extends Enemy {
 
 	@Override
 	public float getMaxVelocity() {
-		return 0.08f;
+		return 0.06f;
 	}
 
 	@Override
@@ -46,8 +46,9 @@ public class Snake extends Enemy {
 		if (isNotWalking()) {
 			direction = direction.turnRight();
 		}
-		if (!isDying() && !isDead() && !isFalling())
+		if (!isDying() && !isDead() && !isFalling()) {
 			moveWithAccel(direction);
+		}
 	}
 
 	@Override

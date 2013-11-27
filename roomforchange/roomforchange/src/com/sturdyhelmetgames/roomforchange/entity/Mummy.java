@@ -22,7 +22,7 @@ public class Mummy extends Enemy {
 
 	@Override
 	public float getMaxVelocity() {
-		return 0.03f;
+		return 0.02f;
 	}
 
 	@Override

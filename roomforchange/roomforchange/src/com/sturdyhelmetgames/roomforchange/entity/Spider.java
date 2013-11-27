@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.equations.Quad;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.sturdyhelmetgames.roomforchange.RandomUtil;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.EntityAccessor;
@@ -49,11 +50,24 @@ public class Spider extends Enemy {
 			blinkTick = 0f;
 		}
 		if (pause <= 0f) {
-
 			if (bounds.overlaps(level.player.bounds)) {
 				level.player.takeDamage();
 			}
 			stateTime += fixedStep;
+
+			if (state == EntityState.DYING) {
+				level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE, bounds.x
+						+ width / 2, bounds.y + height / 2);
+
+				state = EntityState.DEAD;
+				final int random = RandomUtil.random(100);
+				if (random < 30) {
+					level.entities.add(new Heart(bounds.x, bounds.y, level));
+				} else if (random < 60) {
+					level.entities.add(new Bomb(bounds.x, bounds.y, level));
+				} else if (random < 100) {
+				}
+			}
 		}
 		final TweenManager tweenManager = level.entityTweenManager;
 		if (!tweenManager.containsTarget(this)) {

@@ -103,6 +103,47 @@ public class GameScreen extends Basic2DScreen {
 			}
 		}
 
+		final float gemPosX = camera.position.x + 4f;
+		final float gemPosY = camera.position.y + 3.4f;
+
+		final Color originalColor = spriteBatch.getColor();
+		spriteBatch.setColor(1f, 1f, 1f, 0.5f);
+		spriteBatch.draw(Assets.getGameObject("black"), gemPosX - 0.05f,
+				gemPosY - 0.05f, 3f, 1f);
+		spriteBatch.setColor(originalColor);
+
+		if (player.gotGem) {
+			spriteBatch.draw(Assets.getGameObject("gem"), gemPosX, gemPosY,
+					0.5f, 0.5f);
+		} else {
+			spriteBatch.setColor(0f, 0f, 0f, 1f);
+			spriteBatch.draw(Assets.getGameObject("gem"), gemPosX, gemPosY,
+					0.5f, 0.5f);
+			spriteBatch.setColor(originalColor);
+		}
+		final float scrollPosX = gemPosX + 0.75f;
+		final float scrollPosY = gemPosY;
+		if (player.gotScroll) {
+			spriteBatch.draw(Assets.getGameObject("scroll"), scrollPosX,
+					scrollPosY, 0.5f, 0.5f);
+		} else {
+			spriteBatch.setColor(0f, 0f, 0f, 1f);
+			spriteBatch.draw(Assets.getGameObject("scroll"), scrollPosX,
+					scrollPosY, 0.5f, 0.5f);
+			spriteBatch.setColor(originalColor);
+		}
+		final float talismanPosX = scrollPosX + 0.75f;
+		final float talismanPosY = scrollPosY;
+		if (player.gotTalisman) {
+			spriteBatch.draw(Assets.getGameObject("talisman"), talismanPosX,
+					talismanPosY, 0.5f, 0.5f);
+		} else {
+			spriteBatch.setColor(0f, 0f, 0f, 1f);
+			spriteBatch.draw(Assets.getGameObject("talisman"), talismanPosX,
+					talismanPosY, 0.5f, 0.5f);
+			spriteBatch.setColor(originalColor);
+		}
+
 		spriteBatch.end();
 
 		batchMiniMap.setProjectionMatrix(cameraMiniMap.combined);
