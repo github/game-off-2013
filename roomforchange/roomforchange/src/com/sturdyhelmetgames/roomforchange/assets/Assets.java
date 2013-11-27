@@ -35,6 +35,8 @@ public class Assets {
 	public static final String SOUND_COLLECT = FOLDER_SOUNDS + "collect.wav";
 	public static final String SOUND_DEATH = FOLDER_SOUNDS + "death.wav";
 	public static final String SOUND_HIT = FOLDER_SOUNDS + "hit.wav";
+	public static final String SOUND_MUSIC = FOLDER_SOUNDS
+			+ "dungeon_music.mp3";
 
 	public static final String PARTICLE_SANDSTREAM = FOLDER_PARTICLE
 			+ "sandstream.p";
@@ -111,6 +113,7 @@ public class Assets {
 		assetManager.load(SOUND_COLLECT, Sound.class);
 		assetManager.load(SOUND_HIT, Sound.class);
 		assetManager.load(SOUND_DEATH, Sound.class);
+		assetManager.load(SOUND_MUSIC, Sound.class);
 
 		finishLoading();
 		setupAssets();

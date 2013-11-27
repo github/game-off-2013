@@ -18,7 +18,6 @@ import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.HoleFallWrapper;
-import com.sturdyhelmetgames.roomforchange.entity.Exit;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
@@ -290,4 +289,19 @@ public class GameScreen extends Basic2DScreen {
 	public void gameOver() {
 		game.setScreen(new GameOverScreen(game, this));
 	}
+
+	@Override
+	public void show() {
+		super.show();
+
+		Assets.getGameSound(Assets.SOUND_MUSIC).loop(0.5f);
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+
+		Assets.getGameSound(Assets.SOUND_MUSIC).stop();
+	}
+
 }
