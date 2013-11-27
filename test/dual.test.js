@@ -68,5 +68,15 @@ define(function (require) {
             expect(counts[5]).toBe(12);
             expect(counts[6]).toBe(result.length - 12);
         });
+
+        it('should store references to duals against original polygons', function() {
+            var polygons = d3.geodesic.polygons(3);
+
+            var result = dual.generateDual(polygons);
+
+            polygons.forEach(function(polygon) {
+                expect(polygon.duals.length).toBe(3);
+            });
+        });
     });
 });

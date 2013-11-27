@@ -24,9 +24,10 @@ define('dual', ['d3'], function(d3) {
             var points = current.coordinates[0];
 
             for (var i = points.length - 1; i > 0; --i) {
+                var facesInDual = [current];
+
                 var dual = {
-                    type: 'Polygon',
-                    coordinates: [[d3.geo.centroid(current)]]
+                    type: 'Polygon'
                 };
 
                 var nextEdge = [points[i], points[i - 1]];
@@ -58,11 +59,16 @@ define('dual', ['d3'], function(d3) {
                         }
                     }
 
-                    dual.coordinates[0].push(d3.geo.centroid(nextFace));
+                    facesInDual.push(nextFace);
                     nextEdge = possibleNextEdge;
                 } while (found && (nextFace !== current));
 
                 if (found) {
+                    dual.coordinates = [facesInDual.map(d3.geo.centroid)];
+                    for (var f = 0; f < facesInDual.length - 1; ++f) {
+                        facesInDual[f].duals = facesInDual[f].duals || [];
+                        facesInDual[f].duals.push(dual);
+                    }
                     duals.push(dual);
                 }
             }

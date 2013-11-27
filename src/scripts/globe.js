@@ -26,10 +26,11 @@ define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
             var n = 13;
 
             var faces = d3.geodesic.polygons(n);
+            var duals = dual.generateDual(faces);
 
             var previous = false;
-            var polygon = svg.selectAll("path")
-                .data(dual.generateDual(faces))
+            var polygons = svg.selectAll("path")
+                .data(duals)
                 .enter().append("path")
                 .attr('class', function() {
                     if (previous) {
@@ -39,35 +40,55 @@ define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
                     }
                 });
 
+            faces.forEach(function(face) {
+                face.duals.forEach(function(first) {
+                    var firstPolygon = $(polygons[0][duals.indexOf(first)]);
+                    face.duals.forEach(function(second) {
+                        if (first !== second) {
+                            var secondPolygon = polygons[0][duals.indexOf(second)];
+                            if (!firstPolygon.data('neighbours')) {
+                                firstPolygon.data('neighbours', []);
+                            }
+                            if (firstPolygon.data('neighbours').indexOf(secondPolygon) === -1) {
+                                firstPolygon.data('neighbours').push(secondPolygon);
+                            }
+                        }
+                    })
+                })
+            });
+
             $('path').each(function(i, elem) {
                 $(elem).click(function() {
                     $(elem).attr('class', 'developed land');
+                    $(elem).data('neighbours').forEach(function(neighbour) {
+                        $(neighbour).attr('class', 'developed land');
+                    });
                 });
             });
 
-            polygon.attr("d", path);
+            polygons.attr("d", path);
 
             $(document).keydown(function(e) {
                 switch (e.keyCode) {
                     case 37:
                         origin[0] -=5;
                         projection.rotate(origin);
-                        polygon.attr("d", path);
+                        polygons.attr("d", path);
                         break;
                     case 38:
                         origin[1] +=5;
                         projection.rotate(origin);
-                        polygon.attr("d", path);
+                        polygons.attr("d", path);
                         break;
                     case 39:
                         origin[0] +=5;
                         projection.rotate(origin);
-                        polygon.attr("d", path);
+                        polygons.attr("d", path);
                         break;
                     case 40:
                         origin[1] -=5;
                         projection.rotate(origin);
-                        polygon.attr("d", path);
+                        polygons.attr("d", path);
                         break;
                     default:
                         break;
