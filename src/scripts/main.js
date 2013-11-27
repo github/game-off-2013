@@ -26,8 +26,7 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
                 seaLevel: 0,
                 pollution: 0,
                 population: 7000,
-                food: 0,
-                deathsFromStarvation: 0
+                food: 200
             };
 
             var mapElement = document.getElementById('map');
@@ -59,7 +58,10 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
                 document.getElementById('population').value = game.state.population;
                 document.getElementById('food').value = game.state.food;
                 document.getElementById('pollution').value = game.state.pollution;
+<<<<<<< HEAD
                 document.getElementById('deathsFromStarvation').value = game.state.deathsFromStarvation;
                 map.redraw();
+=======
+>>>>>>> update food, starving people if necessary
             }
         });

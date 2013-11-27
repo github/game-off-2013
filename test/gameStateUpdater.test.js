@@ -74,19 +74,50 @@ define(function (require) {
             var nextState = gameStateUpdater.updateGameState(currentState);
 
             // Assert
-            expect(nextState.pollution).toBeLessThan(500);
+            expect(nextState.pollution).toBeLessThan(currentPollution);
         });
 
         xit ('increases food based on facilities', function() {
             throw new Error('Test not implemented');
         });
 
-        xit ('decreases food based on population', function() {
-            throw new Error('Test not implemented');
+        it ('decreases food based on population', function() {
+            // Facilities produce zero food for now
+
+            // Arrange
+            var currentFood = 500;
+            var currentPopulation = 200;
+
+            var currentState = {
+                food: currentFood,
+                population: currentPopulation
+            };
+
+            //Act
+            var nextState = gameStateUpdater.updateGameState(currentState);
+
+            // Assert
+            expect(nextState.food).toBeLessThan(currentFood);
         });
 
-        xit('prevents food from becoming negative but starves people instead', function() {
-            throw new Error('Test not implemented');
+        it('prevents food from becoming negative but starves people instead', function() {
+            // Facilities produce zero food for now
+
+            // Arrange
+            var currentFood = 500;
+            var currentPopulation = 20000;
+
+            var currentState = {
+                food: currentFood,
+                population: currentPopulation
+            };
+
+            // Act
+            var nextState = gameStateUpdater.updateGameState(currentState);
+
+            // Assert
+            expect(nextState.food).toBe(0);
+            expect(nextState.population).toBeLessThan(currentPopulation);
         });
 
         xit('increases the population if not limited by food or land area', function() {

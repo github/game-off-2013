@@ -7,11 +7,16 @@ define('gameStateUpdater', function() {
             var newSeaLevel = updateSeaLevel();
             var newLandArea = map.calculateRemainingLandArea();
             var newPollution = updatePollution();
+            var newFood = null;
+            var newPopulation = currentState.population;
+            updateFoodStarvingPeopleIfNecessary();
 
             return {
                 year: newYear,
                 seaLevel: newSeaLevel,
-                pollution: newPollution
+                pollution: newPollution,
+                food: newFood,
+                population: newPopulation
             };
 
             function incrementYear() {
@@ -25,16 +30,43 @@ define('gameStateUpdater', function() {
             }
 
             function updatePollution() {
-                return currentState.pollution - calculateModulusPollutionDecreaseFromForests() + getPollutionDeltaFromFacilities();
+                return currentState.pollution - calculatePollutionAbsorbedByForests() +
+                    getPollutionProducedByFacilities();
             
-                function calculateModulusPollutionDecreaseFromForests() {
-                    return newLandArea * 0.00001;
+                function calculatePollutionAbsorbedByForests() {
+                    return newLandArea * 0.0001;
                 }
 
-                function getPollutionDeltaFromFacilities() {
+                // can be negative because facilities can also reduce pollution
+                function getPollutionProducedByFacilities() {
+                    return 0;
+                }
+            }
+
+            function updateFoodStarvingPeopleIfNecessary() {
+                if ( peopleWillStarve() ) {
+                    newFood = 0;
+                    var foodDeficit = calculateFoodConsumedByPopulation() -
+                        (currentState.food + getFoodProducedByFacilities() );
+                    newPopulation = currentState.population - foodDeficit;
+                }
+                else {
+                    newFood = currentState.food + getFoodProducedByFacilities() -
+                    calculateFoodConsumedByPopulation();
+                }
+
+                function getFoodProducedByFacilities() {
                     return 0;
                 }
 
+                function calculateFoodConsumedByPopulation() {
+                    return currentState.population * 0.1;
+                }
+
+                function peopleWillStarve() {
+                    return ( currentState.food + getFoodProducedByFacilities() ) <
+                        calculateFoodConsumedByPopulation();
+                }
             }
 
         };
