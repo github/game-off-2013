@@ -38,4 +38,10 @@ public class WinTheGameScreen extends Basic2DScreen {
 		return super.keyDown(keycode);
 	}
 
+	@Override
+	public void show() {
+		super.show();
+		Assets.getGameSound(Assets.SOUND_MUSIC).stop();
+	}
+
 }

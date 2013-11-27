@@ -23,9 +23,9 @@ public class Enemy extends Entity {
 						+ width / 2, bounds.y + height / 2);
 				state = EntityState.DEAD;
 				final int random = RandomUtil.random(100);
-				if (random < 30) {
+				if (random < 40) {
 					level.entities.add(new Heart(bounds.x, bounds.y, level));
-				} else if (random < 60) {
+				} else if (random < 50) {
 					level.entities.add(new Bomb(bounds.x, bounds.y, level));
 				} else if (random < 100) {
 				}

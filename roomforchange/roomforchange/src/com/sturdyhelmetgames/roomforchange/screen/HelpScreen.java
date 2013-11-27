@@ -37,4 +37,10 @@ public class HelpScreen extends Basic2DScreen {
 		return super.keyDown(keycode);
 	}
 
+	@Override
+	public void hide() {
+		super.hide();
+		Assets.getGameSound(Assets.SOUND_MUSIC).loop(0.4f);
+	}
+
 }
