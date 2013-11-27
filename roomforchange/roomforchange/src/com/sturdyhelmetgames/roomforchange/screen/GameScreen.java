@@ -304,4 +304,8 @@ public class GameScreen extends Basic2DScreen {
 		Assets.getGameSound(Assets.SOUND_MUSIC).stop();
 	}
 
+	public void finishGame() {
+		game.setScreen(new WinTheGameScreen(game, this));
+	}
+
 }

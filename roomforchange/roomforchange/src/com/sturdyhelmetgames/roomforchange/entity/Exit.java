@@ -26,8 +26,7 @@ public class Exit extends Item {
 	@Override
 	public void collectItem() {
 		if (level.player.canFinishGame()) {
-			// level.gameScreen.finishGame();
-			// TODO finish game
+			level.gameScreen.finishGame();
 		}
 	}
 
