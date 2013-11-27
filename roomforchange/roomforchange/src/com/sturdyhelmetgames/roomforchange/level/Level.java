@@ -9,10 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
+import com.sturdyhelmetgames.roomforchange.entity.Gem;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
+import com.sturdyhelmetgames.roomforchange.entity.Scroll;
 import com.sturdyhelmetgames.roomforchange.entity.Snake;
 import com.sturdyhelmetgames.roomforchange.entity.Spider;
+import com.sturdyhelmetgames.roomforchange.entity.Talisman;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.screen.GameScreen;
 import com.sturdyhelmetgames.roomforchange.util.LabyrinthUtil;
@@ -387,6 +390,21 @@ public class Level {
 			} else if (entityType == Spider.class) {
 				entities.add(new Spider(randomX, randomY, this));
 			}
+		}
+
+		final float randomX = currentPieceRelativePos.x + 1
+				+ MathUtils.random(9);
+		final float randomY = currentPieceRelativePos.y + 1
+				+ MathUtils.random(5);
+		if (template.treasureType != null) {
+			if (template.treasureType == Scroll.class) {
+				entities.add(new Scroll(randomX, randomY, this));
+			} else if (template.treasureType == Talisman.class) {
+				entities.add(new Talisman(randomX, randomY, this));
+			} else if (template.treasureType == Gem.class) {
+				entities.add(new Gem(randomX, randomY, this));
+			}
+
 		}
 	}
 

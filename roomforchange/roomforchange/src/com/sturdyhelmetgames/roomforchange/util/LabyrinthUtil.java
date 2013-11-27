@@ -1,7 +1,11 @@
 package com.sturdyhelmetgames.roomforchange.util;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
+import com.sturdyhelmetgames.roomforchange.entity.Gem;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
+import com.sturdyhelmetgames.roomforchange.entity.Scroll;
+import com.sturdyhelmetgames.roomforchange.entity.Talisman;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece;
 import com.sturdyhelmetgames.roomforchange.level.LabyrinthPiece.LabyrinthPieceState;
 import com.sturdyhelmetgames.roomforchange.level.Level;
@@ -40,7 +44,6 @@ public class LabyrinthUtil {
 	}
 
 	public static void updateLabyrinthTiles(Level level) {
-
 		final LabyrinthPiece[][] labyrinth = level.getLabyrinth();
 		final int labyrinthWidth = labyrinth.length;
 		for (int x = 0; x < labyrinthWidth; x++) {
@@ -65,6 +68,36 @@ public class LabyrinthUtil {
 			}
 		}
 
+		boolean gemSpawned = false;
+		boolean talismanSpawned = false;
+		boolean scrollSpawned = false;
+		while (!gemSpawned) {
+			gemSpawned = spawnTreasure(labyrinth, Gem.class);
+		}
+		while (!talismanSpawned) {
+			talismanSpawned = spawnTreasure(labyrinth, Talisman.class);
+		}
+		while (!scrollSpawned) {
+			scrollSpawned = spawnTreasure(labyrinth, Scroll.class);
+		}
+
+	}
+
+	private static boolean spawnTreasure(final LabyrinthPiece[][] labyrinth,
+			Class<?> treasureClass) {
+		final int labyrinthWidth = labyrinth.length;
+		for (int x = 0; x < labyrinthWidth; x++) {
+			final int labyrinthHeight = labyrinth[0].length;
+			for (int y = 0; y < labyrinthHeight; y++) {
+				final LabyrinthPiece labyrinthPiece = labyrinth[x][y];
+				final int random = MathUtils.random(100);
+				if (random > 30 && random < 60) {
+					labyrinthPiece.roomTemplate.treasureType = treasureClass;
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private static void setAllFourDoorsClosedIfNeeded(

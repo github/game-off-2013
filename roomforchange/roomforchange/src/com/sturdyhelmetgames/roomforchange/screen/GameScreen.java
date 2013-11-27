@@ -223,6 +223,8 @@ public class GameScreen extends Basic2DScreen {
 			level.player.tryHit();
 		}
 		// if (keycode == Keys.K) {
+		// level.entities.add(new Scroll(level.player.bounds.x + 2f,
+		// level.player.bounds.y, level));
 		// level.addParticleEffect(Assets.PARTICLE_ENEMY_DIE,
 		// level.player.bounds.x + 2f, level.player.bounds.y);
 		// }

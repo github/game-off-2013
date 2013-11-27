@@ -16,6 +16,7 @@ public class RoomTemplate {
 	private final Pixmap pixmap;
 
 	private final Array<Class<?>> entityTypes = new Array<Class<?>>();
+	public Class<?> treasureType;
 
 	public Pixmap getPixmap() {
 		return pixmap;
