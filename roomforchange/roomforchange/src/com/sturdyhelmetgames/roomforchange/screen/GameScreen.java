@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RandomUtil;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
+import com.sturdyhelmetgames.roomforchange.assets.FontBig;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.HoleFallWrapper;
@@ -32,6 +33,7 @@ public class GameScreen extends Basic2DScreen {
 	public ScreenQuake screenQuake;
 	public final Vector2 currentCamPosition = new Vector2();
 	public final TweenManager cameraTweenManager = new TweenManager();
+	public final FontBig font = new FontBig(FontBig.FONT_COLOR_BLACK);
 
 	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -103,6 +105,13 @@ public class GameScreen extends Basic2DScreen {
 				}
 			}
 		}
+
+		final float bombPosX = camera.position.x - 5.9f;
+		final float bombPosY = camera.position.y + 3f;
+		spriteBatch.draw(Assets.getGameObject("bomb-3"), bombPosX, bombPosY,
+				0.5f, 0.5f);
+		font.draw(spriteBatch, "x" + level.player.bombs, bombPosX + 0.6f,
+				bombPosY);
 
 		final float gemPosX = camera.position.x + 4f;
 		final float gemPosY = camera.position.y + 3.4f;
