@@ -19,11 +19,16 @@ define('dual', ['d3'], function(d3) {
         var duals = [];
         var incomplete = faces.concat(); // Take a copy of the source data
 
+        faces.forEach(function(face) {
+            face.duals = [];
+        });
+
         while (incomplete.length >= 1) {
             var current = incomplete[0];
             var points = current.coordinates[0];
+            var vertices = points.length - 1;
 
-            for (var i = points.length - 1; i > 0; --i) {
+            for (var i = vertices; i > 0 && current.duals.length < vertices; --i) {
                 var facesInDual = [current];
 
                 var dual = {
@@ -66,7 +71,6 @@ define('dual', ['d3'], function(d3) {
                 if (found) {
                     dual.coordinates = [facesInDual.map(d3.geo.centroid)];
                     for (var f = 0; f < facesInDual.length - 1; ++f) {
-                        facesInDual[f].duals = facesInDual[f].duals || [];
                         facesInDual[f].duals.push(dual);
                     }
                     duals.push(dual);
