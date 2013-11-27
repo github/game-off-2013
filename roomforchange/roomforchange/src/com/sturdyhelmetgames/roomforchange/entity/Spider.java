@@ -73,7 +73,7 @@ public class Spider extends Enemy {
 		if (!tweenManager.containsTarget(this)) {
 			Tween.to(this, EntityAccessor.POSITIONY, MathUtils.random(3f))
 					.target(level.gameScreen.currentCamPosition.y
-							+ MathUtils.random(7f)).ease(Quad.IN)
+							+ MathUtils.random(4f)).ease(Quad.IN)
 					.start(tweenManager);
 		}
 

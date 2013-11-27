@@ -58,7 +58,7 @@ public class LabyrinthUtil {
 
 		level.getLabyrinth()[0][0].state = LabyrinthPieceState.LIGHTS_ON;
 
-		level.player = new Player(6, 1, level);
+		level.player = new Player(4, 1, level);
 		level.entities.add(level.player);
 		level.entities.add(new Exit(3, 1, level));
 

@@ -171,13 +171,6 @@ hole-1
   orig: 18, 18
   offset: 0, 0
   index: -1
-hole
-  rotate: false
-  xy: 158, 13
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
 hole-2
   rotate: false
   xy: 264, 49

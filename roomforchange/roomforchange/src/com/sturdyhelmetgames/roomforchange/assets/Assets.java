@@ -166,7 +166,7 @@ public class Assets {
 		addPieceTemplate(pieceTemplateHandles[14], new boolean[] { true, true,
 				true, true });
 
-		final FileHandle[] roomObjectHandles = new FileHandle[9];
+		final FileHandle[] roomObjectHandles = new FileHandle[11];
 		for (int i = 1; i <= roomObjectHandles.length; i++) {
 			roomObjectHandles[i - 1] = Gdx.files.internal(FOLDER_DATA
 					+ "roomtemplates" + File.separator + i + "_piece.png");

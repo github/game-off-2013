@@ -24,6 +24,7 @@ public class Player extends Entity {
 
 	public Player(float x, float y, Level level) {
 		super(x, y, 1f, 0.6f, level);
+		direction = Direction.UP;
 	}
 
 	@Override
@@ -136,11 +137,17 @@ public class Player extends Entity {
 			hitBounds.y -= HIT_DISTANCE;
 		}
 
-		LevelTile tile = level.getTiles()[(int) hitBounds.x][(int) hitBounds.y];
+		tryHitLever((int) hitBounds.x, (int) hitBounds.y);
+		tryHitLever((int) hitBounds.x + 1, (int) hitBounds.y);
+		tryHitLever((int) hitBounds.x, (int) hitBounds.y + 1);
+
+	}
+
+	private void tryHitLever(int x, int y) {
+		LevelTile tile = level.getTiles()[x][y];
 		if (tile.type == Level.LevelTileType.LEVER) {
 			level.gameScreen.openLeverScreen();
 		}
-
 	}
 
 	public void takeDamage() {
