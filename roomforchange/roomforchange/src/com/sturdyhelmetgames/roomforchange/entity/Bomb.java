@@ -18,7 +18,7 @@ public class Bomb extends Item {
 		final float scale = getScale();
 		if (aliveTick < DYING_TICK_MAX || dyingTick < DYING_TICK_MAX) {
 			batch.draw(Assets.getGameObject("bomb-3"), bounds.x, bounds.y
-					+ 0.6f - 0.65f + zz, 0f, 0f, 1f, 1f, scale, scale, 0f);
+					- 0.5f + zz, 0f, 0f, 1f, 1f, scale, scale, 0f);
 		}
 	}
 

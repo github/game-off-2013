@@ -35,6 +35,8 @@ public class Assets {
 	public static final String SOUND_COLLECT = FOLDER_SOUNDS + "collect.wav";
 	public static final String SOUND_DEATH = FOLDER_SOUNDS + "death.wav";
 	public static final String SOUND_HIT = FOLDER_SOUNDS + "hit.wav";
+	public static final String SOUND_EXPLOSION = FOLDER_SOUNDS
+			+ "explosion.wav";
 	public static final String SOUND_MUSIC = FOLDER_SOUNDS
 			+ "dungeon_music.mp3";
 
@@ -50,6 +52,8 @@ public class Assets {
 			+ "sandsmoke_down.p";
 	public static final String PARTICLE_ENEMY_DIE = FOLDER_PARTICLE
 			+ "enemydie.p";
+	public static final String PARTICLE_EXPLOSION = FOLDER_PARTICLE
+			+ "explosion.p";
 
 	public static final String TEXTURE_FONT_BIG_BLACK = FOLDER_DATA
 			+ "font-big-black.png";
@@ -84,6 +88,7 @@ public class Assets {
 	public static Animation spiderFront;
 
 	public static Animation hitTarget;
+	public static Animation bomb;
 
 	public static ParticleEffectPool sandStreamPool;
 	public static ParticleEffectPool sandSmokeRightPool;
@@ -91,6 +96,7 @@ public class Assets {
 	public static ParticleEffectPool sandSmokeUpPool;
 	public static ParticleEffectPool sandSmokeDownPool;
 	public static ParticleEffectPool enemydiePool;
+	public static ParticleEffectPool explosionPool;
 
 	public static final Array<PieceTemplate> pieceTemplates = new Array<PieceTemplate>();
 	public static final Array<RoomTemplate> roomTemplates = new Array<RoomTemplate>();
@@ -108,11 +114,13 @@ public class Assets {
 		assetManager.load(PARTICLE_SANDSMOKE_UP, ParticleEffect.class);
 		assetManager.load(PARTICLE_SANDSMOKE_DOWN, ParticleEffect.class);
 		assetManager.load(PARTICLE_ENEMY_DIE, ParticleEffect.class);
+		assetManager.load(PARTICLE_EXPLOSION, ParticleEffect.class);
 		assetManager.load(SOUND_STONEDOOR, Sound.class);
 		assetManager.load(SOUND_ENEMYDIE, Sound.class);
 		assetManager.load(SOUND_COLLECT, Sound.class);
 		assetManager.load(SOUND_HIT, Sound.class);
 		assetManager.load(SOUND_DEATH, Sound.class);
+		assetManager.load(SOUND_EXPLOSION, Sound.class);
 		assetManager.load(SOUND_MUSIC, Sound.class);
 
 		finishLoading();
@@ -254,6 +262,10 @@ public class Assets {
 				getGameObject("hit-1"), getGameObject("hit-2"),
 				getGameObject("hit-3"), });
 
+		bomb = new Animation(0.3f, new TextureRegion[] {
+				getGameObject("bomb-1"), getGameObject("bomb-2") });
+		bomb.setPlayMode(Animation.LOOP);
+
 		sandStreamPool = new ParticleEffectPool(get(PARTICLE_SANDSTREAM,
 				ParticleEffect.class), 5, 10);
 		sandSmokeRightPool = new ParticleEffectPool(get(
@@ -265,6 +277,8 @@ public class Assets {
 		sandSmokeDownPool = new ParticleEffectPool(get(PARTICLE_SANDSMOKE_DOWN,
 				ParticleEffect.class), 5, 10);
 		enemydiePool = new ParticleEffectPool(get(PARTICLE_ENEMY_DIE,
+				ParticleEffect.class), 5, 10);
+		explosionPool = new ParticleEffectPool(get(PARTICLE_EXPLOSION,
 				ParticleEffect.class), 5, 10);
 	}
 

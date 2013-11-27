@@ -425,6 +425,8 @@ public class Level {
 			effect = Assets.sandStreamPool.obtain();
 		} else if (name.equals(Assets.PARTICLE_ENEMY_DIE)) {
 			effect = Assets.enemydiePool.obtain();
+		} else if (name.equals(Assets.PARTICLE_EXPLOSION)) {
+			effect = Assets.explosionPool.obtain();
 		}
 		if (effect != null) {
 			effect.setPosition(x, y);

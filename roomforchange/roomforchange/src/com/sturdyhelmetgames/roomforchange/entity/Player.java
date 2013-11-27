@@ -13,7 +13,7 @@ public class Player extends Entity {
 	public float dyingTime = 0f;
 	public float maxDyingTime = 3f;
 	public int health = 5;
-	public int bombs = 0;
+	public int bombs = 1;
 	public int maxHealth = 5;
 	public final Rectangle hitBounds = new Rectangle(0f, 0f, 0.8f, 0.8f);
 	private float tryHitTime = 0.3f;
@@ -143,6 +143,13 @@ public class Player extends Entity {
 
 	}
 
+	@Override
+	public void hit(Rectangle hitBounds) {
+		if (hitBounds.overlaps(bounds)) {
+			takeDamage();
+		}
+	}
+
 	public void takeDamage() {
 		if (!isInvulnerable()) {
 			health--;
@@ -174,4 +181,10 @@ public class Player extends Entity {
 		return gotGem && gotScroll && gotTalisman;
 	}
 
+	public void dropBomb() {
+		if (level.player.bombs > 0) {
+			level.player.bombs--;
+			level.entities.add(new ExplodingBomb(bounds.x, bounds.y, level));
+		}
+	}
 }
