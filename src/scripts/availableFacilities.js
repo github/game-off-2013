@@ -35,6 +35,6 @@ define('availableFacilities', ['underscore'], function(_) {
     ];
 
     return _.object(_.map(facilities, function(item) {
-        return [item.name, item]
+        return [item.name, item];
     }));
 });
