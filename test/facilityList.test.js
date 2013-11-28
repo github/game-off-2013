@@ -2,39 +2,72 @@ define(function (require) {
 
     var FacilityList = require('facilityList');
 
+    var availableFacilities = {
+        'Farm': {
+            name: 'Farm',
+            landCost: 2,
+            buildDuration: 1,
+            buildDelta: {
+                energy: -16,
+                pollution: 32,
+                food: 0
+            },
+            normalDelta: {
+                energy: -2,
+                pollution: 16,
+                food: 32
+            }
+        },
+        'Coal Power Plant': {
+            name: 'Coal Power Plant',
+            landCost: 4,
+            buildDuration: 3,
+            buildDelta: {
+                energy: -16,
+                pollution: 80,
+                food: 0
+            },
+            normalDelta: {
+                energy: 128,
+                pollution: 64,
+                food: 0
+            }
+        }
+    };
+
     describe('facility list', function() {
 
         describe('addFacility', function() {
             it('adds a facility', function() {
                 // Arrange
-                var f1 = {};
-                var facilityList = new FacilityList();
+                var facilityList = new FacilityList(availableFacilities);
+                var farm = facilityList['Farm'];
 
                 // Act
-                facilityList.addFacility(f1);
+                facilityList.addFacility("Farm");
                 var result = facilityList.facilities;
 
                 // Assert
-                expect(result).toEqual([f1]);
+                expect(result).toEqual([farm]);
             });
         });
 
         describe('removeFacility', function() {
            it('removes a facility', function() {
                // Arrange
-               var f1 = {};
-               var f2 = {};
-               var facilityList = new FacilityList();
-               facilityList.addFacility(f1);
-               facilityList.addFacility(f2);
+               var facilityList = new FacilityList(availableFacilities);
+               var farm = facilityList['Farm'];
+               var powerPlant = facilityList['Coal Power Plant'];
+               facilityList.addFacility("Farm");
+               facilityList.addFacility("Coal Power Plant");
 
                // Act
-               facilityList.removeFacility(f1);
+               facilityList.removeFacility("Farm");
                var result = facilityList.facilities;
 
                // Assert
-               expect(result).toEqual([f2]);
-           }) ;
+               expect(result).toEqual([powerPlant]);
+           });
         });
 
         describe('annualPollutionDifference', function() {
@@ -43,7 +76,7 @@ define(function (require) {
                 var f1 = { annualPollutionDifference: 100 };
                 var f2 = { annualPollutionDifference: -75 };
                 var f3 = { annualPollutionDifference: 30 };
-                var facilityList = new FacilityList();
+                var facilityList = new FacilityList(availableFacilities);
                 facilityList.addFacility(f1);
                 facilityList.addFacility(f2);
                 facilityList.addFacility(f3);
