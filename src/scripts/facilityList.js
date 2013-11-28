@@ -3,8 +3,9 @@ define('facilityList', ['underscore'], function(_) {
 
     return function(availableFacilities) {
         this.facilities = [];
+        var currentEnergy = 0;
 
-        this.addFacility = function(facilityName) {
+        this.addFacility = function(facilityName, currentTime) {
             this.facilities.push(availableFacilities[facilityName]);
         };
 
@@ -13,16 +14,18 @@ define('facilityList', ['underscore'], function(_) {
             this.facilities.splice(facilityIndex, 1);
         };
 
-        this.annualFoodDifference = function() {
-            return _.reduce(this.facilities, function(sum, next) { return sum + next.normalDelta.food; }, 0);
-        };
+        this.update = function(currentTime, unfloodedLandArea) {
+            var foodDelta =  _.reduce(this.facilities, function(sum, next) { return sum + next.normalDelta.food; }, 0);
+            var pollutionDelta = _.reduce(this.facilities, function(sum, next) { return sum + next.normalDelta.pollution; }, 0);
+            var energyDelta = _.reduce(this.facilities, function(sum, next) { return sum + next.normalDelta.energy; }, 0);
+            currentEnergy += energyDelta;
 
-        this.annualEnergyDifference = function () {
-            return _.reduce(this.facilities, function(sum, next) { return sum + next.normalDelta.energy; }, 0);
-        };
-
-        this.annualPollutionDifference = function() {
-            return _.reduce(this.facilities, function(sum, next) { return sum + next.normalDelta.pollution; }, 0);
+            var consumedLandArea = _.reduce(this.facilities, function(sum, next) { return sum + next.landCost; }, 0)
+            return {
+                buildableLandArea: unfloodedLandArea - consumedLandArea,
+                pollutionDelta: pollutionDelta,
+                foodDelta: foodDelta
+            };
         };
     };
 });
