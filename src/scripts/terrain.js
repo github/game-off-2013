@@ -1,4 +1,5 @@
 define('terrain', ['d3'], function(d3) {
+    'use strict';
 
     var generate = function(cells, proportionLand) {
         cells.forEach(function(cell, index) {

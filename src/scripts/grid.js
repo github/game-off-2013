@@ -1,4 +1,5 @@
 define('grid', ['dual','d3','geodesic',], function(dual) {
+    'use strict';
 
     var generate = function(n) {
         var faces = d3.geodesic.polygons(n);
@@ -15,8 +16,8 @@ define('grid', ['dual','d3','geodesic',], function(dual) {
                             first.neighbours.push(second);
                         }
                     }
-                })
-            })
+                });
+            });
         });
 
         return cells;
