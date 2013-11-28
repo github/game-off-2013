@@ -16,6 +16,7 @@ module.exports = function(config) {
     files: [
       'test/test-main.js',
       {pattern: 'test/map.test.png', included: false, served: true },
+      {pattern: 'node_modules/squirejs/src/Squire.js', included: false },
       {pattern: 'src/**/*.js', included: false },
       {pattern: 'test/**/*.test.js', included: false}
     ],

@@ -4,6 +4,7 @@
   "devDependencies": {
     "grunt": "0.4.*",
     "grunt-contrib-jshint": "0.6.*",
+    "squirejs": "~0.1.0"
     "karma": "~0.10.5",
     "karma-coverage": "~0.1.2"
   }

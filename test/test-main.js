@@ -11,7 +11,8 @@ requirejs.config({
 
     paths: {
         'd3': '../lib/d3.v3.min',
-        'geodesic': '../lib/geodesic'
+        'geodesic': '../lib/geodesic',
+        'Squire': '../../node_modules/squirejs/src/Squire'
     },
 
     shim: {
@@ -22,8 +23,9 @@ requirejs.config({
     },
 
     // ask Require.js to load these files (all our tests)
-    deps: tests,
+    deps: tests
+});
 
-    // start test run, once Require.js is done
-    callback: window.__karma__.start
+require(tests, function() {
+    window.__karma__.start();
 });

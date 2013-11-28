@@ -1,4 +1,4 @@
-define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
+define('globe', ['jquery', 'd3','grid'], function($, d3, grid) {
     'use strict';
 
     var width = 950;
@@ -25,12 +25,11 @@ define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
 
             var n = 13;
 
-            var faces = d3.geodesic.polygons(n);
-            var duals = dual.generateDual(faces);
+            var cells = grid.generate(n);
 
             var previous = false;
             var polygons = svg.selectAll("path")
-                .data(duals)
+                .data(cells)
                 .enter().append("path")
                 .attr('class', function() {
                     if (previous) {
@@ -40,28 +39,15 @@ define('globe', ['jquery', 'dual','d3','geodesic',], function($, dual, d3) {
                     }
                 });
 
-            faces.forEach(function(face) {
-                face.duals.forEach(function(first) {
-                    var firstPolygon = $(polygons[0][duals.indexOf(first)]);
-                    face.duals.forEach(function(second) {
-                        if (first !== second) {
-                            var secondPolygon = polygons[0][duals.indexOf(second)];
-                            if (!firstPolygon.data('neighbours')) {
-                                firstPolygon.data('neighbours', []);
-                            }
-                            if (firstPolygon.data('neighbours').indexOf(secondPolygon) === -1) {
-                                firstPolygon.data('neighbours').push(secondPolygon);
-                            }
-                        }
-                    })
-                })
+            cells.forEach(function(cell, index) {
+                cell.polygon = polygons[0][index];
             });
 
             $('path').each(function(i, elem) {
                 $(elem).click(function() {
                     $(elem).attr('class', 'developed land');
-                    $(elem).data('neighbours').forEach(function(neighbour) {
-                        $(neighbour).attr('class', 'developed land');
+                    d3.select(elem).datum().neighbours.forEach(function(neighbour) {
+                        $(neighbour.polygon).attr('class', 'developed land');
                     });
                 });
             });
