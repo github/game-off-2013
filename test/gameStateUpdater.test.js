@@ -64,11 +64,30 @@ define(function (require) {
             expect(updatedSeaLevel).toBe(currentSeaLevel + currentPollution);
         });
 
-        xit ('increases pollution based on facilities', function() {
-            throw new Error('Test not implemented');
+        iit ('increases pollution based on facilities', function() {
+            // Arrange
+            var currentPollution = 500;
+
+            var currentState = {
+                pollution: currentPollution
+            };
+
+            var facilityStub = {
+                buildableLandArea: 0,
+                pollutionDelta: 50,
+                foodDelta: 0
+            };
+            
+            mockFacilityList.update.andReturn(facilityStub);
+
+            // Act
+            var nextState = gameStateUpdater.updateGameState(currentState);
+
+            // Assert
+            expect(nextState.pollution).toBe(currentPollution + facilityStub.pollutionDelta);
         });
 
-        //Assuming all land is forest except for that used by facilities
+        // Assuming all land is forest except for that used by facilities
         it ('decreases pollution based on land area', function () {
             // Arrange
             var currentPollution = 500;
