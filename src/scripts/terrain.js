@@ -1,7 +1,13 @@
 define('terrain', ['d3', 'arrayUtils'], function(d3, arrayUtils) {
     'use strict';
 
-    var generate = function(cells, proportionLand) {
+    var MAX_LAND_ALTITUDE = 1000;
+
+    var isLand = function isLand(cell) {
+        return cell.attributes.indexOf('land') > -1;
+    };
+
+    var generate = function generateTerrain(cells, proportionLand) {
         cells.forEach(function(cell) {
             cell.attributes = [];
             if (Math.abs(d3.geo.centroid(cell)[1]) > 66.5) {
@@ -10,13 +16,23 @@ define('terrain', ['d3', 'arrayUtils'], function(d3, arrayUtils) {
         });
 
         var landCells = [];
+        var totalLand = proportionLand * cells.length;
+        var currentAltitude = MAX_LAND_ALTITUDE;
+        var step = MAX_LAND_ALTITUDE / totalLand;
 
-        while (landCells.length < (proportionLand * cells.length / 10)) {
-            arrayUtils.addIfNotPresent(landCells, arrayUtils.getRandomElement(cells));
+        var tryAddLand = function(candidate) {
+            if (arrayUtils.addIfNotPresent(landCells, candidate)) {
+                candidate.altitude = Math.ceil(currentAltitude);
+                currentAltitude -= step;
+            }
+        };
+
+        while (landCells.length < (totalLand / 10)) {
+            tryAddLand(arrayUtils.getRandomElement(cells));
         }
 
-        while (landCells.length < (proportionLand * cells.length)) {
-            arrayUtils.addIfNotPresent(landCells,
+        while (landCells.length < (totalLand)) {
+            tryAddLand(
                 arrayUtils.getRandomElement(
                     arrayUtils.getRandomElement(landCells).neighbours));
         }
@@ -27,9 +43,31 @@ define('terrain', ['d3', 'arrayUtils'], function(d3, arrayUtils) {
         landCells.forEach(function(cell) {
             cell.attributes[0] = 'land';
         });
+
+        var calculateRemainingLandArea = function() {
+            var landArea = 0;
+            cells.forEach(function(cell) {
+                if (isLand(cell)) {
+                    ++landArea;
+                }
+            });
+            return landArea;
+        };
+
+        var updateSeaLevel = function(seaLevel) {
+            cells.forEach(function(cell) {
+                cell.attributes[0] = cell.altitude > seaLevel ? 'land' : 'sea';
+            });
+        };
+
+        return {
+            calculateRemainingLandArea: calculateRemainingLandArea,
+            updateSeaLevel: updateSeaLevel
+        };
     };
 
     return {
-        generate: generate
+        generate: generate,
+        isLand: isLand
     };
 });
