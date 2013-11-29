@@ -2,7 +2,8 @@ require.config({
     'paths': {
         'jquery': '//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min',
         'd3': '../lib/d3.v3.min',
-        'geodesic': '../lib/geodesic'
+        'geodesic': '../lib/geodesic',
+        'underscore': '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min'
     },
 
     shim: {
@@ -13,8 +14,8 @@ require.config({
     }
 });
 
-require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'globe'],
-        function($, Game, GameStateUpdater, Map, plateCareeProjection) {
+require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'globe', 'facilityList'],
+        function($, Game, GameStateUpdater, Map, plateCareeProjection, facilityList) {
             'use strict';
 
             var EARTH_SURFACE_AREA = 510100000;
@@ -31,7 +32,7 @@ require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'g
 
             var mapElement = document.getElementById('map');
             var map = new Map('map.png', EARTH_SURFACE_AREA, plateCareeProjection, mapElement, onRender);
-            var gameStateUpdater = new GameStateUpdater(map);
+            var gameStateUpdater = new GameStateUpdater(map, facilityList);
             var game = new Game(initialGameState, gameStateUpdater);
 
             function onRender() {
