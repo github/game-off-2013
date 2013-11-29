@@ -13,7 +13,7 @@ define(function (require) {
                 // Pixels take up areas 0.1, 0.2, 0.3 and 0.4
                 return ((y * 2) + x + 1) * 0.1;
             }
-        }
+        };
 
         beforeEach(function() {
             this.addMatchers({

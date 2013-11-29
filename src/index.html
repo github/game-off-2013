@@ -5,6 +5,54 @@
     <script data-main="scripts/main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.1/slate/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+    <style>
+
+        svg {
+            background-color: black;
+        }
+
+        path {
+            stroke: black;
+            fill: white;
+        }
+
+        path.land {
+            fill: LimeGreen;
+            stroke: LimeGreen;
+        }
+
+        path.sea {
+            fill: DodgerBlue;
+            stroke: DodgerBlue;
+        }
+
+        path.land.polar {
+            fill: White;
+            stroke: White;
+        }
+
+        path.sea.polar {
+            fill: LightCyan;
+            stroke: LightCyan;
+        }
+
+        path.land:hover {
+            fill: DarkGreen ;
+            stroke: DarkGreen ;
+        }
+
+        path.land.developed {
+            fill: Gray;
+            stroke: Gray;
+        }
+
+        circle {
+            fill: none;
+            stroke: #000;
+            stroke-width: 2px;
+        }
+
+    </style>
 </head>
 <body>
     <div id="game" class="container">
