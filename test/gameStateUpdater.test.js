@@ -1,5 +1,3 @@
-// update tests to use new values, and mock out facilityList
-
 define(function (require) {
     'use strict';
 
@@ -96,8 +94,6 @@ define(function (require) {
         });
 
         it ('decreases food based on population', function() {
-            // Facilities produce zero food for now
-
             // Arrange
             var currentFood = 500;
             var currentPopulation = 200;
@@ -115,8 +111,6 @@ define(function (require) {
         });
 
         it('prevents food from becoming negative but starves people instead', function() {
-            // Facilities produce zero food for now
-
             // Arrange
             var currentFood = 500;
             var currentPopulation = 20000;
