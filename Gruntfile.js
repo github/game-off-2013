@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         jshint: {
             all: [
+                'package.json',
                 'Gruntfile.js',
                 'src/scripts/**/*.js',
                 'spec/**/*.js'
