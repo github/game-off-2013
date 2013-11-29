@@ -10,8 +10,6 @@ Install node.js from http://nodejs.org/
 
 ```
 npm install -g grunt-cli
-npm install -g karma
-npm install -g karma-coverage
 ```
 
 ### Setup
