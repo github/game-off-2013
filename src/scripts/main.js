@@ -35,7 +35,7 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
             var initialGameState = {
                 tick: 0,
                 seaLevel: 0,
-                buildableLandArea: map.calculateRemainingLandArea(),
+                buildableLandArea: terrain.calculateRemainingLandArea(),
                 pollution: 0,
                 food: 200,
                 population: 7000
