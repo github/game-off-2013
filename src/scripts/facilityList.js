@@ -1,7 +1,7 @@
-define('facilityList', ['underscore'], function(_) {
+define('facilityList', ['underscore', 'availableFacilities'], function(_, availableFacilities) {
     'use strict';
 
-    return function(availableFacilities) {
+    return function() {
         var facilities = [];
         var currentEnergy = 0;
 
