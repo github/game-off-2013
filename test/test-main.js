@@ -13,7 +13,8 @@ requirejs.config({
         "d3": "../lib/d3.v3.min",
         "geodesic": "../lib/geodesic",
         "Squire": "/base/node_modules/squirejs/src/Squire",
-        "underscore": "/base/node_modules/underscore/underscore"
+        "underscore": "/base/node_modules/underscore/underscore",
+        "rng":"/base/test/lib/rng"
     },
 
     shim: {
@@ -23,6 +24,9 @@ requirejs.config({
         "geodesic": ["d3"],
         "underscore": {
             "exports": "_"
+        },
+        "rng": {
+            "exports": "RNG"
         }
     },
 

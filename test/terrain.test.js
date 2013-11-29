@@ -1,4 +1,4 @@
-define(['require', 'Squire'], function (require, Squire) {
+define(['require', 'Squire', 'rng'], function (require, Squire, RNG) {
     'use strict';
 
     var createCell = function() {
@@ -45,6 +45,12 @@ define(['require', 'Squire'], function (require, Squire) {
             };
 
             d3.geo.centroid.andReturn([0,0]);
+
+            var rng = new RNG('seed');
+
+            spyOn(Math, 'random').andCallFake(function() {
+                return rng.uniform();
+            });
 
             runs(function() {
                 new Squire()
