@@ -14,30 +14,32 @@ require.config({
     }
 });
 
-require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'globe', 'facilityList'],
-        function($, Game, GameStateUpdater, Map, plateCareeProjection, facilityList) {
+require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'facilityList'],
+        function($, Game, GameStateUpdater, grid, globe, terrainFactory, facilityList) {
             'use strict';
 
-            var EARTH_SURFACE_AREA = 510100000;
-
             var initialGameState = {
-                year: 2013,
+                year: 0,
                 seaLevel: 0,
                 pollution: 0,
-                agricultureLevel: 50,
-                population: 7000000000,
+                agricultureLevel: 5,
+                population: 7000,
                 food: 0,
                 deathsFromStarvation: 0
             };
 
             var mapElement = document.getElementById('map');
-            var map = new Map('map.png', EARTH_SURFACE_AREA, plateCareeProjection, mapElement, onRender);
-            var gameStateUpdater = new GameStateUpdater(map, facilityList);
+
+            var n = 13;
+
+            var cells = grid.generate(n);
+            var terrain = terrainFactory.generate(cells, 0.5);
+
+            var map = globe.create(mapElement, cells);
+            var gameStateUpdater = new GameStateUpdater(terrain, facilityList);
             var game = new Game(initialGameState, gameStateUpdater);
 
-            function onRender() {
-                refreshDisplay();
-            }
+            refreshDisplay();
 
             $('#nextTurnButton').click(function() {
                 var agricultureIncrease = parseInt($('input[name=agricultureIncrease]:checked').val(), 10);
@@ -52,11 +54,12 @@ require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'g
             function refreshDisplay() {
                 document.getElementById('year').value = game.state.year;
                 document.getElementById('seaLevel').value = game.state.seaLevel;
-                document.getElementById('remainingLand').value = map.calculateRemainingLandArea();
+                document.getElementById('remainingLand').value = terrain.calculateRemainingLandArea();
                 document.getElementById('population').value = game.state.population;
                 document.getElementById('food').value = game.state.food;
                 document.getElementById('pollution').value = game.state.pollution;
                 document.getElementById('agricultureLevel').value = game.state.agricultureLevel;
                 document.getElementById('deathsFromStarvation').value = game.state.deathsFromStarvation;
+                map.redraw();
             }
         });

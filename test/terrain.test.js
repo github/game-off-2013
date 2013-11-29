@@ -32,10 +32,6 @@ define(['require', 'Squire'], function (require, Squire) {
         return cells;
     };
 
-    function isLand(cell) {
-        return cell.attributes.indexOf('land') > -1;
-    }
-
     describe('terrain', function() {
         var cells;
         var terrain;
@@ -87,7 +83,7 @@ define(['require', 'Squire'], function (require, Squire) {
 
                 var landArea = 0;
                 cells.forEach(function(cell) {
-                    if (isLand(cell)) {
+                    if (terrain.isLand(cell)) {
                         ++landArea;
                     }
                 });
@@ -110,18 +106,18 @@ define(['require', 'Squire'], function (require, Squire) {
                 expect(seaArea).toBe(35);
             });
 
-            it('should clump land together locally', function() {
+            it('should clump together land locally', function() {
                 cells = createGrid();
 
-                terrain.generate(cells, 0.65);
+                terrain.generate(cells, 0.5);
 
                 var landLandNeighbours = 0;
                 var landSeaNeighbours = 0;
                 cells.forEach(function(cell) {
                     cell.neighbours.forEach(function(neighbour) {
-                        if (isLand(neighbour) && isLand(cell)) {
+                        if (terrain.isLand(neighbour) && terrain.isLand(cell)) {
                             ++landLandNeighbours;
-                        } else if (isLand(neighbour) || isLand(cell)) {
+                        } else if (terrain.isLand(neighbour) || terrain.isLand(cell)) {
                             ++landSeaNeighbours;
                         }
                     });
@@ -130,20 +126,47 @@ define(['require', 'Squire'], function (require, Squire) {
                 expect(landLandNeighbours).toBeGreaterThan(landSeaNeighbours * 1.5);
             });
 
-            it('should distribute land globally', function() {
+            it('should spread out land globally', function() {
                 cells = createGrid();
 
                 terrain.generate(cells, 0.65);
 
                 var averageIndex = 0;
                 cells.forEach(function(cell, index) {
-                    if (isLand(cell)) {
+                    if (terrain.isLand(cell)) {
                         averageIndex += index / cells.length;
                     }
                 });
 
                 expect(averageIndex).toBeGreaterThan(0.25 * cells.length);
                 expect(averageIndex).toBeLessThan(0.75 * cells.length);
+            });
+        });
+
+        describe('calculateRemainingLandArea', function() {
+            it('should calculate land area', function() {
+                var generated = terrain.generate(createGrid(), 0.43);
+
+                expect(generated.calculateRemainingLandArea()).toBe(43);
+            });
+        });
+
+        describe('updateSeaLevel', function() {
+            it('should reduce land to zero when completely flooded', function() {
+                var generated = terrain.generate(createGrid(), 1);
+
+                generated.updateSeaLevel(1000);
+
+                expect(generated.calculateRemainingLandArea()).toBe(0);
+            });
+
+            it('should reduce land area when flooded', function() {
+                var generated = terrain.generate(createGrid(), 1);
+
+                generated.updateSeaLevel(500);
+
+                expect(generated.calculateRemainingLandArea()).toBeLessThan(100);
+                expect(generated.calculateRemainingLandArea()).toBeGreaterThan(0);
             });
         });
 
