@@ -13,7 +13,7 @@ require.config({
     }
 });
 
-require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection'],
+require(['jquery', 'game', 'gameStateUpdater', 'map', 'plateCareeProjection', 'globe'],
         function($, Game, GameStateUpdater, Map, plateCareeProjection) {
             'use strict';
 

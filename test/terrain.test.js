@@ -32,6 +32,10 @@ define(['require', 'Squire'], function (require, Squire) {
         return cells;
     };
 
+    function isLand(cell) {
+        return cell.attributes.indexOf('land') > -1;
+    }
+
     describe('terrain', function() {
         var cells;
         var terrain;
@@ -81,10 +85,9 @@ define(['require', 'Squire'], function (require, Squire) {
 
                 terrain.generate(cells, 0.65);
 
-
                 var landArea = 0;
                 cells.forEach(function(cell) {
-                    if (cell.attributes.indexOf('land') > -1) {
+                    if (isLand(cell)) {
                         ++landArea;
                     }
                 });
@@ -92,8 +95,55 @@ define(['require', 'Squire'], function (require, Squire) {
                 expect(landArea).toBe(65);
             });
 
-            it('should clump land cells together', function() {
-                // TODO:HGC
+            it('should mark the remaining cells as sea', function() {
+                cells = createGrid();
+
+                terrain.generate(cells, 0.65);
+
+                var seaArea = 0;
+                cells.forEach(function(cell) {
+                    if (cell.attributes.indexOf('sea') > -1) {
+                        ++seaArea;
+                    }
+                });
+
+                expect(seaArea).toBe(35);
+            });
+
+            it('should clump land together locally', function() {
+                cells = createGrid();
+
+                terrain.generate(cells, 0.65);
+
+                var landLandNeighbours = 0;
+                var landSeaNeighbours = 0;
+                cells.forEach(function(cell) {
+                    cell.neighbours.forEach(function(neighbour) {
+                        if (isLand(neighbour) && isLand(cell)) {
+                            ++landLandNeighbours;
+                        } else if (isLand(neighbour) || isLand(cell)) {
+                            ++landSeaNeighbours;
+                        }
+                    });
+                });
+
+                expect(landLandNeighbours).toBeGreaterThan(landSeaNeighbours * 1.5);
+            });
+
+            it('should distribute land globally', function() {
+                cells = createGrid();
+
+                terrain.generate(cells, 0.65);
+
+                var averageIndex = 0;
+                cells.forEach(function(cell, index) {
+                    if (isLand(cell)) {
+                        averageIndex += index / cells.length;
+                    }
+                });
+
+                expect(averageIndex).toBeGreaterThan(0.25 * cells.length);
+                expect(averageIndex).toBeLessThan(0.75 * cells.length);
             });
         });
 
