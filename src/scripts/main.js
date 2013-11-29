@@ -18,7 +18,7 @@ require.config({
 });
 
 require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'facilityList'],
-        function($, Game, GameStateUpdater, grid, globe, terrainFactory, facilityList) {
+        function($, Game, GameStateUpdater, grid, globe, terrainFactory, FacilityList) {
             'use strict';
 
             var initialGameState = {
@@ -39,6 +39,7 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
             var terrain = terrainFactory.generate(cells, 0.5);
 
             var map = globe.create(mapElement, cells);
+            var facilityList = new FacilityList();
             var gameStateUpdater = new GameStateUpdater(terrain, facilityList);
             var game = new Game(initialGameState, gameStateUpdater);
 
