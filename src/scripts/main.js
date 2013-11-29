@@ -22,11 +22,12 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
             'use strict';
 
             var initialGameState = {
-                year: 0,
+                tick: 0,
                 seaLevel: 0,
+                buildableLandArea: map.calculateRemainingLandArea(),
                 pollution: 0,
-                population: 7000,
-                food: 200
+                food: 200,
+                population: 7000
             };
 
             var mapElement = document.getElementById('map');
@@ -52,9 +53,13 @@ require(['jquery', 'game', 'gameStateUpdater', 'grid', 'globe', 'terrain', 'faci
             });
 
             function refreshDisplay() {
-                document.getElementById('year').value = game.state.year;
+                document.getElementById('tick').value = game.state.tick;
                 document.getElementById('seaLevel').value = game.state.seaLevel;
+<<<<<<< HEAD
                 document.getElementById('remainingLand').value = terrain.calculateRemainingLandArea();
+=======
+                document.getElementById('buildableLand').value = game.state.buildableLandArea;
+>>>>>>> mock facilityList and get unit tests passing
                 document.getElementById('population').value = game.state.population;
                 document.getElementById('food').value = game.state.food;
                 document.getElementById('pollution').value = game.state.pollution;

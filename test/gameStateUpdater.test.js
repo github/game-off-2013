@@ -1,3 +1,5 @@
+// update tests to use new values, and mock out facilityList
+
 define(function (require) {
     'use strict';
 
@@ -9,10 +11,22 @@ define(function (require) {
         calculateRemainingLandArea: function () {}
     };
 
+    var mockFacilityList;
+
+    var facilityStub = {
+                buildableLandArea: 450000,
+                pollutionDelta: 0,
+                foodDelta: 0
+        };
+
     describe('game state updater', function() {
 
         beforeEach(function() {
-            gameStateUpdater = new GameStateUpdater(mockMap);
+            mockFacilityList = jasmine.createSpyObj('facilityList', ['update']);
+            mockFacilityList.update.andReturn(facilityStub);
+
+            gameStateUpdater = new GameStateUpdater(mockMap, mockFacilityList);
+
         });
 
         it('increases sea level based on pollution', function() {
@@ -65,9 +79,9 @@ define(function (require) {
                 pollution: currentPollution
             };
 
-            var newLandArea = 100;
+            var newUnfloodedLandArea = 500;
             mockMap.calculateRemainingLandArea = function() {
-                return newLandArea;
+                return newUnfloodedLandArea;
             };
 
             // Act
@@ -128,18 +142,18 @@ define(function (require) {
             throw new Error('Test not implemented');
         });
 
-        it('increments the year', function() {
+        it('increments the tick', function() {
             // Arrange
-            var currentYear = 2020;
+            var currentTick = 5;
             var currentState = {
-                year: currentYear
+                tick: currentTick
             };
 
             // Act
             var nextState = gameStateUpdater.updateGameState(currentState);
 
             // Assert
-            expect(nextState.year).toBe(currentYear + 1);
+            expect(nextState.tick).toBe(currentTick + 1);
         })
 
         xit('updates the facilities module with the total land area', function() {

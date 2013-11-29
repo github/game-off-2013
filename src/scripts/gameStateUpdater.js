@@ -1,26 +1,32 @@
 define('gameStateUpdater', function() {
     'use strict';
     
-    return function(map) {
+    return function(map, facilityList) {
         this.updateGameState = function(currentState) {
-            var newYear = incrementYear();
+            var newTick = incrementTick();
+
             var newSeaLevel = updateSeaLevel();
-            var newLandArea = map.calculateRemainingLandArea();
+            var newUnfloodedLandArea = map.calculateRemainingLandArea();
+
+            var facilityState = facilityList.update(currentState.tick, newUnfloodedLandArea);
+
+            var newBuildableLandArea = facilityState.buildableLandArea;
             var newPollution = updatePollution();
             var newFood = null;
             var newPopulation = currentState.population;
             updateFoodStarvingPeopleIfNecessary();
 
             return {
-                year: newYear,
+                tick: newTick,
                 seaLevel: newSeaLevel,
+                buildableLandArea: newBuildableLandArea,
                 pollution: newPollution,
                 food: newFood,
                 population: newPopulation
             };
 
-            function incrementYear() {
-                return currentState.year + 1;
+            function incrementTick() {
+                return currentState.tick + 1;
             }
 
             function updateSeaLevel() {
@@ -31,15 +37,10 @@ define('gameStateUpdater', function() {
 
             function updatePollution() {
                 return currentState.pollution - calculatePollutionAbsorbedByForests() +
-                    getPollutionProducedByFacilities();
+                    facilityState.pollutionDelta;
             
                 function calculatePollutionAbsorbedByForests() {
-                    return newLandArea * 0.0001;
-                }
-
-                // can be negative because facilities can also reduce pollution
-                function getPollutionProducedByFacilities() {
-                    return 0;
+                    return newBuildableLandArea * 0.0001;
                 }
             }
 
@@ -47,16 +48,12 @@ define('gameStateUpdater', function() {
                 if ( peopleWillStarve() ) {
                     newFood = 0;
                     var foodDeficit = calculateFoodConsumedByPopulation() -
-                        (currentState.food + getFoodProducedByFacilities() );
+                        (currentState.food + facilityState.foodDelta );
                     newPopulation = currentState.population - foodDeficit;
                 }
                 else {
-                    newFood = currentState.food + getFoodProducedByFacilities() -
+                    newFood = currentState.food + facilityState.foodDelta -
                     calculateFoodConsumedByPopulation();
-                }
-
-                function getFoodProducedByFacilities() {
-                    return 0;
                 }
 
                 function calculateFoodConsumedByPopulation() {
@@ -64,7 +61,7 @@ define('gameStateUpdater', function() {
                 }
 
                 function peopleWillStarve() {
-                    return ( currentState.food + getFoodProducedByFacilities() ) <
+                    return ( currentState.food + facilityState.foodDelta ) <
                         calculateFoodConsumedByPopulation();
                 }
             }
