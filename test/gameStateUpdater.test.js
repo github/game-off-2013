@@ -64,7 +64,7 @@ define(function (require) {
             expect(updatedSeaLevel).toBe(currentSeaLevel + currentPollution);
         });
 
-        iit ('increases pollution based on facilities', function() {
+        it ('increases pollution based on facilities', function() {
             // Arrange
             var currentPollution = 500;
 
