@@ -79,8 +79,7 @@ public class RoomTemplate {
 		}
 	}
 
-	@Override
-	public RoomTemplate clone() throws CloneNotSupportedException {
+	public RoomTemplate clone() {
 		RoomTemplate template = new RoomTemplate(pixmap);
 		return template;
 	}

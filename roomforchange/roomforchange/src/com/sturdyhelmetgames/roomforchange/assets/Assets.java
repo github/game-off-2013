@@ -345,12 +345,8 @@ public class Assets {
 	}
 
 	public static RoomTemplate getRandomRoomTemplate() {
-		try {
-			return roomTemplates.get(MathUtils.random(roomTemplates.size - 1))
-					.clone();
-		} catch (CloneNotSupportedException e) {
-			return null;
-		}
+		return roomTemplates.get(MathUtils.random(roomTemplates.size - 1))
+				.clone();
 	}
 
 }
