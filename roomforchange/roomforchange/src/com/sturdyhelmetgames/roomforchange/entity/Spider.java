@@ -15,7 +15,7 @@ public class Spider extends Enemy {
 
 	public Spider(float x, float y, Level level) {
 		super(x, y, 1f, 1f, level);
-		health = 3;
+		health = 1;
 	}
 
 	@Override

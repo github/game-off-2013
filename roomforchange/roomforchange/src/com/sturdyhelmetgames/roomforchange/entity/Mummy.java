@@ -17,7 +17,7 @@ public class Mummy extends Enemy {
 	public Mummy(float x, float y, Level level) {
 		super(x, y, 1f, 0.6f, level);
 		state = EntityState.WALKING;
-		health = 2;
+		health = 3;
 	}
 
 	@Override
