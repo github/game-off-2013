@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script data-main="scripts/main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.1/slate/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+    <style>
+
+        svg {
+            background-color: black;
+        }
+
+        path {
+            stroke: black;
+            fill: white;
+        }
+
+        path.land {
+            fill: LimeGreen;
+            stroke: LimeGreen;
+        }
+
+        path.sea {
+            fill: DodgerBlue;
+            stroke: DodgerBlue;
+        }
+
+        path.land.polar {
+            fill: White;
+            stroke: White;
+        }
+
+        path.sea.polar {
+            fill: LightCyan;
+            stroke: LightCyan;
+        }
+
+        path.land:hover {
+            fill: DarkGreen ;
+            stroke: DarkGreen ;
+        }
+
+        path.land.developed {
+            fill: Gray;
+            stroke: Gray;
+        }
+
+        circle {
+            fill: none;
+            stroke: #000;
+            stroke-width: 2px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="game" class="container">
+        <h2>World map</h2>
+        <div class="col-md-4">
+            <p>
+                <label for="tick" class="col-md-6">Tick:</label>
+                <input type="text" id="tick" readonly="true" />
+            </p>
+            <p>
+                <label for="seaLevel" class="col-md-6">Sea level (m):</label>
+                <input type="text" id="seaLevel" readonly="true" />
+            </p>
+            <p>
+                <label for="buildableLand" class="col-md-6">Buildable land (km&sup2;):</label>
+                <input type="text" id="buildableLand" readonly="true" />
+            </p>
+            <p>
+                <label for="population" class="col-md-6">Population:</label>
+                <input type="text" id="population" readonly="true" />
+            </p>
+            <p>
+                <label for="food" class="col-md-6">Food supplies:</label>
+                <input type="text" id="food" readonly="true" />
+            </p>
+            <p>
+                <label for="pollution" class="col-md-6">Pollution level:</label>
+                <input type="text" id="pollution" readonly="true" />
+            </p>
+        </div>
+        <div id="map"></div>
+        <button class="btn" id="nextTurnButton">Next tick</button>
+    </div>
+</body>
+</html>
