@@ -1,6 +1,7 @@
 package com.sturdyhelmetgames.roomforchange.screen;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 
@@ -23,7 +24,10 @@ public class WinTheGameScreen extends Basic2DScreen {
 		gameScreen.renderScreen(delta);
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-
+		final Color originalColor = spriteBatch.getColor();
+		spriteBatch.setColor(1f, 1f, 1f, 0.5f);
+		spriteBatch.draw(Assets.getFullGameObject("black"), -6f, -4f, 12f, 8f);
+		spriteBatch.setColor(originalColor);
 		spriteBatch.draw(Assets.getFullGameObject("win"), -4f, -2f, 8f, 4f);
 		spriteBatch.end();
 	}
