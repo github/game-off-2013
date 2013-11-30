@@ -97,11 +97,13 @@ public class LabyrinthUtil {
 		for (int x = 0; x < labyrinthWidth; x++) {
 			final int labyrinthHeight = labyrinth[0].length;
 			for (int y = 0; y < labyrinthHeight; y++) {
-				final LabyrinthPiece labyrinthPiece = labyrinth[x][y];
-				final int random = MathUtils.random(100);
-				if (random > 30 && random < 60) {
-					labyrinthPiece.roomTemplate.treasureType = treasureClass;
-					return true;
+				if (x != 0 && y != 0) {
+					final LabyrinthPiece labyrinthPiece = labyrinth[x][y];
+					final int random = MathUtils.random(100);
+					if (random > 30 && random < 60) {
+						labyrinthPiece.roomTemplate.treasureType = treasureClass;
+						return true;
+					}
 				}
 			}
 		}

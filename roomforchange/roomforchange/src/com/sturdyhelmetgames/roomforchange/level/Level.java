@@ -393,10 +393,10 @@ public class Level {
 			}
 		}
 
-		final float randomX = currentPieceRelativePos.x + 1
-				+ MathUtils.random(9);
-		final float randomY = currentPieceRelativePos.y + 1
-				+ MathUtils.random(5);
+		final float randomX = currentPieceRelativePos.x + 2
+				+ MathUtils.random(7);
+		final float randomY = currentPieceRelativePos.y + 2
+				+ MathUtils.random(4);
 		if (template.treasureType != null) {
 			if (template.treasureType == Scroll.class && !player.gotScroll) {
 				entities.add(new Scroll(randomX, randomY, this));
@@ -408,7 +408,8 @@ public class Level {
 			}
 		}
 		if (template.hasExit) {
-			entities.add(new Exit(3, 1, this));
+			entities.add(new Exit(currentPieceRelativePos.x + 3,
+					currentPieceRelativePos.y + 1, this));
 		}
 	}
 
