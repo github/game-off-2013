@@ -25,7 +25,7 @@ public class GameOverScreen extends Basic2DScreen {
 		spriteBatch.begin();
 
 		spriteBatch
-				.draw(Assets.getFullGameObject("gameover"), -4f, -2f, 8f, 4f);
+				.draw(Assets.getFullGameObject("gameover"), -2f, -1f, 4f, 2f);
 		spriteBatch.end();
 	}
 

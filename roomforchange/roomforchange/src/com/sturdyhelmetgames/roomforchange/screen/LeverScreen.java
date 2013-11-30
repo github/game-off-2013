@@ -57,7 +57,7 @@ public class LeverScreen extends Basic2DScreen {
 		} else if (leverDirection == NEUTRAL) {
 			region = Assets.getFullGameObject("lever-neutral");
 		}
-		spriteBatch.draw(region, -2f, -2f, 4f, 4f);
+		spriteBatch.draw(region, -1f, -1f, 2f, 2f);
 		spriteBatch.end();
 	}
 

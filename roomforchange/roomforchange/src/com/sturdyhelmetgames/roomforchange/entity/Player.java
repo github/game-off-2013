@@ -108,39 +108,40 @@ public class Player extends Entity {
 	private final Rectangle leverRect = new Rectangle();
 
 	public void tryHit() {
-		tryHitTime = 0f;
-		hitBounds.x = bounds.x;
-		hitBounds.y = bounds.y;
-		if (direction == Direction.LEFT) {
-			hitBounds.x -= HIT_DISTANCE;
-		} else if (direction == Direction.RIGHT) {
-			hitBounds.x += HIT_DISTANCE;
-		} else if (direction == Direction.UP) {
-			hitBounds.y += HIT_DISTANCE;
-		} else if (direction == Direction.DOWN) {
-			hitBounds.y -= HIT_DISTANCE;
+		if (!isDying() && !isDead() && !isFalling()) {
+			tryHitTime = 0f;
+			hitBounds.x = bounds.x;
+			hitBounds.y = bounds.y;
+			if (direction == Direction.LEFT) {
+				hitBounds.x -= HIT_DISTANCE;
+			} else if (direction == Direction.RIGHT) {
+				hitBounds.x += HIT_DISTANCE;
+			} else if (direction == Direction.UP) {
+				hitBounds.y += HIT_DISTANCE;
+			} else if (direction == Direction.DOWN) {
+				hitBounds.y -= HIT_DISTANCE;
+			}
+
+			for (int i = 0; i < level.entities.size; i++) {
+				final Entity entity = level.entities.get(i);
+				entity.hit(hitBounds);
+			}
+
+			// double the hit distance for tiles
+			if (direction == Direction.LEFT) {
+				hitBounds.x -= HIT_DISTANCE;
+			} else if (direction == Direction.RIGHT) {
+				hitBounds.x += HIT_DISTANCE;
+			} else if (direction == Direction.UP) {
+				hitBounds.y += HIT_DISTANCE;
+			} else if (direction == Direction.DOWN) {
+				hitBounds.y -= HIT_DISTANCE;
+			}
+
+			tryHitLever((int) hitBounds.x, (int) hitBounds.y);
+			tryHitLever((int) hitBounds.x + 1, (int) hitBounds.y);
+			tryHitLever((int) hitBounds.x, (int) hitBounds.y + 1);
 		}
-
-		for (int i = 0; i < level.entities.size; i++) {
-			final Entity entity = level.entities.get(i);
-			entity.hit(hitBounds);
-		}
-
-		// double the hit distance for tiles
-		if (direction == Direction.LEFT) {
-			hitBounds.x -= HIT_DISTANCE;
-		} else if (direction == Direction.RIGHT) {
-			hitBounds.x += HIT_DISTANCE;
-		} else if (direction == Direction.UP) {
-			hitBounds.y += HIT_DISTANCE;
-		} else if (direction == Direction.DOWN) {
-			hitBounds.y -= HIT_DISTANCE;
-		}
-
-		tryHitLever((int) hitBounds.x, (int) hitBounds.y);
-		tryHitLever((int) hitBounds.x + 1, (int) hitBounds.y);
-		tryHitLever((int) hitBounds.x, (int) hitBounds.y + 1);
-
 	}
 
 	private void tryHitLever(int x, int y) {

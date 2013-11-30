@@ -228,42 +228,42 @@ public class Entity {
 			LevelTile tile3 = level.getTiles()[p3x][p3y];
 			LevelTile tile4 = level.getTiles()[p4x][p4y];
 
-			if (tile1.isHole())
+			if (tile1 != null && tile1.isHole())
 				holes[0].set(p1x + 0.4f, p1y + 0.5f, 0.2f, 0.05f);
 			else
 				holes[0].unset();
-			if (tile1.isCollidable()) {
+			if (tile1 != null && tile1.isCollidable()) {
 				r[0].set(p1x, p1y, 1, 1);
 			} else {
 				r[0].set(-1, -1, 0, 0);
 			}
 
-			if (tile2.isHole())
+			if (tile2 != null && tile2.isHole())
 				holes[1].set(p2x + 0.4f, p2y + 0.5f, 0.2f, 0.05f);
 			else
 				holes[1].unset();
-			if (tile2.isCollidable()) {
+			if (tile2 != null && tile2.isCollidable()) {
 				r[1].set(p2x, p2y, 1, 1);
 			} else {
 				r[1].set(-1, -1, 0, 0);
 			}
 
-			if (tile3.isHole())
+			if (tile3 != null && tile3.isHole())
 				holes[2].set(p3x + 0.4f, p3y + 0.5f, 0.2f, 0.05f);
 			else
 				holes[2].unset();
-			if (tile3.isCollidable()) {
+			if (tile3 != null && tile3.isCollidable()) {
 				r[2].set(p3x, p3y, 1, 1);
 
 			} else {
 				r[2].set(-1, -1, 0, 0);
 			}
 
-			if (tile4.isHole())
+			if (tile4 != null && tile4.isHole())
 				holes[3].set(p4x + 0.4f, p4y + 0.5f, 0.2f, 0.05f);
 			else
 				holes[3].unset();
-			if (tile4.isCollidable()) {
+			if (tile4 != null && tile4.isCollidable()) {
 				r[3].set(p4x, p4y, 1, 1);
 			} else {
 				r[3].set(-1, -1, 0, 0);

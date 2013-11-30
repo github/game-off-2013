@@ -24,7 +24,7 @@ public class HelpScreen extends Basic2DScreen {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
-		spriteBatch.draw(Assets.getFullGameObject("help"), -4f, -2f, 8f, 4f);
+		spriteBatch.draw(Assets.getFullGameObject("help"), -2f, -1f, 4f, 2f);
 		spriteBatch.end();
 
 	}
