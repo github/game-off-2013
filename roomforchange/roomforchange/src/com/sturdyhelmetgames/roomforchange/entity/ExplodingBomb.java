@@ -27,7 +27,7 @@ public class ExplodingBomb extends Bomb {
 	public void update(float fixedStep) {
 		// super.update(fixedStep);
 		stateTime += fixedStep;
-		if (stateTime > 3f && !isDead() && !isDying()) {
+		if (stateTime > 2f && !isDead() && !isDying()) {
 			aliveTick = ALIVE_TIME_MAX;
 			explosionRadius.setPosition(bounds.x - 1.5f, bounds.y - 1.5f);
 			level.addParticleEffect(Assets.PARTICLE_EXPLOSION, bounds.x + 0.5f,
