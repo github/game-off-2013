@@ -63,6 +63,7 @@ public class Assets {
 			+ "font-small-black.png";
 	public static final String TEXTURE_FONT_SMALL_WHITE = FOLDER_DATA
 			+ "font-small-white.png";
+
 	public static TextureRegion[] fontBigBlack;
 	public static TextureRegion[] fontBigWhite;
 	public static TextureRegion[] fontSmallBlack;

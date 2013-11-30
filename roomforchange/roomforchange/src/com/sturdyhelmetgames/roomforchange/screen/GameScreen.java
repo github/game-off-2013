@@ -10,12 +10,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.sturdyhelmetgames.roomforchange.RandomUtil;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.assets.FontBig;
+import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Entity.Direction;
+import com.sturdyhelmetgames.roomforchange.entity.Entity.HoleFallWrapper;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.level.Level;
 import com.sturdyhelmetgames.roomforchange.tween.Vector3Accessor;
@@ -84,6 +87,12 @@ public class GameScreen extends Basic2DScreen {
 		spriteBatch.begin();
 		level.render(delta, spriteBatch, false);
 
+		final Color originalColor = spriteBatch.getColor();
+		spriteBatch.setColor(1f, 1f, 1f, 1f);
+		spriteBatch.draw(Assets.getFullGameObject("darkness"),
+				camera.position.x - 7f, camera.position.y - 5f, 14f, 10f);
+		spriteBatch.setColor(originalColor);
+
 		// calculate heart positions
 		final float heartPositionX = camera.position.x - 5.9f;
 		final float heartPositionY = camera.position.y + 2.9f;
@@ -112,7 +121,6 @@ public class GameScreen extends Basic2DScreen {
 		final float gemPosX = camera.position.x + 4f;
 		final float gemPosY = camera.position.y + 3.4f;
 
-		final Color originalColor = spriteBatch.getColor();
 		spriteBatch.setColor(1f, 1f, 1f, 0.5f);
 		spriteBatch.draw(Assets.getGameObject("black"), gemPosX - 0.05f,
 				gemPosY - 0.05f, 3f, 1f);
@@ -161,28 +169,30 @@ public class GameScreen extends Basic2DScreen {
 		level.render(delta, batchMiniMap, true);
 		batchMiniMap.end();
 
-		// shapeRenderer.setProjectionMatrix(camera.combined);
-		// shapeRenderer.begin(ShapeType.Line);
-		//
-		// for (int i = 0; i < level.entities.size; i++) {
-		// shapeRenderer.setColor(Color.WHITE);
-		// final Entity entity = level.entities.get(i);
-		// shapeRenderer.rect(entity.bounds.x, entity.bounds.y,
-		// entity.bounds.width, entity.bounds.height);
-		//
-		// shapeRenderer.setColor(Color.RED);
-		// for (int i2 = 0; i2 < entity.holes.length; i2++) {
-		// HoleFallWrapper hole = entity.holes[i2];
-		// shapeRenderer.rect(hole.bounds.x, hole.bounds.y,
-		// hole.bounds.width, hole.bounds.height);
-		// }
-		// }
-		//
-		// shapeRenderer.rect(level.player.hitBounds.x,
-		// level.player.hitBounds.y,
-		// level.player.hitBounds.width, level.player.hitBounds.height);
-		//
-		// shapeRenderer.end();
+		if (game.isDebug()) {
+			shapeRenderer.setProjectionMatrix(camera.combined);
+			shapeRenderer.begin(ShapeType.Line);
+
+			for (int i = 0; i < level.entities.size; i++) {
+				shapeRenderer.setColor(Color.WHITE);
+				final Entity entity = level.entities.get(i);
+				shapeRenderer.rect(entity.bounds.x, entity.bounds.y,
+						entity.bounds.width, entity.bounds.height);
+
+				shapeRenderer.setColor(Color.RED);
+				for (int i2 = 0; i2 < entity.holes.length; i2++) {
+					HoleFallWrapper hole = entity.holes[i2];
+					shapeRenderer.rect(hole.bounds.x, hole.bounds.y,
+							hole.bounds.width, hole.bounds.height);
+				}
+			}
+
+			shapeRenderer.rect(level.player.hitBounds.x,
+					level.player.hitBounds.y, level.player.hitBounds.width,
+					level.player.hitBounds.height);
+
+			shapeRenderer.end();
+		}
 	}
 
 	protected void processKeys() {

@@ -34,6 +34,6 @@ public class RoomForChangeGame extends Game {
 	}
 
 	public boolean isDebug() {
-		return true;
+		return false;
 	}
 }

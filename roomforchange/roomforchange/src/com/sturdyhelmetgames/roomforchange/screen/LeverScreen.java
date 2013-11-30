@@ -2,6 +2,7 @@ package com.sturdyhelmetgames.roomforchange.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sturdyhelmetgames.roomforchange.RoomForChangeGame;
 import com.sturdyhelmetgames.roomforchange.assets.Assets;
@@ -44,6 +45,11 @@ public class LeverScreen extends Basic2DScreen {
 		gameScreen.renderScreen(delta);
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
+
+		final Color originalColor = spriteBatch.getColor();
+		spriteBatch.setColor(1f, 1f, 1f, 0.5f);
+		spriteBatch.draw(Assets.getFullGameObject("black"), -6f, -4f, 12f, 8f);
+		spriteBatch.setColor(originalColor);
 
 		TextureRegion region = null;
 		if (leverDirection == UP) {
