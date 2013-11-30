@@ -1,7 +1,7 @@
 ## [DungeonFall](http://team-mango.com/stuff/1gam/dfall)
 By Gareth Williams [@garethiw](http://twitter.com/garethiw)
 
-A dungeon crawler where you make the dungeon out of falling blocks. Help your AI-controlled hero by placing chests, potions and weapon racks and providing as large a dungeon to explore as possible. Decide whether or not it's a good time to give your hero a mob to kill, or if you should place it out of the way for later! Deal with four different mob types each with their own AI behaviour.
+A dungeon crawler where you make the dungeon out of falling blocks. Help your AI-controlled hero navigate the ever-changing dungeon by placing chests, potions and weapon racks and providing as large an area to explore as possible. Decide whether or not it's a good time to give your hero a mob to kill, or if you should place it out of the way for later! Deal with four different mob types each with their own AI behaviour.
 
 ## How to play
 
