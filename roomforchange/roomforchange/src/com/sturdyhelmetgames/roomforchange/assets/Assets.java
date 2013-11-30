@@ -87,6 +87,7 @@ public class Assets {
 	public static Animation playerFalling;
 
 	public static Animation spiderFront;
+	public static Animation kingSpiderFront;
 
 	public static Animation hitTarget;
 	public static Animation bomb;
@@ -258,6 +259,9 @@ public class Assets {
 		spiderFront = new Animation(0.2f, new TextureRegion[] {
 				getGameObject("spider-front-1"),
 				getGameObject("spider-front-2") });
+		kingSpiderFront = new Animation(0.2f, new TextureRegion[] {
+				getGameObject("king-spider-front-1"),
+				getGameObject("king-spider-front-2") });
 
 		hitTarget = new Animation(0.1f, new TextureRegion[] {
 				getGameObject("hit-1"), getGameObject("hit-2"),

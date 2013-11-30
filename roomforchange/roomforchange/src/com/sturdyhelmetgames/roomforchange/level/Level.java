@@ -11,6 +11,7 @@ import com.sturdyhelmetgames.roomforchange.assets.Assets;
 import com.sturdyhelmetgames.roomforchange.entity.Entity;
 import com.sturdyhelmetgames.roomforchange.entity.Exit;
 import com.sturdyhelmetgames.roomforchange.entity.Gem;
+import com.sturdyhelmetgames.roomforchange.entity.KingSpider;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Player;
 import com.sturdyhelmetgames.roomforchange.entity.Scroll;
@@ -390,6 +391,8 @@ public class Level {
 				entities.add(new Snake(randomX, randomY, this));
 			} else if (entityType == Spider.class) {
 				entities.add(new Spider(randomX, randomY, this));
+			} else if (entityType == KingSpider.class) {
+				entities.add(new KingSpider(randomX, randomY, this));
 			}
 		}
 

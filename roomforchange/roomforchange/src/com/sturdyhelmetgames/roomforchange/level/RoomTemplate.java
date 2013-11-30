@@ -3,6 +3,7 @@ package com.sturdyhelmetgames.roomforchange.level;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.sturdyhelmetgames.roomforchange.entity.KingSpider;
 import com.sturdyhelmetgames.roomforchange.entity.Mummy;
 import com.sturdyhelmetgames.roomforchange.entity.Snake;
 import com.sturdyhelmetgames.roomforchange.entity.Spider;
@@ -67,8 +68,10 @@ public class RoomTemplate {
 				entityTypes.add(Mummy.class);
 			} else if (enemyType < 60) {
 				entityTypes.add(Snake.class);
-			} else if (enemyType < 100) {
+			} else if (enemyType < 95) {
 				entityTypes.add(Spider.class);
+			} else if (enemyType < 100) {
+				entityTypes.add(KingSpider.class);
 			}
 		}
 	}
