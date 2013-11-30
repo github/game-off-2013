@@ -3,12 +3,16 @@
 game.Chest = me.ObjectEntity.extend({
 
     isOpen: false,
+    Type: 0,
 
     init: function (x, y, settings) {
         // call the constructor
         settings.spritewidth = 32;
-        settings.spriteheight = 32;      
-        settings.image = "chest";
+        settings.spriteheight = 32;
+        this.Type = settings.type;
+
+        settings.image = "chest" + this.Type;
+
 
         this.offset = new me.Vector2d(16, 16);
 

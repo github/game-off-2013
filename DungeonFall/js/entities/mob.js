@@ -1,6 +1,6 @@
 /// <reference path="../../lib/melonJS-0.9.10.js" />
 
-game.MobList = ["a Spider"];
+game.MobList = ["a Spider","a Skeleton","an Eyeball","a Thief"];
 game.Mob = me.ObjectEntity.extend({
 
     Type: 0,
@@ -25,6 +25,8 @@ game.Mob = me.ObjectEntity.extend({
     SRMax: 0,
     HP: 1,
     HPMax: 1,
+
+    walkDir: 0,
 
     init: function (x, y, settings) {
         // call the constructor
@@ -63,15 +65,15 @@ game.Mob = me.ObjectEntity.extend({
 
         this.alwaysUpdate = true;
 
-        this.z = 3;
+        this.z = 4;
 
         // Choose level
         var hero = me.game.world.getEntityByProp("name", "hero")[0];
-        this.Level = (game.Level-1) + (hero.Level + (Math.floor(Math.random() * 3)-1))
+        this.Level = ((hero.Level+1) + (Math.floor(Math.random() * 3)-1))
 
         // Distribute stats
 
-        var points = this.Level * 2;
+        var points = Math.floor(this.Level * 1.5);
         for (var i = 0; i < points; i++) {
             var r = Math.floor(Math.random() * 3);
             switch (r) {
@@ -89,6 +91,7 @@ game.Mob = me.ObjectEntity.extend({
         //this.DRMin = this.Level - 1;
         //this.SRMin = this.Level - 1;
         this.HP = this.HPMax;
+        this.walkDir = 0;
 
         //this.walkTween = new me.Tween(this.pos).to(this.target, 100).onComplete(this.targetReached.bind(this));
         //this.walkTween.easing(me.Tween.Easing.Linear.None);
@@ -117,37 +120,122 @@ game.Mob = me.ObjectEntity.extend({
         if (!this.isInCombat && !this.isTravelling) {
             //this.currentPath = path;
             //this.currentPathStep = 0;
-            if (Math.floor(Math.random() * 10) == 0) {
-                var dir = Math.floor(Math.random() * 4);
-                switch (dir) {
-                    case 0:
-                        if ((dungeon.pathGridMobs[tx][ty-1] == 1)
-                            && !(hx==tx && hy==ty-1)) this.target = new me.Vector2d(this.pos.x, this.pos.y - 32);
-                        break;
-                    case 1:
-                        if ((dungeon.pathGridMobs[tx + 1][ty] == 1)
-                            && !(hx == tx + 1 && hy == ty)) this.target = new me.Vector2d(this.pos.x + 32, this.pos.y);
-                        break;
-                    case 2:
-                        if ((dungeon.pathGridMobs[tx][ty+1] == 1)
-                            && !(hx == tx && hy == ty + 1)) this.target = new me.Vector2d(this.pos.x, this.pos.y + 32);
-                        break;
-                    case 3:
-                        if ((dungeon.pathGridMobs[tx - 1][ty] == 1)
-                            && !(hx == tx - 1 && hy == ty)) this.target = new me.Vector2d(this.pos.x - 32, this.pos.y);
-                        break;
+            if(this.Type==0){
+                if (Math.floor(Math.random() * 10) == 0) {
+                    var dir = Math.floor(Math.random() * 4);
+                    switch (dir) {
+                        case 0:
+                            if ((dungeon.pathGridMobs[tx][ty - 1] == 1)
+                                && !(hx == tx && hy == ty - 1)) this.target = new me.Vector2d(this.pos.x, this.pos.y - 32);
+                            break;
+                        case 1:
+                            if ((dungeon.pathGridMobs[tx + 1][ty] == 1)
+                                && !(hx == tx + 1 && hy == ty)) this.target = new me.Vector2d(this.pos.x + 32, this.pos.y);
+                            break;
+                        case 2:
+                            if ((dungeon.pathGridMobs[tx][ty + 1] == 1)
+                                && !(hx == tx && hy == ty + 1)) this.target = new me.Vector2d(this.pos.x, this.pos.y + 32);
+                            break;
+                        case 3:
+                            if ((dungeon.pathGridMobs[tx - 1][ty] == 1)
+                                && !(hx == tx - 1 && hy == ty)) this.target = new me.Vector2d(this.pos.x - 32, this.pos.y);
+                            break;
+                    }
+                }
+            }
+
+            if (this.Type == 1) {
+                if (this.walkDir == 0) {
+                    if (dungeon.pathGridMobs[tx][ty - 1] == 1 && !(hx == tx && hy == ty - 1)) { this.target = new me.Vector2d(this.pos.x, this.pos.y - 32); } else { this.walkDir = 1; }
+                }
+                if (this.walkDir == 1) {
+                    if (dungeon.pathGridMobs[tx+1][ty] == 1 && !(hx == tx+1 && hy == ty)) { this.target = new me.Vector2d(this.pos.x+32, this.pos.y); } else { this.walkDir = 2; }
+                }
+                if (this.walkDir == 2) {
+                    if (dungeon.pathGridMobs[tx][ty + 1] == 1 && !(hx == tx && hy == ty + 1)) { this.target = new me.Vector2d(this.pos.x, this.pos.y + 32); } else { this.walkDir = 3; }
+                }
+                if (this.walkDir == 3) {
+                    if (dungeon.pathGridMobs[tx - 1][ty] == 1 && !(hx == tx - 1 && hy == ty)) { this.target = new me.Vector2d(this.pos.x - 32, this.pos.y); } else { this.walkDir = 0; }
+                }
+            }
+
+            if (this.Type == 2) {
+                var path = dungeon.findPath(dungeon.pathGrid, tx, ty, hx, hy);
+                if (path.length > 0) {
+                    if (path[0].x != hx && path[0].y != hy) this.target = new me.Vector2d(path[0].x * 32, path[0].y*32);
+                }
+            }
+
+            if (this.Type == 3) {
+                var foundchest = false;
+                for (var i = 0; i < me.game.world.getEntityByProp("name", "chest").length; i++) {
+                    var chest = me.game.world.getEntityByProp("name", "chest")[i];
+                    if (!chest.isOpen) {
+                        var cx = Math.floor(chest.pos.x / 32);
+                        var cy = Math.floor(chest.pos.y / 32);
+
+                        if (tx == cx && ty == cy) {
+                            chest.open();
+                            if (chest.Type == 0) {
+                                game.HUD.addLine("A thief opened a chest");
+                                var ran = Math.floor(Math.random() * 6);
+                                this.SRMax++;
+                                game.HUD.addLine("...and stole some better armor!");
+                            }
+                            if (chest.Type == 1) {
+                                game.HUD.addLine("A thief found a weapon rack");
+                                this.DRMax++;
+                                game.HUD.addLine("...and took a better sword!");
+                            }
+                            if (chest.Type == 2) {
+                                game.HUD.addLine("A thief stole a potion!");
+                            }
+                        }
+
+                        var path = dungeon.findPath(dungeon.pathGridMobs, tx, ty, cx, cy);
+                        if (path.length > 0) {
+                            this.target = new me.Vector2d(path[0].x * 32, path[0].y * 32);
+                            foundchest = true;
+                            break;
+                        }
+                    }
                 }
 
-                if (this.target != this.pos) {
-                    this.walkTween = new me.Tween(this.pos).to(this.target, 200).onComplete(this.targetReached.bind(this));
-                    this.walkTween.easing(me.Tween.Easing.Linear.None);
-                    this.walkTween.start();
-                    this.isTravelling = true;
-                } else this.isTravelling = false;
+                if (!foundchest) {
+                    if (Math.floor(Math.random() * 10) == 0) {
+                        var dir = Math.floor(Math.random() * 4);
+                        switch (dir) {
+                            case 0:
+                                if ((dungeon.pathGridMobs[tx][ty - 1] == 1)
+                                    && !(hx == tx && hy == ty - 1)) this.target = new me.Vector2d(this.pos.x, this.pos.y - 32);
+                                break;
+                            case 1:
+                                if ((dungeon.pathGridMobs[tx + 1][ty] == 1)
+                                    && !(hx == tx + 1 && hy == ty)) this.target = new me.Vector2d(this.pos.x + 32, this.pos.y);
+                                break;
+                            case 2:
+                                if ((dungeon.pathGridMobs[tx][ty + 1] == 1)
+                                    && !(hx == tx && hy == ty + 1)) this.target = new me.Vector2d(this.pos.x, this.pos.y + 32);
+                                break;
+                            case 3:
+                                if ((dungeon.pathGridMobs[tx - 1][ty] == 1)
+                                    && !(hx == tx - 1 && hy == ty)) this.target = new me.Vector2d(this.pos.x - 32, this.pos.y);
+                                break;
+                        }
+                    }
+                }
+            }
+
+            if (this.target != this.pos) {
+                this.walkTween = new me.Tween(this.pos).to(this.target, 200).onComplete(this.targetReached.bind(this));
+                this.walkTween.easing(me.Tween.Easing.Linear.None);
+                this.walkTween.start();
+                this.isTravelling = true;
+            } else this.isTravelling = false;
                 //this.target = new me.Vector2d((this.currentPath[this.currentPathStep].x * 32), (this.currentPath[this.currentPathStep].y * 32));
                 
                 //this.isFollowingPath = true;
-            }
+            
         }
 
         this.updateMovement();

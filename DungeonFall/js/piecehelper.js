@@ -3,9 +3,11 @@ PieceHelper.FLOOR_TILE = 0,
 PieceHelper.MIN_WALL_TILE = 1;
 PieceHelper.MAX_WALL_TILE = 47;
 PieceHelper.CHEST_TILE = 48,
+PieceHelper.WEAPON_TILE = 54,
+PieceHelper.POTION_TILE = 55,
 PieceHelper.STAIRS_TILE = 49,
 PieceHelper.MIN_MOB_TILE = 50,
-PieceHelper.MAX_MOB_TILE = 50,
+PieceHelper.MAX_MOB_TILE = 53,
 PieceHelper.FloorPieces = [  
 
                            [  [0, 0, 0],

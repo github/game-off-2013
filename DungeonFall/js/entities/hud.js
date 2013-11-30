@@ -26,7 +26,7 @@ game.HUD.Container = me.ObjectContainer.extend({
         this.collidable = false;
 
         // make sure our object is always draw first
-        this.z = -1;
+        this.z = 999;
 
         // give a name
         this.name = "HUD";
@@ -52,12 +52,24 @@ game.HUD.Container = me.ObjectContainer.extend({
             sx += 40;
         }
 
-        for(var i=0;i<7;i++) game.HUD.addLine("");
+        for (var i = 0; i < 7; i++) game.HUD.addLine("");
+        game.HUD.addLine("Welcome to DungeonFall");
+        game.HUD.addLine("By Gareth Williams");
+        game.HUD.addLine("");
+        game.HUD.addLine("Arrows - Move/Rotate Piece");
+        game.HUD.addLine("Z - Fast Drop");
+        game.HUD.addLine("X - Instant Drop");
+        game.HUD.addLine("");
+
+
+
 
         this.font = new me.BitmapFont("font", { x: 32, y: 32 }, 0.8);
         this.font.set("center");
         this.itemfontgreen = new me.BitmapFont("floatfont-green", { x: 13, y: 14 }, 1);
         this.itemfontgreen.set("center");
+        this.itemfontred = new me.BitmapFont("floatfont-red", { x: 13, y: 14 }, 1);
+        this.itemfontred.set("center");
         this.itemfontwhite = new me.BitmapFont("floatfont-white", { x: 13, y: 14 }, 1);
         this.itemfontwhite.set("center");
         this.floating = true;
@@ -73,6 +85,9 @@ game.HUD.Container = me.ObjectContainer.extend({
 
             this.font.draw(context, hero.Level, 35, 630);
 
+            this.font.draw(context, "Floor "+game.Level, me.game.viewport.width/2, 4);
+
+
             context.strokeStyle = "silver";
             context.strokeRect(70, 618, 410, 26);
             context.fillStyle = "#AA0000";
@@ -83,14 +98,23 @@ game.HUD.Container = me.ObjectContainer.extend({
             context.fillStyle = "#AAAA00";
             context.fillRect(72, 652, (406 / (hero.XPTNL)) * (hero.XP), 11);
 
-            for (var i = 0; i < 8; i++) {
+            for (var i = 0; i < 6; i++) {
                 if (hero.Items[i] > 0) {
                     this.itemSprites[i].alpha = 1;
-                    this.itemfontgreen.draw(context, "+" + hero.Items[i], this.itemSprites[i].pos.x+14, this.itemSprites[i].pos.y+12);
+                    this.itemfontgreen.draw(context, "+" + hero.Items[i], this.itemSprites[i].pos.x+15, this.itemSprites[i].pos.y-10);
+                } else this.itemSprites[i].alpha = 0;
+            } 
 
-                }
+            if (hero.Items[6] > 0) {
+                this.itemSprites[6].alpha = 1;
+                this.itemfontred.draw(context, "+" + hero.Items[6], this.itemSprites[6].pos.x + 15, this.itemSprites[6].pos.y - 10);
+            } else this.itemSprites[6].alpha = 0;
 
+            if (hero.Items[7] > 0) {
+                this.itemSprites[7].alpha = 1;
+                this.itemfontwhite.draw(context, hero.Items[7], this.itemSprites[7].pos.x + 15, this.itemSprites[7].pos.y - 10);
             }
+            else this.itemSprites[7].alpha = 0;
 
             //this.font.draw(context, "HP: " + hero.HP + "/" + hero.HPMax + " Dam:" + hero.DRMax + " Def: " + hero.SRMax, 10, 628);
             //this.font.draw(context, "XP " + hero.XP + "/" + hero.XPTNL, 10, 646);
@@ -121,6 +145,11 @@ game.HUD.FloatyTextContainer = me.ObjectContainer.extend({
         this.alwaysUpdate = true;
     },
 
+    clear: function() {
+        for (var i = this.children.length, obj; i--, obj = this.children[i];) {
+                this.removeChild(obj);
+        }
+    }
 
 });
 
@@ -170,7 +199,7 @@ game.HUD.TextWindow = me.ObjectContainer.extend({
     init: function (x, y) {
         this.parent(x,y,620,128);
 
-        this.font = new me.BitmapFont("textfont", { x: 21, y:22 }, 0.8);
+        this.font = new me.BitmapFont("textfont", { x: 21, y:22 }, 0.6);
         this.font.alignText = "top";
 
         this.floating = true;
@@ -184,10 +213,10 @@ game.HUD.TextWindow = me.ObjectContainer.extend({
     },
 
     draw: function (context) {
-        var y = 2;
-        for(var i=game.HUD.TextLines.length-7;i<game.HUD.TextLines.length;i++) {
+        var y = 113;
+        for (var i = game.HUD.TextLines.length-1; i > game.HUD.TextLines.length-10; i--) {
             this.font.draw(context, game.HUD.TextLines[i], this.pos.x, this.pos.y + y);
-            y+=18
+            y-=14
         }
     }
 });
