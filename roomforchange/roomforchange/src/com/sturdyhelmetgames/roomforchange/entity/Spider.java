@@ -2,7 +2,7 @@ package com.sturdyhelmetgames.roomforchange.entity;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import aurelienribon.tweenengine.equations.Quad;
+import aurelienribon.tweenengine.equations.Back;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -24,7 +24,7 @@ public class Spider extends Enemy {
 			super.render(delta, batch);
 			batch.draw(Assets.spiderFront.getKeyFrame(stateTime, true),
 					bounds.x - 0.1f, bounds.y - 0.1f, width, height);
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 20; i++) {
 				batch.draw(Assets.getGameObject("spider-thread"),
 						bounds.x - 0.1f, bounds.y + i * height + 1f - 0.1f,
 						width, height);
@@ -73,7 +73,7 @@ public class Spider extends Enemy {
 		if (!tweenManager.containsTarget(this)) {
 			Tween.to(this, EntityAccessor.POSITIONY, MathUtils.random(3f))
 					.target(level.gameScreen.currentCamPosition.y
-							+ MathUtils.random(4f)).ease(Quad.IN)
+							+ MathUtils.random(4f)).ease(Back.INOUT)
 					.start(tweenManager);
 		}
 
