@@ -61,7 +61,10 @@ public class RoomTemplate {
 		}
 
 		// randomize room difficulty level
-		final int difficultyLevel = MathUtils.random(5);
+		int difficultyLevel = MathUtils.random(5);
+		if (difficultyLevel == 1) {
+			difficultyLevel = 1;
+		}
 		for (int i = 0; i < difficultyLevel; i++) {
 			final int enemyType = MathUtils.random(100);
 			if (enemyType < 30) {
@@ -75,4 +78,11 @@ public class RoomTemplate {
 			}
 		}
 	}
+
+	@Override
+	public RoomTemplate clone() throws CloneNotSupportedException {
+		RoomTemplate template = new RoomTemplate(pixmap);
+		return template;
+	}
+
 }

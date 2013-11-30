@@ -18,10 +18,6 @@ public abstract class Item extends Entity {
 	 * Default scale.
 	 */
 	private static final float SCALE_AMOUNT_DEFAULT = 1f;
-	/**
-	 * Entity scaling amoung variable.
-	 */
-	private static final float SCALE_AMOUNT_VERTICAL = 80f;
 
 	public Item(float x, float y, float width, float height, Level level) {
 		super(x, y, width, height, level);
@@ -97,7 +93,7 @@ public abstract class Item extends Entity {
 	 * @return Scale
 	 */
 	protected float getScale() {
-		return SCALE_AMOUNT_DEFAULT - bounds.y / SCALE_AMOUNT_VERTICAL;
+		return SCALE_AMOUNT_DEFAULT;
 	}
 
 }
