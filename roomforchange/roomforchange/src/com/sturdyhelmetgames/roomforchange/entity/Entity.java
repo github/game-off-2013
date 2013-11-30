@@ -223,10 +223,22 @@ public class Entity {
 		int p4y = (int) (bounds.y + bounds.height);
 
 		try {
-			LevelTile tile1 = level.getTiles()[p1x][p1y];
-			LevelTile tile2 = level.getTiles()[p2x][p2y];
-			LevelTile tile3 = level.getTiles()[p3x][p3y];
-			LevelTile tile4 = level.getTiles()[p4x][p4y];
+			LevelTile tile1 = null;
+			if (level.getTiles().length >= p1x && p1x >= 0
+					&& level.getTiles()[p1x].length >= p1y && p1y >= 0)
+				tile1 = level.getTiles()[p1x][p1y];
+			LevelTile tile2 = null;
+			if (level.getTiles().length >= p2x && p1x >= 0
+					&& level.getTiles()[p2x].length >= p2y && p2y >= 0)
+				tile2 = level.getTiles()[p2x][p2y];
+			LevelTile tile3 = null;
+			if (level.getTiles().length >= p3x && p3x >= 0
+					&& level.getTiles()[p3x].length >= p3y && p3y >= 0)
+				tile3 = level.getTiles()[p3x][p3y];
+			LevelTile tile4 = null;
+			if (level.getTiles().length >= p4x && p4x >= 0
+					&& level.getTiles()[p4x].length >= p4y && p4y >= 0)
+				tile4 = level.getTiles()[p4x][p4y];
 
 			if (tile1 != null && tile1.isHole())
 				holes[0].set(p1x + 0.4f, p1y + 0.5f, 0.2f, 0.05f);
@@ -269,7 +281,7 @@ public class Entity {
 				r[3].set(-1, -1, 0, 0);
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			Gdx.app.log("Creature", "Player went off screen");
+			Gdx.app.log("Creature", "Creature went off screen");
 		}
 	}
 
