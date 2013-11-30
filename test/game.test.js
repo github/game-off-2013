@@ -37,25 +37,6 @@ define(function (require) {
             // Assert
             expect(game.state).toBe(nextState);
         });
-
-        it('updates game state with options', function() {
-            // Arrange
-            var optionsUsedForUpdate = null;
-            var gameStateUpdater = {
-                updateGameState: function(currentState, options) {
-                    optionsUsedForUpdate = options;
-                }
-            };
-
-            var game = new Game({}, gameStateUpdater);
-            var options = {};
-
-            // Act
-            game.update(options);
-
-            // Assert
-            expect(optionsUsedForUpdate).toBe(options);
-        })
     });
 
 });

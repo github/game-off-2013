@@ -1,40 +1,71 @@
 define('gameStateUpdater', function() {
     'use strict';
     
-    return function(map) {
-        this.updateGameState = function(currentState, options) {
-            var newYear = currentState.year + 1;
-            var newAgricultureLevel = currentState.agricultureLevel + options.agricultureIncrease;
+    return function(map, facilityList) {
+        this.updateGameState = function(currentState) {
+            var newTick = incrementTick();
 
-            var newSeaLevel = currentState.seaLevel + currentState.pollution;
-            map.updateSeaLevel(newSeaLevel);
+            var newSeaLevel = updateSeaLevel();
+            var newUnfloodedLandArea = map.calculateRemainingLandArea();
 
-            var newLandArea = map.calculateRemainingLandArea();
-            var foodProduction = newLandArea * newAgricultureLevel;
-            var foodConsumption = currentState.population;
+            var facilityState = facilityList.update(currentState.tick, newUnfloodedLandArea);
 
-            var newFood, newPopulation, deathsFromStarvation;
-            if (foodProduction + currentState.food > foodConsumption) {
-                newFood = currentState.food + foodProduction - foodConsumption;
-                newPopulation = currentState.population;
-                deathsFromStarvation = 0;
-            } else {
-                newFood = 0;
-                deathsFromStarvation = -1 * (currentState.food + foodProduction - foodConsumption);
-                newPopulation = currentState.population - deathsFromStarvation;
-            }
-
-            var newPollution = currentState.pollution + currentState.agricultureLevel;
+            var newBuildableLandArea = facilityState.buildableLandArea;
+            var newPollution = updatePollution();
+            var newFood = null;
+            var newPopulation = currentState.population;
+            updateFoodStarvingPeopleIfNecessary();
 
             return {
-                year: newYear,
+                tick: newTick,
                 seaLevel: newSeaLevel,
+                buildableLandArea: newBuildableLandArea,
                 pollution: newPollution,
-                agricultureLevel: newAgricultureLevel,
-                population: newPopulation,
                 food: newFood,
-                deathsFromStarvation: deathsFromStarvation
+                population: newPopulation
             };
+
+            function incrementTick() {
+                return currentState.tick + 1;
+            }
+
+            function updateSeaLevel() {
+                var updatedSeaLevel = currentState.seaLevel + currentState.pollution;
+                map.updateSeaLevel(updatedSeaLevel);
+                return updatedSeaLevel;
+            }
+
+            function updatePollution() {
+                return currentState.pollution - calculatePollutionAbsorbedByForests() +
+                    facilityState.pollutionDelta;
+            
+                function calculatePollutionAbsorbedByForests() {
+                    return newBuildableLandArea * 0.0001;
+                }
+            }
+
+            function updateFoodStarvingPeopleIfNecessary() {
+                if ( peopleWillStarve() ) {
+                    newFood = 0;
+                    var foodDeficit = calculateFoodConsumedByPopulation() -
+                        (currentState.food + facilityState.foodDelta );
+                    newPopulation = currentState.population - foodDeficit;
+                }
+                else {
+                    newFood = currentState.food + facilityState.foodDelta -
+                    calculateFoodConsumedByPopulation();
+                }
+
+                function calculateFoodConsumedByPopulation() {
+                    return currentState.population * 0.1;
+                }
+
+                function peopleWillStarve() {
+                    return ( currentState.food + facilityState.foodDelta ) <
+                        calculateFoodConsumedByPopulation();
+                }
+            }
+
         };
     };
 });
