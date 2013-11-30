@@ -10,7 +10,7 @@ But it's not as easy as it sounds! The pyramid is full of dangerous spiders, sna
 
 Try to collect all three artefacts and escape the pyramid! Have fun! :)
 
-![Room for Change](http://sturdyhelmetgames.com/roomforchange_html/screenshot.png)
+![Room for Change](http://sturdyhelmetgames.com/roomforchange_html/screenshot2.png)
 
 ## Links to the Game
 
