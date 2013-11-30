@@ -16,8 +16,8 @@ Impassable areas of dungeon will be filled in with wall tiles automatically - al
 
 ## Stuff used
 
-*The most excellent HTML5 game engine [MelonJS](http://melonjs.org) ([Github](http://github.com/melonjs))
-*Enemy sprites by Redshrike at [OpenGameArt](http://opengameart.org/content/10-basic-rpg-enemies)
+* The most excellent HTML5 game engine [MelonJS](http://melonjs.org) ([Github](http://github.com/melonjs))
+* Enemy sprites by Redshrike at [OpenGameArt](http://opengameart.org/content/10-basic-rpg-enemies)
 
 ## Blahblah
 
