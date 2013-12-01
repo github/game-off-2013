@@ -71,6 +71,7 @@ function GameState(){
 
     // Screens
     queue.loadFile( {id: "res/screens/DifficultyScreen/Difficulty-Selection.png", src:"res/screens/DifficultyScreen/Difficulty-Selection.png"} );
+    queue.loadFile( {id: "res/screens/DifficultyScreen/ButtonsandText.png", src:"res/screens/DifficultyScreen/ButtonsandText.png"} );
 	queue.loadFile( {id: "res/screens/DifficultyScreen/ButtonMale.png", src:"res/screens/DifficultyScreen/ButtonMale.png"} );
     queue.loadFile( {id: "res/screens/DifficultyScreen/ButtonFemale.png", src:"res/screens/DifficultyScreen/ButtonFemale.png"} );
 
