@@ -472,6 +472,8 @@ function OvenUI( stage, gameState ){
 
 			if( gameState.turkeyBought ){
 				var state = gameState.ovenModel.getTurkeyState();
+				if(!evalSkin[turkeyState["skin"]["cond"][2]])
+					gameState.pubsub.publish("Death","");
 				gameState.pubsub.publish( "ShowDialog", {seq:"custom", autoAdvance:true, customText:evalSkin[turkeyState["skin"]["cond"][2]] + "." } );
 				gameState.pubsub.publish( "AddRecord", {type:"Open ", text:"The turkey looked " + turkeyState["skin"]["cond"][2]} );
 				//gameState.ovenModel.setRawTemp( (gameState.ovenModel.getRawTemp() - 25) < 150 ? 150 : gameState.ovenModel.getRawTemp() - 25 );
@@ -504,6 +506,8 @@ function OvenUI( stage, gameState ){
 			handleBar.y = 48;
 			if( gameState.turkeyBought ){
 				var state = gameState.ovenModel.getTurkeyState();
+				if(!evalSkin[turkeyState["skin"]["cond"][2]])
+					gameState.pubsub.publish("Death","");
 				gameState.pubsub.publish( "ShowDialog", {seq:"custom", autoAdvance:true, customText:evalSkin[turkeyState["skin"]["cond"][2]] } );
 				gameState.pubsub.publish( "AddRecord", {type:"Peek ", text:"The turkey looked " +turkeyState["skin"]["cond"][2]} );
 			}
