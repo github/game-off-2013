@@ -4,6 +4,10 @@ Chromacore is a 2D musical platformer set in a dark, black & white world that pr
 
 Positive audiovisual feedback rewards players for successul gameplay, while negative feedback is non-existent.
 
+## Playable Game
+
+Available here: http://www.ccs.neu.edu/home/ozkaynak/Chromacore/Build%201.3%20GIT/Build.html
+
 ## In-Game Screenshot
 
 ![Chromacore - In-Game Screenshot](https://raw.github.com/Murkantilism/game-off-2013/master/ChromacoreInGameScreenshot.png)
