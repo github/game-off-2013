@@ -178,8 +178,10 @@ function DifficultyScreen( stage, gameState ){
                 }
             }
 
-            if( keynum != 8 && keynum < 91 && keynum > 47 && nameInput.text.length < 22 )
+            if( keynum != 8 && keynum < 91 && keynum > 47 && nameInput.text.length < 22 ){
             	nameInput.text += String.fromCharCode(keynum);
+            	gameState.name = nameInput.text;
+            }
     };
 
 
@@ -195,19 +197,19 @@ function DifficultyScreen( stage, gameState ){
                 }
             }
 
-            if(keynum == 8 && nameInput.text.length > 0 )
+            if(keynum == 8 && nameInput.text.length > 0 ){
             	nameInput.text = nameInput.text.substr(0, nameInput.text.length-1);
+            	gameState.name = nameInput.text;
+            }
         event.preventDefault();
     }
-
-    gameState.name = nameInput.text;
 
  	// Easy/Hard Button
  	stage.addChild( new Button( stage, gameState, 500, 235, 100, 55, "ChangeGender", "Male" ) );
  	stage.addChild( new Button( stage, gameState, 500, 300, 100, 55, "ChangeGender", "Female" ) );
 
- 	stage.addChild( new Button( stage, gameState, 503, 370, 200, 55, null, null, function(){ gameState.hard = false; gameState.gameStarted = true; gameState.hardcoreModifier=1; gameState.pubsub.publish("SwitchScreen", "KitchenScreen"); } ) );
- 	stage.addChild( new Button( stage, gameState, 500, 495, 205, 55, null, null, function(){ gameState.hard = true;  gameState.gameStarted = true; gameState.hardcoreModifier=20; gameState.pubsub.publish("SwitchScreen", "KitchenScreen"); } ) );
+ 	stage.addChild( new Button( stage, gameState, 503, 370, 200, 55, null, null, function(){ document.onkeyup = function(){}; gameState.hard = false; gameState.gameStarted = true; gameState.hardcoreModifier=1; gameState.pubsub.publish("SwitchScreen", "KitchenScreen"); } ) );
+ 	stage.addChild( new Button( stage, gameState, 500, 495, 205, 55, null, null, function(){ document.onkeydown = function(){};  gameState.hard = true;  gameState.gameStarted = true; gameState.hardcoreModifier=20; gameState.pubsub.publish("SwitchScreen", "KitchenScreen"); } ) );
 
  	stage.addChild( new Button( stage, gameState, 35, 495, 85, 55, "SwitchScreen", "MainScreen" ) );
 
