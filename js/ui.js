@@ -269,6 +269,10 @@ function CookbookUI( stage, gameState ){
 
 	var cookbookImg = new createjs.Bitmap("res/screens/KitchenScreen/Cookbook-Open.png");
 	var closeButton = new Button( stage, gameState, 710, 10, 100, 50, null, null, function(){that.hideCookbook();} );
+
+	var scrollUpBtn = new Button( stage, gameState, 710, 80, 100, 50, null, null, function(){that.scrollUp();} );
+	var scrollDownBtn = new Button( stage, gameState, 710, 540, 100, 50, null, null, function(){that.scrollDown();} );
+
 	var turkeyTypeText = new createjs.Text("", "18px Arial", "black" );
 	turkeyTypeText.x = 535;
 	turkeyTypeText.y = 56;
@@ -276,24 +280,63 @@ function CookbookUI( stage, gameState ){
 	var turkeyWeightText = new createjs.Text("", "18px Arial", "black" );
 	turkeyWeightText.x = 553;
 	turkeyWeightText.y = 85;
-
+	var hiddenEntries = [];
 	var logEntries = [];
+
 	this.hideCookbook = function(){
 
 		stage.removeChild( closeButton );
 		stage.removeChild( cookbookImg );
+		stage.removeChild( scrollUpBtn );
+		stage.removeChild( scrollDownBtn );
 		stage.removeChild( turkeyTypeText );
-		stage.removeChild(turkeyWeightText);
+		stage.removeChild( turkeyWeightText );
 		for( i in logEntries ){
 			stage.removeChild(logEntries[i]);
 		}
+
+		for( i in hiddenEntries ){
+			stage.removeChild(hiddenEntries[i]);
+		}
+
 		that.showingCookbook = false;
 		gameState.pubsub.publish("Play", "Close_Cookbook");
+	}
+
+	this.scrollDown = function(){
+
+		// move to hidden list
+		if( logEntries.length > 1 ){
+			// Move all entries up by 50 pixels
+			for( i in logEntries ){
+				logEntries[i].y -= 50;
+			}
+			var topEntry = logEntries.shift();
+			topEntry.alpha = 0;
+			hiddenEntries.push( topEntry );
+		}
+	}
+
+
+	this.scrollUp = function(){
+		// pop and fill in top
+		if( hiddenEntries.length > 0 ){
+			var topEntry = hiddenEntries.pop();
+			topEntry.alpha = 1;
+			logEntries.unshift( topEntry );
+
+			// shift everything down by 50 pixels
+			for( i in logEntries ){
+				logEntries[i].y += 50;
+			}
+		}
 	}
 
 	// Show core temperature
 	this.showCookbook = function(){
 		if( !that.showingCookbook ){
+			// TODO: So this object is actually persistent: we should not remove/add children, just hide stuff visually
+			logEntries = [];
 			stage.addChild( cookbookImg );
 			stage.addChild( closeButton );
 
@@ -313,8 +356,12 @@ function CookbookUI( stage, gameState ){
 				logEntries.push(logLine);
 				stage.addChild(logLine);
 			}
+
 			stage.addChild(turkeyTypeText);
 			stage.addChild(turkeyWeightText);
+
+			stage.addChild(scrollUpBtn);
+			stage.addChild(scrollDownBtn);
 
 			that.showingCookbook = true;
 		}
