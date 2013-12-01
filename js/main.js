@@ -91,7 +91,6 @@ function GameState(){
 
     queue.loadFile( {id: "ScoreScreenFile", src:"res/screens/ScoreScreen/Score-Evaluation-1.png" } );
     queue.loadFile( {id: "ScoreScreenFile", src:"res/screens/ScoreScreen/Score-Evaluation-2.png" } );
-    queue.loadFile( {id: "HelpScreenFile", src:"res/screens/HelpCreditsScreen/Credits.png" } );
 
     queue.loadFile( {id: "MarketScreenfile", src:"res/screens/MarketScreen/MarketScreen.png"} );
 
@@ -100,7 +99,6 @@ function GameState(){
 	queue.loadFile( {id: "MarketSoundFile", src:"res/sound/Store/Waterford.mp3"} );
 
 	// UI sounds
-    queue.loadFile( {id: "UILowClickFile", src:"res/sound/GUI/lowclick.mp3"} );
     queue.loadFile( {id: "UIClickFile", src:"res/sound/GUI/click.mp3"} );
     queue.loadFile( {id: "UIBuzzFile", src:"res/sound/GUI/buzz.mp3"} );
     queue.loadFile( {id: "UIDingFile", src:"res/sound/GUI/ding.mp3"} );
