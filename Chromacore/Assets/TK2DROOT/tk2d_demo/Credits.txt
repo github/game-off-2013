@@ -1,0 +1,24 @@
+The 2D Toolkit demos use some freely available artwork from these following sources.
+
+Folk/Londrina font designed by Marcelo Magalhães Pereira
+http://www.marcelomagalhaes.net/59823/546166/-works/londrina-typeface
+http://www.myfonts.com/fonts/tipos-pereira/londrina/
+
+"Planet Cute" art by Daniel Cook (Lostgarden.com)
+Some of the sprites (Brown Block, Chest Closed, Stone Block, Rock) are from the Planet Cute collection by Daniel Cook from this website:
+http://www.lostgarden.com/2007/05/dancs-miraculously-flexible-game.html
+
+Explosion texture generated from:
+http://www.nuvorm.nl/?p=1
+
+Commodore 64 font by Devin Cook.
+http://www.dafont.com/commodore-64.font
+
+Old Sans Black font by Manfred Klein
+http://manfred-klein.ina-mar.com/
+
+MV Platformer Male by MoikMellah (CC0)
+http://opengameart.org/content/mv-platformer-male-32x64
+
+Nunito font by Vernon Adams (SIL Open Font License)
+http://www.google.com/fonts/specimen/Nunito

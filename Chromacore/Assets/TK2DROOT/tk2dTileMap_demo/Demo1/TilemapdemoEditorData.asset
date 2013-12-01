@@ -1,0 +1,337 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b78d6060eadde4394ed1d0ba2b8c97, type: 1}
+  m_Name: TilemapdemoEditorData
+  editMode: 3
+  brushColor: {r: 1, g: 1, b: 1, a: 1}
+  brushRadius: 1
+  blendStrength: 1
+  blendMode: 0
+  brushDisplayScale: 1
+  defaultBrush:
+    name: 
+    type: 0
+    paintMode: 0
+    tiles:
+    - x: 0
+      y: 0
+      layer: 0
+      spriteId: 0
+      blendAmount: 0
+    multiSelectTiles: 
+    edgeMode: 0
+    multiLayer: 0
+    overrideWithSpriteBounds: 0
+    brushHash: -932280576
+  activeBrush:
+    name: 
+    type: 0
+    paintMode: 0
+    tiles:
+    - x: 0
+      y: 0
+      layer: 0
+      spriteId: 52
+      blendAmount: 0
+    multiSelectTiles: 34000000
+    edgeMode: 0
+    multiLayer: 0
+    overrideWithSpriteBounds: 0
+    brushHash: 981706880
+  brushes: []
+  paletteBrush:
+    name: 
+    type: 0
+    paintMode: 0
+    tiles:
+    - x: 0
+      y: 6
+      layer: 0
+      spriteId: 0
+      blendAmount: 0
+    - x: 1
+      y: 6
+      layer: 0
+      spriteId: 1
+      blendAmount: 0
+    - x: 2
+      y: 6
+      layer: 0
+      spriteId: 2
+      blendAmount: 0
+    - x: 3
+      y: 6
+      layer: 0
+      spriteId: 3
+      blendAmount: 0
+    - x: 4
+      y: 6
+      layer: 0
+      spriteId: 4
+      blendAmount: 0
+    - x: 5
+      y: 6
+      layer: 0
+      spriteId: 5
+      blendAmount: 0
+    - x: 6
+      y: 6
+      layer: 0
+      spriteId: 6
+      blendAmount: 0
+    - x: 7
+      y: 6
+      layer: 0
+      spriteId: 7
+      blendAmount: 0
+    - x: 0
+      y: 5
+      layer: 0
+      spriteId: 8
+      blendAmount: 0
+    - x: 1
+      y: 5
+      layer: 0
+      spriteId: 9
+      blendAmount: 0
+    - x: 2
+      y: 5
+      layer: 0
+      spriteId: 10
+      blendAmount: 0
+    - x: 3
+      y: 5
+      layer: 0
+      spriteId: 11
+      blendAmount: 0
+    - x: 4
+      y: 5
+      layer: 0
+      spriteId: 12
+      blendAmount: 0
+    - x: 5
+      y: 5
+      layer: 0
+      spriteId: 13
+      blendAmount: 0
+    - x: 6
+      y: 5
+      layer: 0
+      spriteId: 14
+      blendAmount: 0
+    - x: 7
+      y: 5
+      layer: 0
+      spriteId: 15
+      blendAmount: 0
+    - x: 0
+      y: 4
+      layer: 0
+      spriteId: 16
+      blendAmount: 0
+    - x: 1
+      y: 4
+      layer: 0
+      spriteId: 17
+      blendAmount: 0
+    - x: 2
+      y: 4
+      layer: 0
+      spriteId: 18
+      blendAmount: 0
+    - x: 3
+      y: 4
+      layer: 0
+      spriteId: 19
+      blendAmount: 0
+    - x: 4
+      y: 4
+      layer: 0
+      spriteId: 20
+      blendAmount: 0
+    - x: 5
+      y: 4
+      layer: 0
+      spriteId: 21
+      blendAmount: 0
+    - x: 6
+      y: 4
+      layer: 0
+      spriteId: 22
+      blendAmount: 0
+    - x: 7
+      y: 4
+      layer: 0
+      spriteId: 23
+      blendAmount: 0
+    - x: 0
+      y: 3
+      layer: 0
+      spriteId: 24
+      blendAmount: 0
+    - x: 1
+      y: 3
+      layer: 0
+      spriteId: 25
+      blendAmount: 0
+    - x: 2
+      y: 3
+      layer: 0
+      spriteId: 26
+      blendAmount: 0
+    - x: 3
+      y: 3
+      layer: 0
+      spriteId: 27
+      blendAmount: 0
+    - x: 4
+      y: 3
+      layer: 0
+      spriteId: 28
+      blendAmount: 0
+    - x: 5
+      y: 3
+      layer: 0
+      spriteId: 29
+      blendAmount: 0
+    - x: 6
+      y: 3
+      layer: 0
+      spriteId: 30
+      blendAmount: 0
+    - x: 7
+      y: 3
+      layer: 0
+      spriteId: 31
+      blendAmount: 0
+    - x: 0
+      y: 2
+      layer: 0
+      spriteId: 32
+      blendAmount: 0
+    - x: 1
+      y: 2
+      layer: 0
+      spriteId: 33
+      blendAmount: 0
+    - x: 2
+      y: 2
+      layer: 0
+      spriteId: 34
+      blendAmount: 0
+    - x: 3
+      y: 2
+      layer: 0
+      spriteId: 35
+      blendAmount: 0
+    - x: 4
+      y: 2
+      layer: 0
+      spriteId: 36
+      blendAmount: 0
+    - x: 5
+      y: 2
+      layer: 0
+      spriteId: 37
+      blendAmount: 0
+    - x: 6
+      y: 2
+      layer: 0
+      spriteId: 38
+      blendAmount: 0
+    - x: 7
+      y: 2
+      layer: 0
+      spriteId: 39
+      blendAmount: 0
+    - x: 0
+      y: 1
+      layer: 0
+      spriteId: 40
+      blendAmount: 0
+    - x: 1
+      y: 1
+      layer: 0
+      spriteId: 41
+      blendAmount: 0
+    - x: 2
+      y: 1
+      layer: 0
+      spriteId: 42
+      blendAmount: 0
+    - x: 3
+      y: 1
+      layer: 0
+      spriteId: 43
+      blendAmount: 0
+    - x: 4
+      y: 1
+      layer: 0
+      spriteId: 44
+      blendAmount: 0
+    - x: 5
+      y: 1
+      layer: 0
+      spriteId: 45
+      blendAmount: 0
+    - x: 6
+      y: 1
+      layer: 0
+      spriteId: 46
+      blendAmount: 0
+    - x: 7
+      y: 1
+      layer: 0
+      spriteId: 47
+      blendAmount: 0
+    - x: 0
+      y: 0
+      layer: 0
+      spriteId: 48
+      blendAmount: 0
+    - x: 1
+      y: 0
+      layer: 0
+      spriteId: 49
+      blendAmount: 0
+    - x: 2
+      y: 0
+      layer: 0
+      spriteId: 50
+      blendAmount: 0
+    - x: 3
+      y: 0
+      layer: 0
+      spriteId: 51
+      blendAmount: 0
+    - x: 4
+      y: 0
+      layer: 0
+      spriteId: 52
+      blendAmount: 0
+    multiSelectTiles: 
+    edgeMode: 0
+    multiLayer: 0
+    overrideWithSpriteBounds: 1
+    brushHash: -1452933648
+  paletteTilesPerRow: 8
+  setupMode: 1
+  showBrush: 1
+  showPalette: 1
+  layer: 2
+  scratchpads:
+  - width: 15
+    height: 15
+    layers:
+    - width: 15
+      height: 15
+      tiles: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    name: New Scratchpad

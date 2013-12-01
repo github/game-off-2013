@@ -1,0 +1,9 @@
+i tk2d 1
+w {{texture.size.width}}
+h {{texture.size.height}}
+~{% for sprite in allSprites %}
+n {{sprite.trimmedName}}
+s {{sprite.frameRect.x}} {{sprite.frameRect.y}} {{sprite.frameRect.width}} {{sprite.frameRect.height}}{% if sprite.trimmed %}
+o {{sprite.sourceRect.x}} {{sprite.sourceRect.y}} {{sprite.untrimmedSize.width}} {{sprite.untrimmedSize.height}}{% endif %}{% if sprite.rotated %}
+r 1{% endif %}
+~{% endfor %}

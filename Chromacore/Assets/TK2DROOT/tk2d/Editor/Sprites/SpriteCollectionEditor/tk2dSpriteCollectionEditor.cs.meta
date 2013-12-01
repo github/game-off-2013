@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d66a50f2d84639f43ab03b44f04c39b0
+labels:
+- 2d
+- sprite
+- text
+- font
+- atlas
+- spritecollection
+- toolkit
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

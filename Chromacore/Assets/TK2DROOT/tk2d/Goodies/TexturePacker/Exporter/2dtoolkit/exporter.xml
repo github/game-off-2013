@@ -1,0 +1,51 @@
+<exporter version="1.0">
+    <!-- identifier of the exporter -->
+    <name>2dtoolkit</name>
+	
+    <!-- display name of the exporter for the combo box -->
+    <displayName>2D Toolkit</displayName>
+	
+    <!-- description of the exporter -->
+    <description>2D Toolkit exporter</description>
+
+    <!-- exporter version -->
+    <version>1.0</version>
+	
+    <!-- currently only one file allowed - more to come with update -->
+    <files>
+        <file>
+            <!-- name of this file variable -->
+            <name>2dtoolkit_bytes_file</name>
+
+            <!-- human readable name (for GUI) -->
+            <displayName>2dtoolkit bytes file</displayName>
+
+            <!-- file extension for the file -->
+            <fileExtension>bytes</fileExtension>
+
+            <!-- name of the template file -->
+            <template>tk2d.bytes</template>
+        </file>
+    </files>
+
+    <!-- target framework supports trimming -->
+    <supportsTrimming>true</supportsTrimming>
+
+    <!-- target framework supports rotated sprites -->
+    <supportsRotation>true</supportsRotation>
+
+    <!-- rotated sprites direction (cw/ccw) -->
+    <rotationDirection>cw</rotationDirection>
+
+    <!-- supports npot sizes -->
+    <supportsNPOT>true</supportsNPOT>
+
+    <!-- supports file name stripping (remove .png etc) -->
+    <supportsTrimSpriteNames>yes</supportsTrimSpriteNames>
+
+    <!-- supports texure subpath -->
+    <supportsTextureSubPath>yes</supportsTextureSubPath>
+
+</exporter>
+
+

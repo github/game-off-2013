@@ -1,0 +1,28 @@
+i tk2d 1
+w 256
+h 512
+~
+n 2dtoolkit_logo
+s 80 228 128 128
+~
+n Rock
+s 146 127 99 99
+o 1 65 101 171
+~
+n Stone Block
+s 148 2 101 123
+o 0 48 101 171
+~
+n button_up
+s 2 219 76 282
+r 1
+~
+n cloud1
+s 2 2 144 71
+~
+n crate
+s 80 358 65 66
+~
+n sun
+s 2 75 142 142
+~
