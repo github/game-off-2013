@@ -1,4 +1,4 @@
-## Desciption
+## Description
 
 Chromacore is a 2D musical platformer set in a dark, black & white world that progressively becomes more colorful and happy through successful gameplay.
 
