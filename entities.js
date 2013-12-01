@@ -246,7 +246,8 @@ function record(rt, player) { //t: Number of seconds the record lasts for, playe
 			x:bullets[abullet].x,
 			y:bullets[abullet].y,
 			vx:bullets[abullet].vx,
-			vy:bullets[abullet].vy
+			vy:bullets[abullet].vy,
+			p:bullets[abullet].p
 		});
 	}
 
@@ -295,7 +296,8 @@ function recordFrame() {
 					x:activePlayer.oldPosition.b[abullet].x,
 					y:activePlayer.oldPosition.b[abullet].y,
 					vx:activePlayer.oldPosition.b[abullet].vx,
-					vy:activePlayer.oldPosition.b[abullet].vy
+					vy:activePlayer.oldPosition.b[abullet].vy,
+					p:activePlayer.oldPosition.b[abullet].p
 				});
 			}
 
@@ -366,6 +368,7 @@ function setFiring(plyr) {
 
 			console.log(plyr.pno);
 			bullets.push({x:rPoints.x,y:rPoints.y,vx:normX * 20,vy:normY * 20,p:plyr.pno});
+			debugger;
 			if (recording == 1) {
 				recordingData.bullets[cte] = ({x:rPoints.x,y:rPoints.y,vx:normX * 20,vy:normY * 20});
 			}
