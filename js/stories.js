@@ -581,7 +581,7 @@ var story = {
 "Girlfriend: Exactly."],
 
 "Brother's Fiancee is on Business Trip":
-["Mom: Greg, where's your fiancée? Why didn't you invite her over for Thanksgiving dinner?",
+["Mom: Greg, where's your fiancee? Why didn't you invite her over for Thanksgiving dinner?",
 "Brother: I did invite her, but she couldn't make it. She is on a business trip and could not get the time off.",
 "Mom: A business trip on Thanksgiving? But Thanksgiving only happens once per year! This is the perfect time to rekindle the spirit of family.",
 "Brother: I know Mom, but Thanksgiving doesn't happen everywhere, and her job in sales demands that she travel abroad to meet with potential clients in person.",
@@ -593,7 +593,7 @@ var story = {
 "Grandpa: What!? I want to come and see your new place too.",
 "Brother: Sure...yeah ok.",
 "Girlfriend: You aren't going to invite me?",
-"Brother: Yes, definitely. Everyone can come and visit. Just... I don't want to stress out my fiancée when she comes home.",
+"Brother: Yes, definitely. Everyone can come and visit. Just... I don't want to stress out my fiancee when she comes home.",
 "Brother: She likes to relax at home.",
 "Mom: Don't worry honey, we won't stress her out. I'll make her my delicious breakfast omelet.",
 "Grandpa: And I'll tell her my war stories.",
