@@ -696,14 +696,14 @@ function WindowUI( stage, gameState ){
 	var streetLight = new createjs.Bitmap( "res/screens/Window/StreetlightGlow.png" );
 	streetLight.alpha = 0;
 
-	var treeAnimations = { rustle:[0,17,"rustle"], still:[0,0,"still"] };
+	var treeAnimations = { rustle:{ frames:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], next:false } };
 	var data = {
     	images: ["res/screens/Window/Tree_Animation.png"],
      	frames: { width:386, height:287 },
      	animations: treeAnimations
  	};
 	var spriteSheet = new createjs.SpriteSheet(data);
- 	var animation = new createjs.Sprite(spriteSheet, "treeAnimations");
+ 	var animation = new createjs.Sprite(spriteSheet);
  	animation.x = 415;
  	animation.y = 30;
 
@@ -741,6 +741,10 @@ return {
 			dayNight.x-=11.38;
 			mood.x -= 11.38;
 			secondCounter = 0;
+
+			// move tree sometimes
+			if( UtilityFunctions.randRange(0,1) )
+				animation.gotoAndPlay("rustle");
 
 			// turn on lights
 			if( dayNight.x < 0 && dayNight.x > -4545 ){
