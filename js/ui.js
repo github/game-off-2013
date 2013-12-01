@@ -665,6 +665,26 @@ function WindowUI( stage, gameState ){
 	var dayNight = new createjs.Bitmap("res/screens/Window/Test4-217.png");
 	var mood = new createjs.Bitmap("res/screens/Window/Test4TransparencyFull.png");
 
+ 	var smallWindows= [ new createjs.Bitmap("res/screens/Window/Small1.png"),
+ 			  	 	   	new createjs.Bitmap("res/screens/Window/Small2.png"),
+ 				 	  	new createjs.Bitmap("res/screens/Window/Small3.png"),
+ 				   		new createjs.Bitmap("res/screens/Window/Small4.png"),
+ 				   		new createjs.Bitmap("res/screens/Window/Small5.png")
+ 				 ];
+
+ 	var windows= [ new createjs.Bitmap("res/screens/Window/Win1.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win2.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win3.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win4.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win5.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win6.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win7.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win8.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win9.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win10.png"),
+ 				   new createjs.Bitmap("res/screens/Window/Win11.png")
+ 				 ];
+
 	mood.y=30;
 	dayNight.y=30;
 
@@ -698,6 +718,18 @@ function WindowUI( stage, gameState ){
     stage.addChild( houses );
     stage.addChild( animation );
     stage.addChild( mood );
+
+    for( var i in smallWindows ){
+    	smallWindows[i].alpha = UtilityFunctions.randRange(0,1);
+    	streetLight.alpha = 1;
+    	stage.addChild( smallWindows[i] );
+    }
+
+    for( var i in windows ){
+    	windows[i].alpha = UtilityFunctions.randRange(0,1);
+    	streetLight.alpha = 1;
+    	stage.addChild( windows[i] );
+    }
     stage.addChild( streetLight );
 return {
 
@@ -705,25 +737,48 @@ return {
 
 		// move the sky
 		secondCounter++;
-		if( secondCounter > 60 ){
+		if( secondCounter > 600 ){
 			dayNight.x-=11.38;
 			mood.x -= 11.38;
 			secondCounter = 0;
+
+			// turn on lights
+			if( dayNight.x < 0 && dayNight.x > -4545 ){
+				for( var i in smallWindows ){
+					smallWindows[i].alpha = UtilityFunctions.randRange(0,1);
+				}
+				for( var i in windows ){
+					windows[i].alpha = UtilityFunctions.randRange(0,1);
+				}
+				// turn on random window lights
+				streetLight.alpha = 1;
+			}
+			else if( dayNight.x < -11687 ){
+				for( var i in smallWindows ){
+					smallWindows[i].alpha = UtilityFunctions.randRange(0,1);
+				}
+				for( var i in windows ){
+					windows[i].alpha = UtilityFunctions.randRange(0,1);
+				}
+				streetLight.alpha = 1;
+			}
+			// daytime, turn off all lights
+			else{
+				for( var i in smallWindows ){
+					smallWindows[i].alpha = 0;
+				}
+				for( var i in windows ){
+					windows[i].alpha = 0;
+				}
+
+				streetLight.alpha = 0;
+			}
+
 		}
 
 		if( dayNight.x < -15583 )
 			dayNight.x = 0;
 
-		// turn on lights
-		if( dayNight.x < 0 && dayNight.x > -4545 ){
-			// turn on random window lights
-			streetLight.alpha = 1;
-		}
-		else if( dayNight.x < -11687 ){
-			streetLight.alpha = 1;
-		}
-		else
-			streetLight.alpha = 0;
 	}
 }
 }
