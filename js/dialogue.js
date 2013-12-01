@@ -65,6 +65,10 @@ function DialogUI( stage, gameState ){
  	this.textContent.addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
  	this.textContent.addEventListener( "click", function(){ setTimeout( clickEvent, 100); });
 
+ 	// negate double setTimeout if clicked
+ 	var oldTime = new Date().getTime();
+ 	var delayCounter = 0;
+
 	this.endFunc = function(){};
 
  	this.showDialog= function( textSeq ){
@@ -90,7 +94,8 @@ function DialogUI( stage, gameState ){
  			that.showRandomConvo();
  			return;
  		}
-
+ 		delayCounter = 0;
+ 		oldTime = new Date().getTime();
  		that.currDialogueSeq = new DialogueSequence( textSeq.seq );
  		var nextDialogue = that.currDialogueSeq.next();
 
@@ -121,9 +126,6 @@ function DialogUI( stage, gameState ){
 
  	gameState.pubsub.subscribe( "ShowDialog", this.showDialog );
 
- 	// negate double setTimeout if clicked
- 	var oldTime = new Date().getTime();
- 	var delayCounter = 0;
  	var clickEvent = function( timer ){
 
  		if( !peopleImg["Me"] ){
@@ -165,7 +167,6 @@ function DialogUI( stage, gameState ){
 
     return {
     	tick: function(){
-    		delayCounter = new Date().getTime() - oldTime;
 
     		if( that.autoAdvance == true && that.dialogBox.y ==0 && delayCounter > ( (that.textContent.text.length * MILLIS_PER_CHAR) < 2000 ? 2000 : (that.textContent.text.length * MILLIS_PER_CHAR)  ) ){
     			clickEvent();
@@ -205,6 +206,7 @@ function DialogUI( stage, gameState ){
     		if( that.dialogMotionQueue.length > 0 && that.dialogState == DIALOG_PAUSING ){
     			that.dialogState = that.dialogMotionQueue.shift();
     		}
+    		delayCounter = new Date().getTime() - oldTime;
     	},
 
     	minDialog: function(){
