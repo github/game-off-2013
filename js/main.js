@@ -353,10 +353,10 @@ function GameUI( canvasElem, gameState ){
 	var soundManager = new SoundManager( gameState );
 
 	this.activeScreenObj = new LoadingScreen( this.stage, gameState );
-	var textContent = new createjs.Text( "", "20px Arial", "black" );
+	var textContent = new createjs.Text( "", "20px Arial", "white" );
 	textContent.x = 750;
 	textContent.y = 30;
-	//this.stage.addChild( textContent);
+	this.stage.addChild( textContent);
 	var overlay = new createjs.Shape();
  	overlay.graphics.beginFill("#fffffff").drawRect(0, 0, 800, 600 );
  	overlay.alpha = 0;
@@ -374,7 +374,7 @@ function GameUI( canvasElem, gameState ){
 	this.actuallySwitchScreen = function( screenName ){
 		that.stage.removeAllChildren();
 		that.activeScreenObj = new that.screens[ screenName ]( that.stage, gameState );
-		//that.stage.addChild( textContent );
+		that.stage.addChild( textContent );
 		that.stage.addChild( overlay );
 		dialogManager.render();
 	};

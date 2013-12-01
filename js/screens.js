@@ -628,8 +628,6 @@ function ScoreScreen( stage, gameState ){
 		stage.addChild( turkeyTypeModifierText );
 		stage.addChild( frillsModifierText );
 		stage.addChild( hardcoreModifierText );
-
-
 	}} );
 
 

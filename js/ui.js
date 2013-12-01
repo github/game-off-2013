@@ -720,14 +720,14 @@ function WindowUI( stage, gameState ){
     stage.addChild( mood );
 
     for( var i in smallWindows ){
-    	smallWindows[i].alpha = UtilityFunctions.randRange(0,1);
-    	streetLight.alpha = 1;
+    	smallWindows[i].visible = UtilityFunctions.randRange(0,1);
+    	streetLight.visible = 1;
     	stage.addChild( smallWindows[i] );
     }
 
     for( var i in windows ){
-    	windows[i].alpha = UtilityFunctions.randRange(0,1);
-    	streetLight.alpha = 1;
+    	windows[i].visible = UtilityFunctions.randRange(0,1);
+    	streetLight.visible = 1;
     	stage.addChild( windows[i] );
     }
     stage.addChild( streetLight );
@@ -749,35 +749,34 @@ return {
 			// turn on lights
 			if( dayNight.x < 0 && dayNight.x > -4545 ){
 				for( var i in smallWindows ){
-					smallWindows[i].alpha = UtilityFunctions.randRange(0,1);
+					smallWindows[i].visible = UtilityFunctions.randRange(0,1);
 				}
 				for( var i in windows ){
-					windows[i].alpha = UtilityFunctions.randRange(0,1);
+					windows[i].visible = UtilityFunctions.randRange(0,1);
 				}
 				// turn on random window lights
-				streetLight.alpha = 1;
+				streetLight.visible = 1;
 			}
 			else if( dayNight.x < -11687 ){
 				for( var i in smallWindows ){
-					smallWindows[i].alpha = UtilityFunctions.randRange(0,1);
+					smallWindows[i].visible = UtilityFunctions.randRange(0,1);
 				}
 				for( var i in windows ){
-					windows[i].alpha = UtilityFunctions.randRange(0,1);
+					windows[i].visible = UtilityFunctions.randRange(0,1);
 				}
-				streetLight.alpha = 1;
+				streetLight.visible = 1;
 			}
 			// daytime, turn off all lights
 			else{
 				for( var i in smallWindows ){
-					smallWindows[i].alpha = 0;
+					smallWindows[i].visible = 0;
 				}
 				for( var i in windows ){
-					windows[i].alpha = 0;
+					windows[i].visible = 0;
 				}
 
-				streetLight.alpha = 0;
+				streetLight.visible = 0;
 			}
-
 		}
 
 		if( dayNight.x < -15583 )
