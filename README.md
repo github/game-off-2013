@@ -5,7 +5,7 @@
 >Make sure you have a README file that includes a brief description of your game, what open source projects (if any) you used, and a screenshot.
 
 ##Screenshot
-![image](https://f.cloud.github.com/assets/121322/1436584/fd721126-415a-11e3-9f3a-e94262074573.png)
+![image](http://i.imgur.com/NiVFTu3.png)
 
 ##Description
 "Dangerous Chef Pioneer" is a psychological top down shooter game.
