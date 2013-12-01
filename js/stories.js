@@ -612,7 +612,7 @@ var story = {
 "Cat: Meow meow meow! The oven is doing that quite nicely.",
 "Turkey: Ga-Gobble!",
 "Cat: Meow Meow",
-"Dad: Aww Kasey, can't you a cute little kitty."],
+"Dad: Aww Kasey, aren't you a cute little kitty."],
 
 "Turkey Fact - Wattle":
 ["Turkey: Hey, it is time for another turkey fact.",
