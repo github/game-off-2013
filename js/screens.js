@@ -46,9 +46,11 @@ function LoadingScreen( stage, gameState ){
 		 	that.done.addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
  			that.done.addEventListener( "click",  function(){ gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
 
+ 			/*
 			that.turkeyState[4].addEventListener( "mouseover", function(){ document.body.style.cursor='pointer'; } );
 		 	that.turkeyState[4].addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
  			that.turkeyState[4].addEventListener( "click",  function(){ gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
+ 			*/
 		}
 	});
 
