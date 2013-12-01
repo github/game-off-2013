@@ -33,3 +33,8 @@ Wanting to make a good impression, you agree to cook the turkey…
 ## Backup Mirror
 * http://fernjager.net/game/index.html
 
+## Licenses and Credit
+* ![CC](http://i.creativecommons.org/l/by-nc/3.0/88x31.png) Unless indicated otherwise in the credits page, all artwork are licensed under the Creative Commons Attribution-NonCommercial BY-NC by Benjamin Kwok.
+* See credits screen for full attribution of sound assets
+
+
