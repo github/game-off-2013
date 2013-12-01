@@ -176,6 +176,8 @@ function DeathUI(stage, gameState){
 
 	// Show core temperature
 	this.showDeath = function(){
+		gameState.pubsub.publish( "Play", {name:"Explosion", volume:1} );
+
 		stage.addChild( finalImg );
 	 	animation.gotoAndPlay("boom");
 	 	stage.addChild( deathCount );

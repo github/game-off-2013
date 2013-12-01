@@ -159,7 +159,7 @@ function GameState(){
 	queue.loadFile( {id: "res/sound/Kitchen/Oven_Door_Peek_Open.mp3", src:"res/sound/Kitchen/Oven_Door_Peek_Open.mp3"});
     queue.loadFile( {id: "res/sound/Kitchen/Close_Cookbook.mp3", src:"res/sound/Kitchen/Close_Cookbook.mp3"});
     queue.loadFile( {id: "res/sound/Kitchen/Open_Cookbook.mp3", src:"res/sound/Kitchen/Open_Cookbook.mp3"});
-    queue.loadFile( {id: "res/sound/Kitchen/sizzle.mp3", src:"res/sound/Kitchen/sizzle.mp3"} );
+    queue.loadFile( {id: "res/sound/Kitchen/Explosion_Sound.mp3", src:"res/sound/Kitchen/Explosion_Sound.mp3"} );
     queue.loadFile( {id: "res/sound/Kitchen/Double_Beep.mp3", src:"res/sound/Kitchen/Double_Beep.mp3"} );
 
     // Market Items

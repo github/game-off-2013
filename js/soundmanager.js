@@ -27,7 +27,7 @@ function SoundManager( gameState ){
 	createjs.Sound.registerSound("res/sound/Kitchen/Oven_Door_Full_Close.mp3", "Oven_Door_Full_Close");
 	createjs.Sound.registerSound("res/sound/Kitchen/Oven_Door_Peek_Close.mp3", "Oven_Door_Peek_Close");
 	createjs.Sound.registerSound("res/sound/Kitchen/Oven_Door_Peek_Open.mp3", "Oven_Door_Peek_Open");
-	createjs.Sound.registerSound("res/sound/Kitchen/sizzle.mp3", "Sizzle");
+	createjs.Sound.registerSound("res/sound/Kitchen/Explosion_Sound.mp3", "Explosion");
 
 	createjs.Sound.registerSound("res/sound/Kitchen/Open_Cookbook.mp3", "Open_Cookbook");
 	createjs.Sound.registerSound("res/sound/Kitchen/Close_Cookbook.mp3", "Close_Cookbook");
