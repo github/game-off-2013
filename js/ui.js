@@ -662,8 +662,8 @@ function OvenUI( stage, gameState ){
 
 function WindowUI( stage, gameState ){
 
-	var dayNight = new createjs.Bitmap("res/screens/Window/Test4-217.svg");
-	var mood = new createjs.Bitmap("res/screens/Window/Test4TransparencyFull.svg");
+	var dayNight = new createjs.Bitmap("res/screens/Window/Test4-217.png");
+	var mood = new createjs.Bitmap("res/screens/Window/Test4TransparencyFull.png");
 
 	mood.y=30;
 	dayNight.y=30;

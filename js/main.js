@@ -107,11 +107,11 @@ function GameState(){
     // Kitchen Items
     queue.loadFile( {id: "res/screens/KitchenScreen/KitchenScreen.png", src:"res/screens/KitchenScreen/KitchenScreen.png"});
     queue.loadFile( {id: "res/screens/KitchenScreen/FinalConfirmation.png", src:"res/screens/KitchenScreen/FinalConfirmation.png"});
-	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState1Small.svg", src:"res/screens/KitchenScreen/TurkeyState1Small.svg"});
-	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState2Small.svg", src:"res/screens/KitchenScreen/TurkeyState2Small.svg"});
-	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState3Small.svg", src:"res/screens/KitchenScreen/TurkeyState3Small.svg"});
-	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState4Small.svg", src:"res/screens/KitchenScreen/TurkeyState4Small.svg"});
-	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState5Small.svg", src:"res/screens/KitchenScreen/TurkeyState5Small.svg"});
+	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState1Small.png", src:"res/screens/KitchenScreen/TurkeyState1Small.png"});
+	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState2Small.png", src:"res/screens/KitchenScreen/TurkeyState2Small.png"});
+	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState3Small.png", src:"res/screens/KitchenScreen/TurkeyState3Small.png"});
+	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState4Small.png", src:"res/screens/KitchenScreen/TurkeyState4Small.png"});
+	queue.loadFile( {id: "res/screens/KitchenScreen/TurkeyState5Small.png", src:"res/screens/KitchenScreen/TurkeyState5Small.png"});
 
 	queue.loadFile( {id: "res/screens/KitchenScreen/CookbookKitchenGlow.png", src:"res/screens/KitchenScreen/CookbookKitchenGlow.png"});
 	queue.loadFile( {id: "res/screens/KitchenScreen/CookbookKitchen.png", src:"res/screens/KitchenScreen/CookbookKitchen.png"});
@@ -245,7 +245,7 @@ function GameState(){
     queue.loadFile( {id: "res/screens/Window/Win10.png", src:"res/screens/Window/Win10.png"});
     queue.loadFile( {id: "res/screens/Window/Win11.png", src:"res/screens/Window/Win11.png"});
     queue.loadFile( {id: "res/screens/Window/Tree_Animation.png", src:"res/screens/Window/Tree_Animation.png"});
-    queue.loadFile( {id: "res/screens/Window/Test4TransparencyFull.svg", src:"res/screens/Window/Test4TransparencyFull.svg"});
+    queue.loadFile( {id: "res/screens/Window/Test4TransparencyFull.png", src:"res/screens/Window/Test4TransparencyFull.png"});
 
 
 
@@ -282,11 +282,11 @@ function GameState(){
 
     /* all turkeys */
     this.turkeyStates = [
-        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState1Small.svg" ),
-        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState2Small.svg" ),
-        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState3Small.svg" ),
-        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState4Small.svg" ),
-        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState5Small.svg" )
+        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState1Small.png" ),
+        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState2Small.png" ),
+        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState3Small.png" ),
+        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState4Small.png" ),
+        new createjs.Bitmap( "res/screens/KitchenScreen/TurkeyState5Small.png" )
     ];
 
 	this.purchasedItems = [];
