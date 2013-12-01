@@ -21,14 +21,14 @@ Wanting to make a good impression, you agree to cook the turkey…
 * [Firefox](www.firefox.com) - Recommended browser, Gstreamer required for sound on Mac
 * [Chrome 22](https://www.google.com/intl/en/chrome/) - Full compatibility, recommended browser.
 * [Safari 6.0.5](http://www.apple.com/safari/) - Full compatibility, recommended browser.
-* [Internet Explorer 11](http://windows.microsoft.com/en-us/internet-explorer/download-ie) - Not recommended . Sound looping issues
+* [Internet Explorer 11](http://windows.microsoft.com/en-us/internet-explorer/download-ie) - Not recommended. Sound looping issues
 
 ## Authors
 
 * [Robert J. Chen](http://fernjager.net) - Programming
 * [Benjamin Kwok](mailto:tengen1112@gmail.com) - Art
 * [Scott R. Mobley](http://www.linkedin.com/in/mobleyscott) - Math and Dialogue
-* Sheen Kao -  Supreme Commissar Overlord MC 
+* Sheen Kao -  Finite Elements Specialist Supreme
 
 ## Backup Mirror
 * http://fernjager.net/game/index.html
