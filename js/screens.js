@@ -15,7 +15,6 @@ function LoadingScreen( stage, gameState ){
 	this.done.alpha= 0;
 	stage.addChild( this.picture );
 	stage.addChild( this.cooking );
-	stage.addChild( this.done );
 	stage.addChild( this.turkeyState[0] );
 
 	var textContent = new createjs.Text( "0 %", "25px Arial", "black" );
@@ -46,7 +45,7 @@ function LoadingScreen( stage, gameState ){
 		 	that.done.addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
  			that.done.addEventListener( "click",  function(){ gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
 
- 			/*
+			/*
 			that.turkeyState[4].addEventListener( "mouseover", function(){ document.body.style.cursor='pointer'; } );
 		 	that.turkeyState[4].addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
  			that.turkeyState[4].addEventListener( "click",  function(){ gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
@@ -54,6 +53,7 @@ function LoadingScreen( stage, gameState ){
 		}
 	});
 
+	stage.addChild( this.done );
 	stage.addChild( this.pictureFront );
 
 	return {
