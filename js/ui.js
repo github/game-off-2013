@@ -584,7 +584,7 @@ function OvenUI( stage, gameState ){
 				}
 				gameState.oldTime = Date.now();
 			}
-			if( gameState.turkeyBought && dialoguediff > 5*60*1000 ){
+			if( gameState.turkeyBought && dialoguediff > 2*60*1000 ){
 					gameState.pubsub.publish( "ShowDialog", {seq:"Spouse gets surprise movie tickets", autoAdvance:true, random:true} );
 					gameState.oldDialogueTime = Date.now();
 			}
