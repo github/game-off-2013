@@ -18,9 +18,9 @@ Wanting to make a good impression, you agree to cook the turkey…
 
 
 ## Compatibility
-* [Firefox](www.firefox.com) - Recommended  Browser, Gstreamer required for sound on Mac OS
+* [Firefox](www.firefox.com) - Recommended browser, Gstreamer required for sound on Mac
 * [Chrome 22](https://www.google.com/intl/en/chrome/) - Full compatibility, recommended browser.
-* [Safari 6.0.5](http://www.apple.com/safari/) - Some incompatibility with SVG
+* [Safari 6.0.5](http://www.apple.com/safari/) - Full compatibility, recommended browser.
 * [Internet Explorer 11](http://windows.microsoft.com/en-us/internet-explorer/download-ie) - Not recommended . Sound looping issues
 
 ## Authors
