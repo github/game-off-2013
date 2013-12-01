@@ -754,6 +754,7 @@ return {
 				for( var i in windows ){
 					windows[i].visible = UtilityFunctions.randRange(0,1);
 				}
+
 				// turn on random window lights
 				streetLight.visible = 1;
 			}
@@ -776,6 +777,13 @@ return {
 				}
 
 				streetLight.visible = 0;
+			}
+		}
+
+		// if too many lights are causing an issue on your browser, turn them off
+		if( createjs.Ticker.getMeasuredFPS().toFixed(1) < 13 ){
+			for( var i in windows ){
+				windows[i].visible = 0;
 			}
 		}
 
