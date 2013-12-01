@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA60D1t6aip0un8vts1NUAcQAAAAACAAAAAAAQZgAAAAEAACAAAADThHf8hFVH+oH2nS5TfbmIq2881ehqictzQ+p1MOCB2QAAAAAOgAAAAAIAACAAAAC9ztKX5zpGsNFHPjoxhsJAGy4oBHdErQrlkB0WLfe6LSAAAACOJ9Tji69PvX8M5DloRTeDOylSMlm7GOXmD1OBLjBp5EAAAADUP6E99BGEkg3OAjiyc26QwcmT4S0deS2TLC4PkmZcL8Koqt0hX9GlHTnalZh2zltWZWdgKBK2IY8ctyqFS7n6</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/DungeonFall.dll">
+      <publishTime>11/17/2013 18:54:16</publishTime>
+    </File>
+    <File Include="bin/index.html">
+      <publishTime>11/14/2013 19:58:55</publishTime>
+    </File>
+    <File Include="data/img/hero.png">
+      <publishTime>11/17/2013 12:31:23</publishTime>
+    </File>
+    <File Include="index.html">
+      <publishTime>11/17/2013 12:55:18</publishTime>
+    </File>
+    <File Include="data/bgm/.placeholder">
+      <publishTime>11/12/2013 19:35:23</publishTime>
+    </File>
+    <File Include="data/img/tiles.png">
+      <publishTime>11/16/2013 11:23:48</publishTime>
+    </File>
+    <File Include="data/map/basedungeon.xml">
+      <publishTime>11/17/2013 12:55:32</publishTime>
+    </File>
+    <File Include="index.css">
+      <publishTime>11/14/2013 19:56:39</publishTime>
+    </File>
+    <File Include="js/entities/dungeon.js">
+      <publishTime>11/17/2013 18:53:07</publishTime>
+    </File>
+    <File Include="js/entities/fallingpiece.js">
+      <publishTime>11/16/2013 14:02:24</publishTime>
+    </File>
+    <File Include="js/entities/hero.js">
+      <publishTime>11/17/2013 18:35:00</publishTime>
+    </File>
+    <File Include="js/entities/hud.js">
+      <publishTime>11/14/2013 19:56:39</publishTime>
+    </File>
+    <File Include="js/game.js">
+      <publishTime>11/17/2013 12:23:56</publishTime>
+    </File>
+    <File Include="js/piecehelper.js">
+      <publishTime>11/16/2013 11:25:58</publishTime>
+    </File>
+    <File Include="js/resources.js">
+      <publishTime>11/17/2013 12:33:23</publishTime>
+    </File>
+    <File Include="js/screens/loading.js">
+      <publishTime>11/12/2013 19:35:23</publishTime>
+    </File>
+    <File Include="js/screens/play.js">
+      <publishTime>11/14/2013 20:55:37</publishTime>
+    </File>
+    <File Include="js/screens/title.js">
+      <publishTime>11/12/2013 19:35:23</publishTime>
+    </File>
+    <File Include="lib/astar.js">
+      <publishTime>11/16/2013 12:09:42</publishTime>
+    </File>
+    <File Include="lib/graph.js">
+      <publishTime>11/16/2013 12:09:42</publishTime>
+    </File>
+    <File Include="lib/melonJS-0.9.10.js">
+      <publishTime>11/14/2013 21:16:38</publishTime>
+    </File>
+    <File Include="lib/plugins/debugPanel.js">
+      <publishTime>11/14/2013 19:56:39</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>11/14/2013 22:16:22</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
