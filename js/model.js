@@ -75,7 +75,7 @@ function OvenModel( turkeyWeight, gameState ) {
 	this.steadyTimer = 0;
 	this.globalTime = 0;
 
-	var turkey = new TurkeyModel(9.07185, this );
+	var turkey = new TurkeyModel( UtilityFunctions.lbs2kgs(turkeyWeight), this );
 
 	var proportional = 0.004; // This value is arbitrary to how fast you want the temperatures to converge. (Or oscillate, which could be realistic as well)
 	var errorTolerance = 10; //Stove is accurate to 1 degree Celcius Should hopefully oscillate below that value.

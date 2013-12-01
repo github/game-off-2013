@@ -741,9 +741,9 @@ function WindowUI( stage, gameState ){
 	var ground = new createjs.Bitmap( "res/screens/Window/Ground.png" );
 	var houses = new createjs.Bitmap( "res/screens/Window/Housefar.png" );
 	var streetLight = new createjs.Bitmap( "res/screens/Window/StreetlightGlow.png" );
-	streetLight.alpha = 0;
+	streetLight.alpha = 1;
 	var stars = new createjs.Bitmap( "res/screens/Window/Stars.png" );
-	stars.alpha = 0;
+	stars.alpha = 1;
 
 	var treeAnimations = { rustle:{ frames:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], next:false } };
 	var data = {
