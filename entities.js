@@ -366,11 +366,9 @@ function setFiring(plyr) {
 			var normX = diffX/Math.sqrt(diffX * diffX + diffY * diffY);
 			var normY = diffY/Math.sqrt(diffX * diffX + diffY * diffY);
 
-			console.log(plyr.pno);
 			bullets.push({x:rPoints.x,y:rPoints.y,vx:normX * 20,vy:normY * 20,p:plyr.pno});
-			debugger;
 			if (recording == 1) {
-				recordingData.bullets[cte] = ({x:rPoints.x,y:rPoints.y,vx:normX * 20,vy:normY * 20});
+				recordingData.bullets[cte] = ({x:rPoints.x,y:rPoints.y,vx:normX * 20,vy:normY * 20,p:activePlayer.pno});
 			}
 		}
 
