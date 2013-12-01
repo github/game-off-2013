@@ -1,5 +1,5 @@
-![Chromacore - In-Game Screenshot](https://github.com/Murkantilism/game-off-2013/blob/master/ChromacoreEarlyConceptArt.jpg)
-![Chromacore - Early Concept Art](https://github.com/Murkantilism/game-off-2013/blob/master/ChromacoreInGameScreenshot.png)
+![Chromacore - In-Game Screenshot](https://raw.github.com/Murkantilism/game-off-2013/master/ChromacoreInGameScreenshot.png)
+![Chromacore - Early Concept Art](https://raw.github.com/Murkantilism/game-off-2013/master/ChromacoreEarlyConceptArt.jpg)
 
 ## Desciption
 
