@@ -1,0 +1,219 @@
+<html>
+	<head>
+		<title>GGJ2013 entry</title>
+		<style type='text/css'>
+			@font-face{
+				font-family: pixelFont;
+				src: url(minecraftia.ttf)
+			}
+
+			body {
+				font-family: pixelFont;
+				-webkit-font-smoothing: none;
+
+			}
+
+			#btns {
+				position:absolute;
+				left:416px;
+				top:647px;
+				width:200px;
+				height:75px;
+				background-color:#0C1713;
+			}
+
+			#txtbuttons {
+				cursor: pointer;
+				width:200px;
+				text-align: center;
+				height:75px;
+				color:#C43434;
+				font-size: 35px;
+				line-height: 75px;
+			}
+
+			#title {
+				position:absolute;
+				font-size:80px;
+			}
+
+			#c {
+				background-image:url(bg.png);
+			}
+		</style>
+	</head>
+	<body>
+		<div style='position:absolute;right:0px;top0px;width:150px;height:500px;background-color:grey;padding:8px;margin:0px;'>
+			<div>
+				<button onclick='record(30,player1)'>Record/restore</button>
+			</div>
+			<div>
+				<button onclick='playBack(player1)'>Play back</button>
+			</div>
+		</div>
+		<!-- <div id = 'title'>
+			Dangerous Chef
+			
+			Pioneer
+		</div> -->
+
+		<div id = 'btns'>
+			<div id='txtbuttons'>
+				<div onclick='playGame()'>Play</div>
+			</div>
+		</div>
+		<canvas id='c' width='1024' height='640'></canvas>
+		<!-- 
+			32 * 20
+		-->
+		<script type='text/javascript' src='mapGen.js'></script>
+		<script type='text/javascript' src='entities.js'></script>
+		<script type='text/javascript' src='jQuery.js'></script>
+		<script type='text/javascript' src='math.js'></script>
+		<!--<script type='text/javascript' src='pathfinding.js'></script>-->
+		<script type='text/javascript'>
+			window.requestAnimFrame = (function(){
+				return  window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function( callback ){window.setTimeout(callback, 17);
+				};
+			})();
+
+			window.keys = [];
+			window.t = 0;
+			window.playingBack = 0;
+			window.activePlayer = false;
+			window.cte = 0;
+			window.cIndex = 0;
+			window.recording = 0;
+			window.draw1 = [0,0];
+			window.draw2 = [0,0];
+			window.ct = 0;
+			window.firing = 0;
+
+			window.mPos = {x:0,y:0};
+
+			window.tDelta = 1;
+			window.addEventListener("keydown", function (e) {
+				keys[e.keyCode] = true;
+				// if (keys[87] || keys[65] || keys[83] || keys[68]) {
+				// 	tDelta = 1;
+				// }
+
+				if (activePlayer) {
+					if (e.keyCode == 87 || e.keyCode == 83) {
+						activePlayer.decaying['y'] = false;
+					}
+
+					if (e.keyCode == 65 || e.keyCode == 68) {
+						activePlayer.decaying['x'] = false;
+					}
+				}
+
+				if (e.keyCode == 74) {
+					debugger;
+				}
+			});
+
+			window.addEventListener("keyup", function (e) {
+				keys[e.keyCode] = false;
+				if (activePlayer) {
+					if (e.keyCode == 87 || e.keyCode == 83) {
+						activePlayer.decaying['y'] = true;
+					}
+
+					if (e.keyCode == 65 || e.keyCode == 68) {
+						activePlayer.decaying['x'] = true;
+					}
+
+
+					// if (!keys[87] && !keys[65] && !keys[83] && !keys[68]) {
+					// 	tDelta = 0;
+					// }
+				}
+			});
+
+			var canvas = document.getElementById('c');
+			canvas.addEventListener('mousedown', function() {
+				firing = 1;
+			});
+
+			window.addEventListener('mouseup', function() {
+				firing = 0;
+				ct = 0;
+			});
+
+			canvas.addEventListener('mousemove', function(e) {
+				mPos['x'] = e.offsetX;
+				mPos['y'] = e.offsetY;
+			});
+
+			var ctx = canvas.getContext('2d');
+			ctx.webkitImageSmoothingEnabled = ctx.mozImageSmoothingEnabled = false;
+			var player1 = new mainCharacter(0,304,ctx);
+			var player2 = new mainCharacter(994,304,ctx);
+
+			// ctx.fillStyle = 'rgb(200,0,0)';
+
+			var mapData = setMap({ "height":20,"layers":[{"data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],"height":20,"name":"Tile Layer 3","opacity":1,"type":"tilelayer","visible":true,"width":32,"x":0,"y":0}],"orientation":"orthogonal","properties":{},"tileheight":8,"tilesets":[{"firstgid":1,"image":"..\/Downloads\/tiles.png","imageheight":120,"imagewidth":128,"margin":0,"name":"tiles","properties":{},"spacing":0,"tileheight":8,"tilewidth":8}],"tilewidth":8,"version":1,"width":32})
+
+
+			function bullet (sx,sy,vx,vy) {
+				this.sx = sx;
+				this.sy = sy;
+				this.vx = vx; //pixels / second
+				this.vy = vy;
+			}
+
+			bullets = [];
+			//var bullet = {sx:0,sy:0,vx:10,vy:10}
+
+			for (var z in player1.handlers) {
+				player1.handlers[z]();
+			}
+
+			for (var z in player2.handlers) {
+				player2.handlers[z]();
+			}
+
+
+
+			(function renderLoop(){
+				// tDelta += Math.abs(Math.sin(new Date().getTime()));
+				// if (titleScreen) {
+				// }
+				// else {
+					cte++;
+					
+					ctx.clearRect(0,0,1024,640);
+					ctx.fillStyle = "rgb(100,100,100)"
+					ctx.fillRect(0,0,1024,640,.3)
+					if (activePlayer == player1) {
+						player1.keyHandlers();
+						setFiring(player1);
+					}
+					else {
+						if (activePlayer == player2) {
+							player2.keyHandlers();
+							setFiring(player2);
+						}
+					}
+					drawMap(mapData,ctx);
+					calcDecay();
+
+					drawBullets();
+					player1.draw();
+					player2.draw();
+
+					// ctx.beginPath();
+					// ctx.lineTo(draw1[0],draw1[1]);
+					// ctx.lineTo(draw2[0],draw2[1]);
+					// ctx.closePath();
+					// ctx.stroke();
+					recordFrame();
+					playBackFrame();
+					requestAnimFrame(renderLoop);
+				// }
+			})();
+
+		</script>
+	</body>
+</html>
