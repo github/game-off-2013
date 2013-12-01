@@ -101,7 +101,8 @@ function DialogUI( stage, gameState ){
 
  		that.endFunc = textSeq.endFunc || function(){};
 
- 		that.textContent.text=nextDialogue[1].replace(/\[GenderPronoun\]/g, gameState.pronoun ).replace(/\[Player\]/g, gameState.name );
+ 		that.textContent.text=nextDialogue[1].replace(/\[GenderPronoun\]/g, gameState.pronoun ).replace(/\[Player\]/g, gameState.name || "Sam" );
+
  		that.currentFace.y = 250;
  		that.currentFace = peopleImg[nextDialogue[0]] || that.currentFace;
  		that.autoAdvance = textSeq.autoAdvance;
@@ -137,7 +138,7 @@ function DialogUI( stage, gameState ){
  			var nextDialogue = that.currDialogueSeq.next();
 
  			that.dialogMotionQueue.push(DIALOG_SHOWING);
- 			that.textContent.text=nextDialogue[1];
+ 			that.textContent.text=nextDialogue[1].replace(/\[GenderPronoun\]/g, gameState.pronoun ).replace(/\[Player\]/g, gameState.name || "Sam" );
  			if(DEBUG) console.log("showing face:" +nextDialogue[0] );
 
  			// swap out face immediately
