@@ -246,6 +246,7 @@ function GameState(){
     queue.loadFile( {id: "res/screens/Window/Win11.png", src:"res/screens/Window/Win11.png"});
     queue.loadFile( {id: "res/screens/Window/Tree_Animation.png", src:"res/screens/Window/Tree_Animation.png"});
     queue.loadFile( {id: "res/screens/Window/Test4TransparencyFull.png", src:"res/screens/Window/Test4TransparencyFull.png"});
+    queue.loadFile( {id: "res/screens/Window/Stars.png", src:"res/screens/Window/Stars.png"});
 
 
 

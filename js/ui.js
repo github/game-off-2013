@@ -742,6 +742,8 @@ function WindowUI( stage, gameState ){
 	var houses = new createjs.Bitmap( "res/screens/Window/Housefar.png" );
 	var streetLight = new createjs.Bitmap( "res/screens/Window/StreetlightGlow.png" );
 	streetLight.alpha = 0;
+	var stars = new createjs.Bitmap( "res/screens/Window/Stars.png" );
+	stars.alpha = 0;
 
 	var treeAnimations = { rustle:{ frames:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], next:false } };
 	var data = {
@@ -763,18 +765,17 @@ function WindowUI( stage, gameState ){
     stage.addChild( dayNight );
     stage.addChild( ground );
     stage.addChild( houses );
+    stage.addChild( stars );
     stage.addChild( animation );
     stage.addChild( mood );
 
     for( var i in smallWindows ){
     	smallWindows[i].visible = UtilityFunctions.randRange(0,1);
-    	streetLight.alpha= 1;
     	stage.addChild( smallWindows[i] );
     }
 
     for( var i in windows ){
     	windows[i].visible = UtilityFunctions.randRange(0,1);
-    	streetLight.alpha= 1;
     	stage.addChild( windows[i] );
     }
     stage.addChild( streetLight );
@@ -804,6 +805,7 @@ return {
 
 				// turn on random window lights
 				streetLight.alpha= 1;
+				stars.alpha = 1;
 			}
 			else if( dayNight.x < -11687 ){
 				for( var i in smallWindows ){
@@ -813,6 +815,7 @@ return {
 					windows[i].visible = UtilityFunctions.randRange(0,1);
 				}
 				streetLight.alpha= 1;
+				stars.alpha = 1;
 			}
 			// daytime, turn off all lights
 			else{
@@ -824,6 +827,7 @@ return {
 				}
 
 				streetLight.alpha= 0;
+				stars.alpha = 0;
 			}
 		}
 
