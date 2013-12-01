@@ -26,7 +26,7 @@ Wanting to make a good impression, you agree to cook the turkey…
 ## Authors
 
 * [Robert J. Chen](http://fernjager.net) - Programming
-* [Benjamin Kwok](tengen1112@gmail.com) - Art
+* [Benjamin Kwok](mailto:tengen1112@gmail.com) - Art
 * [Scott R. Mobley](http://www.linkedin.com/in/mobleyscott) - Math and Dialogue
 * Sheen Kao -  Supreme Commissar Overlord MC 
 
