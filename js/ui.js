@@ -696,9 +696,9 @@ function WindowUI( stage, gameState ){
     stage.addChild( dayNight );
     stage.addChild( ground );
     stage.addChild( houses );
-    stage.addChild( streetLight );
     stage.addChild( animation );
     stage.addChild( mood );
+    stage.addChild( streetLight );
 return {
 
 	tick: function(){
