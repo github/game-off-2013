@@ -73,7 +73,7 @@ game.Mob = me.ObjectEntity.extend({
 
         // Distribute stats
 
-        var points = Math.floor(this.Level * 1.5);
+        var points = Math.floor((this.Level) * 1.6);
         for (var i = 0; i < points; i++) {
             var r = Math.floor(Math.random() * 3);
             switch (r) {
@@ -246,7 +246,7 @@ game.Mob = me.ObjectEntity.extend({
 
         if (this.HP <= 0) {
             this.die();
-            var reward = ((this.Level+ this.HPMax) * (game.Level * 2));
+            var reward = ((this.Level+ this.HPMax) * (game.Level));
             hero.XP += reward;
             game.HUD.addFloatyText(new me.Vector2d(hero.pos.x + 3 + Math.floor(Math.random() * 16), hero.pos.y), reward + "XP", "blue", 1.5);
             game.HUD.addLine("Hero gains " + reward + " experience!");

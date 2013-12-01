@@ -378,7 +378,7 @@ game.Hero = me.ObjectEntity.extend({
             this.Level++;
             this.LastXPTNL = this.XPTNL;
             this.XP -= this.XPTNL;
-            this.XPTNL = 50 + (50 * this.Level);
+            this.XPTNL = 50 + (60 * this.Level);
             this.HPMax += this.Level;
             this.HP = this.HPMax;
             game.HUD.addFloatyText(new me.Vector2d((this.pos.x - 50) + Math.floor(Math.random() * 16), this.pos.y - 16), "Level Up!", "gold", 2);
