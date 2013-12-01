@@ -1,3 +1,10 @@
+<!-- Todo:
+•Add in hit detection for bullets and people
+•add in sequencing etc
+•bar at top for time
+
+ -->
+
 <html>
 	<head>
 		<title>GGJ2013 entry</title>
@@ -10,21 +17,26 @@
 			body {
 				font-family: pixelFont;
 				-webkit-font-smoothing: none;
-
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
 			}
 
 			#btns {
 				position:absolute;
-				left:416px;
+				/*left:320px;*/
 				top:647px;
-				width:200px;
+				width:1024px;
 				height:75px;
 				background-color:#0C1713;
 			}
 
 			#txtbuttons {
 				cursor: pointer;
-				width:200px;
+				width:1024px;
 				text-align: center;
 				height:75px;
 				color:#C43434;
@@ -34,7 +46,53 @@
 
 			#title {
 				position:absolute;
+				left:113px;
 				font-size:80px;
+				text-align:center;
+				color: #C43434;
+				text-shadow:
+				-3px -3px 0 #000,
+				3px -3px 0 #000,
+				-3px 3px 0 #000,
+				3px 3px 0 #000;
+				z-index: 4;
+			}
+
+			#desc {
+				position:absolute;
+				color: #EEE;
+				top:260px;
+				font-size:14px;
+				width:900px;
+				left:60px;
+				padding:6px;
+				padding-left:25px;
+				padding-top:16px;
+				padding-bottom:16px;
+				z-index: 0;
+				background-color:#0C1713;
+			}
+
+			#loader {
+				position:absolute;
+				top:663px;
+				width:180px;
+				height:45px;
+				left:625px;
+				border:1px solid #EEE;
+				z-index: 1;
+			}
+
+			#loaderinner {
+				position:absolute;
+				top:663px;
+				width:0px;
+				background-color:#C43434;
+				height:45px;
+				left:625px;
+				border:1px solid #EEE;
+				border-right:none;
+				z-index: 1;
 			}
 
 			#c {
@@ -43,19 +101,43 @@
 		</style>
 	</head>
 	<body>
-		<div style='position:absolute;right:0px;top0px;width:150px;height:500px;background-color:grey;padding:8px;margin:0px;'>
+		<!-- <div style='position:absolute;right:0px;top0px;width:150px;height:500px;background-color:grey;padding:8px;margin:0px;'>
 			<div>
-				<button onclick='record(30,player1)'>Record/restore</button>
+				<button onclick='record(5,player1)'>Record/restore</button>
 			</div>
 			<div>
 				<button onclick='playBack(player1)'>Play back</button>
 			</div>
-		</div>
-		<!-- <div id = 'title'>
-			Dangerous Chef
-			
-			Pioneer
 		</div> -->
+		<div id='loader'>
+			
+		</div>
+
+		<div id='loaderinner'>
+			
+		</div>
+
+		<div id = 'title'>
+			Dangerous Chef
+			<br>
+			Pioneer
+		</div>
+
+		<div id = 'desc'>
+			<center>"Dangerous Chef Pioneer" is a psychological top down shooter game. </br></center>
+			<p></p>
+			There are two players. Each one takes turns controlling their character for 5 seconds into the future of the game (with the one not taking his/her turn looking away). Then, the two turns are combined, and the result is shown on the screen to both players in real time. The game then repeats until one player destroys the other.</br>
+			<p></p>
+			Controls:</br>
+			Press the button at the bottom to move through the game.</br>
+			To control characters (turn by turn), use WASD to move and the mouse to shoot.
+			<p></p>
+			NOTE:</br>
+			Player 1 is <span style='color:rgb(120,0,0);'>RED</span> <br>
+			Player 2 is <span style='color:rgb(184,94,23);'>ORANGE</span>
+		</br>
+
+		</div>
 
 		<div id = 'btns'>
 			<div id='txtbuttons'>
@@ -78,6 +160,7 @@
 			})();
 
 			window.keys = [];
+			window.stopped = 0;
 			window.t = 0;
 			window.playingBack = 0;
 			window.activePlayer = false;
@@ -90,6 +173,8 @@
 			window.firing = 0;
 
 			window.mPos = {x:0,y:0};
+			$('#loader').hide();
+			$('#loaderinner').hide();
 
 			window.tDelta = 1;
 			window.addEventListener("keydown", function (e) {
@@ -98,7 +183,7 @@
 				// 	tDelta = 1;
 				// }
 
-				if (activePlayer) {
+				if (activePlayer && recording == 1) {
 					if (e.keyCode == 87 || e.keyCode == 83) {
 						activePlayer.decaying['y'] = false;
 					}
@@ -115,19 +200,14 @@
 
 			window.addEventListener("keyup", function (e) {
 				keys[e.keyCode] = false;
-				if (activePlayer) {
+				if (activePlayer && recording == 1) {
 					if (e.keyCode == 87 || e.keyCode == 83) {
-						activePlayer.decaying['y'] = true;
+						activePlayer.decaying.y = true;
 					}
 
 					if (e.keyCode == 65 || e.keyCode == 68) {
-						activePlayer.decaying['x'] = true;
+						activePlayer.decaying.x = true;
 					}
-
-
-					// if (!keys[87] && !keys[65] && !keys[83] && !keys[68]) {
-					// 	tDelta = 0;
-					// }
 				}
 			});
 
@@ -142,18 +222,18 @@
 			});
 
 			canvas.addEventListener('mousemove', function(e) {
-				mPos['x'] = e.offsetX;
-				mPos['y'] = e.offsetY;
+				mPos.x = e.offsetX;
+				mPos.y = e.offsetY;
 			});
 
 			var ctx = canvas.getContext('2d');
 			ctx.webkitImageSmoothingEnabled = ctx.mozImageSmoothingEnabled = false;
-			var player1 = new mainCharacter(0,304,ctx);
-			var player2 = new mainCharacter(994,304,ctx);
+			var player1 = new mainCharacter(32,304,ctx,1);
+			var player2 = new mainCharacter(962,304,ctx,2);
 
 			// ctx.fillStyle = 'rgb(200,0,0)';
 
-			var mapData = setMap({ "height":20,"layers":[{"data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],"height":20,"name":"Tile Layer 3","opacity":1,"type":"tilelayer","visible":true,"width":32,"x":0,"y":0}],"orientation":"orthogonal","properties":{},"tileheight":8,"tilesets":[{"firstgid":1,"image":"..\/Downloads\/tiles.png","imageheight":120,"imagewidth":128,"margin":0,"name":"tiles","properties":{},"spacing":0,"tileheight":8,"tilewidth":8}],"tilewidth":8,"version":1,"width":32})
+			var mapData = setMap({ "height":20,"layers":[{"data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],"height":20,"name":"Tile Layer 3","opacity":1,"type":"tilelayer","visible":true,"width":32,"x":0,"y":0}],"orientation":"orthogonal","properties":{},"tileheight":8,"tilesets":[{"firstgid":1,"image":"..\/Downloads\/tiles.png","imageheight":120,"imagewidth":128,"margin":0,"name":"tiles","properties":{},"spacing":0,"tileheight":8,"tilewidth":8}],"tilewidth":8,"version":1,"width":32})
 
 
 			function bullet (sx,sy,vx,vy) {
@@ -177,15 +257,10 @@
 
 
 			(function renderLoop(){
-				// tDelta += Math.abs(Math.sin(new Date().getTime()));
-				// if (titleScreen) {
-				// }
-				// else {
+				if (!stopped) {
 					cte++;
-					
 					ctx.clearRect(0,0,1024,640);
 					ctx.fillStyle = "rgb(100,100,100)"
-					ctx.fillRect(0,0,1024,640,.3)
 					if (activePlayer == player1) {
 						player1.keyHandlers();
 						setFiring(player1);
@@ -196,7 +271,7 @@
 							setFiring(player2);
 						}
 					}
-					drawMap(mapData,ctx);
+					// drawMap(mapData,ctx);
 					calcDecay();
 
 					drawBullets();
@@ -210,8 +285,11 @@
 					// ctx.stroke();
 					recordFrame();
 					playBackFrame();
+					if (playingBack == 1) {
+						checkBulletsPlayers();
+					}
 					requestAnimFrame(renderLoop);
-				// }
+				}
 			})();
 
 		</script>

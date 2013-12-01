@@ -330,3 +330,28 @@ function calcDecay() {
 		}
 	}
 }
+
+function checkBulletsPlayers() {
+	for (var blt in bullets) {
+		var ang = Math.atan(bullets[blt]["vy"]/bullets[blt]["vx"]);
+		var bulletVertices = [
+			rotatePoint(bullets[blt]["x"], bullets[blt]["y"], bullets[blt]["x"] + 5, bullets[blt]["y"] + 3, ang),
+			rotatePoint(bullets[blt]["x"] + 10, bullets[blt]["y"], bullets[blt]["x"] + 5, bullets[blt]["y"] + 3, ang),
+			rotatePoint(bullets[blt]["x"] + 10, bullets[blt]["y"] + 6, bullets[blt]["x"] + 5, bullets[blt]["y"] + 3, ang),
+			rotatePoint(bullets[blt]["x"], bullets[blt]["y"] + 6, bullets[blt]["x"] + 5, bullets[blt]["y"] + 3, ang)
+		];
+		if (bullets[blt].p == 2) {
+			if (doPolygonsIntersect(bulletVertices,[{x:player1.x,y:player1.y},{x:player1.x + player1.getWidth(),y:player1.y},{x:player1.x + player1.getWidth(),y:player1.y + player1.getHeight()},{x:player1.x,y:player1.y + player1.getHeight()}])) {
+				win("Player 2");
+				return true;
+			}
+		}
+		
+		if (bullets[blt].p == 1) {
+			if (doPolygonsIntersect(bulletVertices,[{x:player2.x,y:player2.y},{x:player2.x + player2.getWidth(),y:player2.y},{x:player2.x + player2.getWidth(),y:player2.y + player2.getHeight()},{x:player2.x,y:player2.y + player2.getHeight()}])) {
+				win("Player 1");
+				return true;
+			}
+		}
+	}
+}
