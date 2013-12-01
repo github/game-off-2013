@@ -43,11 +43,11 @@ function LoadingScreen( stage, gameState ){
 
 			that.done.addEventListener( "mouseover", function(){ document.body.style.cursor='pointer'; } );
 		 	that.done.addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
- 			that.done.addEventListener( "click",  function(){ if( (percent * 25).toFixed(2) == 100 ) gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
+ 			that.done.addEventListener( "click",  function(){ gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
 
 			that.turkeyState[4].addEventListener( "mouseover", function(){ document.body.style.cursor='pointer'; } );
 		 	that.turkeyState[4].addEventListener( "mouseout", function(){ document.body.style.cursor='default'; } );
- 			that.turkeyState[4].addEventListener( "click",  function(){ if( (percent * 25).toFixed(2) == 100 ) gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
+ 			that.turkeyState[4].addEventListener( "click",  function(){ gameState.pubsub.publish("SwitchScreen", "MainScreen"); });
 		}
 	});
 
