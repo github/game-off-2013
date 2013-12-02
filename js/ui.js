@@ -770,9 +770,10 @@ function WindowUI( stage, gameState ){
     stage.addChild( dayNight );
     stage.addChild( ground );
     stage.addChild( houses );
+    stage.addChild( stars );
     stage.addChild( animation );
     stage.addChild( mood );
-    stage.addChild( stars );
+    
 
     for( var i in smallWindows ){
     	smallWindows[i].visible = UtilityFunctions.randRange(0,1);

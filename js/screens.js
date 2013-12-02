@@ -441,7 +441,7 @@ function ScoreScreen( stage, gameState ){
 	};
 
 	// Temperature Score
-	var outerTemp = UtilityFunctions.C2F(turkeyState.skin.temp).toFixed(2);
+	var outerTemp = UtilityFunctions.C2F(turkeyState.skin.highest).toFixed(2);
 	var coreTemp = UtilityFunctions.C2F(turkeyState.core.temp).toFixed(2);
 
 	var outerTempScore = that.scoreDistribution( outerTemp, "skin" ) * 200;
@@ -454,13 +454,13 @@ function ScoreScreen( stage, gameState ){
 
 
 	resultsDialogue = [];
-	if (totalScore>=2000) {
+	if (totalScore>=4000) {
 		randomDiag = perfect;
 	}
-	else if (totalScore>=1200) {
+	else if (totalScore>=2500) {
 		randomDiag = great;
 	}
-	else if (totalScore>=625) {
+	else if (totalScore>=800) {
 		randomDiag = average;
 	}
 	else if (totalScore>=300) {
@@ -594,14 +594,13 @@ function ScoreScreen( stage, gameState ){
 
 		// Modifiers
 		var turkeyMod = typeToMod[gameState.turkeyType];
-		var turkeyTypeModifierText = new createjs.Text( ((1-turkeyMod)*100).toFixed(0) + "%", "20px Arial", "black" );
+		var turkeyTypeModifierText = new createjs.Text( -1*((1-turkeyMod)*100).toFixed(0) + "%", "20px Arial", "black" );
 		turkeyTypeModifierText.x = 310;
 		turkeyTypeModifierText.y = 437;
 
 		totalScore *= turkeyMod;
 
-
-		var stuffingTypeModifierText = new createjs.Text( ((1-gameState.stuffingTypeModifier)*100).toFixed(0)+"%" , "20px Arial", "black" );
+		var stuffingTypeModifierText = new createjs.Text( -1*((1-gameState.stuffingTypeModifier)*100).toFixed(0)+"%" , "20px Arial", "black" );
 		stuffingTypeModifierText.x = 310
 		stuffingTypeModifierText.y = 457;
 
