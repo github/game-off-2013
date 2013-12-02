@@ -3,8 +3,8 @@
 ## Overview
 
 It is another Thanksgiving holiday, a time of retrospect and blessings.
-You have been invited over for dinner.
-Wanting to make a good impression, you agree to cook the turkey…
+
+You have been invited to craft the centerpiece of the American thanksgiving dinner, the turkey. Apply your culinary expertise to impress your family! Impress your girlfriend / boyfriend and be judged your future in-laws.
 
 ## Turkey Cooking Simulator Features:
 * Real-time cooking action!
@@ -14,8 +14,6 @@ Wanting to make a good impression, you agree to cook the turkey…
 * Day-night environmental cycle!
 * High-definition stereo audio!
 * Masterfully crafted scenes of an American household!
-* Apply your culinary expertise to impress your family!
-
 
 ## Compatibility
 * [Firefox](www.firefox.com) - Recommended browser, Gstreamer required for sound on Mac
@@ -25,10 +23,10 @@ Wanting to make a good impression, you agree to cook the turkey…
 
 ## Authors
 
-* [Robert J. Chen](http://fernjager.net) - Programming
-* [Benjamin Kwok](mailto:tengen1112@gmail.com) - Art
-* [Scott R. Mobley](http://www.linkedin.com/in/mobleyscott) - Math and Dialogue
-* Sheen Kao -  Finite Elements Specialist Supreme
+* [Scott R. Mobley](http://www.linkedin.com/in/mobleyscott) - Turkey Overlord and Master of Dialogue
+* [Robert J. Chen](http://fernjager.net) - Javascript Wizard
+* [Benjamin Kwok](mailto:tengen1112@gmail.com) - Unpaid Art Peasant
+* Sheen Kao -  Finite Elementalist Supreme
 
 ## Backup Mirror
 * http://fernjager.net/game/index.html
