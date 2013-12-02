@@ -12,7 +12,7 @@ You have been invited to craft the centerpiece of the American thanksgiving dinn
 * Hours of gripping stories and drama!
 * Accessorize your turkey with stuffing, frills, and other awesomeness!
 * Day-night environmental cycle!
-* High-definition stereo audio!
+* High-fidelity stereo audio!
 * Masterfully crafted scenes of an American household!
 
 ## Compatibility
