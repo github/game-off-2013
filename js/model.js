@@ -261,26 +261,26 @@ UtilityFunctions = {
 
 		if( layerName == "Skin" || layerName == "Body" ){
 			var multiplier = 1;
-			if (cookValue>=multiplier*400000) {
-				return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
+			if (cookValue>=multiplier*500000) {
+				return ["Fire", (cookValue-500000)/(multiplier*600000),"fire"];
 			}
 			else if(cookValue>=multiplier*350000) {
-				return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
+				return ["Burnt", (cookValue-350000)/(multiplier*600000), "burnt"];
 			}
 			else if (cookValue>=multiplier*300000) {
-				return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
+				return ["Dry", (cookValue-300000)/(multiplier*350000), "dry"];
 			}
 			else if (cookValue>=multiplier*250000){ // >250000
-				return ["Cooked", (cookValue-12000)/(multiplier*150000), "overcooked"];
+				return ["Cooked", (cookValue-250000)/(multiplier*300000), "overcooked"];
 			}
 			else if (cookValue>=multiplier*80000) { // >50000
-				return ["Cooked", (cookValue-12000)/(multiplier*150000), "cooked"];
+				return ["Cooked", (cookValue-80000)/(multiplier*250000), "cooked"];
 			}
 			else if (cookValue>=multiplier*50000){
-				return ["Undercooked", (cookValue-5000)/(multiplier*10000), "slightly cooked"];
+				return ["Undercooked", (cookValue-50000)/(multiplier*80000), "slightly cooked"];
 			}
 			else if (cookValue>=multiplier*25000) { //
-				return ["Undercooked", (cookValue-5000)/(multiplier*10000), "undercooked"];
+				return ["Undercooked", (cookValue-25000)/(multiplier*50000), "undercooked"];
 			}
 			else {
 				return ["Raw", 1, "raw"];
@@ -289,22 +289,22 @@ UtilityFunctions = {
 		else{
 			var multiplier = 1;
 			if (cookValue>=multiplier*45000) { //
-				return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
+				return ["Fire", (cookValue-45000)/(multiplier*600000),"fire"];
 			}
 			else if(cookValue>=multiplier*35000){//
-				return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
+				return ["Burnt", (cookValue-35000)/(multiplier*45000), "burnt"];
 			}
 			else if (cookValue>=multiplier*25000){ // 
-				return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
+				return ["Dry", (cookValue-25000)/(multiplier*35000), "dry"];
 			}
 			else if (cookValue>=multiplier*22000){ //
-				return ["Cooked", (cookValue-22000)/(multiplier*150000), "overcooked"];
+				return ["Cooked", (cookValue-22000)/(multiplier*25000), "overcooked"];
 			}
 			else if (cookValue>=multiplier*12000){ //
-				return ["Cooked", (cookValue-12000)/(multiplier*85000), "cooked"];
+				return ["Cooked", (cookValue-12000)/(multiplier*22000), "cooked"];
 			}
 			else if (cookValue>=multiplier*7000){ //
-				return ["Undercooked", (cookValue-7000)/(multiplier*7000), "slightly cooked"];
+				return ["Undercooked", (cookValue-7000)/(multiplier*12000), "slightly cooked"];
 			}
 			else if (cookValue>=multiplier*3000) {
 				return ["Undercooked", (cookValue-3000)/(multiplier*7000), "undercooked"];
