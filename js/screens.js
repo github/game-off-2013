@@ -601,7 +601,7 @@ function ScoreScreen( stage, gameState ){
 		totalScore *= turkeyMod;
 
 
-		var stuffingTypeModifierText = new createjs.Text( ((1-gameState.stuffingTypeModifier-1)*100).toFixed(0)+"%" , "20px Arial", "black" );
+		var stuffingTypeModifierText = new createjs.Text( ((1-gameState.stuffingTypeModifier)*100).toFixed(0)+"%" , "20px Arial", "black" );
 		stuffingTypeModifierText.x = 310
 		stuffingTypeModifierText.y = 457;
 
