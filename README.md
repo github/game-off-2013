@@ -21,6 +21,9 @@ You have been invited to craft the centerpiece of the American thanksgiving dinn
 * [Firefox 25](http://www.mozilla.org/en-US/firefox/new/) - Playable. [GStreamer] (http://gstreamer.freedesktop.org/) required for sound on Mac. Sound only plays once on Windows
 * [Internet Explorer 11](http://windows.microsoft.com/en-us/internet-explorer/download-ie) - Not recommended. Sound looping issues.
 
+## Open Source!
+* Uses the CreateJS library for HTML5 Canvas: https://github.com/CreateJS/
+
 ## Authors
 
 * [Scott R. Mobley](http://www.linkedin.com/in/mobleyscott) - Turkey Overlord and Master of Dialogue
@@ -34,7 +37,9 @@ You have been invited to craft the centerpiece of the American thanksgiving dinn
 ## Licenses and Credit
 ![CC](http://i.creativecommons.org/l/by-nc/3.0/88x31.png) 
 
-* Unless indicated otherwise in the credits page, all artwork are licensed under the Creative Commons Attribution-NonCommercial BY-NC by Benjamin Kwok.
-* See credits screen for full attribution of sound assets
+* Unless indicated otherwise in the credits page:
+* All artwork are licensed under the Creative Commons Attribution-NonCommercial BY-NC by Benjamin Kwok.
+* All writing are under the same license by Scott Mobley.
+* See credits screen for full attribution of all assets.
 
 
