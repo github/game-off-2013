@@ -42,4 +42,3 @@ You have been invited to craft the centerpiece of the American thanksgiving dinn
 * All writing are under the same license by Scott Mobley.
 * See credits screen for full attribution of all assets.
 
-
