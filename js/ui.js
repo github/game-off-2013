@@ -523,7 +523,7 @@ function OvenUI( stage, gameState ){
 					gameState.pubsub.publish("Death","");
 				gameState.pubsub.publish( "ShowDialog", {seq:"custom", autoAdvance:true, customText:evalSkin[turkeyState["skin"]["cond"][2]] + "." } );
 				gameState.pubsub.publish( "AddRecord", {type:"Open ", text:"The turkey looked " + turkeyState["skin"]["cond"][2]} );
-				//gameState.ovenModel.setRawTemp( (gameState.ovenModel.getRawTemp() - 25) < 150 ? 150 : gameState.ovenModel.getRawTemp() - 25 );
+				gameState.ovenModel.setRawTemp( (gameState.ovenModel.getRawTemp() - 3 ) < 20 ? 20 : gameState.ovenModel.getRawTemp() - 3 );
 				gameState.ovenOpened++;
 			}
 
@@ -595,8 +595,13 @@ function OvenUI( stage, gameState ){
 
     this.secondTick = function(diff){
     		// check if oven door is open
+    		if( that.ovenDoor == OVEN_OPEN ){
+    			gameState.ovenModel.setRawTemp( (gameState.ovenModel.getRawTemp() - 1 ) < 20 ? 20 : gameState.ovenModel.getRawTemp() - 1 );
+    		}
+
     		gameState.ovenModel.secondTick();
     		gameState.currentTime += diff;
+			gameState.turkeyCookCounter++;
 	}
 
 	gameState.pubsub.subscribe( "SkipTime", function(){
@@ -765,9 +770,9 @@ function WindowUI( stage, gameState ){
     stage.addChild( dayNight );
     stage.addChild( ground );
     stage.addChild( houses );
-    stage.addChild( stars );
     stage.addChild( animation );
     stage.addChild( mood );
+    stage.addChild( stars );
 
     for( var i in smallWindows ){
     	smallWindows[i].visible = UtilityFunctions.randRange(0,1);

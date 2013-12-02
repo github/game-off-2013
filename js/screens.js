@@ -405,7 +405,7 @@ function ScoreScreen( stage, gameState ){
     var totalScore = 0;
 
     var skinScoreChart  = {
-    	"raw": 0,
+    	"raw": -1000,
     	"undercooked": -100,
     	"slightly cooked": 75,
     	"cooked": 500,
@@ -419,7 +419,7 @@ function ScoreScreen( stage, gameState ){
     	"undercooked": 125,
     	"slightly cooked": 750,
     	"cooked": 1000,
-    	"overcooked": 1000,
+    	"overcooked": 600,
     	"dry": 400,
     	"burnt": 0
     };
@@ -444,7 +444,7 @@ function ScoreScreen( stage, gameState ){
 	var outerTemp = UtilityFunctions.C2F(turkeyState.skin.temp).toFixed(2);
 	var coreTemp = UtilityFunctions.C2F(turkeyState.core.temp).toFixed(2);
 
-	var outerTempScore = that.scoreDistribution( outerTemp ) * 200;
+	var outerTempScore = that.scoreDistribution( outerTemp, "skin" ) * 200;
 	var coreTempScore = that.scoreDistribution( coreTemp ) * 200;
 
 	totalScore += parseInt(skinScoreChart[ turkeyState.skin.cond[2]]);
@@ -594,14 +594,14 @@ function ScoreScreen( stage, gameState ){
 
 		// Modifiers
 		var turkeyMod = typeToMod[gameState.turkeyType];
-		var turkeyTypeModifierText = new createjs.Text( "+"+(Math.abs(turkeyMod-1)*100).toFixed(0) + "%", "20px Arial", "black" );
+		var turkeyTypeModifierText = new createjs.Text( ((1-turkeyMod)*100).toFixed(0) + "%", "20px Arial", "black" );
 		turkeyTypeModifierText.x = 310;
 		turkeyTypeModifierText.y = 437;
 
 		totalScore *= turkeyMod;
 
 
-		var stuffingTypeModifierText = new createjs.Text( "+"+(Math.abs(gameState.stuffingTypeModifier-1)*100).toFixed(0)+"%" , "20px Arial", "black" );
+		var stuffingTypeModifierText = new createjs.Text( ((1-gameState.stuffingTypeModifier-1)*100).toFixed(0)+"%" , "20px Arial", "black" );
 		stuffingTypeModifierText.x = 310
 		stuffingTypeModifierText.y = 457;
 

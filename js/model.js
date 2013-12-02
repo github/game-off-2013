@@ -6,11 +6,12 @@ function TurkeyLayer( name, layerNumber1, turkeyModel, ovenModel ){
 	this.waterLost = 0;
 	this.finalTemperature = 20;
 	this.cookCondition = "Raw";
-	
+	this.highestTemp = 0;
     return {
     	updateTemperatureTick: function(){
     		that.finalTemperature = turkeyModel.globTemp[that.layerNumber]
-			console.log(turkeyModel.globTemp)
+			if(DEBUG) console.log(turkeyModel.globTemp);
+			that.highestTemp = that.finalTemperature > that.highestTemp ? that.finalTemperature : that.highestTemp;
 			that.waterLost = that.waterLost + UtilityFunctions.waterLoss( that.finalTemperature );
 			that.cookCondition = UtilityFunctions.cookCondition(that.waterLost, that.name);
 			if(DEBUG) console.log( that.name + ": "+ that.waterLost + " " + that.cookCondition + " " + that.finalTemperature + " C" );
@@ -20,6 +21,9 @@ function TurkeyLayer( name, layerNumber1, turkeyModel, ovenModel ){
 		},
 		getTemperature: function(){
 			return that.finalTemperature;
+		},
+		getHighestTemp: function(){
+			return that.highestTemp;
 		}
 
     }
@@ -40,8 +44,8 @@ function TurkeyModel( weight, ovenModel ){
 
 	
 	this.totalLayers = [ new TurkeyLayer("Skin", this.splitsNum-1, this, ovenModel ),
-						 new TurkeyLayer("Body", this.splitsNum-4, this, ovenModel ),
-						 new TurkeyLayer("Core", 0, this, ovenModel ) ];
+						 new TurkeyLayer("Body", this.splitsNum-10, this, ovenModel ),
+						 new TurkeyLayer("Core", 1, this, ovenModel ) ];
 
 	// Whenever temperature is changed
 	this.updateLayerTemps = function() {
@@ -113,15 +117,18 @@ function OvenModel( turkeyWeight, gameState ) {
     		return {
     			"skin" : {
     				"temp": turkey.totalLayers[0].getTemperature(),
-    				"cond": turkey.totalLayers[0].getCondition()
+    				"cond": turkey.totalLayers[0].getCondition(),
+    				"highest" : turkey.totalLayers[0].getHighestTemp()
     			},
     			"body" : {
     				"temp": turkey.totalLayers[1].getTemperature(),
-    				"cond": turkey.totalLayers[1].getCondition()
+    				"cond": turkey.totalLayers[1].getCondition(),
+    				"highest" : turkey.totalLayers[1].getHighestTemp()
     			},
     			"core" : {
     				"temp": turkey.totalLayers[2].getTemperature(),
-    				"cond": turkey.totalLayers[2].getCondition()
+    				"cond": turkey.totalLayers[2].getCondition(),
+    				"highest" : turkey.totalLayers[2].getHighestTemp()
     			}
     		};
     	},
@@ -231,7 +238,7 @@ UtilityFunctions = {
 				for (var k=0; k<splitsNum; k++){
 					globTemp[k]=alpha*dPdr[k]/Math.pow(pointRadius[k],2)*deltat + globTemp[k] //dTdr * deltaT in one loop
 				}
-			//dTdt(1)=dTdt(1)/2;  
+			//dTdt(1)=dTdt(1)/2; 
 				}
 
 		return(globTemp)
@@ -252,28 +259,28 @@ UtilityFunctions = {
 	},
 	cookCondition: function(cookValue, layerName){
 
-		if( layerName == "skin" ){
+		if( layerName == "Skin" || layerName == "Body" ){
 			var multiplier = 1;
-			if (cookValue>=multiplier*600000) {
+			if (cookValue>=multiplier*400000) {
 				return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
 			}
-			else if(cookValue>=multiplier*250000) {
+			else if(cookValue>=multiplier*350000) {
 				return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
 			}
-			else if (cookValue>=multiplier*150000) {
+			else if (cookValue>=multiplier*300000) {
 				return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
 			}
-			else if (cookValue>=multiplier*85000){
+			else if (cookValue>=multiplier*250000){ // >250000
 				return ["Cooked", (cookValue-12000)/(multiplier*150000), "overcooked"];
 			}
-			else if (cookValue>=multiplier*12000) {
+			else if (cookValue>=multiplier*80000) { // >50000
 				return ["Cooked", (cookValue-12000)/(multiplier*150000), "cooked"];
 			}
-			else if (cookValue>=multiplier*10000){
-				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "slightly cooked"];
+			else if (cookValue>=multiplier*50000){
+				return ["Undercooked", (cookValue-5000)/(multiplier*10000), "slightly cooked"];
 			}
-			else if (cookValue>=multiplier*5000) {
-				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "undercooked"];
+			else if (cookValue>=multiplier*25000) { //
+				return ["Undercooked", (cookValue-5000)/(multiplier*10000), "undercooked"];
 			}
 			else {
 				return ["Raw", 1, "raw"];
@@ -281,26 +288,26 @@ UtilityFunctions = {
 		}
 		else{
 			var multiplier = 1;
-			if (cookValue>=multiplier*600000) {
+			if (cookValue>=multiplier*45000) { //
 				return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
 			}
-			else if(cookValue>=multiplier*250000) {
+			else if(cookValue>=multiplier*35000){//
 				return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
 			}
-			else if (cookValue>=multiplier*150000) {
+			else if (cookValue>=multiplier*25000){ // 
 				return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
 			}
-			else if (cookValue>=multiplier*85000){
-				return ["Cooked", (cookValue-12000)/(multiplier*150000), "overcooked"];
+			else if (cookValue>=multiplier*22000){ //
+				return ["Cooked", (cookValue-22000)/(multiplier*150000), "overcooked"];
 			}
-			else if (cookValue>=multiplier*12000) {
-				return ["Cooked", (cookValue-12000)/(multiplier*150000), "cooked"];
+			else if (cookValue>=multiplier*12000){ //
+				return ["Cooked", (cookValue-12000)/(multiplier*85000), "cooked"];
 			}
-			else if (cookValue>=multiplier*10000){
-				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "slightly cooked"];
+			else if (cookValue>=multiplier*7000){ //
+				return ["Undercooked", (cookValue-7000)/(multiplier*7000), "slightly cooked"];
 			}
-			else if (cookValue>=multiplier*5000) {
-				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "undercooked"];
+			else if (cookValue>=multiplier*3000) {
+				return ["Undercooked", (cookValue-3000)/(multiplier*7000), "undercooked"];
 			}
 			else {
 				return ["Raw", 1, "raw"];
