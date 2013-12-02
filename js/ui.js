@@ -54,14 +54,14 @@ function HelpUI( stage, gameState ){
 		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP7P8.png"),
 		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP9P10.png")
 	];
-	var position = 0;
+	var position = 100;
 	var helpImg = helpPages[0];
 	var closeButton = new Button( stage, gameState, 708, 8, 80, 50,null, null, function(){ that.hideHelp(); } );
 	var nextButton = new Button( stage, gameState, 645, 543, 80, 50, null,null, function(){ gameState.pubsub.publish("Play", "Open_Cookbook");
 		if( helpImg ){
 			position++;
 			helpImg.visible = false;
-			helpImg = helpPages[ position % 5 ];
+			helpImg = helpPages[ Math.abs(position) % 5 ];
 			helpImg.visible = true;
 		} else{
 			that.hideHelp();
