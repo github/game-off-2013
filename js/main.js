@@ -1,6 +1,6 @@
 // Robert- Here be dragons
 
-var DEBUG = 1;
+var DEBUG = 0;
 
 function GameState(){
 	var that = this;

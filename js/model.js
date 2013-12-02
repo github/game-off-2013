@@ -1,31 +1,20 @@
-function TurkeyLayer( name, percentRadius, turkeyModel, ovenModel ){
+function TurkeyLayer( name, layerNumber1, turkeyModel, ovenModel ){
 	var that = this;
 
 	this.name = name;
-	this.percentRadius=percentRadius;
-	this.initialTemp = 20;
+	this.layerNumber=layerNumber1;
 	this.waterLost = 0;
 	this.finalTemperature = 20;
-	this.cookCondition = "Raw"; 
+	this.cookCondition = "Raw";
 	
     return {
     	updateTemperatureTick: function(){
-    		that.finalTemperature = UtilityFunctions.transientSphereSeries( turkeyModel.density,
-    																		turkeyModel.thermalConduct,
-    																		turkeyModel.heatConvection,
-    																		turkeyModel.cp,
-    																		percentRadius * turkeyModel.totalRadius,
-    																		turkeyModel.totalRadius,
-    																		that.initialTemp,
-    																		ovenModel.steadyTemp,
-    																		ovenModel.globalTime );
+    		that.finalTemperature = turkeyModel.globTemp[that.layerNumber]
+			console.log(turkeyModel.globTemp)
 			that.waterLost = that.waterLost + UtilityFunctions.waterLoss( that.finalTemperature );
-			that.cookCondition = UtilityFunctions.cookCondition(that.waterLost);
-			if(DEBUG) console.log( that.name + ": "+ that.waterLost + " " + that.cookCondition);
+			that.cookCondition = UtilityFunctions.cookCondition(that.waterLost, that.name);
+			if(DEBUG) console.log( that.name + ": "+ that.waterLost + " " + that.cookCondition + " " + that.finalTemperature + " C" );
     	},
-		resetLayerTemps: function(){
-			that.initialTemp = that.finalTemperature;
-		},
 		getCondition: function(){
 			return that.cookCondition;
 		},
@@ -38,45 +27,71 @@ function TurkeyLayer( name, percentRadius, turkeyModel, ovenModel ){
 
 
 function TurkeyModel( weight, ovenModel ){
-	this.density = 1050; 	 	 // kg/m3 Assuming Density of Water 1000 kg/m3
-	this.cp = 2000;			 	 // 2810 J/kg K for Turkey. Extra is to semi-account for water evaporation energy
+	this.density = 700; 	 	 // kg/m3 Assuming Density of Water 1000 kg/m3
+	this.cp = 2810;			 	 // 2810 J/kg K for Turkey. Extra is to semi-account for water evaporation energy
 	this.heatConvection = 9; 	 // W/m2 K Some Reasonable estimate for natural Convection. Change as needed. 5-25
 	this.thermalConduct = 0.412; // W/m K // Chicken
 	this.skin = {};
 	this.body = {};
 	this.core = {};
-
-	this.totalRadius = UtilityFunctions.calculateRadius( weight, this.density );
+	this.splitsNum = 20;
+		console.log(UtilityFunctions.lbs2kgs(weight))
+	this.totalRadius = UtilityFunctions.calculateRadius( UtilityFunctions.lbs2kgs(weight), this.density );
 
 	
-	this.totalLayers = [ new TurkeyLayer("Skin", 0.85, this, ovenModel ),
-						 new TurkeyLayer("Body", 0.45, this, ovenModel ),
-						 new TurkeyLayer("Core", 0.01, this, ovenModel ) ];
+	this.totalLayers = [ new TurkeyLayer("Skin", this.splitsNum-1, this, ovenModel ),
+						 new TurkeyLayer("Body", this.splitsNum-4, this, ovenModel ),
+						 new TurkeyLayer("Core", 0, this, ovenModel ) ];
 
 	// Whenever temperature is changed
-	this.updateLayerTemps = function(){
+	this.updateLayerTemps = function() {
+		this.globTemp = UtilityFunctions.transientSphereSeries( this.density,
+    															this.thermalConduct,
+    															this.heatConvection,
+    															this.cp,
+    															this.totalRadius,
+																ovenModel.tempInfini,
+																this.splitsNum,
+																this.deltar,
+																this.globTemp,
+																this.pointRadius
+																);
 			for (var i in this.totalLayers ){
 		        this.totalLayers[i].updateTemperatureTick();
 	    }
 	};
 	
-	this.resetLayerTemps = function(){
-		for (var i in this.totalLayers ){
+	this.resetLayerTemps = function() {
+		for (var i in this.totalLayers ) {
 		    this.totalLayers[i].resetLayerTemps();
 	    }
 	};
+	
+	//Sheen Model Stuff
+	this.globTemp=[];
+	this.pointRadius = []
+	this.splitsNum = 20;
+	this.deltar = this.totalRadius/this.splitsNum; //20 Data Points
+	
+	this.initializePoints = function() {
+		var step = ( this.totalRadius - this.deltar ) / ( this.splitsNum - 1 );
+		for (var i = 0; i<this.splitsNum ; i++ ) {
+			this.pointRadius.push(step*i+this.deltar);
+			this.globTemp.push(20+step*i); //Starts at 20 C for initilizating
+		}	
+	};
+	this.initializePoints()
+	
+	
 }
 
 function OvenModel( turkeyWeight, gameState ) {
 	var that = this;
 	this.tempInfini=20; //C
 	this.setTemp = 20;
-	this.steadyTemp = 20;
-	this.steadyTimer = 0;
 	this.globalTime = 0;
-
-	var turkey = new TurkeyModel( UtilityFunctions.lbs2kgs(turkeyWeight), this );
-
+	
+	var turkey = new TurkeyModel(turkeyWeight, this );
 	var proportional = 0.004; // This value is arbitrary to how fast you want the temperatures to converge. (Or oscillate, which could be realistic as well)
 	var errorTolerance = 10; //Stove is accurate to 1 degree Celcius Should hopefully oscillate below that value.
    	// Equalize temp will need to be sent each time iteration
@@ -90,13 +105,6 @@ function OvenModel( turkeyWeight, gameState ) {
             }
 
             if( error>errorTolerance ) {
-				if (this.steadyTimer>=80) {
-				//Reset the model's time calculation if there are major changes in the tolerance of the temperature or the steady timer expires
-					this.steadyTimer = 0;
-					this.globalTime = 0;
-					this.steadyTemp = this.tempInfini
-					turkey.resetLayerTemps();
-				}
 				return(true);
             }
     	}
@@ -134,19 +142,15 @@ function OvenModel( turkeyWeight, gameState ) {
     	},
 	    secondTick: function(){
 			that.globalTime = that.globalTime + 1;
-			that.steadyTimer = that.steadyTimer + 1;
 	    	if ( that.equalizeTemp() ) {
 
 	    		// Turn on oven light
 				gameState.pubsub.publish( "OvenLight", "On" );
 			}
 			else {
-				that.steadyTemp = that.tempInfini;
 				// Turn off oven light
 				gameState.pubsub.publish( "OvenLight", "Off" );
 			}
-				if(DEBUG) console.log("Steady Temp " + that.steadyTemp)
-				if(DEBUG) console.log("Steady Timer " + that.steadyTimer)
 				if(DEBUG) console.log("Oven Temp " + that.tempInfini )
 				turkey.updateLayerTemps();
 	    }
@@ -179,26 +183,6 @@ UtilityFunctions = {
 		return complexRadius;
 	},
 
-	findAllRoots: function(min,max,splitsNum,Biot) {
-		var step = ( max - min ) / ( splitsNum - 1 );
-		var answer;
-		var negativeTest;
-		var storage = [];
-        for (var i = step; i < max; i=i+step ) {
-                negativeTest = this.lambdaFormula(i-step, Biot)*this.lambdaFormula(i, Biot);
-                if (negativeTest <= 0) {
-                         answer = this.bisectionMethod(i-step,i,Biot);
-                        if (answer !=undefined) {
-                                storage.push(answer);
-                        }
-                }
-                else {
-                        //if(DEBUG) console.log("No Bracketed Root " + negativeTest)
-                }
-        }
-		return storage;
-	},
-
 	sphereVolume: function(radius) {
 		return((4/3)*Math.PI*Math.pow(radius,3))
 	},
@@ -207,74 +191,50 @@ UtilityFunctions = {
 		return (Math.pow(10,(temperature-20)/80)-1)
 	},
 
+	transientSphereSeries: function( density, thermalConduct, heatConvection, cp, rTotal, tempInfinity, splitsNum, deltar, globTemp,pointRadius) {
 
-	bisectionMethod: function(min,max,Biot) {
-		errorTolerance = (1/Math.pow(10,8))
-		result = Infinity // some large value to ensure the calculation goes through.
-		negativeTest =this.lambdaFormula(min, Biot)*this.lambdaFormula(max, Biot)
-        if (negativeTest <=0 ) {
-            var antiFreeze=0;
-            while (Math.abs(result) > errorTolerance && antiFreeze<=500) { //The greater the antiFreeze, the more wasted cycles around a singularity        
-                    lambdaN = (min+max)/2
-                    result=this.lambdaFormula(lambdaN, Biot)
-                    if (Math.abs(result) <= errorTolerance && result<=errorTolerance) {
-                            return (lambdaN); //At Root
-                    }
-                    else if ((this.lambdaFormula(min, Biot)*this.lambdaFormula(lambdaN, Biot))>=0) {
-                            min=lambdaN;
-                    }
-                    else if ((this.lambdaFormula(max, Biot)*this.lambdaFormula(lambdaN, Biot))>=0) {
-                            max=lambdaN;
-                    }
-                    antiFreeze++
-            }
-        }
-	},
+//Not Global Stuff
+		var r0 = rTotal;
+		var deltat = 0.1
+			
+		var alpha = thermalConduct/(density*cp)
+		var h=heatConvection; 
 
-	lambdaFormula: function( lambdaN, Biot ) {
-		var result = 1-lambdaN*(1/Math.tan(lambdaN))-Biot;
-		return(result)
-	},
+		for (var j=0; j<(1/deltat); j++ ) {
+			var dTdr=[]
+		//	globTemp[splitsNum-1] should be last entry in globtemp
+				for (var k=0; k<splitsNum; k++){
+				if (k==0) {
+					dTdr.push((globTemp[1] - globTemp[0])/deltar) }
+				else if (k==splitsNum-1) {
+					dTdr.push((globTemp[splitsNum-1] - globTemp[splitsNum-2])/deltar)}
+				else {
+					dTdr.push((globTemp[k+1] - globTemp[k-1])/(2*deltar))}
+				}
+				dTdr[splitsNum-1] = heatConvection*(tempInfinity-globTemp[splitsNum-1])/thermalConduct
+				
+				var parenthesis = []
+				for (var k=0; k<splitsNum; k++){
+					parenthesis.push(dTdr[k]*Math.pow(pointRadius[k],2))
+				}
+				
+				dPdr = []
+				for (var k=0; k<splitsNum; k++){
+				if (k==0) {
+					dPdr.push((parenthesis[1] - parenthesis[0])/deltar) }
+				else if (k==splitsNum-1) {
+					dPdr.push((parenthesis[splitsNum-1] - parenthesis[splitsNum-2])/deltar)}
+				else {
+					dPdr.push((parenthesis[k+1] - parenthesis[k-1])/(2*deltar))}
+				}
+				
+				for (var k=0; k<splitsNum; k++){
+					globTemp[k]=alpha*dPdr[k]/Math.pow(pointRadius[k],2)*deltat + globTemp[k] //dTdr * deltaT in one loop
+				}
+			//dTdt(1)=dTdt(1)/2;  
+				}
 
-	transientSphereSeries: function( density, thermalConduct, heatConvection, cp, rPosition, rTotal, tempInitial, tempInfini, t ){
-		var min = 0;
-		var max = 10000; // This are for setting Lambda boundaries and nothing else
-
-		var sum=0;
-		var alpha = thermalConduct/(density*cp);
-		var lambdaN;
-		var sinPortion;
-		var exponentialPortion;
-		var frontCoefficientPortion;
-
-
-		//if(DEBUG) console.log("Alpha is " + alpha)
-
-		var Fourier = (alpha*t)/Math.pow(rTotal,2)
-		//if(DEBUG) console.log("Fourier is " +  Fourier)
-
-		var biotNum = heatConvection * rTotal/thermalConduct
-
-	    if ( biotNum != this.cachedBiot ) {
-	            if(DEBUG) console.log("Recalculating Lambda Terms")
-	            this.cachedLambda = this.findAllRoots(min,max,max*Math.PI*10,biotNum)
-	            this.cachedBiot = biotNum;
-	    }
-
-		//if(DEBUG) console.log("The Biot Value is " + biotNum)
-
-		for (var i = 0; i<this.cachedLambda.length; i++) {
-		        var lambdaN = this.cachedLambda[i];
-		        var sinPortion= Math.sin(lambdaN*rPosition/rTotal)/(lambdaN*rPosition/rTotal);
-		        var exponentialPortion = (1/Math.exp(Math.pow(lambdaN,2)*Fourier));
-		        var frontCoefficientPortion = 4*(Math.sin(lambdaN)-(lambdaN*Math.cos(lambdaN)))/ (2*lambdaN-Math.sin(2*lambdaN));
-		        sum = frontCoefficientPortion*exponentialPortion*sinPortion + sum;
-		}
-
-		tempAtTimeAndRadius=(sum*(tempInitial-tempInfini))+tempInfini
-
-		if(DEBUG) console.log("The Temperature at radius " + rPosition + " m and time " + t/60/60 + " hours is " + tempAtTimeAndRadius + " C or " + this.C2F(tempAtTimeAndRadius) + " F");
-		return(tempAtTimeAndRadius)
+		return(globTemp)
 	},
 
 	/* Utility Functions */
@@ -290,31 +250,62 @@ UtilityFunctions = {
 	randRange: function(min, max){
 		return Math.floor(Math.random()*(max-min+1))+min;
 	},
-	cookCondition: function(cookValue,volume){
-		var multiplier = 1;
-		if (cookValue>=multiplier*600000) {
-			return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
+	cookCondition: function(cookValue, layerName){
+
+		if( layerName == "skin" ){
+			var multiplier = 1;
+			if (cookValue>=multiplier*600000) {
+				return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
+			}
+			else if(cookValue>=multiplier*250000) {
+				return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
+			}
+			else if (cookValue>=multiplier*150000) {
+				return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
+			}
+			else if (cookValue>=multiplier*85000){
+				return ["Cooked", (cookValue-12000)/(multiplier*150000), "overcooked"];
+			}
+			else if (cookValue>=multiplier*12000) {
+				return ["Cooked", (cookValue-12000)/(multiplier*150000), "cooked"];
+			}
+			else if (cookValue>=multiplier*10000){
+				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "slightly cooked"];
+			}
+			else if (cookValue>=multiplier*5000) {
+				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "undercooked"];
+			}
+			else {
+				return ["Raw", 1, "raw"];
+			}
 		}
-		else if(cookValue>=multiplier*250000) {
-			return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
-		}
-		else if (cookValue>=multiplier*150000) {
-			return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
-		}
-		else if (cookValue>=multiplier*85000){
-			return ["Cooked", (cookValue-12000)/(multiplier*150000), "overcooked"];
-		}
-		else if (cookValue>=multiplier*12000) {
-			return ["Cooked", (cookValue-12000)/(multiplier*150000), "cooked"];
-		}
-		else if (cookValue>=multiplier*10000){
-			return ["Undercooked", (cookValue-5000)/(multiplier*12000), "slightly cooked"];
-		}
-		else if (cookValue>=multiplier*5000) {
-			return ["Undercooked", (cookValue-5000)/(multiplier*12000), "undercooked"];
-		}
-		else {
-			return ["Raw", 1, "raw"];
+		else{
+			var multiplier = 1;
+			if (cookValue>=multiplier*600000) {
+				return ["Fire", (cookValue-600000)/(multiplier*600000),"fire"];
+			}
+			else if(cookValue>=multiplier*250000) {
+				return ["Burnt", (cookValue-250000)/(multiplier*600000), "burnt"];
+			}
+			else if (cookValue>=multiplier*150000) {
+				return ["Dry", (cookValue-150000)/(multiplier*250000), "dry"];
+			}
+			else if (cookValue>=multiplier*85000){
+				return ["Cooked", (cookValue-12000)/(multiplier*150000), "overcooked"];
+			}
+			else if (cookValue>=multiplier*12000) {
+				return ["Cooked", (cookValue-12000)/(multiplier*150000), "cooked"];
+			}
+			else if (cookValue>=multiplier*10000){
+				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "slightly cooked"];
+			}
+			else if (cookValue>=multiplier*5000) {
+				return ["Undercooked", (cookValue-5000)/(multiplier*12000), "undercooked"];
+			}
+			else {
+				return ["Raw", 1, "raw"];
+			}
+
 		}
 	}
 }
@@ -322,8 +313,8 @@ UtilityFunctions = {
 //Running the Program Stuff
 /*
 var ovenObject = new OvenModel();
-var turkey = new TurkeyModel(9.07185, ovenObject );
+var turkey = new TurkeyModel(9, ovenObject);
 
 globalTime=0;
-setInterval(function(){ovenObject.secondTick();},10);
+setInterval(function(){ovenObject.secondTick();},1000);
 */
