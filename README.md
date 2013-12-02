@@ -4,7 +4,7 @@
 
 It is another Thanksgiving holiday, a time of retrospect and blessings.
 
-You have been invited to craft the centerpiece of the American thanksgiving dinner, the turkey. Apply your culinary expertise to impress your family! Woo your girlfriend / boyfriend and be judged your future in-laws.
+You have been invited to craft the centerpiece of the American thanksgiving dinner, the turkey. Woo your girlfriend / boyfriend and be judged your future in-laws! Apply your culinary expertise to impress your family!
 
 ## Turkey Cooking Simulator Features:
 * Real-time cooking action!
