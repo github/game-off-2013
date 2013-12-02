@@ -18,7 +18,7 @@ You have been invited to craft the centerpiece of the American thanksgiving dinn
 ## Compatibility
 * [Chrome 22](https://www.google.com/intl/en/chrome/) - Full compatibility, recommended browser.
 * [Safari 6.0.5](http://www.apple.com/safari/) - Full compatibility, recommended browser.
-* [Firefox 25](http://www.mozilla.org/en-US/firefox/new/) - Recommended browser, [GStreamer] (http://gstreamer.freedesktop.org/) required for sound on Mac.
+* [Firefox 25](http://www.mozilla.org/en-US/firefox/new/) - Playable. [GStreamer] (http://gstreamer.freedesktop.org/) required for sound on Mac. Sound only plays once on Windows
 * [Internet Explorer 11](http://windows.microsoft.com/en-us/internet-explorer/download-ie) - Not recommended. Sound looping issues.
 
 ## Authors
