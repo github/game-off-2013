@@ -92,7 +92,19 @@ abstract public class NPCBehavior : MonoBehaviour {
 	}
 	
 	protected Vector3 generateRandomPosition(float xMin, float xMax, float zMin, float zMax) {
-		return new Vector3(Random.Range(xMin, xMax), 0.0f, Random.Range(zMin, zMax));
+		bool foundPosition = false;
+		Vector3 newPosition = Vector3.zero;
+		
+		while (!foundPosition) {
+			foundPosition = true;
+			newPosition = new Vector3(Random.Range(xMin, xMax), 0.0f, Random.Range(zMin, zMax));
+			Collider[] hitColliders = Physics.OverlapSphere(newPosition, 1.0f);
+			for (int i = 0; i < hitColliders.Length && foundPosition; i++) {
+				if (hitColliders[i].transform.tag == "Building") foundPosition = false;
+			}
+			
+		}
+		return newPosition;
 	}
 	
 	public void addNearObject(GameObject nearObject) {

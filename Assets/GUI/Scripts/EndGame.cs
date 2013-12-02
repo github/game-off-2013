@@ -3,19 +3,16 @@ using System.Collections;
 
 public class EndGame : MonoBehaviour {
 	
-	void Awake() {
-		//GameObject.FindGameObjectWithTag("Defeat").SetActive(false);
-		//GameObject.FindGameObjectWithTag("Victory").SetActive(false);
-	}
+	public GUIStyle defeat;
+	public GUIStyle victory;
 	
 	void OnGUI() {
-		if (Time.timeScale != 0) {
-			if (GameObject.FindGameObjectsWithTag("Zombie").Length == 0 && Time.timeSinceLevelLoad > 1.0f) {
-				//GameObject.FindGameObjectWithTag("Defeat").SetActive(true);
-			}
-			else if (GameObject.FindGameObjectsWithTag("Civilian").Length == 0) {
-				//GameObject.FindGameObjectWithTag("Victory").SetActive(true);
-			}
+		if (GameState.state == GameState.GameStates.Defeat) {
+			GUI.Label(new Rect(Screen.width / 2, Screen.height / 2, 500, 50), "Zombies Eradicated!", defeat);
+		}
+		else if (GameState.state == GameState.GameStates.Victory) {
+			GUI.Label(new Rect(Screen.width / 2, Screen.height / 2, 500, 50), "Total Infection Achieved!", victory);
+			GUI.Label(new Rect(Screen.width / 2, Screen.height / 2 + 50, 500, 50), "Time (seconds): " + GameState.endTime, victory);
 		}
 	}
 }

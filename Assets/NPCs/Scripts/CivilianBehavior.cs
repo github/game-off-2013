@@ -5,6 +5,7 @@ public class CivilianBehavior : NPCBehavior {
 	
 	public int gatherLimit = 5;
 	public float soldierConfidence = 5.0f;
+	public Material[] materials;
 	
 	private enum MovementStates {Fleeing, Gathering, Hiding, Separating, Wandering};
 	private MovementStates movementState;
@@ -14,6 +15,7 @@ public class CivilianBehavior : NPCBehavior {
 		base.Start();
 		
 		movementState = MovementStates.Wandering;
+		renderer.material = materials[Random.Range(0, materials.Length)];
 	}
 	
 	// Update is called once per frame
@@ -22,6 +24,7 @@ public class CivilianBehavior : NPCBehavior {
 	}
 	
 	void FixedUpdate() {
+		rigidbody.velocity = new Vector3(0, 0, 0);
 		updateMovementState();
 		
 		switch (movementState) {

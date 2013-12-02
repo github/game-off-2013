@@ -8,10 +8,12 @@ public class ZombiePlacement : MonoBehaviour {
 	void OnGUI() {
 		if(Time.timeScale == 0) {
 			
-			GUI.Label(new Rect(10,  0, 100, 20), "Zombies Placed: ");
-			GUI.Label(new Rect(110, 0, 100, 20), spawnZombie.getZombieSpawnCount() + "/" + spawnZombie.maxZombies);
+			GUI.Label(new Rect(10,  0, 300, 22), "Infections Remaining: " + (spawnZombie.maxZombies - spawnZombie.getZombieSpawnCount()));
 			if (GUI.Button(new Rect(10, 22, 50, 20), "Start")) {
 				Time.timeScale = 1.0f;
+			}
+			else if (GUI.Button(new Rect(65, 22, 85, 20), "Select Level")) {
+				Application.LoadLevel(0);	
 			}
 		}
 	}

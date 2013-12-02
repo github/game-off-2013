@@ -6,6 +6,7 @@ public class SoldierBehavior : NPCBehavior {
 	public float bravery = 5.0f;
 	public float accuracy = 1.0f;
 	public float shootingSpeed = 1.0f;
+	public LayerMask obstacleMask;
 	
 	private enum MovementStates {Retreating, Following, Wandering};
 	private MovementStates movementState;
@@ -26,6 +27,7 @@ public class SoldierBehavior : NPCBehavior {
 	}
 	
 	void FixedUpdate() {
+		rigidbody.velocity = new Vector3(0, 0, 0);
 		updateMovementState();
 		
 		switch (movementState) {
@@ -90,7 +92,11 @@ public class SoldierBehavior : NPCBehavior {
 		if (target != null && Time.time - lastShot > 1.0f / shootingSpeed) {
 			lastShot = Time.time;
 			float angle = calculateShotVariance();
-			Destroy(target);
+			RaycastHit hit;
+			Debug.DrawRay(transform.position, target.transform.position - transform.position, Color.black, 2.0f);
+			if (Physics.Raycast(transform.position, target.transform.position - transform.position, out hit, 40, obstacleMask) && hit.transform == target.transform) {
+				Destroy(target);
+			}
 		}
 	}
 	

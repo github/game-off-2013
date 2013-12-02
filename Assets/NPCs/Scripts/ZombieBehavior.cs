@@ -4,6 +4,7 @@ using System.Collections;
 public class ZombieBehavior : NPCBehavior {
 	
 	public Transform zombiePrefab;
+	public float soldierHate; 
 	
 	private enum MovementStates {Chasing, Wandering};
 	private MovementStates movementState;
@@ -17,6 +18,7 @@ public class ZombieBehavior : NPCBehavior {
 	}
 	
 	void FixedUpdate() {
+		rigidbody.velocity = new Vector3(0, 0, 0);
 		updateMovementState();
 		
 		switch (movementState) {
@@ -50,7 +52,7 @@ public class ZombieBehavior : NPCBehavior {
 			pathfinder.target = nearestCivilian.transform;
 		else if (nearestCivilian == null && nearestCivilian == null)
 			pathfinder.target = groundTarget;
-		else if (Vector3.Distance(nearestSoldier.transform.position, transform.position) < Vector3.Distance(nearestCivilian.transform.position, transform.position))
+		else if (Vector3.Distance(nearestSoldier.transform.position, transform.position) < soldierHate * Vector3.Distance(nearestCivilian.transform.position, transform.position))
 			pathfinder.target = nearestSoldier.transform;	
 		else
 			pathfinder.target = nearestCivilian.transform;
