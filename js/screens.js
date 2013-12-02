@@ -417,9 +417,9 @@ function ScoreScreen( stage, gameState ){
     var coreScoreChart  = {
     	"raw": 0,
     	"undercooked": 125,
-    	"slightly cooked": 750,
+    	"slightly cooked": 600,
     	"cooked": 1000,
-    	"overcooked": 600,
+    	"overcooked": 750,
     	"dry": 400,
     	"burnt": 0
     };
@@ -452,18 +452,17 @@ function ScoreScreen( stage, gameState ){
 	totalScore += parseInt(outerTempScore.toFixed(0));
 	totalScore += parseInt(coreTempScore.toFixed(0));
 
-
 	resultsDialogue = [];
-	if (totalScore>=4000) {
+	if (totalScore>=1800) {
 		randomDiag = perfect;
 	}
-	else if (totalScore>=2500) {
+	else if (totalScore>=1400) {
 		randomDiag = great;
 	}
-	else if (totalScore>=800) {
+	else if (totalScore>=1000) {
 		randomDiag = average;
 	}
-	else if (totalScore>=300) {
+	else if (totalScore>=400) {
 		randomDiag = subPar;
 	}
 	else {

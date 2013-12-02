@@ -602,7 +602,9 @@ function OvenUI( stage, gameState ){
 
     		gameState.ovenModel.secondTick();
     		gameState.currentTime += diff;
-			gameState.turkeyCookCounter++;
+    		if( gameState.turkeyBought ){
+				gameState.turkeyCookCounter++;
+			}
 	}
 
 	gameState.pubsub.subscribe( "SkipTime", function(){
@@ -624,7 +626,6 @@ function OvenUI( stage, gameState ){
     			that.secondTick( diff );
 
 	    		if( gameState.turkeyBought ){
-					gameState.turkeyCookCounter++;
 					// what's the state of the turkey
 					turkeyState = gameState.ovenModel.getTurkeyState();
 					gameState.turkeyStates[0].alpha = 1;
