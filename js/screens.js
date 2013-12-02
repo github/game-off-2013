@@ -448,7 +448,7 @@ function ScoreScreen( stage, gameState ){
 	var coreTempScore = that.scoreDistribution( coreTemp ) * 200;
 
 	totalScore += parseInt(skinScoreChart[ turkeyState.skin.cond[2]]);
-	totalScore += parseInt(skinScoreChart[ turkeyState.core.cond[2]]);
+	totalScore += parseInt(coreScoreChart[ turkeyState.core.cond[2]]);
 	totalScore += parseInt(outerTempScore.toFixed(0));
 	totalScore += parseInt(coreTempScore.toFixed(0));
 

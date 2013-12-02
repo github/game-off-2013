@@ -685,6 +685,10 @@ function OvenUI( stage, gameState ){
 			//finalize button
 			if( gameState.turkeyBought ){
 				stage.addChild( new Button( stage, gameState, 45, 250, 250, 150, null, null, function(){
+					if(!evalSkin[turkeyState["skin"]["cond"][2]]){
+						gameState.pubsub.publish("Death","");
+						return;
+					}
 					gameState.pubsub.publish("Play", "Error");
 					gameState.pubsub.publish("ShowFinalConfirm","");
 				} ) );
