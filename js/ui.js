@@ -51,7 +51,8 @@ function HelpUI( stage, gameState ){
 		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP1P2.png"),
 		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP3P4.png"),
 		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP5P6.png"),
-		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP7P8.png")
+		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP7P8.png"),
+		new createjs.Bitmap("res/screens/HelpCreditsScreen/HelpP9P10.png")
 	];
 	var position = 0;
 	var helpImg = helpPages[0];
@@ -60,7 +61,7 @@ function HelpUI( stage, gameState ){
 		if( helpImg ){
 			position++;
 			helpImg.visible = false;
-			helpImg = helpPages[ position % 4 ];
+			helpImg = helpPages[ position % 5 ];
 			helpImg.visible = true;
 		} else{
 			that.hideHelp();
@@ -70,7 +71,7 @@ function HelpUI( stage, gameState ){
 		if( helpImg ){
 			position--;
 			helpImg.visible = false;
-			helpImg = helpPages[ Math.abs(position) % 4 ];
+			helpImg = helpPages[ Math.abs(position) % 5 ];
 			helpImg.visible = true;
 		} else {
 			that.hideHelp();

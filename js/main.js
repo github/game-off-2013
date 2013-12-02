@@ -88,6 +88,7 @@ function GameState(){
     queue.loadFile( {id: "HelpP3P4", src:"res/screens/HelpCreditsScreen/HelpP3P4.png" } );
     queue.loadFile( {id: "HelpP5P6", src:"res/screens/HelpCreditsScreen/HelpP5P6.png" } );
     queue.loadFile( {id: "HelpP7P8", src:"res/screens/HelpCreditsScreen/HelpP7P8.png" } );
+    queue.loadFile( {id: "HelpP9P10", src:"res/screens/HelpCreditsScreen/HelpP9P10.png" } );
 
 
     queue.loadFile( {id: "ScoreScreenFile", src:"res/screens/ScoreScreen/Score-Evaluation-1.png" } );
