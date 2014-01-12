@@ -234,23 +234,30 @@ king-snake-left-2
   orig: 18, 18
   offset: 0, 0
   index: -1
-king-spider-front-1
+king-spider-dead
   rotate: false
   xy: 214, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-king-spider-front-2
+king-spider-front-1
   rotate: false
   xy: 236, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-lever
+king-spider-front-2
   rotate: false
   xy: 258, 4
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+lever
+  rotate: false
+  xy: 274, 48
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -292,210 +299,217 @@ lever-up
   index: -1
 mummy-back-1
   rotate: false
-  xy: 274, 48
+  xy: 280, 26
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-2
   rotate: false
-  xy: 280, 26
+  xy: 280, 4
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-3
   rotate: false
-  xy: 280, 4
+  xy: 296, 55
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 mummy-back-4
   rotate: false
-  xy: 296, 55
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
-mummy-front-1
-  rotate: false
   xy: 302, 33
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-front-2
+mummy-dead
   rotate: false
   xy: 302, 11
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-front-3
+mummy-front-1
   rotate: false
   xy: 318, 55
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-front-4
+mummy-front-2
   rotate: false
   xy: 324, 33
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-left-1
+mummy-front-3
   rotate: false
   xy: 324, 11
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-left-2
+mummy-front-4
   rotate: false
   xy: 427, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-left-3
+mummy-left-1
   rotate: false
   xy: 427, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-mummy-left-4
+mummy-left-2
   rotate: false
   xy: 449, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-back-1
+mummy-left-3
   rotate: false
   xy: 449, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-back-2
+mummy-left-4
   rotate: false
   xy: 471, 207
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-back-idle
+player-back-1
   rotate: false
   xy: 471, 185
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-dying-1
+player-back-2
   rotate: false
   xy: 427, 163
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-dying-2
+player-back-idle
   rotate: false
   xy: 449, 163
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-dying-3
+player-dying-1
   rotate: false
   xy: 471, 163
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-dying-4
+player-dying-2
   rotate: false
   xy: 425, 141
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-dying-5
+player-dying-3
   rotate: false
   xy: 447, 141
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-falling-1
+player-dying-4
   rotate: false
   xy: 469, 141
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-falling-2
+player-dying-5
   rotate: false
   xy: 323, 135
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-falling-3
+player-falling-1
   rotate: false
   xy: 345, 135
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-front-1
+player-falling-2
   rotate: false
   xy: 323, 113
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-front-2
+player-falling-3
   rotate: false
   xy: 323, 91
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-front-idle
+player-front-1
   rotate: false
   xy: 345, 113
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-left-1
+player-front-2
   rotate: false
   xy: 345, 91
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-left-2
+player-front-idle
   rotate: false
   xy: 367, 127
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-right-1
+player-left-1
   rotate: false
   xy: 367, 105
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-player-right-2
+player-left-2
   rotate: false
   xy: 389, 127
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-right-1
+  rotate: false
+  xy: 389, 105
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+player-right-2
+  rotate: false
+  xy: 367, 83
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -509,105 +523,112 @@ pyramid
   index: -1
 rock
   rotate: false
-  xy: 389, 105
+  xy: 389, 83
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 scroll
   rotate: false
-  xy: 367, 83
+  xy: 411, 119
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-back-1
   rotate: false
-  xy: 389, 83
+  xy: 411, 97
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-back-2
   rotate: false
-  xy: 411, 119
+  xy: 433, 119
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-back-3
   rotate: false
-  xy: 411, 97
+  xy: 433, 97
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-front-1
   rotate: false
-  xy: 433, 119
+  xy: 455, 119
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-front-2
   rotate: false
-  xy: 433, 97
+  xy: 455, 97
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-front-3
   rotate: false
-  xy: 455, 119
+  xy: 411, 75
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-left-1
   rotate: false
-  xy: 455, 97
+  xy: 433, 75
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-left-2
   rotate: false
-  xy: 411, 75
+  xy: 455, 75
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 snake-left-3
   rotate: false
-  xy: 433, 75
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
-spider-front-1
-  rotate: false
-  xy: 455, 75
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
-spider-front-2
-  rotate: false
   xy: 477, 119
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-spider-thread
+spider-dead
   rotate: false
   xy: 477, 97
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
-talisman
+spider-front-1
   rotate: false
   xy: 477, 75
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+spider-front-2
+  rotate: false
+  xy: 340, 69
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+spider-thread
+  rotate: false
+  xy: 362, 61
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+talisman
+  rotate: false
+  xy: 384, 61
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
