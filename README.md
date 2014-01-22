@@ -8,6 +8,8 @@ Positive audiovisual feedback rewards players for successul gameplay, while nega
 
 Available here: http://www.ccs.neu.edu/home/ozkaynak/Chromacore/Build%201.3%20GIT/Build.html
 
+Latest Builds and Updates available here: https://github.com/Murkantilism/Chromacore
+
 ## In-Game Screenshot
 
 ![Chromacore - In-Game Screenshot](https://raw.github.com/Murkantilism/game-off-2013/master/ChromacoreInGameScreenshot.png)
