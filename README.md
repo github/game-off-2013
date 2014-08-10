@@ -1,3 +1,9 @@
+# The 2013 GitHub Game Off is Over!
+
+See the [winners, runners up and honorable mentions](https://github.com/blog/1731-github-game-off-ii-winners).
+
+---
+
 ![GitHub Game Off Game Jam](https://f.cloud.github.com/assets/121322/1436486/25f88b78-4158-11e3-9b23-43596516362c.png)
 
 ## The Challenge
