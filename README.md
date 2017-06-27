@@ -6,9 +6,7 @@ Positive audiovisual feedback rewards players for successul gameplay, while nega
 
 ## Playable Game
 
-Available here: http://www.ccs.neu.edu/home/ozkaynak/Chromacore/Build%201.3%20GIT/Build.html
-
-Latest Builds and Updates available here: https://github.com/Murkantilism/Chromacore
+[Available here](https://incendiaryindustries.itch.io/chromacore)
 
 ## In-Game Screenshot
 
